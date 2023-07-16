@@ -1,72 +1,62 @@
-document.querySelector('#loginForm').addEventListener('submit', function(event) {
-  event.preventDefault(); // デフォルトのフォーム送信動作をキャンセル
-  
-  // フォームの入力値を取得
-  const username = document.querySelector('#username').value;
-  const password = document.querySelector('#password').value;
-  const email = document.querySelector('#email').value;
-  
-  // アカウント登録の処理を呼び出す
-  registerAccount(username, password, email);
-});
-
-function registerAccount(username, password, email) {
-  // APIリクエストを送信してアカウント登録の処理を実行する
-  fetch('/register', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      username: username,
-      password: password,
-      email: email
-    })
-  })
-  .then(function(response) {
-    if (response.ok) {
-      return response.text();
-    } else {
-      throw new Error('アカウント登録に失敗しました');
-    }
-  })
-  .then(function(data) {
-    console.log(data); // 登録成功時のメッセージを表示するなどの処理
-  })
-  .catch(function(error) {
-    console.error(error); // エラーメッセージを表示するなどの処理
-  });
-}
-
 const express = require('express');
-const bodyParser = require('body-parser');
+const mysql = require('mysql');
 
 const app = express();
-app.use(bodyParser.urlencoded({ extended: true }));
+
+const connection = mysql.createConnection({
+  host: 'localhost:3306',
+  user: 'root',
+  password: '0627ikik',
+  database: 'decorhelper',
+});
+
+connection.connect((err) => {
+  if (err) {
+    console.error('Error connecting to database:', err);
+    return;
+  }
+  console.log('Connected to database!');
+});
+
+const createUsersTable = () => {
+  const sql = `
+    CREATE TABLE IF NOT EXISTS users (
+      username VARCHAR(255) NOT NULL,
+      password VARCHAR(255) NOT NULL,
+      email VARCHAR(255) NOT NULL,
+      PRIMARY KEY (username)
+    )
+  `;
+
+  connection.query(sql, (err) => {
+    if (err) {
+      console.error('Error creating users table:', err);
+      return;
+    }
+    console.log('Users table created successfully!');
+  });
+};
+
+createUsersTable();
+
+app.use(express.urlencoded({ extended: true }));
 
 app.post('/register', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const email = req.body.email;
-  
-  // ここにデータベースへの登録処理を実装する
-  const insertQuery = INSERT INTO users (username, password,email) VALUES ('user1', 'password1','email1');
 
-  // MySQLクエリを使用してデータベースにデータを保存するなどの処理
-  connection.query(insertQuery, ['user1', 'password1', 'email1'], (error, results) => {
-    if (error) {
-      // エラーハンドリング
-      console.error(error);
-    } else {
-      // 成功時の処理
-      console.log('データが正常に挿入されました');
+  const sql = 'INSERT INTO users (username, password, email) VALUES (?, ?, ?)';
+  const values = [username, password, email];
+
+  connection.query(sql, values, (err, result) => {
+    if (err) {
+      console.error('Error executing SQL query:', err);
+      return;
     }
+    console.log('User registered successfully!');
+    res.redirect('/App/home.html');
   });
-  
-  // レスポンスを返す
-  res.status(200).send('アカウントが登録されました');
 });
 
-app.listen(3000, () => {
-  console.log('サーバーがポート3000で起動しました');
-});
+

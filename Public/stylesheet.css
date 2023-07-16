@@ -159,9 +159,32 @@ button{
   font-weight: bold;
 }
 
+.check-outer{
+  height: 0px;
+  margin-top: 20px;
+  margin-left: 100px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-input {
+  margin-right: 8px; /* チェックボックスとテキストの間のスペースを調整 */
+}
+
+.checkbox-text {
+  display: inline-block;
+  vertical-align: middle;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+
 .sub-outer{
   text-align: center;
-  margin-top: 70px;
+  margin-top: 50px;
 }
 
 .sub-dierect{
