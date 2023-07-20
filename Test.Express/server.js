@@ -5,7 +5,7 @@ const app = express();
 const port = 3000;
 
 // 静的ファイルの設定
-const publicPath = path.join(__dirname, 'Public');
+const publicPath = path.join(__dirname, '..','Public');
 app.use(express.static(publicPath));
 app.use(express.json()); // JSONパースのためのミドルウェアを追加
 app.use(express.urlencoded({ extended: true }));
