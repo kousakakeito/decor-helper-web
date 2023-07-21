@@ -9,6 +9,10 @@ app.use(express.static(publicPath));
 app.use(express.json()); // JSONパースのためのミドルウェアを追加
 app.use(express.urlencoded({ extended: true }));
 
+// ログイン機能のルーティング
+const loginController = require('../Public/controllers/loginController');
+app.use(loginController);
+
 const registerUser = require('../Public/controllers/registerController');
 
 app.get('/register.html', (req, res) => {
@@ -25,6 +29,11 @@ app.get('/reset.html', (req, res) => {
 
 app.post('/register', (req, res) => {
   registerUser(req, res);
+});
+
+// ログイン成功後のリダイレクト処理
+app.get('/App/home.html', (req, res) => {
+  res.sendFile(path.join(publicPath, 'App', 'home.html'));
 });
 
 app.listen(port, () => {
