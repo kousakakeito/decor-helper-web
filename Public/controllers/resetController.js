@@ -31,7 +31,7 @@ router.post('/reset-password', (req, res) => {
       return;
     }
 
-    // ここでメール送信の処理を行う
+    // メール送信の処理
     const transporter = nodemailer.createTransport({
       service: 'Gmail', // または使用するメールサービス（Gmail以外の場合は適切な設定が必要）
       auth: {

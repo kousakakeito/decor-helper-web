@@ -1,11 +1,17 @@
-const mysql = require('mysql');
+const express = require('express');
+const bcrypt = require('bcrypt');
+const { check, validationResult } = require('express-validator');
+const fs = require('fs'); // ファイルシステムモジュールを追加
 
+const mysql = require('mysql');
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '0627ikik',
   database: 'decorhelper',
 });
+
+const router = express.Router();
 
 connection.connect((err) => {
   if (err) {
@@ -15,6 +21,7 @@ connection.connect((err) => {
   console.log('Connected to database!');
 });
 
+// テーブル作成処理
 const createUsersTable = () => {
   try {
     const sql = `
@@ -38,28 +45,66 @@ const createUsersTable = () => {
   }
 };
 
-createUsersTable();
+// パスワードをハッシュ化する関数
+const hashPassword = async (password) => {
+  const saltRounds = 10;
+  return bcrypt.hash(password, saltRounds);
+};
 
-module.exports = (req, res) => {
+// ユーザーの登録フォームのバリデーションルール
+const registrationValidationRules = [
+  check('username')
+    .isLength({ min: 5 }).withMessage('ユーザーネームは5文字以上で入力してください。')
+    .matches(/^[a-zA-Z0-9_]+$/).withMessage('ユーザーネームは半角英数字とアンダーバーのみ使用可能です。'),
+  check('password')
+    .isLength({ min: 8 }).withMessage('パスワードは8文字以上で入力してください。')
+    .matches(/[0-9]/).withMessage('パスワードは数字を含む必要があります。')
+    .matches(/[a-zA-Z]/).withMessage('パスワードは英字を含む必要があります。'),
+  check('email').isEmail().withMessage('有効なメールアドレスを入力してください。'),
+];
+
+
+// ユーザー登録処理
+router.post('/register', registrationValidationRules, async (req, res) => {
+  // バリデーションエラーのチェック
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors.array()); // この行を追加して、errors オブジェクトの内容を確認します
+    // バリデーションエラーがある場合、エラーメッセージをJSON形式で返す
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+
+  const { username, password, email } = req.body;
+
   try {
-    const username = req.body.username;
-    const password = req.body.password;
-    const email = req.body.email;
+    // パスワードのハッシュ化
+    const hashedPassword = await hashPassword(password);
 
+    // ユーザー情報をデータベースに保存
     const sql = 'INSERT INTO users (username, password, email) VALUES (?, ?, ?)';
-    const values = [username, password, email];
+    const values = [username, hashedPassword, email];
 
     connection.query(sql, values, (err, result) => {
       if (err) {
         console.error('Error executing SQL query:', err);
-        res.status(500).send('An error occurred while registering the user.');
-        return;
+        return res.status(500).json({ error: 'An error occurred while registering the user.' });
       }
+
       console.log('User registered successfully!');
-      res.redirect('/App/home.html');
+      return res.status(200).json({ message: 'User registered successfully!' });
     });
   } catch (error) {
     console.error('Error:', error);
-    res.status(500).send('An error occurred while registering the user.');
+    return res.status(500).json({ error: 'An error occurred while registering the user.' });
   }
+});
+
+// テーブル作成
+createUsersTable();
+
+// ルーターオブジェクトではなく、ルーティング処理をエクスポートする
+module.exports = (req, res) => {
+  // ユーザー登録処理のルーティングをエクスポート
+  router(req, res);
 };

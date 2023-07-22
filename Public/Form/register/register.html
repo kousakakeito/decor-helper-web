@@ -12,30 +12,34 @@
 
 <body>
   <main class="form">
-    <form class="form-outer" id="loginForm" method="post" action="/register">
+    <form class="form-outer" id="loginForm" method="post" action="/register" novalidate>
       <div class="top pulsate">
         <h1 class="decor pulsate">DecorHelper</h1>
       </div>
-      <div class="user-outer">
+
+      <!-- ユーザーネーム入力フォームとエラーメッセージ -->
+      <div class="error-message username" id="username-error"></div>
         <label>
           <input aria-label="ユーザーネーム" aria-required="true" autocapitalize="off" autocorrect="off" maxlength="75" class="user-form" placeholder="&nbsp;ユーザーネーム" type="text" value="" id="username" name="username">
         </label>
-      </div>
-      <div class="pass-outer">
+
+      <!-- パスワード入力フォームとエラーメッセージ -->
+      <div class="error-message password" id="password-error"></div>
         <label>
           <input aria-label="パスワード" aria-required="true" autocapitalize="off" autocorrect="off" class="pass-form" placeholder="&nbsp;パスワード" type="password" value="" id="password" name="password">
         </label>
-      </div>
-      <div class="pass-outer">
+
+      <!-- メールアドレス入力フォームとエラーメッセージ -->
+      <div class="error-message email" id="email-error"></div>
         <label>
           <input aria-label="メールアドレス" aria-required="true" autocapitalize="off" autocorrect="off" class="pass-form" placeholder="&nbsp;メールアドレス" type="email" value="" id="email" name="email">
         </label>
-      </div>
+
       <div class="login-outer">
         <button type="submit">
           <div class="login-btn">登録する</div>
         </button>
-      </div>      
+      </div>
       <div class="sub-outer">
         <p>アカウントをお持ちですか？ <a class="sub-direct" href="/index.html" role="link" tabindex="0"><span class="sub" dir="auto">ログインする</span></a>
         </p>
