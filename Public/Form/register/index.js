@@ -7,7 +7,17 @@ registerForm.addEventListener('submit', async (event) => {
 
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
+  const passwordConfirm = document.getElementById('password-confirm').value;
   const email = document.getElementById('email').value;
+
+    // パスワードとパスワード再確認が一致しているかチェック
+    if (password !== passwordConfirm) {
+      displayErrorMessage('password-confirm', 'パスワードが一致しません。');
+      return;
+    } else {
+      // パスワード再確認が一致する場合はエラーメッセージをクリア
+      displayErrorMessage('password-confirm', '');
+    }
 
   const data = {
     username: username,
@@ -52,6 +62,14 @@ function clearErrorMessages() {
   });
 }
 
+// エラーメッセージを表示する関数1
+function displayErrorMessage(field, message) {
+  const errorElement = document.getElementById(`${field}-error`);
+  errorElement.innerText = message;
+}
+
+
+// エラーメッセージを表示する関数2
 function displayErrors(errors) {
   const usernameError = document.getElementById('username-error');
   const passwordError = document.getElementById('password-error');
@@ -71,6 +89,8 @@ function displayErrors(errors) {
         passwordError.innerText = error.msg;
       } else if (error.path === 'email') {
         emailError.innerText = error.msg;
+      } else if (error.path === 'password-confirm') {
+        displayErrorMessage('password-confirm', error.msg);
       }
     });
   }

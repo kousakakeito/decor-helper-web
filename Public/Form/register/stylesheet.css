@@ -170,14 +170,18 @@ button{
   font-size: 12px;
   height:20px;
   margin-top: 5px;
-  margin-left: 40px;
+  margin-left: 30px;
 }
 
 .username{
-  margin-top: -20px;
+  margin-top: -38px;
 }
 
 .password{
+  margin-bottom: -12px;
+}
+
+.password-confirm{
   margin-bottom: -12px;
 }
 

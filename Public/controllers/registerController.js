@@ -58,9 +58,16 @@ const registrationValidationRules = [
     .matches(/^[a-zA-Z0-9_]+$/).withMessage('ユーザーネームは半角英数字とアンダーバーのみ使用可能です。'),
   check('password')
     .isLength({ min: 8 }).withMessage('パスワードは8文字以上で入力してください。')
-    .matches(/[0-9]/).withMessage('パスワードは数字を含む必要があります。')
-    .matches(/[a-zA-Z]/).withMessage('パスワードは英字を含む必要があります。'),
+    .matches(/[0-9]/).withMessage('パスワードは英数字を含む必要があります。')
+    .matches(/[a-zA-Z]/).withMessage('パスワードは英数字を含む必要があります。'),
   check('email').isEmail().withMessage('有効なメールアドレスを入力してください。'),
+  check('passwordConfirm').custom((value, { req }) => {
+  // パスワードが空でない場合のみ一致チェックを行う
+  if (req.body.password && value !== req.body.password) {
+   throw new Error('パスワードが一致しません。');
+  }
+  return true;
+  }),
 ];
 
 
