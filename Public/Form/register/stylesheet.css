@@ -149,6 +149,7 @@ button{
   background-color:darkmagenta;
   color: white;
   font-weight: bold;
+  margin-left: 4px;
 }
 
 .sub-outer{
