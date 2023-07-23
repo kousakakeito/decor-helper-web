@@ -7,22 +7,14 @@ registerForm.addEventListener('submit', async (event) => {
 
   const username = document.getElementById('username').value;
   const password = document.getElementById('password').value;
-  const passwordConfirm = document.getElementById('password-confirm').value;
+  const passwordConfirm = document.getElementById('password-confirm').value; // パスワード再確認の値を取得
   const email = document.getElementById('email').value;
-
-    // パスワードとパスワード再確認が一致しているかチェック
-    if (password !== passwordConfirm) {
-      displayErrorMessage('password-confirm', 'パスワードが一致しません。');
-      return;
-    } else {
-      // パスワード再確認が一致する場合はエラーメッセージをクリア
-      displayErrorMessage('password-confirm', '');
-    }
 
   const data = {
     username: username,
     password: password,
-    email: email
+    email: email,
+    passwordConfirm: passwordConfirm // パスワード再確認の値をデータに追加
   };
 
   try {
@@ -37,8 +29,11 @@ registerForm.addEventListener('submit', async (event) => {
     console.log(response); 
 
     if (!response.ok) {
+      console.log(response.status);
+      
       // レスポンスがエラーの場合、サーバーから返されたエラーメッセージを取得
       const errors = await response.json();
+      console.log(errors); 
 
       // エラーメッセージを表示
       displayErrors(errors);
@@ -53,6 +48,7 @@ registerForm.addEventListener('submit', async (event) => {
     console.error('Error registering user:', error);
   }
 });
+
 
 // エラーメッセージをクリアする関数
 function clearErrorMessages() {

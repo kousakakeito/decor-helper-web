@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+
 const { check, validationResult } = require('express-validator');
 const fs = require('fs'); // ファイルシステムモジュールを追加
 
@@ -73,6 +74,8 @@ const registrationValidationRules = [
 
 // ユーザー登録処理
 router.post('/register', registrationValidationRules, async (req, res) => {
+  console.log(req.body);  // 受け取ったリクエストの内容をログに出力
+
   // バリデーションエラーのチェック
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -82,11 +85,16 @@ router.post('/register', registrationValidationRules, async (req, res) => {
   }
 
 
-  const { username, password, email } = req.body;
+  const { username, password, email, passwordConfirm } = req.body;
 
   try {
     // パスワードのハッシュ化
     const hashedPassword = await hashPassword(password);
+
+    // パスワード再確認のチェック
+    if (password !== passwordConfirm) {
+      return res.status(400).json({ errors: [{ type: 'field', msg: 'パスワードが一致しません。', path: 'passwordConfirm', location: 'body' }] });
+    }
 
     // ユーザー情報をデータベースに保存
     const sql = 'INSERT INTO users (username, password, email) VALUES (?, ?, ?)';
