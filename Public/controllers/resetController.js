@@ -1,11 +1,12 @@
 const express = require('express');
 const mysql = require('mysql');
 const nodemailer = require('nodemailer');
+const config = require('../../config/config');
 
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '0627ikik',
+  password: config.password,
   database: 'decorhelper',
 });
 
@@ -36,7 +37,7 @@ router.post('/reset-password', (req, res) => {
       service: 'Gmail', // または使用するメールサービス（Gmail以外の場合は適切な設定が必要）
       auth: {
         user: 'DecorHelperWeb@gmail.com', // メール送信に使用するGmailアカウント
-        pass: '0627ikik', // メール送信に使用するGmailアカウントのパスワード
+        pass: config.password, // メール送信に使用するGmailアカウントのパスワード
       },
     });
 

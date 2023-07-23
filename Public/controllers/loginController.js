@@ -1,11 +1,11 @@
 const express = require('express');
 const mysql = require('mysql');
-
+const config = require('../../config/config');
 
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '0627ikik',
+  password: config.password,
   database: 'decorhelper',
 });
 

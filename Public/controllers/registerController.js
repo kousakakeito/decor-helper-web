@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
+const config = require('../../config/config');
 
 const { check, validationResult } = require('express-validator');
 const fs = require('fs'); // ファイルシステムモジュールを追加
@@ -8,7 +9,7 @@ const mysql = require('mysql');
 const connection = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '0627ikik',
+  password: config.password,
   database: 'decorhelper',
 });
 
