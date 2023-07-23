@@ -1,4 +1,2 @@
-#configファイル
-DecorHelperWeb/
-config/
+# config.jsファイルを除外
 config.js
