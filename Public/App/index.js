@@ -37,10 +37,16 @@ function hideAllContent() {
 hideAllContent();
 contentHome.style.display = 'block';
 
+
 // タブ切り替えのイベントリスナーを設定
 const tabs = document.querySelectorAll('.tab');
 tabs.forEach(tab => {
   tab.addEventListener('click', () => {
+
+    // すべてのタブの色を元に戻す
+    tabs.forEach(t => t.classList.remove('active'));
+    // クリックされたタブに色を付ける
+    tab.classList.add('active');
     // すべてのコンテンツを非表示にする
     hideAllContent();
 
@@ -66,6 +72,7 @@ tabs.forEach(tab => {
 // ドロップダウンメニューの表示・非表示を切り替える
 const dropdownTab = document.querySelector('.tab-dropdown');
 const dropdownMenu = document.querySelector('.dropdown-menu');
+let dropdownOpen = false; // ドロップダウンメニューが開いているかのフラグ
 
 // ドロップダウンメニューをクリックしてもメニューが開かないようにする
 dropdownTab.addEventListener('click', (event) => {
@@ -86,15 +93,26 @@ document.addEventListener('click', (event) => {
 const dropdownItems = document.querySelectorAll('.dropdown-item');
 dropdownItems.forEach(item => {
   item.addEventListener('click', () => {
-    // すべてのコンテンツを非表示にする
-    hideAllContent();
-
     // クリックされたドロップダウンメニューに対応するコンテンツを表示する
     const targetContent = item.getAttribute('data-target');
     const content = document.querySelector(`#${targetContent}`);
-    content.style.display = 'block';
+
+    // すでに表示されているコンテンツの場合は非表示にしない
+    if (content.style.display !== 'block') {
+      // すべてのコンテンツを非表示にする
+      hideAllContent();
+      // クリックされたコンテンツを表示する
+      content.style.display = 'block';
+    }
 
     // ドロップダウンメニューを非表示にする
+    dropdownMenu.style.display = 'none';
+    dropdownOpen = false;
+  });
+
+  // ドロップダウンメニューの文字をクリックしたらドロップダウンメニューを閉じる
+  item.addEventListener('click', (event) => {
+    event.stopPropagation(); // クリックイベントが親要素に伝搬しないようにする
     dropdownMenu.style.display = 'none';
     dropdownOpen = false;
   });
