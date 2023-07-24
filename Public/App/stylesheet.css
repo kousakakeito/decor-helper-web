@@ -1,0 +1,104 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 34px;
+  font-weight: bold;
+}
+
+.tabs {
+  display: flex;
+  gap: 20px;
+}
+
+.tab {
+  position: relative;
+  font-size: 18px;
+  cursor: pointer;
+  font-size: 25px;
+}
+
+.tab:hover {
+  color: orange;
+}
+
+.tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: dimgrey;
+  opacity: 0;
+}
+
+.tab.active::after {
+  opacity: 1;
+}
+
+.user-info {
+  font-size: 18px;
+  padding: 10px;
+}
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+}
+
+/* 追加のスタイル */
+
+/* アクティブなタブのスタイル */
+.tab.active {
+  color: orange;
+}
+
+/* ドロップダウンメニューのスタイル */
+.tab-dropdown {
+  position: relative;
+   display: flex; /* flexコンテナとして設定 */
+}
+
+.tab-dropdown .dropdown-menu {
+  display: none;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  position: absolute; /* 絶対配置に変更 */
+  top: 100%;
+  left: 0;
+}
+
+.tab-dropdown.active .dropdown-menu {
+  flex-direction: row; /* flexコンテナ内の要素を縦並びに配置 */
+  position: absolute; /* 絶対配置に変更 */
+  top: 100%; /* 親要素の下に配置 */
+  left: 0; /* 親要素の左端に配置 */
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+  color: #333;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
+
+
+
