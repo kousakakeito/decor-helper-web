@@ -2,12 +2,14 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const port = 3000;
+const cookieParser = require('cookie-parser'); // cookie-parserモジュールを追加
 
 // 静的ファイルの設定
 const publicPath = path.join(__dirname, '..', 'Public');
 app.use(express.static(publicPath));
 app.use(express.json()); // JSONパースのためのミドルウェアを追加
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser()); // cookie-parserミドルウェアを使用
 
 // ログイン機能のルーティング
 const loginController = require('../Public/controllers/loginController');
@@ -31,9 +33,9 @@ app.post('/register', (req, res) => {
   registerUser(req, res);
 });
 
-// ログイン成功後のリダイレクト処理
-app.get('/App/home.html', (req, res) => {
-  res.sendFile(path.join(publicPath, 'App', 'home.html'));
+// リダイレクト先のURLにクエリが反映されるように、/redirect-home エンドポイントを追加
+app.get('/redirect-home', (req, res) => {
+  res.redirect(`/App/home.html`);
 });
 
 app.listen(port, () => {

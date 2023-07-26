@@ -16,11 +16,21 @@ header {
 .title {
   font-size: 34px;
   font-weight: bold;
+  letter-spacing: 6px;
+}
+
+.title img {
+  width: 40px; /* アイコンの幅を調整 */
+  height: 40px; /* アイコンの高さを調整 */
+  margin-left: 20px; /* アイコンとテキストの間隔を調整 */
+  margin-right:4px;
+  vertical-align: bottom; /* テキストとアイコンの垂直配置を調整 */
 }
 
 .tabs {
   display: flex;
   gap: 20px;
+  margin-left:-300px;
 }
 
 .tab {
@@ -36,24 +46,24 @@ header {
   color:orangered;
 }
 
+
 .tab::after {
   content: '';
   position: absolute;
   bottom: 0;
   left: 0;
-  width: 100%;
+  width: 0; /* 初期状態で下線の幅を0に設定 */
   height: 1px;
   background-color: dimgrey;
   opacity: 0;
+  transition: width 0.5s ease; /* アニメーションの設定：幅を0.3秒かけて変化させる */
 }
 
 .tab.active::after {
   opacity: 1;
+  width: 100%; /* アクティブなタブで下線の幅を100%にする（右から左に伸びる） */
 }
 
-.tab.active {
-  color: orange;
-}
 
 .user-info {
   font-size: 18px;
@@ -72,14 +82,13 @@ header {
   position:absolute;
   display: flex; 
   font-size: 25px;
-  margin-left: 930px;
+  margin-left: 1090px;
   cursor: pointer;
-  color:orangered;
   user-select: none;
 }
 
 .tab-dropdown:hover{
-  color: red;
+  color: orangered;
 }
 
 .tab-dropdown .dropdown-menu {
@@ -94,11 +103,13 @@ header {
   margin-left: -135px;
 }
 
+
+
+
 .dropdown-item {
-  margin-top: 30px;
   margin-left: -40px;
-  padding-left: 40px;
-  padding-right: 40px;
+  padding-left: 30px;
+  padding-right: 30px;
   padding-top: 10px;
   padding-bottom: 10px;
   cursor: pointer;
@@ -111,4 +122,18 @@ header {
 
 .dropdown-item:hover {
   background-color: #f0f0f0;
+}
+
+.tab i {
+  padding-right: 12px;
+}
+
+
+
+.tab .fa-wrench{
+  margin-top: 5px;
+}
+
+.user-name{
+  color:orange;
 }

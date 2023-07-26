@@ -16,8 +16,10 @@ loginForm.addEventListener('submit', (event) => {
   })
     .then((response) => {
       if (response.ok) {
+        
         // ログイン成功時の処理（リダイレクト）
         window.location.href = '/App/home.html';
+
       } else {
         // ログイン失敗時の処理（例：エラーメッセージ表示）
         console.error('Login failed.');
@@ -27,3 +29,4 @@ loginForm.addEventListener('submit', (event) => {
       console.error('Error:', error);
     });
 });
+

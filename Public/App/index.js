@@ -6,16 +6,24 @@ const contentPrint = document.querySelector('#content-print');
 const contentPhoto = document.querySelector('#content-photo');
 const contentInquiry = document.querySelector('#content-inquiry');
 
-// ユーザーネーム要素を取得
-const usernameElement = document.querySelector('.user-info');
 
-// ユーザーネームが設定されるまで非表示にする
-usernameElement.style.display = 'none';
+// クッキーからユーザー名を取得
+const username = getCookie('username');
 
-// ログインしたと仮定して、ユーザーネームを設定
-const username = 'John Doe'; // ここでログイン時のユーザーネームを取得する処理を行う
-usernameElement.textContent = `こんにちわ！${username}さん！`;
-usernameElement.style.display = 'inline';
+// Display the username on the page
+if (username) {
+  const userName = document.querySelector('.user-name');
+  userName.textContent = `${username}`;
+}
+
+// クッキーを取得する関数
+function getCookie(name) {
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+
 
 // モーダルメニューのコンテンツを非表示にする関数
 function hideModalContent() {
@@ -31,6 +39,10 @@ function hideAllContent() {
   contentFurniture.style.display = 'none';
   contentHelp.style.display = 'none';
   hideModalContent();
+  // content-print, content-photo, content-inquiryも非表示にする
+  contentPrint.style.display = 'none';
+  contentPhoto.style.display = 'none';
+  contentInquiry.style.display = 'none';
 }
 
 // ロード時にcontent-homeのみを表示
@@ -38,38 +50,44 @@ hideAllContent();
 contentHome.style.display = 'block';
 
 
+
 // タブ切り替えのイベントリスナーを設定
 const tabs = document.querySelectorAll('.tab');
 tabs.forEach(tab => {
+  
+   // すべてのタブからactiveクラスを削除
+ tabs.forEach(t => t.classList.remove('active'));
+ const homeTab = document.querySelector('[data-target="content-home"]');
+ homeTab.classList.add('active');
+
   tab.addEventListener('click', () => {
+    
 
     // すべてのタブの色を元に戻す
     tabs.forEach(t => t.classList.remove('active'));
+
     // クリックされたタブに色を付ける
     tab.classList.add('active');
+
+    // クリックされたタブに対応するコンテンツを取得
+    const targetContent = tab.getAttribute('data-target');
+    const content = document.querySelector(`#${targetContent}`);
+
+    // タブが既にアクティブ（表示中）の場合は何もしない
+    if (content.style.display === 'block') {
+      return;
+    }
+    
+
     // すべてのコンテンツを非表示にする
     hideAllContent();
 
     // クリックされたタブに対応するコンテンツを表示する
-    const targetContent = tab.getAttribute('data-target');
-    const content = document.querySelector(`#${targetContent}`);
     content.style.display = 'block';
-  });
-
-  // 設定タブ以外をクリックしたときにドロップダウンメニューを閉じる
-  tab.addEventListener('mouseenter', () => {
-    if (tab.classList.contains('tab-dropdown')) {
-      if (!dropdownOpen) {
-        dropdownMenu.style.display = 'none';
-      }
-    } else {
-      dropdownMenu.style.display = 'none';
-      dropdownOpen = false;
-    }
   });
 });
 
-// ドロップダウンメニューの表示・非表示を切り替える
+// 設定タブのドロップダウンメニューの表示・非表示を切り替える
 const dropdownTab = document.querySelector('.tab-dropdown');
 const dropdownMenu = document.querySelector('.dropdown-menu');
 let dropdownOpen = false; // ドロップダウンメニューが開いているかのフラグ
@@ -77,7 +95,7 @@ let dropdownOpen = false; // ドロップダウンメニューが開いている
 // ドロップダウンメニューをクリックしてもメニューが開かないようにする
 dropdownTab.addEventListener('click', (event) => {
   event.stopPropagation(); // クリックイベントが親要素に伝搬しないようにする
-  dropdownMenu.style.display = dropdownOpen ? 'none' : 'block';
+  dropdownMenu.style.display = dropdownOpen ? 'none' : 'flex'; // displayをflexに変更
   dropdownOpen = !dropdownOpen;
 });
 

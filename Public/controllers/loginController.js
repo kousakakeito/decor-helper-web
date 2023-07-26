@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql');
+const cookieParser = require('cookie-parser'); 
 const config = require('../../config/config');
 
 const connection = mysql.createConnection({
@@ -10,6 +11,9 @@ const connection = mysql.createConnection({
 });
 
 const router = express.Router();
+
+// cookie-parserミドルウェアを使用
+router.use(cookieParser());
 
 // テーブル作成処理
 const createUsersTable = () => {
@@ -104,18 +108,23 @@ async function updateLoginAttempts(username, attempts) {
 }
 
 
+
 // ログイン成功時の処理
 function handleLoginSuccess(res, username) {
   // ログインに成功した場合は試行回数をリセット
   updateLoginAttempts(username, 0)
     .then(() => {
-      res.redirect('/App/home.html');
+      // クッキーにユーザー名を設定
+      res.cookie('username', username);
+      // リダイレクトを行うエンドポイントにリダイレクトする
+      res.redirect('/redirect-home');
     })
     .catch((error) => {
       console.error('Error while resetting login attempts:', error);
       res.status(500).send('An error occurred while logging in.');
     });
 }
+
 
 // ログイン失敗時の処理
 async function handleLoginFailure(res, attempts, username) {
@@ -158,6 +167,18 @@ async function handleLoginFailure(res, attempts, username) {
     });
 }
 
+// ログイン後のリダイレクト処理を行うエンドポイント
+router.get('/redirect-home', (req, res) => {
+  // クッキーからユーザー名を取得
+  const username = req.cookies.username;
+  if (!username) {
+    // クッキーにユーザー名が存在しない場合はログインページにリダイレクト
+    res.redirect('/login.html');
+    return;
+  }
+  res.redirect(`/App/home.html`);
+});
+
 router.post('/login', async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -188,6 +209,8 @@ router.post('/login', async (req, res) => {
     res.status(500).send('An error occurred while logging in.');
   }
 });
+
+
 
 createUsersTable();
 

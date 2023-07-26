@@ -6,30 +6,30 @@
   <meta name="description" content="家具配置を自由に変更して、理想の部屋をデザイン。空間(間取り)や家具は自分の好みでカスタマイズ。">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheet.css">
-  <link rel="icon" href="">
+  <link rel="icon" href="/Icon/DecorHelperIcon.png">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
 </head>
 <body>
   <header>
-    <div class="title">DecorHelper</div>
+    <div class="title"><img src="/Icon/DecorHelperIcon.png" alt="DecorHelper Icon">ecorHelper</div>
     <div class="tabs">
-      <div class="tab active" data-target="content-home">ホーム</div>
-      <div class="tab active" data-target="content-space">空間作成</div>
-      <div class="tab active" data-target="content-furniture">家具作成</div>
-      <div class="tab active" data-target="content-help">ヘルプ</div>
-      <div class="tab-dropdown tab active">設定
+      <div class="tab active" data-target="content-home"><i class="fa-solid fa-house"></i>ホーム</div>
+      <div class="tab active" data-target="content-space"><i class="fa-solid fa-person-shelter"></i>空間作成</div>
+      <div class="tab active" data-target="content-furniture"><i class="fa-solid fa-couch"></i>家具作成</div>
+      <div class="tab active" data-target="content-help"><i class="fa-regular fa-circle-question"></i>ヘルプ</div>
+      <div class="tab-dropdown tab active" ><i class="fa-solid fa-wrench"></i>設定
         <div class="dropdown-menu">
           <ul>
-            <li class="dropdown-item" data-target="content-print">お部屋を印刷</li>
-            <li class="dropdown-item" data-target="content-photo">お部屋を写真で保存</li>
-            <li class="dropdown-item" data-target="content-language">言語設定</li>
-            <li class="dropdown-item" data-target="content-inquiry">お問い合わせ</li>
-            <li class="dropdown-item" data-target="content-logout">ログアウト</li>
+            <li class="dropdown-item" data-target="content-print"><i class="fa-solid fa-print"></i>お部屋を印刷</li>
+            <li class="dropdown-item" data-target="content-photo"><i class="fa-regular fa-image"></i>お部屋を写真で保存</li>
+            <li class="dropdown-item" data-target="content-language"><i class="fa-solid fa-globe"></i>言語設定</li>
+            <li class="dropdown-item" data-target="content-inquiry"><i class="fa-solid fa-envelope"></i>お問い合わせ</li>
+            <li class="dropdown-item" data-target="content-logout"><i class="fa-solid fa-right-from-bracket"></i>ログアウト</li>
           </ul>
         </div>
       </div>
     </div>
-    <div class="user-info">こんにちわ！<span id="username">username</span>さん！</div>
+    <div class="user-info">こんにちは！<span class="user-name"></span>さん！</div>
   </header>
   <div class="separator"></div>
   <div class="content-home" id="content-home">
