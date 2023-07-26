@@ -1,7 +1,46 @@
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.front-content {
+  position: relative;
+  z-index: 2; 
+}
+
+.front-content2 {
+  position: relative;
+  z-index: 1; 
+}
+
+.background-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 50px 50px;
+  background-image: url('/Icon/DecorHelperIcon.png'); 
+  background-repeat: repeat; 
+  animation: slideBackground 30s linear infinite;
+  z-index: 0;
+}
+
+@keyframes slideBackground {
+  0% {
+    background-position: 0 0; /* 左上からスタート */
+  }
+  100% {
+    background-position: 100% 100%; /* 右下まで移動 */
+  }
+}
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  background-color:#211974;
 }
 
 header {
@@ -117,7 +156,6 @@ header {
   font-size: 16px;
   list-style: none;
   font-weight: bold;
-  
 }
 
 .dropdown-item:hover {
@@ -167,6 +205,7 @@ button{
   width: 250px;
   border: 2px solid #000;
   margin-top: 40px;
+  background-color:rgba(255, 255, 255, 0.8);
 }
 
 /* home-spacetext のスタイル */
@@ -184,6 +223,7 @@ button{
   width: 250px;
   border: 2px solid #000;
   margin-top: 30px;
+  background-color:rgba(255, 255, 255, 0.8);
 }
 
 /* home-roomtext のスタイル */
@@ -203,6 +243,7 @@ button{
   height: 735px;
   border: 2px solid #000;
   margin-top: -738px;
+  background-color:rgba(255, 255, 255, 0.8);
 }
 
 /* home-compbtn のスタイル */
@@ -235,6 +276,7 @@ button{
   height: 600px;
   width: 1100px;
   border: 2px solid #000;
+  background-color: white;
 }
 
 /* homeright-outer のスタイル */
@@ -246,6 +288,7 @@ button{
   border-width: 2px;
   width: 250px;
   height: 735px;
+  background-color:rgba(255, 255, 255, 0.8);
 }
 
 /* home-furnituretext のスタイル */
@@ -266,6 +309,7 @@ button{
   height: 735px;
   border: 2px solid #000;
   margin-top: 40px;
+  background-color:rgba(255, 255, 255, 0.8);
 }
 
 /* space-compbtn のスタイル */
@@ -326,6 +370,7 @@ button{
   height: 600px;
   width: 1100px;
   border: 2px solid #000;
+  background-color: white;
 }
 
 
@@ -340,6 +385,7 @@ button{
   height: 735px;
   border: 2px solid #000;
   margin-top: 40px;
+  background-color:rgba(255, 255, 255, 0.8);
 }
 
 /* furniture-compbtn のスタイル */
@@ -424,6 +470,7 @@ button{
   height: 600px;
   width: 1100px;
   border: 2px solid #000;
+  background-color: white;
 }
 
 /* furnitureright-outer のスタイル */
@@ -435,10 +482,214 @@ button{
   border-width: 2px;
   width: 250px;
   height: 735px;
+  background-color:rgba(255, 255, 255, 0.8);
 }
 
 /* furniture-furnituretext のスタイル */
 .furniture-furnituretext {
   margin-top: 5px;
   text-align: center;
+}
+
+/* printcenter-outer のスタイル */
+.printcenter-outer {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1200px;
+  height: 735px;
+  border: 2px solid #000;
+  margin-top: 40px;
+  background-color:rgba(255, 255, 255, 0.8);
+}
+
+/* print-printbtn のスタイル */
+.print-printbtn {
+  position: absolute;
+  margin-left:1000px;
+  margin-top: 665px;
+  width: 100px;
+  height: 40px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+/* ボタンがホバーされたときのスタイル */
+.print-printbtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
+/* printcenter-inner のスタイル */
+.printcenter-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  width: 1100px;
+  border: 2px solid #000;
+  background-color: white;
+}
+
+/* printleft-outer のスタイル */
+.printleft-outer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-left: 20px;
+}
+
+/* print-roomlist のスタイル */
+.print-roomlist {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 733px;
+  width: 250px;
+  border: 2px solid #000;
+  margin-top: -739px;
+  background-color:rgba(255, 255, 255, 0.8);
+}
+
+/* print-roomtext のスタイル */
+.print-roomtext {
+  margin-top: 5px;
+  text-align: center;
+}
+
+
+/* photocenter-outer のスタイル */
+.photocenter-outer {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1200px;
+  height: 735px;
+  border: 2px solid #000;
+  margin-top: 40px;
+  background-color:rgba(255, 255, 255, 0.8);
+}
+
+/* photo-photobtn のスタイル */
+.photo-photobtn {
+  position: absolute;
+  margin-left:1000px;
+  margin-top: 665px;
+  width: 100px;
+  height: 40px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+/* ボタンがホバーされたときのスタイル */
+.photo-photobtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
+/* photocenter-inner のスタイル */
+.photocenter-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  width: 1100px;
+  border: 2px solid #000;
+  background-color: white;
+}
+
+/* photoleft-outer のスタイル */
+.photoleft-outer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-left: 20px;
+}
+
+/* photo-roomlist のスタイル */
+.photo-roomlist {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 733px;
+  width: 250px;
+  border: 2px solid #000;
+  margin-top: -739px;
+  background-color:rgba(255, 255, 255, 0.8);
+}
+
+/* photo-roomtext のスタイル */
+.photo-roomtext {
+  margin-top: 5px;
+  text-align: center;
+}
+
+
+/* inquirycenter-outer のスタイル */
+.inquirycenter-outer {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 1200px;
+  height: 735px;
+  border: 2px solid #000;
+  margin-top: 40px;
+  background-color:rgba(255, 255, 255, 0.8);
+}
+
+.inquiry-text{
+  font-size: 20px;
+  position: absolute;
+  margin-top: -650px;
+}
+
+
+
+/* inquiry-sendbtn のスタイル */
+.inquiry-sendbtn {
+  position: absolute;
+  margin-left:1000px;
+  margin-top: 665px;
+  width: 100px;
+  height: 40px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+/* ボタンがホバーされたときのスタイル */
+.inquiry-sendbtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
+/* inquirycenter-form のスタイル */
+.inquirycenter-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  width: 1100px;
+  border: 2px solid #000;
+  resize: none;
 }

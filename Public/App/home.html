@@ -10,21 +10,21 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
 </head>
 <body>
-  <header>
+  <header class="front-content">
     <div class="title"><img src="/Icon/DecorHelperIcon.png" alt="DecorHelper Icon">ecorHelper</div>
     <div class="tabs">
-      <div class="tab active" data-target="content-home"><i class="fa-solid fa-house"></i>ホーム</div>
-      <div class="tab active" data-target="content-space"><i class="fa-solid fa-person-shelter"></i>空間作成</div>
-      <div class="tab active" data-target="content-furniture"><i class="fa-solid fa-couch"></i>家具作成</div>
-      <div class="tab active" data-target="content-help"><i class="fa-regular fa-circle-question"></i>ヘルプ</div>
+      <div class="tab active" data-target="content-home" data-color="#211974"><i class="fa-solid fa-house"></i>ホーム</div>
+      <div class="tab active" data-target="content-space" data-color="#19743c"><i class="fa-solid fa-person-shelter"></i>空間作成</div>
+      <div class="tab active" data-target="content-furniture" data-color="#745419"><i class="fa-solid fa-couch"></i>家具作成</div>
+      <div class="tab active" data-target="content-help" data-color="#f7e011"><i class="fa-regular fa-circle-question"></i>ヘルプ</div>
       <div class="tab-dropdown tab active" ><i class="fa-solid fa-wrench"></i>設定
         <div class="dropdown-menu">
           <ul>
-            <li class="dropdown-item" data-target="content-print"><i class="fa-solid fa-print"></i>お部屋を印刷</li>
-            <li class="dropdown-item" data-target="content-photo"><i class="fa-regular fa-image"></i>お部屋を写真で保存</li>
-            <li class="dropdown-item" data-target="content-language"><i class="fa-solid fa-globe"></i>言語設定</li>
-            <li class="dropdown-item" data-target="content-inquiry"><i class="fa-solid fa-envelope"></i>お問い合わせ</li>
-            <li class="dropdown-item" data-target="content-logout"><i class="fa-solid fa-right-from-bracket"></i>ログアウト</li>
+            <li class="dropdown-item" data-target="content-print" data-color="#75756d"><i class="fa-solid fa-print"></i>お部屋を印刷</li>
+            <li class="dropdown-item" data-target="content-photo" data-color="#ffffff"><i class="fa-regular fa-image"></i>お部屋を写真で保存</li>
+            <li class="dropdown-item"><i class="fa-solid fa-globe"></i>言語設定</li>
+            <li class="dropdown-item" data-target="content-inquiry" data-color="#e79e00"><i class="fa-solid fa-envelope"></i>お問い合わせ</li>
+            <li class="dropdown-item"><i class="fa-solid fa-right-from-bracket"></i>ログアウト</li>
           </ul>
         </div>
       </div>
@@ -32,6 +32,7 @@
     <div class="user-info">こんにちは！<span class="user-name"></span>さん！</div>
   </header>
   <div class="separator"></div>
+  <div class="front-content2">
   <div class="content-home" id="content-home">
    <div class="homeleft-outer">
     <div class="home-spacelist">
@@ -74,15 +75,36 @@
     D
   </div>
   <div class="content-print" id="content-print">
-    E
+   <div class="printcenter-outer">
+    <button class="print-printbtn">印刷</button>
+    <div class="printcenter-inner"></div>
+   </div>
+   <div class="printleft-outer">
+    <div class="print-roomlist">
+     <p class="print-roomtext">お部屋一覧</p>
+    </div>
+   </div>  
   </div>
   <div class="content-photo" id="content-photo">
-    F
+   <div class="photocenter-outer">
+    <button class="photo-photobtn">写真で保存</button>
+    <div class="photocenter-inner"></div>
+   </div>
+   <div class="photoleft-outer">
+    <div class="photo-roomlist">
+     <p class="photo-roomtext">お部屋一覧</p>
+    </div>
+   </div>  
   </div>
   <div class="content-inquiry" id="content-inquiry">
-    G
+   <div class="inquirycenter-outer">
+    <p class="inquiry-text">お問い合わせ内容</p>
+    <button class="inquiry-sendbtn">送信</button>
+    <textarea class="inquirycenter-form"></textarea>
+   </div>
   </div>
-
+  </div>
+  <div class="background-animation"></div>
   
   <script src="index.js"></script>
 </body>

@@ -49,7 +49,9 @@ function hideAllContent() {
 hideAllContent();
 contentHome.style.display = 'block';
 
-
+function changeBackgroundColor(color) {
+  document.body.style.backgroundColor = color;
+}
 
 // タブ切り替えのイベントリスナーを設定
 const tabs = document.querySelectorAll('.tab');
@@ -61,6 +63,11 @@ tabs.forEach(tab => {
  homeTab.classList.add('active');
 
   tab.addEventListener('click', () => {
+
+     // クリックされたタブのdata-color属性から背景色を取得
+    const color = tab.getAttribute('data-color');
+    // 背景色を変更する関数を呼び出す
+    changeBackgroundColor(color);
     
 
     // すべてのタブの色を元に戻す
@@ -111,17 +118,25 @@ document.addEventListener('click', (event) => {
 const dropdownItems = document.querySelectorAll('.dropdown-item');
 dropdownItems.forEach(item => {
   item.addEventListener('click', () => {
+    
     // クリックされたドロップダウンメニューに対応するコンテンツを表示する
     const targetContent = item.getAttribute('data-target');
+    const color = item.getAttribute('data-color');
     const content = document.querySelector(`#${targetContent}`);
+    
 
     // すでに表示されているコンテンツの場合は非表示にしない
     if (content.style.display !== 'block') {
       // すべてのコンテンツを非表示にする
       hideAllContent();
+      changeBackgroundColor(color);
+
       // クリックされたコンテンツを表示する
       content.style.display = 'block';
     }
+
+
+    
 
     // ドロップダウンメニューを非表示にする
     dropdownMenu.style.display = 'none';
@@ -135,3 +150,4 @@ dropdownItems.forEach(item => {
     dropdownOpen = false;
   });
 });
+
