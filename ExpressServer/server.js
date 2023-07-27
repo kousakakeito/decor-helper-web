@@ -14,6 +14,9 @@ app.use(cookieParser()); // cookie-parserミドルウェアを使用
 // ログイン機能のルーティング
 const loginController = require('../Public/controllers/loginController');
 app.use(loginController);
+// ログアウト機能のルーティング
+const logoutController = require('../Public/controllers/logoutController'); 
+app.use(logoutController);
 
 const registerUser = require('../Public/controllers/registerController');
 

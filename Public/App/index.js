@@ -23,6 +23,27 @@ function getCookie(name) {
   if (parts.length === 2) return parts.pop().split(';').shift();
 }
 
+// ログアウトボタンをクリックしたときの処理
+const logoutButton = document.querySelector('#logout-button');
+logoutButton.addEventListener('click', () => {
+  // サーバーにログアウトリクエストを送信
+  fetch('/logout', {
+    method: 'POST',
+    credentials: 'same-origin', // クッキーをサーバーに送信するための設定
+  })
+    .then((response) => {
+      if (response.ok) {
+        // ログアウトに成功した場合はログイン画面にリダイレクト
+        window.location.href = '/index.html'; 
+      } else {
+        console.error('Logout failed');
+      }
+    })
+    .catch((error) => {
+      console.error('Error during logout:', error);
+    });
+});
+
 
 
 // モーダルメニューのコンテンツを非表示にする関数
@@ -99,11 +120,14 @@ const dropdownTab = document.querySelector('.tab-dropdown');
 const dropdownMenu = document.querySelector('.dropdown-menu');
 let dropdownOpen = false; // ドロップダウンメニューが開いているかのフラグ
 
+
 // ドロップダウンメニューをクリックしてもメニューが開かないようにする
 dropdownTab.addEventListener('click', (event) => {
+
   event.stopPropagation(); // クリックイベントが親要素に伝搬しないようにする
   dropdownMenu.style.display = dropdownOpen ? 'none' : 'flex'; // displayをflexに変更
   dropdownOpen = !dropdownOpen;
+  
 });
 
 // ドロップダウンメニュー以外の場所をクリックしたらメニューを閉じる
