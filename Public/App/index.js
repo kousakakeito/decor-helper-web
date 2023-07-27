@@ -175,3 +175,257 @@ dropdownItems.forEach(item => {
   });
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // 破線の間隔と破線の長さを設定
+const dashInterval = 10;
+const dashLength = 5;
+const dashColor = 'red';
+
+// 2つの丸い点の間に破線（実線）を描画する関数
+function drawDashedLine(startX, startY, endX, endY) {
+  const dashedLine = new Konva.Line({
+    points: [startX, startY, endX, endY],
+    stroke: dashColor,
+    strokeWidth: 2,
+    dash: [dashLength, dashInterval],
+  });
+
+  return dashedLine;
+}
+
+const spacecenterInner = document.querySelector('.spacecenter-inner');
+let layer; // レイヤーをグローバル変数として定義
+
+function createRectangle() {
+  const stage = new Konva.Stage({
+    container: spacecenterInner,
+    width: spacecenterInner.offsetWidth,
+    height: spacecenterInner.offsetHeight,
+  });
+
+  layer = new Konva.Layer(); // グローバル変数を使うために、constをletに変更
+  stage.add(layer);
+
+  // 図形を作成
+  const rectangle = new Konva.Rect({
+    x: (spacecenterInner.offsetWidth - 600) / 2, // spacecenterInnerの中央に配置
+    y: (spacecenterInner.offsetHeight - 350) / 2, // spacecenterInnerの中央に配置
+    width: 600, // 適宜調整
+    height: 350, // 適宜調整
+    fill: 'blue', // 適宜調整
+    draggable: false,
+  });
+
+  layer.add(rectangle);
+  layer.draw();
+
+  // 丸い点を格納する配列
+  const dots = [];
+  let dashedLine = null; // 破線を格納する変数
+  let isDashedLineVisible = false; // 破線の表示状態
+
+  // 破線の真ん中に四角を格納する変数
+  let midRect = null;
+
+  // クリックした位置に丸い点を追加
+  stage.on('click', (e) => {
+    const pointerPos = stage.getPointerPosition();
+    const x = pointerPos.x;
+    const y = pointerPos.y;
+
+    // 図形の上辺、左辺、下辺、右辺上でのみ丸い点を追加
+    const border = isMouseOnBorder(rectangle, x, y);
+    if (border) {
+      // クリックした位置に丸い点を追加
+      let centerX, centerY;
+      switch (border) {
+        case 'top':
+          centerX = x;
+          centerY = rectangle.y();
+          break;
+        case 'left':
+          centerX = rectangle.x();
+          centerY = y;
+          break;
+        case 'bottom':
+          centerX = x;
+          centerY = rectangle.y() + rectangle.height();
+          break;
+        case 'right':
+          centerX = rectangle.x() + rectangle.width();
+          centerY = y;
+          break;
+      }
+
+      const dot = new Konva.Circle({
+        x: centerX,
+        y: centerY,
+        radius: 5,
+        fill: 'red', // 適宜調整
+        draggable: false,
+      });
+
+      // 丸い点が２つを超えたら古い順に削除
+      if (dots.length >= 2) {
+        const removedDot = dots.shift();
+        removedDot.destroy();
+      }
+
+      dots.push(dot);
+      layer.add(dot);
+      layer.batchDraw(); // レイヤーを再描画する必要があります
+
+      // 2つの丸い点の間に破線（実線）を描画
+      if (dots.length === 2) {
+        const startDot = dots[0];
+        const endDot = dots[1];
+        const startX = startDot.x();
+        const startY = startDot.y();
+        const endX = endDot.x();
+        const endY = endDot.y();
+
+        if (dashedLine) {
+          dashedLine.destroy(); // 既存の破線があれば削除
+        }
+
+        dashedLine = drawDashedLine(startX, startY, endX, endY);
+        layer.add(dashedLine);
+        layer.batchDraw();
+        isDashedLineVisible = true;
+
+        // 破線の真ん中に四角を表示
+        if (midRect) {
+          midRect.destroy(); // 既存の四角があれば削除
+        }
+
+        const midX = (startX + endX) / 2;
+        const midY = (startY + endY) / 2;
+
+        midRect = new Konva.Rect({
+          x: midX - 5,
+          y: midY - 5,
+          width: 10,
+          height: 10,
+          fill: 'green', // 適宜調整
+          draggable: true, // 四角をドラッグ可能にする
+          dragBoundFunc: (pos) => { // ドラッグ時の制約を設定
+            // ドラッグ中の四角の位置をspacecenterInnerの範囲内に制約する
+            let newX = midRect.x();
+            let newY = pos.y;
+
+            // ドラッグが範囲外にならないように制約を設定
+            const minX = 0;
+            const minY = 0;
+            const maxY = spacecenterInner.offsetHeight - 14; // 四角の高さを考慮
+
+            if (newY < minY) {
+              newY = minY;
+            } else if (newY > maxY) {
+              newY = maxY;
+            }
+
+            return {
+              x: newX,
+              y: newY,
+            };
+          },
+          // ドラッグ終了時の処理
+          dragend: () => {
+            // 四角をドラッグした位置に応じて丸い点の位置を更新
+            const newMidY = midRect.y() + 5; // 四角の高さを考慮して補正
+
+            const newYTop = startY; // 上辺のY座標
+            const newYBottom = endY; // 下辺のY座標
+
+            if (newMidY < newYTop) {
+              dots[0].position({ y: newYTop });
+              dots[1].position({ y: newYTop });
+              dashedLine.points([startX, newYTop, endX, newYTop]);
+            } else if (newMidY > newYBottom) {
+              dots[0].position({ y: newYBottom });
+              dots[1].position({ y: newYBottom });
+              dashedLine.points([startX, newYBottom, endX, newYBottom]);
+            } else {
+              dots[0].position({ y: newMidY });
+              dots[1].position({ y: newMidY });
+              dashedLine.points([startX, newMidY, endX, newMidY]);
+            }
+
+            layer.batchDraw();
+          },
+        });
+
+        layer.add(midRect); // 四角をレイヤーに追加
+        layer.batchDraw();
+      }
+    }
+  });
+
+
+
+  
+
+  // アニメーション (点滅)
+  const animation = new Konva.Animation((frame) => {
+    if (dashedLine && isDashedLineVisible) {
+      const opacity = 0.1 + 1 * Math.abs(Math.sin(frame.time * 2 * Math.PI / 3000));
+      dashedLine.opacity(opacity);
+      layer.batchDraw();
+    }
+  });
+
+  animation.start();
+}
+
+// マウスの座標が図形の上辺、左辺、下辺、右辺のいずれかに乗っているかを判定する関数
+function isMouseOnBorder(rectangle, x, y) {
+  const borderSize = 5; // ボーダーと判定する幅
+  const outline = rectangle.getClientRect();
+  const centerX = outline.x + outline.width / 2;
+  const centerY = outline.y + outline.height / 2;
+
+  // 上辺の判定
+  if (x >= outline.x && x <= outline.x + outline.width &&
+      y >= outline.y - borderSize && y <= outline.y + borderSize) {
+    return 'top';
+  }
+  // 左辺の判定
+  if (x >= outline.x - borderSize && x <= outline.x + borderSize &&
+      y >= outline.y && y <= outline.y + outline.height) {
+    return 'left';
+  }
+  // 下辺の判定
+  if (x >= outline.x && x <= outline.x + outline.width &&
+      y >= outline.y + outline.height - borderSize && y <= outline.y + outline.height + borderSize) {
+    return 'bottom';
+  }
+  // 右辺の判定
+  if (x >= outline.x + outline.width - borderSize && x <= outline.x + outline.width + borderSize &&
+      y >= outline.y && y <= outline.y + outline.height) {
+    return 'right';
+  }
+
+  return null;
+}
+
+// ページが読み込まれたときに実行
+document.addEventListener('DOMContentLoaded', () => {
+  // 新規作成ボタンがクリックされたときの処理
+  const spaceCreateBtn = document.querySelector('.space-createbtn');
+  spaceCreateBtn.addEventListener('click', () => {
+    // 長方形を作成
+    createRectangle();
+  });
+});
