@@ -188,6 +188,10 @@ dropdownItems.forEach(item => {
 
 
 
+
+
+
+
  // 破線の間隔と破線の長さを設定
 const dashInterval = 10;
 const dashLength = 5;
@@ -205,8 +209,12 @@ function drawDashedLine(startX, startY, endX, endY) {
   return dashedLine;
 }
 
+
+
+
 const spacecenterInner = document.querySelector('.spacecenter-inner');
 let layer; // レイヤーをグローバル変数として定義
+
 
 function createRectangle() {
   const stage = new Konva.Stage({
@@ -214,6 +222,8 @@ function createRectangle() {
     width: spacecenterInner.offsetWidth,
     height: spacecenterInner.offsetHeight,
   });
+
+
 
   layer = new Konva.Layer(); // グローバル変数を使うために、constをletに変更
   stage.add(layer);
@@ -318,7 +328,7 @@ function createRectangle() {
           y: midY - 5,
           width: 10,
           height: 10,
-          fill: 'green', // 適宜調整
+          fill: 'red', // 適宜調整
           draggable: true, // 四角をドラッグ可能にする
           dragBoundFunc: (pos) => { // ドラッグ時の制約を設定
             // ドラッグ中の四角の位置をspacecenterInnerの範囲内に制約する
@@ -369,24 +379,70 @@ function createRectangle() {
 
         layer.add(midRect); // 四角をレイヤーに追加
         layer.batchDraw();
+
+        // 四角をドラッグして離した位置で再び破線と四角を繋ぎ直す
+if (midRect) {
+  console.log("A");
+  midRect.on('dragstart', () => {
+    if (dashedLine) {
+      dashedLine.destroy(); // 既存の破線があれば削除
+      dashedLine2.destroy(); 
+    }
+
+
+  
+  });
+
+  midRect.on('dragend', () => {
+    console.log("A");
+  
+
+    // 四角の座標を取得
+    const midX = midRect.x() + 5; // 四角の中心座標を取得
+    const midY = midRect.y() + 5;
+
+    // 四角をドラッグした位置で再び破線と四角を繋ぎ直す
+    const newStartX = dots[0].x();
+    const newStartY = dots[0].y();
+    const newEndX = dots[1].x();
+    const newEndY = dots[1].y();
+
+
+    dashedLine = drawDashedLine(newStartX, newStartY,midX,midY);
+    dashedLine2 = drawDashedLine(midX,midY,newEndX, newEndY);
+    layer.add(dashedLine);
+    layer.add(dashedLine2);
+    layer.batchDraw();
+
+
+
+     // アニメーション (点滅)
+     const animation = new Konva.Animation((frame) => {
+      if (dashedLine && isDashedLineVisible) {
+        const opacity = 0.1 + 1 * Math.abs(Math.sin(frame.time * 2 * Math.PI / 3000));
+        dashedLine.opacity(opacity);
+        dashedLine2.opacity(opacity);
+        layer.batchDraw();
+      }
+    });
+  
+    animation.start();
+
+   
+    stage.on('click', () => {
+      dashedLine2.destroy();
+    });
+
+
+  });
+    
+      
+}
+   
       }
     }
   });
 
-
-
-  
-
-  // アニメーション (点滅)
-  const animation = new Konva.Animation((frame) => {
-    if (dashedLine && isDashedLineVisible) {
-      const opacity = 0.1 + 1 * Math.abs(Math.sin(frame.time * 2 * Math.PI / 3000));
-      dashedLine.opacity(opacity);
-      layer.batchDraw();
-    }
-  });
-
-  animation.start();
 }
 
 // マウスの座標が図形の上辺、左辺、下辺、右辺のいずれかに乗っているかを判定する関数
