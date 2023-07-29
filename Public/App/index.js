@@ -429,9 +429,38 @@ if (midRect) {
     animation.start();
 
    
-    stage.on('click', () => {
-      dashedLine2.destroy();
+    stage.on('click', (event) => {
+      const { x, y } = stage.getPointerPosition();
+    
+      // クリックした位置が図形の上辺の丸い点が適用される範囲の場合
+      if (y >= rectangle.y() - 5 && y <= rectangle.y() + 5 && x >= rectangle.x() && x <= rectangle.x() + rectangle.width()) {
+        dashedLine2.destroy();
+        return;
+      }
+    
+      // クリックした位置が図形の下辺の丸い点が適用される範囲の場合
+      if (y >= rectangle.y() + rectangle.height() - 5 && y <= rectangle.y() + rectangle.height() + 5 && x >= rectangle.x() && x <= rectangle.x() + rectangle.width()) {
+        dashedLine2.destroy();
+        return;
+      }
+    
+      // クリックした位置が図形の左辺の丸い点が適用される範囲の場合
+      if (x >= rectangle.x() - 5 && x <= rectangle.x() + 5 && y >= rectangle.y() && y <= rectangle.y() + rectangle.height()) {
+        dashedLine2.destroy();
+        return;
+      }
+    
+      // クリックした位置が図形の右辺の丸い点が適用される範囲の場合
+      if (x >= rectangle.x() + rectangle.width() - 5 && x <= rectangle.x() + rectangle.width() + 5 && y >= rectangle.y() && y <= rectangle.y() + rectangle.height()) {
+        dashedLine2.destroy();
+        return;
+      }
+  
     });
+    
+
+
+
 
 
   });
