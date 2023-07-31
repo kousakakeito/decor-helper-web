@@ -455,70 +455,72 @@ if (midRect) {
 
     
     
-    const dotsCoordinates = dots.map((dot) => ({
-      x: dot.x(),
-      y: dot.y(),
-    }));
-  
-    const midRectX = midRect.x();
-    const midRectY = midRect.y();
-  
-    // 新しい図形の座標を計算
-    const newRectCoordinates = [
-      { x: dotsCoordinates[0].x, y: dotsCoordinates[0].y },
-      { x: dotsCoordinates[1].x, y: dotsCoordinates[1].y },
-      { x: midRectX, y: midRectY },
-    ];
-  
-    // 以前の図形をクリア
-    layer.removeChildren();
-  
-    // 新しい図形を描画
-    const newTriangle = new Konva.Line({
-      points: newRectCoordinates.flatMap((point) => [point.x, point.y]),
-      fill: isTriangleOverlappingRectangle(newRectCoordinates) ? 'white' : 'blue',
-      closed: true,
-      draggable: false,
-    });
-  
-    layer.add(newTriangle);
-    layer.batchDraw();
+
+});
 
 
+midRect.on('dragmove', () => {
+  // 表示されているdotsの座標を取得
+  const dotsCoordinates = dots.map((dot) => ({
+    x: dot.x(),
+    y: dot.y(),
+  }));
 
+  // midRectの中心座標を取得
+  const midRectX = midRect.x() + midRect.width() / 2;
+  const midRectY = midRect.y() + midRect.height() / 2;
 
+  // 新しい図形の座標を計算
+  const newRectCoordinates = [
+    { x: dotsCoordinates[0].x, y: dotsCoordinates[0].y },
+    { x: dotsCoordinates[1].x, y: dotsCoordinates[1].y },
+    { x: midRectX, y: midRectY },
+  ];
 
-
-
-
-
-    
+  // 新しい図形を作成
+  const newTriangle = new Konva.Line({
+    points: newRectCoordinates.flatMap((point) => [point.x, point.y]),
+    fill: isTriangleInsideRectangle(newRectCoordinates) ? 'white' : 'blue',
+    closed: true,
+    draggable: false,
   });
 
-  // 三角形が長方形に被っているかを判定
-const isTriangleOverlappingRectangle = (points) => {
-  // 長方形の座標を取得
+  
+
+  // 新しい図形をレイヤーに追加
+  layer.add(newTriangle);
+  layer.batchDraw(); // レイヤーを再描画
+
+});
+
+// 三角形が長方形の内部にあるかを判定
+const isTriangleInsideRectangle = (points) => {
+  // 四角形の座標を取得
   const rectX = rectangle.x();
   const rectY = rectangle.y();
   const rectWidth = rectangle.width();
   const rectHeight = rectangle.height();
 
-  // 各頂点が長方形の内側にいくつ含まれるかを数える
-  let numPointsInside = 0;
+  // 三角形の頂点が長方形の内部に含まれるかを判定
   for (const point of points) {
-    if (
-      point.x >= rectX &&
-      point.x <= rectX + rectWidth &&
-      point.y >= rectY &&
-      point.y <= rectY + rectHeight
-    ) {
-      numPointsInside++;
+    if (point.x < rectX || point.x > rectX + rectWidth || point.y < rectY || point.y > rectY + rectHeight) {
+      return false; // 一つでも長方形の外側にあればfalseを返す
     }
   }
 
-  // 三角形の頂点が長方形の内側に1つ以上含まれていれば被っていると判定
-  return numPointsInside > 0;
+  return true; // 全ての頂点が長方形の内部にあればtrueを返す
 };
+
+
+
+
+
+
+
+
+
+
+
 
     
       
@@ -527,6 +529,9 @@ const isTriangleOverlappingRectangle = (points) => {
       }
     }
   });
+
+
+  
 
 }
 
