@@ -382,20 +382,13 @@ function createRectangle() {
 
         // 四角をドラッグして離した位置で再び破線と四角を繋ぎ直す
 if (midRect) {
-  console.log("A");
   midRect.on('dragstart', () => {
     if (dashedLine) {
-      dashedLine.destroy(); // 既存の破線があれば削除
-      dashedLine2.destroy(); 
+      dashedLine.destroy(); // 既存の破線があれば削除  
     }
-
-
-  
   });
 
   midRect.on('dragend', () => {
-    console.log("A");
-  
 
     // 四角の座標を取得
     const midX = midRect.x() + 5; // 四角の中心座標を取得
@@ -414,7 +407,11 @@ if (midRect) {
     layer.add(dashedLine2);
     layer.batchDraw();
 
-
+    midRect.on('dragstart', () => {
+      if (dashedLine) {
+        dashedLine2.destroy(); // 既存の破線があれば削除  
+      }
+    });
 
      // アニメーション (点滅)
      const animation = new Konva.Animation((frame) => {
@@ -428,42 +425,101 @@ if (midRect) {
   
     animation.start();
 
-   
+  
     stage.on('click', (event) => {
       const { x, y } = stage.getPointerPosition();
     
-      // クリックした位置が図形の上辺の丸い点が適用される範囲の場合
+      
       if (y >= rectangle.y() - 5 && y <= rectangle.y() + 5 && x >= rectangle.x() && x <= rectangle.x() + rectangle.width()) {
+        // クリックした位置が図形の上辺の丸い点が適用される範囲の場合
         dashedLine2.destroy();
-        return;
-      }
-    
-      // クリックした位置が図形の下辺の丸い点が適用される範囲の場合
-      if (y >= rectangle.y() + rectangle.height() - 5 && y <= rectangle.y() + rectangle.height() + 5 && x >= rectangle.x() && x <= rectangle.x() + rectangle.width()) {
+      }else if(y >= rectangle.y() + rectangle.height() - 5 && y <= rectangle.y() + rectangle.height() + 5 && x >= rectangle.x() && x <= rectangle.x() + rectangle.width()){
+        // クリックした位置が図形の下辺の丸い点が適用される範囲の場合
         dashedLine2.destroy();
-        return;
-      }
-    
-      // クリックした位置が図形の左辺の丸い点が適用される範囲の場合
-      if (x >= rectangle.x() - 5 && x <= rectangle.x() + 5 && y >= rectangle.y() && y <= rectangle.y() + rectangle.height()) {
+      }else if(x >= rectangle.x() - 5 && x <= rectangle.x() + 5 && y >= rectangle.y() && y <= rectangle.y() + rectangle.height()){
+        // クリックした位置が図形の左辺の丸い点が適用される範囲の場合
         dashedLine2.destroy();
-        return;
-      }
-    
-      // クリックした位置が図形の右辺の丸い点が適用される範囲の場合
-      if (x >= rectangle.x() + rectangle.width() - 5 && x <= rectangle.x() + rectangle.width() + 5 && y >= rectangle.y() && y <= rectangle.y() + rectangle.height()) {
+      }else if(x >= rectangle.x() + rectangle.width() - 5 && x <= rectangle.x() + rectangle.width() + 5 && y >= rectangle.y() && y <= rectangle.y() + rectangle.height()){
+        // クリックした位置が図形の右辺の丸い点が適用される範囲の場合
         dashedLine2.destroy();
-        return;
-      }
+      };
   
     });
+
+
+
+ 
+
+
+
+
     
+    
+    const dotsCoordinates = dots.map((dot) => ({
+      x: dot.x(),
+      y: dot.y(),
+    }));
+  
+    const midRectX = midRect.x();
+    const midRectY = midRect.y();
+  
+    // 新しい図形の座標を計算
+    const newRectCoordinates = [
+      { x: dotsCoordinates[0].x, y: dotsCoordinates[0].y },
+      { x: dotsCoordinates[1].x, y: dotsCoordinates[1].y },
+      { x: midRectX, y: midRectY },
+    ];
+  
+    // 以前の図形をクリア
+    layer.removeChildren();
+  
+    // 新しい図形を描画
+    const newTriangle = new Konva.Line({
+      points: newRectCoordinates.flatMap((point) => [point.x, point.y]),
+      fill: isTriangleOverlappingRectangle(newRectCoordinates) ? 'white' : 'blue',
+      closed: true,
+      draggable: false,
+    });
+  
+    layer.add(newTriangle);
+    layer.batchDraw();
 
 
 
 
 
+
+
+
+
+    
   });
+
+  // 三角形が長方形に被っているかを判定
+const isTriangleOverlappingRectangle = (points) => {
+  // 長方形の座標を取得
+  const rectX = rectangle.x();
+  const rectY = rectangle.y();
+  const rectWidth = rectangle.width();
+  const rectHeight = rectangle.height();
+
+  // 各頂点が長方形の内側にいくつ含まれるかを数える
+  let numPointsInside = 0;
+  for (const point of points) {
+    if (
+      point.x >= rectX &&
+      point.x <= rectX + rectWidth &&
+      point.y >= rectY &&
+      point.y <= rectY + rectHeight
+    ) {
+      numPointsInside++;
+    }
+  }
+
+  // 三角形の頂点が長方形の内側に1つ以上含まれていれば被っていると判定
+  return numPointsInside > 0;
+};
+
     
       
 }
