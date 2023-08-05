@@ -923,37 +923,41 @@ button{
 }
 
 .note1{
-  position: relative;
+  position: absolute;
   color: blue;
-  font-size: 12px;
-  margin-top: -140px;
+  margin-left: 10px;
+  font-size: 10px;
+  margin-top: 10px;
   text-align: center;
 
 }
 
 .note2{
-  position: relative;
+  position: absolute;
   color: blue;
-  font-size: 12px;
-  margin-top: -140px;
+  margin-left: 10px;
+  font-size: 10px;
+  margin-top: 10px;
   text-align: center;
 
 }
 
 .note3{
-  position: relative;
+  position: absolute;
   color: blue;
-  font-size: 12px;
-  margin-top: -140px;
+  margin-left: 10px;
+  font-size: 10px;
+  margin-top: 10px;
   text-align: center;
 
 }
 
 .note4{
-  position: relative;
+  position: absolute;
   color: blue;
-  font-size: 12px;
-  margin-top: -140px;
+  margin-left: 10px;
+  font-size: 10px;
+  margin-top: 10px;
   text-align: center;
 
 }

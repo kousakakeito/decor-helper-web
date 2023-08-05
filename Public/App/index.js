@@ -258,7 +258,7 @@ function isMouseOnBorder(rectangle, x, y) {
       width: spacecenterInner.offsetWidth,
       height: spacecenterInner.offsetHeight,
     });
-  
+
   
   
     layer = new Konva.Layer(); // グローバル変数を使うために、constをletに変更
@@ -551,235 +551,16 @@ function isMouseOnBorder(rectangle, x, y) {
         }
       }
 
-    
 
     
-    
-      if(dots[0] && dots[1] ) {
-
-        const rectAngleSizeForm3 = document.createElement('input');
-        rectAngleSizeForm3.type = "text";
-        rectAngleSizeForm3.classList.add("rectAngle-SizeForm3");
-        rectAngleSizeForm3.placeholder = "対象箇所の長さをcm単位で入力";
-  
-        const rectAngleConfirm2 = document.createElement('button');
-        rectAngleConfirm2.classList.add("rectAngle-confirm2");
-        rectAngleConfirm2.append("決定");
-        const div4 = document.createElement("div");
-        div4.classList.add("div4");
-        const div3 = document.createElement("div");
-        div3.classList.add("div3");
-    
-        div4.append(rectAngleSizeForm3,rectAngleConfirm2);
-        div3.append(div4);
-        spacecenterInner.append(div3);
-
-
-        document.querySelector(".rectAngle-confirm2").addEventListener("click",function(){
-
-          const size1 =document.querySelector(".rectAngle-SizeForm3").value;
-          const sizeY = Number.parseFloat(size1);
-          const size1Num = sizeY /1.06;
-          console.log(size1Num)
-          
       
-          if(Number.isNaN(size1Num)){
-           const sizeFormError2 = document.createElement("p");
-           sizeFormError2.classList.add("size-form-error2");
-           div4.append(sizeFormError);
-           document.querySelector(".size-form-error2").textContent = "※数値のみ入力してください※";
-      
-          } else {
-    
-         // 長さを格納する変数
-         let length = size1Num; // 適宜長さを設定
-         
-         dots[0].destroy();
-         dots[1].destroy();
-         dashedLine.destroy();
-
-
-         // 四角の中心座標を取得
-        const midRectX = midRect.x() + midRect.width() / 2;
-        const midRectY = midRect.y() + midRect.height() / 2;
-
-        // 破線を描画する座標を計算
-        const dashedLineX1 = midRectX - length / 2;
-        const dashedLineY1 = midRectY;
-        const dashedLineX2 = midRectX + length / 2;
-        const dashedLineY2 = midRectY;
-
-        // 破線を作成
-        const dashedLine5 = new Konva.Line({
-          points: [dashedLineX1, dashedLineY1, dashedLineX2, dashedLineY2],
-          stroke: 'red',
-          strokeWidth: 2,
-          dash: [5, 10], // 破線のパターンを指定（length変数の値を使用）
-        });
-
-        // 丸い点を作成
-        const circle1 = new Konva.Circle({
-          x: dashedLineX1,
-          y: dashedLineY1,
-          radius: 5,
-          fill: 'red',
-        });
-
-        const circle2 = new Konva.Circle({
-          x: dashedLineX2,
-          y: dashedLineY2,
-          radius: 5,
-          fill: 'red',
-        });
-
-        // レイヤーに追加
-        const layer = new Konva.Layer();
-        layer.add(dashedLine5, circle1, circle2, midRect);
-        stage.add(layer);
-
-        while (document.querySelector(".div3").lastChild) {
-          document.querySelector(".div3").removeChild(document.querySelector(".div3").lastChild);
-         }
-
-        
-
-        
-
-        if( midRect.y() <= rectangle.y()){
-         
-        const rectAngleSizeForm4 = document.createElement('input');
-        rectAngleSizeForm4.type = "text";
-        rectAngleSizeForm4.classList.add("rectAngle-SizeForm4");
-        rectAngleSizeForm4.placeholder = "右端からの長さを入力";
-
-        const rectAngleSizeForm5 = document.createElement('input');
-        rectAngleSizeForm5.type = "text";
-        rectAngleSizeForm5.classList.add("rectAngle-SizeForm5");
-        rectAngleSizeForm5.placeholder = "左端からの長さを入力";
-  
-        const rectAngleConfirm3 = document.createElement('button');
-        rectAngleConfirm3.classList.add("rectAngle-confirm3");
-        rectAngleConfirm3.append("決定");
-
-        const div6 = document.createElement("div");
-        div6.classList.add("div6");
-
-        const div5 = document.createElement("div");
-        div5.classList.add("div5");
-
-        const note1 = document.createElement("p");
-        note1.classList.add("note1");
-
-        div6.append(note1);
-        div6.append(rectAngleSizeForm4,rectAngleSizeForm5,rectAngleConfirm3);
-
-        div5.append(div6);
-        spacecenterInner.append(div5);
-
-        document.querySelector(".note1").textContent = "※右端または左端のどちらかを入力してください※";
-
-      } else if( midRect.x() + midRect.width() >= rectangle.x() + rectangle.width()){
-
-        const rectAngleSizeForm6 = document.createElement('input');
-        rectAngleSizeForm6.type = "text";
-        rectAngleSizeForm6.classList.add("rectAngle-SizeForm6");
-        rectAngleSizeForm6.placeholder = "上端からの長さを入力";
-
-        const rectAngleSizeForm7 = document.createElement('input');
-        rectAngleSizeForm7.type = "text";
-        rectAngleSizeForm7.classList.add("rectAngle-SizeForm7");
-        rectAngleSizeForm7.placeholder = "下端からの長さを入力";
-  
-        const rectAngleConfirm4 = document.createElement('button');
-        rectAngleConfirm4.classList.add("rectAngle-confirm4");
-        rectAngleConfirm4.append("決定");
-        const div8 = document.createElement("div");
-        div8.classList.add("div8");
-        const div7 = document.createElement("div");
-        div7.classList.add("div7");
-    
-        div8.append(rectAngleSizeForm6,rectAngleSizeForm7,rectAngleConfirm4);
-
-        const note2 = document.createElement("p");
-        note2.classList.add("note2");
-        div8.append(note2);
-        document.querySelector(".note2").textContent = "※上端または下端のどちらかを入力してください※";
-
-        div7.append(div8);
-        spacecenterInner.append(div7);
-
-      } else if( midRect.x() <= rectangle.x()){
-
-        const rectAngleSizeForm8 = document.createElement('input');
-        rectAngleSizeForm8.type = "text";
-        rectAngleSizeForm8.classList.add("rectAngle-SizeForm8");
-        rectAngleSizeForm8.placeholder = "上端からの長さを入力";
-
-        const rectAngleSizeForm9 = document.createElement('input');
-        rectAngleSizeForm9.type = "text";
-        rectAngleSizeForm9.classList.add("rectAngle-SizeForm9");
-        rectAngleSizeForm9.placeholder = "下端からの長さを入力";
-  
-        const rectAngleConfirm5 = document.createElement('button');
-        rectAngleConfirm5.classList.add("rectAngle-confirm5");
-        rectAngleConfirm5.append("決定");
-        const div10 = document.createElement("div");
-        div10.classList.add("div10");
-        const div9 = document.createElement("div");
-        div9.classList.add("div9");
-    
-        div10.append(rectAngleSizeForm8,rectAngleSizeForm9,rectAngleConfirm5);
-
-        const note3 = document.createElement("p");
-        note3.classList.add("note3");
-        div10.append(note3);
-        document.querySelector(".note3").textContent = "※上端または下端のどちらかを入力してください※";
-
-        div9.append(div10);
-        spacecenterInner.append(div9);
-
-      } else if( midRect.y() + midRect.height() >= rectangle.y() + rectangle.height()){
-
-        const rectAngleSizeForm10 = document.createElement('input');
-        rectAngleSizeForm10.type = "text";
-        rectAngleSizeForm10.classList.add("rectAngle-SizeForm10");
-        rectAngleSizeForm10.placeholder = "右端からの長さを入力";
-
-        const rectAngleSizeForm11 = document.createElement('input');
-        rectAngleSizeForm11.type = "text";
-        rectAngleSizeForm11.classList.add("rectAngle-SizeForm11");
-        rectAngleSizeForm11.placeholder = "左端からの長さを入力";
-  
-        const rectAngleConfirm6 = document.createElement('button');
-        rectAngleConfirm6.classList.add("rectAngle-confirm6");
-        rectAngleConfirm6.append("決定");
-        const div12 = document.createElement("div");
-        div12.classList.add("div12");
-        const div11 = document.createElement("div");
-        div11.classList.add("div11");
-    
-        div12.append(rectAngleSizeForm10,rectAngleSizeForm11,rectAngleConfirm6);
-
-        const note4 = document.createElement("p");
-        note4.classList.add("note4");
-        div12.append(note4);
-        document.querySelector(".note4").textContent = "※右端または左端のどちらかを入力してください※";
-
-        div11.append(div12);
-        spacecenterInner.append(div11);
-
-      }  
-    
-         
-          }
-       
-
-        });
-
-
-
-      }
     });
+
+
+
+
+    
+    
   
 
    
@@ -826,9 +607,6 @@ function isMouseOnBorder(rectangle, x, y) {
   
       } else{
 
- 
-      
-
       widthValue = size1Num;
       heightValue = size2Num;
 
@@ -847,8 +625,252 @@ function isMouseOnBorder(rectangle, x, y) {
         document.querySelector(".div1").removeChild(document.querySelector(".div1").lastChild);
       }
 
+      stage.on('click', () => {
+
+  
+        if(dots[0] && dots[1] ) {
+  
+          const rectAngleSizeForm3 = document.createElement('input');
+          rectAngleSizeForm3.type = "text";
+          rectAngleSizeForm3.classList.add("rectAngle-SizeForm3");
+          rectAngleSizeForm3.placeholder = "対象箇所の長さをcm単位で入力";
+    
+          const rectAngleConfirm2 = document.createElement('button');
+          rectAngleConfirm2.classList.add("rectAngle-confirm2");
+          rectAngleConfirm2.append("決定");
+          const div4 = document.createElement("div");
+          div4.classList.add("div4");
+          const div3 = document.createElement("div");
+          div3.classList.add("div3");
+      
+          div4.append(rectAngleSizeForm3,rectAngleConfirm2);
+          div3.append(div4);
+          spacecenterInner.append(div3);
+  
+  
+          document.querySelector(".rectAngle-confirm2").addEventListener("click",function(){
+  
+            const size1 =document.querySelector(".rectAngle-SizeForm3").value;
+            const sizeY = Number.parseFloat(size1);
+            const size1Num = sizeY /1.06;
+            console.log(size1Num)
+            
+        
+            if(Number.isNaN(size1Num)){
+             const sizeFormError2 = document.createElement("p");
+             sizeFormError2.classList.add("size-form-error2");
+             div4.append(sizeFormError);
+             document.querySelector(".size-form-error2").textContent = "※数値のみ入力してください※";
+        
+            } else {
+      
+           // 長さを格納する変数
+           let length = size1Num; // 適宜長さを設定
+           
+           dots[0].destroy();
+           dots[1].destroy();
+           dashedLine.destroy();
+  
+  
+           // 四角の中心座標を取得
+          const midRectX = midRect.x() + midRect.width() / 2;
+          const midRectY = midRect.y() + midRect.height() / 2;
+  
+          // 破線を描画する座標を計算
+          const dashedLineX1 = midRectX - length / 2;
+          const dashedLineY1 = midRectY;
+          const dashedLineX2 = midRectX + length / 2;
+          const dashedLineY2 = midRectY;
+  
+          // 破線を作成
+          const dashedLine5 = new Konva.Line({
+            points: [dashedLineX1, dashedLineY1, dashedLineX2, dashedLineY2],
+            stroke: 'red',
+            strokeWidth: 2,
+            dash: [5, 10], // 破線のパターンを指定（length変数の値を使用）
+          });
+  
+          // 丸い点を作成
+          const circle1 = new Konva.Circle({
+            x: dashedLineX1,
+            y: dashedLineY1,
+            radius: 5,
+            fill: 'red',
+          });
+  
+          const circle2 = new Konva.Circle({
+            x: dashedLineX2,
+            y: dashedLineY2,
+            radius: 5,
+            fill: 'red',
+          });
+  
+          // レイヤーに追加
+          const layer = new Konva.Layer();
+          layer.add(dashedLine5, circle1, circle2, midRect);
+          stage.add(layer);
+  
+          while (document.querySelector(".div3").lastChild) {
+            document.querySelector(".div3").removeChild(document.querySelector(".div3").lastChild);
+           }
+  
+          
+  
+          
+  
+          if( midRect.y() <= rectangle.y()){
+           
+          const rectAngleSizeForm4 = document.createElement('input');
+          rectAngleSizeForm4.type = "text";
+          rectAngleSizeForm4.classList.add("rectAngle-SizeForm4");
+          rectAngleSizeForm4.placeholder = "右端からの長さを入力";
+  
+          const rectAngleSizeForm5 = document.createElement('input');
+          rectAngleSizeForm5.type = "text";
+          rectAngleSizeForm5.classList.add("rectAngle-SizeForm5");
+          rectAngleSizeForm5.placeholder = "左端からの長さを入力";
+    
+          const rectAngleConfirm3 = document.createElement('button');
+          rectAngleConfirm3.classList.add("rectAngle-confirm3");
+          rectAngleConfirm3.append("決定");
+  
+          const div6 = document.createElement("div");
+          div6.classList.add("div6");
+  
+          const div5 = document.createElement("div");
+          div5.classList.add("div5");
+  
+          const note1 = document.createElement("p");
+          note1.classList.add("note1");
+  
+          div6.append(note1);
+          div6.append(rectAngleSizeForm4,rectAngleSizeForm5,rectAngleConfirm3);
+  
+          div5.append(div6);
+          spacecenterInner.append(div5);
+  
+          document.querySelector(".note1").textContent = "※右端または左端のどちらかを入力してください※";
+  
+        } else if( midRect.x() + midRect.width() >= rectangle.x() + rectangle.width()){
+  
+          const rectAngleSizeForm6 = document.createElement('input');
+          rectAngleSizeForm6.type = "text";
+          rectAngleSizeForm6.classList.add("rectAngle-SizeForm6");
+          rectAngleSizeForm6.placeholder = "上端からの長さを入力";
+  
+          const rectAngleSizeForm7 = document.createElement('input');
+          rectAngleSizeForm7.type = "text";
+          rectAngleSizeForm7.classList.add("rectAngle-SizeForm7");
+          rectAngleSizeForm7.placeholder = "下端からの長さを入力";
+    
+          const rectAngleConfirm4 = document.createElement('button');
+          rectAngleConfirm4.classList.add("rectAngle-confirm4");
+          rectAngleConfirm4.append("決定");
+
+          const div8 = document.createElement("div");
+          div8.classList.add("div8");
+
+          const div7 = document.createElement("div");
+          div7.classList.add("div7");
+
+          const note2 = document.createElement("p");
+          note2.classList.add("note2");
+
+          div8.append(note2);
+          div8.append(rectAngleSizeForm6,rectAngleSizeForm7,rectAngleConfirm4);
+  
+          div7.append(div8);
+          spacecenterInner.append(div7);
+          
+          document.querySelector(".note2").textContent = "※上端または下端のどちらかを入力してください※";
+  
+        } else if( midRect.x() <= rectangle.x()){
+  
+          const rectAngleSizeForm8 = document.createElement('input');
+          rectAngleSizeForm8.type = "text";
+          rectAngleSizeForm8.classList.add("rectAngle-SizeForm8");
+          rectAngleSizeForm8.placeholder = "上端からの長さを入力";
+  
+          const rectAngleSizeForm9 = document.createElement('input');
+          rectAngleSizeForm9.type = "text";
+          rectAngleSizeForm9.classList.add("rectAngle-SizeForm9");
+          rectAngleSizeForm9.placeholder = "下端からの長さを入力";
+    
+          const rectAngleConfirm5 = document.createElement('button');
+          rectAngleConfirm5.classList.add("rectAngle-confirm5");
+          rectAngleConfirm5.append("決定");
+
+          const div10 = document.createElement("div");
+          div10.classList.add("div10");
+
+          const div9 = document.createElement("div");
+          div9.classList.add("div9");
+
+          const note3 = document.createElement("p");
+          note3.classList.add("note3");
+
+          div10.append(note3);
+          div10.append(rectAngleSizeForm8,rectAngleSizeForm9,rectAngleConfirm5);
+  
+          div9.append(div10);
+          spacecenterInner.append(div9);
+
+          document.querySelector(".note3").textContent = "※上端または下端のどちらかを入力してください※";
+  
+        } else if( midRect.y() + midRect.height() >= rectangle.y() + rectangle.height()){
+  
+          const rectAngleSizeForm10 = document.createElement('input');
+          rectAngleSizeForm10.type = "text";
+          rectAngleSizeForm10.classList.add("rectAngle-SizeForm10");
+          rectAngleSizeForm10.placeholder = "右端からの長さを入力";
+  
+          const rectAngleSizeForm11 = document.createElement('input');
+          rectAngleSizeForm11.type = "text";
+          rectAngleSizeForm11.classList.add("rectAngle-SizeForm11");
+          rectAngleSizeForm11.placeholder = "左端からの長さを入力";
+    
+          const rectAngleConfirm6 = document.createElement('button');
+          rectAngleConfirm6.classList.add("rectAngle-confirm6");
+          rectAngleConfirm6.append("決定");
+
+          const div12 = document.createElement("div");
+          div12.classList.add("div12");
+
+          const div11 = document.createElement("div");
+          div11.classList.add("div11");
+
+          const note4 = document.createElement("p");
+          note4.classList.add("note4");
+
+          div12.append(note4);
+          div12.append(rectAngleSizeForm10,rectAngleSizeForm11,rectAngleConfirm6);
+  
+          div11.append(div12);
+          spacecenterInner.append(div11);
+
+          document.querySelector(".note4").textContent = "※右端または左端のどちらかを入力してください※";
+  
+        }  
+      
+           
+            }
+         
+  
+          });
+  
+  
+  
+        }
+  
+  
+    });
+      
+
+
      
       }
+
+      
   
   
     });
