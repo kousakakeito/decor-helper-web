@@ -628,7 +628,10 @@ function isMouseOnBorder(rectangle, x, y) {
       stage.on('click', () => {
 
   
-        if(dots[0] && dots[1] ) {
+        if( dots.filter(dot => dot.y() === rectangle.y()).length === 2 ||
+            dots.filter(dot => dot.y() === rectangle.y() + rectangle.height()).length === 2 ||
+            dots.filter(dot => dot.x() === rectangle.x() + rectangle.width()).length === 2 ||
+            dots.filter(dot => dot.x() === rectangle.x()).length === 2 ) {
   
           const rectAngleSizeForm3 = document.createElement('input');
           rectAngleSizeForm3.type = "text";
@@ -665,50 +668,14 @@ function isMouseOnBorder(rectangle, x, y) {
             } else {
       
            // 長さを格納する変数
-           let length = size1Num; // 適宜長さを設定
+           let length = size1Num; 
            
            dots[0].destroy();
            dots[1].destroy();
            dashedLine.destroy();
   
   
-           // 四角の中心座標を取得
-          const midRectX = midRect.x() + midRect.width() / 2;
-          const midRectY = midRect.y() + midRect.height() / 2;
-  
-          // 破線を描画する座標を計算
-          const dashedLineX1 = midRectX - length / 2;
-          const dashedLineY1 = midRectY;
-          const dashedLineX2 = midRectX + length / 2;
-          const dashedLineY2 = midRectY;
-  
-          // 破線を作成
-          const dashedLine5 = new Konva.Line({
-            points: [dashedLineX1, dashedLineY1, dashedLineX2, dashedLineY2],
-            stroke: 'red',
-            strokeWidth: 2,
-            dash: [5, 10], // 破線のパターンを指定（length変数の値を使用）
-          });
-  
-          // 丸い点を作成
-          const circle1 = new Konva.Circle({
-            x: dashedLineX1,
-            y: dashedLineY1,
-            radius: 5,
-            fill: 'red',
-          });
-  
-          const circle2 = new Konva.Circle({
-            x: dashedLineX2,
-            y: dashedLineY2,
-            radius: 5,
-            fill: 'red',
-          });
-  
-          // レイヤーに追加
-          const layer = new Konva.Layer();
-          layer.add(dashedLine5, circle1, circle2, midRect);
-          stage.add(layer);
+
   
           while (document.querySelector(".div3").lastChild) {
             document.querySelector(".div3").removeChild(document.querySelector(".div3").lastChild);
@@ -750,6 +717,44 @@ function isMouseOnBorder(rectangle, x, y) {
           spacecenterInner.append(div5);
   
           document.querySelector(".note1").textContent = "※右端または左端のどちらかを入力してください※";
+
+          // 四角の中心座標を取得
+          const midRectX = midRect.x() + midRect.width() / 2;
+          const midRectY = midRect.y() + midRect.height() / 2;
+  
+          // 横破線を描画する座標を計算
+          const dashedLineX1 = midRectX - length / 2;
+          const dashedLineY1 = midRectY;
+          const dashedLineX2 = midRectX + length / 2;
+          const dashedLineY2 = midRectY;
+  
+          // 破線を作成
+          const dashedLine5 = new Konva.Line({
+            points: [dashedLineX1, dashedLineY1, dashedLineX2, dashedLineY2],
+            stroke: 'red',
+            strokeWidth: 2,
+            dash: [5, 10], // 破線のパターンを指定（length変数の値を使用）
+          });
+  
+          // 丸い点を作成
+          const circle1 = new Konva.Circle({
+            x: dashedLineX1,
+            y: dashedLineY1,
+            radius: 5,
+            fill: 'red',
+          });
+  
+          const circle2 = new Konva.Circle({
+            x: dashedLineX2,
+            y: dashedLineY2,
+            radius: 5,
+            fill: 'red',
+          });
+  
+          // レイヤーに追加
+          const layer = new Konva.Layer();
+          layer.add(dashedLine5, circle1, circle2, midRect);
+          stage.add(layer);
   
         } else if( midRect.x() + midRect.width() >= rectangle.x() + rectangle.width()){
   
@@ -783,6 +788,44 @@ function isMouseOnBorder(rectangle, x, y) {
           spacecenterInner.append(div7);
           
           document.querySelector(".note2").textContent = "※上端または下端のどちらかを入力してください※";
+
+           // 四角の中心座標を取得
+          const midRectX = midRect.x() + midRect.width() / 2;
+          const midRectY = midRect.y() + midRect.height() / 2;
+
+           // 縦破線を描画する座標を計算
+           const dashedLineX1 = midRectX;
+           const dashedLineY1 = midRectY - length / 2;
+           const dashedLineX2 = midRectX;
+           const dashedLineY2 = midRectY + length / 2;
+  
+          // 破線を作成
+          const dashedLine5 = new Konva.Line({
+            points: [dashedLineX1, dashedLineY1, dashedLineX2, dashedLineY2],
+            stroke: 'red',
+            strokeWidth: 2,
+            dash: [5, 10], // 破線のパターンを指定（length変数の値を使用）
+          });
+  
+          // 丸い点を作成
+          const circle1 = new Konva.Circle({
+            x: dashedLineX1,
+            y: dashedLineY1,
+            radius: 5,
+            fill: 'red',
+          });
+  
+          const circle2 = new Konva.Circle({
+            x: dashedLineX2,
+            y: dashedLineY2,
+            radius: 5,
+            fill: 'red',
+          });
+  
+          // レイヤーに追加
+          const layer = new Konva.Layer();
+          layer.add(dashedLine5, circle1, circle2, midRect);
+          stage.add(layer);
   
         } else if( midRect.x() <= rectangle.x()){
   
@@ -816,6 +859,44 @@ function isMouseOnBorder(rectangle, x, y) {
           spacecenterInner.append(div9);
 
           document.querySelector(".note3").textContent = "※上端または下端のどちらかを入力してください※";
+
+          // 四角の中心座標を取得
+          const midRectX = midRect.x() + midRect.width() / 2;
+          const midRectY = midRect.y() + midRect.height() / 2;
+
+           // 縦破線を描画する座標を計算
+           const dashedLineX1 = midRectX;
+           const dashedLineY1 = midRectY - length / 2;
+           const dashedLineX2 = midRectX;
+           const dashedLineY2 = midRectY + length / 2;
+  
+          // 破線を作成
+          const dashedLine5 = new Konva.Line({
+            points: [dashedLineX1, dashedLineY1, dashedLineX2, dashedLineY2],
+            stroke: 'red',
+            strokeWidth: 2,
+            dash: [5, 10], // 破線のパターンを指定（length変数の値を使用）
+          });
+  
+          // 丸い点を作成
+          const circle1 = new Konva.Circle({
+            x: dashedLineX1,
+            y: dashedLineY1,
+            radius: 5,
+            fill: 'red',
+          });
+  
+          const circle2 = new Konva.Circle({
+            x: dashedLineX2,
+            y: dashedLineY2,
+            radius: 5,
+            fill: 'red',
+          });
+  
+          // レイヤーに追加
+          const layer = new Konva.Layer();
+          layer.add(dashedLine5, circle1, circle2, midRect);
+          stage.add(layer);
   
         } else if( midRect.y() + midRect.height() >= rectangle.y() + rectangle.height()){
   
@@ -849,8 +930,48 @@ function isMouseOnBorder(rectangle, x, y) {
           spacecenterInner.append(div11);
 
           document.querySelector(".note4").textContent = "※右端または左端のどちらかを入力してください※";
+
+          // 四角の中心座標を取得
+          const midRectX = midRect.x() + midRect.width() / 2;
+          const midRectY = midRect.y() + midRect.height() / 2;
   
-        }  
+          // 横破線を描画する座標を計算
+          const dashedLineX1 = midRectX - length / 2;
+          const dashedLineY1 = midRectY;
+          const dashedLineX2 = midRectX + length / 2;
+          const dashedLineY2 = midRectY;
+  
+          // 破線を作成
+          const dashedLine5 = new Konva.Line({
+            points: [dashedLineX1, dashedLineY1, dashedLineX2, dashedLineY2],
+            stroke: 'red',
+            strokeWidth: 2,
+            dash: [5, 10], // 破線のパターンを指定（length変数の値を使用）
+          });
+  
+          // 丸い点を作成
+          const circle1 = new Konva.Circle({
+            x: dashedLineX1,
+            y: dashedLineY1,
+            radius: 5,
+            fill: 'red',
+          });
+  
+          const circle2 = new Konva.Circle({
+            x: dashedLineX2,
+            y: dashedLineY2,
+            radius: 5,
+            fill: 'red',
+          });
+  
+          // レイヤーに追加
+          const layer = new Konva.Layer();
+          layer.add(dashedLine5, circle1, circle2, midRect);
+          stage.add(layer);
+  
+       
+          
+        }
       
            
             }
@@ -860,6 +981,199 @@ function isMouseOnBorder(rectangle, x, y) {
   
   
   
+        } else if(dots.length === 2 && dots[0].y() === rectangle.y() && dots[1].x() === rectangle.x() + rectangle.width() ||
+                  dots.length === 2 && dots[0].x() === rectangle.x() + rectangle.width() && dots[1].y() === rectangle.y()){
+
+          const rectAngleSizeForm12 = document.createElement('input');
+          rectAngleSizeForm12.type = "text";
+          rectAngleSizeForm12.classList.add("rectAngle-SizeForm12");
+          rectAngleSizeForm12.placeholder = "上辺丸点の左端からの長さを入力";
+  
+          const rectAngleSizeForm13 = document.createElement('input');
+          rectAngleSizeForm13.type = "text";
+          rectAngleSizeForm13.classList.add("rectAngle-SizeForm13");
+          rectAngleSizeForm13.placeholder = "上辺丸点の右端からの長さを入力";
+
+          const rectAngleSizeForm14 = document.createElement('input');
+          rectAngleSizeForm14.type = "text";
+          rectAngleSizeForm14.classList.add("rectAngle-SizeForm14");
+          rectAngleSizeForm14.placeholder = "右辺丸点の上端からの長さを入力";
+  
+          const rectAngleSizeForm15 = document.createElement('input');
+          rectAngleSizeForm15.type = "text";
+          rectAngleSizeForm15.classList.add("rectAngle-SizeForm15");
+          rectAngleSizeForm15.placeholder = "右辺丸点の下端からの長さを入力";
+    
+          const rectAngleConfirm7 = document.createElement('button');
+          rectAngleConfirm7.classList.add("rectAngle-confirm7");
+          rectAngleConfirm7.append("決定");
+
+          const div14 = document.createElement("div");
+          div14.classList.add("div14");
+
+          const div13 = document.createElement("div");
+          div13.classList.add("div13");
+
+          const note5 = document.createElement("p");
+          note5.classList.add("note5");
+
+          const note6 = document.createElement("p");
+          note6.classList.add("note6");
+
+          div14.append(note5,note6);
+          div14.append(rectAngleSizeForm12,rectAngleSizeForm13,rectAngleSizeForm14,rectAngleSizeForm15,rectAngleConfirm7);
+  
+          div13.append(div14);
+          spacecenterInner.append(div13);
+
+          document.querySelector(".note5").textContent = "※右端または左端のどちらかを入力してください※";
+          document.querySelector(".note6").textContent = "※上端または下端のどちらかを入力してください※";
+
+
+        } else if(dots.length === 2 && dots[0].y() === rectangle.y() && dots[1].x() === rectangle.x() ||
+                  dots.length === 2 && dots[0].x() === rectangle.x() && dots[1].y() === rectangle.y()){
+
+          const rectAngleSizeForm16 = document.createElement('input');
+          rectAngleSizeForm16.type = "text";
+          rectAngleSizeForm16.classList.add("rectAngle-SizeForm16");
+          rectAngleSizeForm16.placeholder = "上辺丸点の左端からの長さを入力";
+  
+          const rectAngleSizeForm17 = document.createElement('input');
+          rectAngleSizeForm17.type = "text";
+          rectAngleSizeForm17.classList.add("rectAngle-SizeForm17");
+          rectAngleSizeForm17.placeholder = "上辺丸点の右端からの長さを入力";
+
+          const rectAngleSizeForm18 = document.createElement('input');
+          rectAngleSizeForm18.type = "text";
+          rectAngleSizeForm18.classList.add("rectAngle-SizeForm18");
+          rectAngleSizeForm18.placeholder = "左辺丸点の上端からの長さを入力";
+  
+          const rectAngleSizeForm19 = document.createElement('input');
+          rectAngleSizeForm19.type = "text";
+          rectAngleSizeForm19.classList.add("rectAngle-SizeForm19");
+          rectAngleSizeForm19.placeholder = "左辺丸点の下端からの長さを入力";
+    
+          const rectAngleConfirm8 = document.createElement('button');
+          rectAngleConfirm8.classList.add("rectAngle-confirm8");
+          rectAngleConfirm8.append("決定");
+
+          const div16 = document.createElement("div");
+          div16.classList.add("div16");
+
+          const div15 = document.createElement("div");
+          div15.classList.add("div15");
+
+          const note7 = document.createElement("p");
+          note7.classList.add("note7");
+
+          const note8 = document.createElement("p");
+          note8.classList.add("note8");
+
+          div16.append(note7,note8);
+          div16.append(rectAngleSizeForm16,rectAngleSizeForm17,rectAngleSizeForm18,rectAngleSizeForm19,rectAngleConfirm8);
+  
+          div15.append(div16);
+          spacecenterInner.append(div15);
+
+          document.querySelector(".note7").textContent = "※右端または左端のどちらかを入力してください※";
+          document.querySelector(".note8").textContent = "※上端または下端のどちらかを入力してください※";
+
+        } else if(dots.length === 2 && dots[0].x() === rectangle.x() + rectangle.width() && dots[1].y() === rectangle.y() + rectangle.height() ||
+                  dots.length === 2 && dots[0].y() === rectangle.y() + rectangle.height() && dots[1].x() === rectangle.x() + rectangle.width()){
+
+          const rectAngleSizeForm20 = document.createElement('input');
+          rectAngleSizeForm20.type = "text";
+          rectAngleSizeForm20.classList.add("rectAngle-SizeForm20");
+          rectAngleSizeForm20.placeholder = "右辺丸点の上端からの長さを入力";
+  
+          const rectAngleSizeForm21 = document.createElement('input');
+          rectAngleSizeForm21.type = "text";
+          rectAngleSizeForm21.classList.add("rectAngle-SizeForm21");
+          rectAngleSizeForm21.placeholder = "右辺丸点の下端からの長さを入力";
+
+          const rectAngleSizeForm22 = document.createElement('input');
+          rectAngleSizeForm22.type = "text";
+          rectAngleSizeForm22.classList.add("rectAngle-SizeForm22");
+          rectAngleSizeForm22.placeholder = "下辺丸点の右端からの長さを入力";
+  
+          const rectAngleSizeForm23 = document.createElement('input');
+          rectAngleSizeForm23.type = "text";
+          rectAngleSizeForm23.classList.add("rectAngle-SizeForm23");
+          rectAngleSizeForm23.placeholder = "下辺丸点の左端からの長さを入力";
+    
+          const rectAngleConfirm9 = document.createElement('button');
+          rectAngleConfirm9.classList.add("rectAngle-confirm9");
+          rectAngleConfirm9.append("決定");
+
+          const div18 = document.createElement("div");
+          div18.classList.add("div18");
+
+          const div17 = document.createElement("div");
+          div17.classList.add("div17");
+
+          const note9 = document.createElement("p");
+          note9.classList.add("note9");
+
+          const note10 = document.createElement("p");
+          note10.classList.add("note10");
+
+          div18.append(note9,note10);
+          div18.append(rectAngleSizeForm20,rectAngleSizeForm21,rectAngleSizeForm22,rectAngleSizeForm23,rectAngleConfirm9);
+  
+          div17.append(div18);
+          spacecenterInner.append(div17);
+
+          document.querySelector(".note9").textContent = "※上端または下端のどちらかを入力してください※";
+          document.querySelector(".note10").textContent = "※右端または左端のどちらかを入力してください※";
+          
+        } else if(dots.length === 2 && dots[0].y() === rectangle.y() + rectangle.height() && dots[1].x() === rectangle.x() ||
+                  dots.length === 2 && dots[0].x() === rectangle.x() && dots[1].y() === rectangle.y() + rectangle.height()){
+
+          const rectAngleSizeForm24 = document.createElement('input');
+          rectAngleSizeForm24.type = "text";
+          rectAngleSizeForm24.classList.add("rectAngle-SizeForm24");
+          rectAngleSizeForm24.placeholder = "下辺丸点の右端からの長さを入力";
+  
+          const rectAngleSizeForm25 = document.createElement('input');
+          rectAngleSizeForm25.type = "text";
+          rectAngleSizeForm25.classList.add("rectAngle-SizeForm25");
+          rectAngleSizeForm25.placeholder = "下辺丸点の左端からの長さを入力";
+
+          const rectAngleSizeForm26 = document.createElement('input');
+          rectAngleSizeForm26.type = "text";
+          rectAngleSizeForm26.classList.add("rectAngle-SizeForm26");
+          rectAngleSizeForm26.placeholder = "左辺丸点の上端からの長さを入力";
+  
+          const rectAngleSizeForm27 = document.createElement('input');
+          rectAngleSizeForm27.type = "text";
+          rectAngleSizeForm27.classList.add("rectAngle-SizeForm27");
+          rectAngleSizeForm27.placeholder = "左辺丸点の下端からの長さを入力";
+    
+          const rectAngleConfirm10 = document.createElement('button');
+          rectAngleConfirm10.classList.add("rectAngle-confirm10");
+          rectAngleConfirm10.append("決定");
+
+          const div20 = document.createElement("div");
+          div20.classList.add("div20");
+
+          const div19 = document.createElement("div");
+          div19.classList.add("div19");
+
+          const note11 = document.createElement("p");
+          note11.classList.add("note11");
+
+          const note12 = document.createElement("p");
+          note12.classList.add("note12");
+
+          div20.append(note11,note12);
+          div20.append(rectAngleSizeForm24,rectAngleSizeForm25,rectAngleSizeForm26,rectAngleSizeForm27,rectAngleConfirm10);
+  
+          div19.append(div20);
+          spacecenterInner.append(div19);
+
+          document.querySelector(".note11").textContent = "※右端または左端のどちらかを入力してください※";
+          document.querySelector(".note12").textContent = "※上端または下端のどちらかを入力してください※";
+
         }
   
   

@@ -815,6 +815,86 @@ button{
   box-shadow: 0 8px #008000;
 }
 
+.rectAngle-confirm7{
+  position: relative;
+  margin-top: 20px;
+  margin-left: 160px;
+  width: 60px;
+  height: 20px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+.rectAngle-confirm7:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
+.rectAngle-confirm8{
+  position: relative;
+  margin-top: 20px;
+  margin-left: 160px;
+  width: 60px;
+  height: 20px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+.rectAngle-confirm8:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
+.rectAngle-confirm9{
+  position: relative;
+  margin-top: 20px;
+  margin-left: 160px;
+  width: 60px;
+  height: 20px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+.rectAngle-confirm9:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
+.rectAngle-confirm10{
+  position: relative;
+  margin-top: 20px;
+  margin-left: 160px;
+  width: 60px;
+  height: 20px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+.rectAngle-confirm10:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
 .rectAngle-SizeForm1{
   position: relative;
   margin-top: 35px;
@@ -903,6 +983,133 @@ button{
   text-align: center;
 }
 
+.rectAngle-SizeForm12{
+  position: relative;
+  margin-top: 35px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm13{
+  position: relative;
+  margin-top: 30px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm14{
+  position: relative;
+  margin-top: 35px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm15{
+  position: relative;
+  margin-top: 30px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm16{
+  position: relative;
+  margin-top: 35px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm17{
+  position: relative;
+  margin-top: 30px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm18{
+  position: relative;
+  margin-top: 35px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm19{
+  position: relative;
+  margin-top: 30px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm20{
+  position: relative;
+  margin-top: 35px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm21{
+  position: relative;
+  margin-top: 30px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm22{
+  position: relative;
+  margin-top: 35px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm23{
+  position: relative;
+  margin-top: 30px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm24{
+  position: relative;
+  margin-top: 35px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm25{
+  position: relative;
+  margin-top: 30px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm26{
+  position: relative;
+  margin-top: 35px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm27{
+  position: relative;
+  margin-top: 30px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
 
 .size-form-error{
   position: relative;
@@ -958,6 +1165,86 @@ button{
   margin-left: 10px;
   font-size: 10px;
   margin-top: 10px;
+  text-align: center;
+
+}
+
+.note5{
+  position: absolute;
+  color: blue;
+  margin-left: 10px;
+  font-size: 10px;
+  margin-top: 10px;
+  text-align: center;
+
+}
+
+.note6{
+  position: absolute;
+  color: blue;
+  margin-left: 10px;
+  font-size: 10px;
+  margin-top: 115px;
+  text-align: center;
+
+}
+
+.note7{
+  position: absolute;
+  color: blue;
+  margin-left: 10px;
+  font-size: 10px;
+  margin-top: 10px;
+  text-align: center;
+
+}
+
+.note8{
+  position: absolute;
+  color: blue;
+  margin-left: 10px;
+  font-size: 10px;
+  margin-top: 115px;
+  text-align: center;
+
+}
+
+.note9{
+  position: absolute;
+  color: blue;
+  margin-left: 10px;
+  font-size: 10px;
+  margin-top: 10px;
+  text-align: center;
+
+}
+
+.note10{
+  position: absolute;
+  color: blue;
+  margin-left: 10px;
+  font-size: 10px;
+  margin-top: 115px;
+  text-align: center;
+
+}
+
+.note11{
+  position: absolute;
+  color: blue;
+  margin-left: 10px;
+  font-size: 10px;
+  margin-top: 10px;
+  text-align: center;
+
+}
+
+.note12{
+  position: absolute;
+  color: blue;
+  margin-left: 10px;
+  font-size: 10px;
+  margin-top: 115px;
   text-align: center;
 
 }
@@ -1023,6 +1310,50 @@ button{
   border-style: solid;
   width: 250px;
   height: 160px;
+  margin-top: -385px;
+  margin-left: 425px;
+  background-color: rgb(13, 141, 158);
+}
+
+.div14{
+  position: absolute;
+  border-width: 2px;
+  border-style: solid;
+  width: 250px;
+  height: 270px;
+  margin-top: -385px;
+  margin-left: 425px;
+  background-color: rgb(13, 141, 158);
+}
+
+.div16{
+  position: absolute;
+  border-width: 2px;
+  border-style: solid;
+  width: 250px;
+  height: 270px;
+  margin-top: -385px;
+  margin-left: 425px;
+  background-color: rgb(13, 141, 158);
+}
+
+.div18{
+  position: absolute;
+  border-width: 2px;
+  border-style: solid;
+  width: 250px;
+  height: 270px;
+  margin-top: -385px;
+  margin-left: 425px;
+  background-color: rgb(13, 141, 158);
+}
+
+.div20{
+  position: absolute;
+  border-width: 2px;
+  border-style: solid;
+  width: 250px;
+  height: 270px;
   margin-top: -385px;
   margin-left: 425px;
   background-color: rgb(13, 141, 158);
