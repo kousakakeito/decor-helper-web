@@ -632,6 +632,8 @@ function isMouseOnBorder(rectangle, x, y) {
             dots.filter(dot => dot.y() === rectangle.y() + rectangle.height()).length === 2 ||
             dots.filter(dot => dot.x() === rectangle.x() + rectangle.width()).length === 2 ||
             dots.filter(dot => dot.x() === rectangle.x()).length === 2 ) {
+              
+              stage.off('click');
   
           const rectAngleSizeForm3 = document.createElement('input');
           rectAngleSizeForm3.type = "text";
@@ -652,11 +654,13 @@ function isMouseOnBorder(rectangle, x, y) {
   
   
           document.querySelector(".rectAngle-confirm2").addEventListener("click",function(){
+           
   
             const size1 =document.querySelector(".rectAngle-SizeForm3").value;
             const sizeY = Number.parseFloat(size1);
             const size1Num = sizeY /1.06;
             console.log(size1Num)
+            
             
         
             if(Number.isNaN(size1Num)){
@@ -666,6 +670,7 @@ function isMouseOnBorder(rectangle, x, y) {
              document.querySelector(".size-form-error2").textContent = "※数値のみ入力してください※";
         
             } else {
+              
       
            // 長さを格納する変数
            let length = size1Num; 
@@ -755,6 +760,105 @@ function isMouseOnBorder(rectangle, x, y) {
           const layer = new Konva.Layer();
           layer.add(dashedLine5, circle1, circle2, midRect);
           stage.add(layer);
+
+          document.querySelector(".rectAngle-confirm3").addEventListener("click",function(){
+
+            const size2 =document.querySelector(".rectAngle-SizeForm4").value;
+            const size3 =document.querySelector(".rectAngle-SizeForm5").value;
+            const size2Y = Number.parseFloat(size2);
+            const size3Y = Number.parseFloat(size3);
+            const size2Num = size2Y /1.06;
+            const size3Num = size3Y /1.06;
+            console.log(size2Num)
+            console.log(size3Num)
+            
+            
+            if(size2 !== "" && size3 === ""){
+
+            if(Number.isNaN(size2Num)){
+             const sizeFormError3 = document.createElement("p");
+             sizeFormError3.classList.add("size-form-error3");
+             div6.append(sizeFormError);
+             document.querySelector(".size-form-error3").textContent = "※数値のみ入力してください※";    
+            } 
+              console.log("A");
+      
+           // 長さを格納する変数
+           let length2 = size2Num; 
+
+           circle1.destroy();
+           midRect.destroy();
+           dashedLine5.destroy();
+
+           // 図形の上辺の右端から指定した距離の位置を計算して新しい右の丸い点のX座標を設定
+           const newRightCircleX = rectangle.x() + rectangle.width() - length2;
+
+           // 右の丸い点の座標を更新
+           circle2.x(newRightCircleX);
+           layer.draw();
+
+           function showDashedLine() {
+             // 丸い点の座標を取得
+             const x = circle2.x();
+             const y = circle2.y();
+
+             // 破線を作成
+             const dashedLine6 = new Konva.Line({
+               points: [x, y, x - length, y], // 例としてX座標から100ピクセル右に破線を表示
+               stroke: 'red',
+               strokeWidth: 2,
+               lineCap: 'round',
+               dash: [5, 10],
+             });
+
+             // 新しい丸い点を作成
+             const newCircle = new Konva.Circle({
+               x: dashedLine6.points()[2], // 破線の一番左端のX座標を取得
+               y: dashedLine6.points()[3], // 破線の一番左端のY座標を取得
+               radius: 5,
+               fill: 'red',
+             });
+
+             const x2 = newCircle.x();
+             const y2 = newCircle.y();
+
+             const newRectX = (x + x2) / 2;
+             const newRectY = (y + y2) / 2;
+             const newRect = new Konva.Rect({
+               x: newRectX - 5, // 四角の幅と高さを考慮して調整
+               y: newRectY - 5,
+               width: 10,
+               height: 10,
+               fill: 'red',
+             });
+
+             layer.add(dashedLine6);
+             layer.add(newCircle); 
+             layer.add(newRect);
+             layer.draw();
+           }
+
+           showDashedLine();
+
+           while (document.querySelector(".div5").lastChild) {
+            document.querySelector(".div5").removeChild(document.querySelector(".div5").lastChild);
+           }
+
+
+        
+
+            } else if(size3 !== "" && size2 === ""){
+
+              if(Number.isNaN(size3Num)){
+                const sizeFormError3 = document.createElement("p");
+                sizeFormError3.classList.add("size-form-error3");
+                div6.append(sizeFormError);
+                document.querySelector(".size-form-error3").textContent = "※数値のみ入力してください※";
+               } 
+
+            }  
+
+          });
   
         } else if( midRect.x() + midRect.width() >= rectangle.x() + rectangle.width()){
   
@@ -1175,6 +1279,7 @@ function isMouseOnBorder(rectangle, x, y) {
           document.querySelector(".note12").textContent = "※上端または下端のどちらかを入力してください※";
 
         }
+  
   
   
     });
