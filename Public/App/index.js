@@ -776,11 +776,19 @@ function isMouseOnBorder(rectangle, x, y) {
             if(size2 !== "" && size3 === ""){
 
             if(Number.isNaN(size2Num)){
+
              const sizeFormError3 = document.createElement("p");
              sizeFormError3.classList.add("size-form-error3");
-             div6.append(sizeFormError);
-             document.querySelector(".size-form-error3").textContent = "※数値のみ入力してください※";    
-            } 
+             div6.append(sizeFormError3);
+             document.querySelector(".size-form-error3").textContent = "※数値のみ入力してください※";  
+
+            } else if(Number.isNaN(size3Num)){
+
+              const sizeFormError4 = document.createElement("p");
+              sizeFormError4.classList.add("size-form-error4");
+              div6.append(sizeFormError4);
+              document.querySelector(".size-form-error4").textContent = "※数値のみ入力してください※";    
+             } 
               console.log("A");
       
            // 長さを格納する変数
@@ -843,6 +851,154 @@ function isMouseOnBorder(rectangle, x, y) {
            while (document.querySelector(".div5").lastChild) {
             document.querySelector(".div5").removeChild(document.querySelector(".div5").lastChild);
            }
+
+          const paturnText = document.createElement('p');
+          paturnText.classList.add("paturn-text");
+
+          const check1 = document.createElement('input');
+          check1.type = "checkbox";
+          check1.classList.add("check1");
+          check1.name = "check";
+
+          const check2 = document.createElement('input');
+          check2.type = "checkbox";
+          check2.classList.add("check2");
+          check2.name = "check";
+
+          const paturn1 = document.createElement('img');
+          paturn1.src = "/images/paturn1.png";
+          paturn1.classList.add("paturn1");
+
+          const paturn2 = document.createElement('img');
+          paturn2.src = "/images/paturn2.png";
+          paturn2.classList.add("paturn2");
+
+          const rectAngleSizeForm28 = document.createElement('input');
+          rectAngleSizeForm28.type = "text";
+          rectAngleSizeForm28.classList.add("rectAngle-SizeForm28");
+          rectAngleSizeForm28.placeholder = "上方向に伸ばす長さを入力";
+  
+          const rectAngleSizeForm29 = document.createElement('input');
+          rectAngleSizeForm29.type = "text";
+          rectAngleSizeForm29.classList.add("rectAngle-SizeForm5");
+          rectAngleSizeForm29.placeholder = "下方向に縮める長さを入力";
+    
+          const rectAngleConfirm11 = document.createElement('button');
+          rectAngleConfirm11.classList.add("rectAngle-confirm11");
+          rectAngleConfirm11.append("決定");
+  
+          const div22 = document.createElement("div");
+          div22.classList.add("div22");
+  
+          const div21 = document.createElement("div");
+          div21.classList.add("div21");
+  
+          const note13 = document.createElement("p");
+          note13.classList.add("note13");
+  
+          div22.append(note13);
+          div22.append(paturnText,check1,paturn1,check2,paturn2,rectAngleSizeForm28,rectAngleSizeForm29,rectAngleConfirm11);
+  
+          div21.append(div22);
+          spacecenterInner.append(div21);
+  
+          document.querySelector(".note13").textContent = "上方向または下方向のどちらかを入力してください";
+          document.querySelector(".paturn-text").textContent = "伸縮パターンを選択後、長さを入力してください";
+
+          const check = document.querySelectorAll("[name=check");
+          for(let i = 0; i < 2; i++){
+            check[i].addEventListener("click",function(){
+              const currentItem = this;
+              if(currentItem.checked){
+                check[0].checked = false;
+                check[1].checked = false;
+                currentItem.checked = true;
+              };
+            });
+          };
+
+          document.querySelector(".rectAngle-confirm11").addEventListener("click",function(){
+
+            if(check[0].checked){
+        
+              const size4 =document.querySelector(".rectAngle-SizeForm21").value;
+              const size5 =document.querySelector(".rectAngle-SizeForm22").value;
+              const size4Y = Number.parseFloat(size4);
+              const size5Y = Number.parseFloat(size5);
+              const size4Num = size4Y /1.06;
+              const size5Num = size5Y /1.06;
+              
+
+              if(Number.isNaN(size4Num)){
+               const sizeFormError5 = document.createElement("p");
+               sizeFormError5.classList.add("size-form-error5");
+               div22.append(sizeFormError5);
+               document.querySelector(".size-form-error5").textContent = "※数値のみ入力してください※";
+          
+              } else if(Number.isNaN(size5Num)){
+               const sizeFormError6 = document.createElement("p");
+               sizeFormError6.classList.add("size-form-error6");
+               div22.append(sizeFormError6);
+               document.querySelector(".size-form-error6").textContent = "※数値のみ入力してください※";
+              };
+
+              if(size4 !== "" && size5 === ""){
+
+                //size4Num取得して上に伸ばす処理、現在表示されている四角を、図形の上方向に入力された数値の長さの座標の位置に移動させ、２つの丸い点と四角を破線で繋ぐ。そしてwhileでフォームを消し、新たなフォームを作成する。新フォームで完了を押せば２つの丸い点の座標と四角の座標の内側（破線の内側）を青色にする。四角を右、左方向にずらすの２つのフォームをif文で２パターン化し（右方向を入力して決定を押すパターンとその逆）入力した数値の長さだけ四角を移動させ、破線の内側の色を青色にする
+
+              }else if(size5 !== "" && size4 === ""){
+
+                //size5Num取得して下に縮める処理、現在表示されている四角を、図形の下方向に入力された数値の長さの座標の位置に移動させ、２つの丸い点と四角を破線で繋ぐ。そしてwhileでフォームを消し、新たなフォームを作成する。新フォームで完了を押せば２つの丸い点の座標と四角の座標の内側（破線の内側）を白色にする。四角を右、左方向にずらすの２つのフォームをif文で２パターン化し（右方向を入力して決定を押すパターンとその逆）入力した数値の長さだけ四角を移動させ、破線の内側の色を白色にする
+
+              };
+
+
+
+            }else if(check[1].checked){
+
+              const size4 =document.querySelector(".rectAngle-SizeForm21").value;
+              const size5 =document.querySelector(".rectAngle-SizeForm22").value;
+              const size4Y = Number.parseFloat(size4);
+              const size5Y = Number.parseFloat(size5);
+              const size4Num = size4Y /1.06;
+              const size5Num = size5Y /1.06;
+              
+
+              if(Number.isNaN(size4Num)){
+               const sizeFormError5 = document.createElement("p");
+               sizeFormError5.classList.add("size-form-error5");
+               div22.append(sizeFormError5);
+               document.querySelector(".size-form-error5").textContent = "※数値のみ入力してください※";
+          
+              } else if(Number.isNaN(size5Num)){
+               const sizeFormError6 = document.createElement("p");
+               sizeFormError6.classList.add("size-form-error6");
+               div22.append(sizeFormError6);
+               document.querySelector(".size-form-error6").textContent = "※数値のみ入力してください※";
+              };
+
+              if(size4 !== "" && size5 === ""){
+
+                //size4Num取得して上に伸ばす処理、現在表示されている四角を、図形の上方向に入力された数値の長さの座標の位置に移動させ、更に、四角と丸い点が垂直に交わる座標位置を２箇所取得し、丸い点の座標、交わる箇所の座標、四角の座標の内側を青色にする。その後whileでフォームを消す
+
+              }else if(size5 !== "" && size4 === ""){
+
+                //size5Num取得して下に縮める処理、現在表示されている四角を、図形の下方向に入力された数値の長さの座標の位置に移動させ、更に、四角と丸い点が垂直に交わる座標位置を２箇所取得し、丸い点の座標、交わる箇所の座標、四角の座標の内側を白色にする。その後whileでフォームを消す
+
+              };
+
+
+            }else{
+
+              const sizeFormError7 = document.createElement("p");
+              sizeFormError7.classList.add("size-form-error7");
+              div22.append(sizeFormError7);
+              document.querySelector(".size-form-error7").textContent = "※伸縮パターンにチェックを入れてください※";
+
+            }
+
+          });
+
 
 
         

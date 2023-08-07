@@ -895,6 +895,26 @@ button{
   box-shadow: 0 8px #008000;
 }
 
+.rectAngle-confirm11{
+  position: relative;
+  margin-top: 20px;
+  margin-left: 160px;
+  width: 60px;
+  height: 20px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+.rectAngle-confirm11:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
 .rectAngle-SizeForm1{
   position: relative;
   margin-top: 35px;
@@ -1111,6 +1131,22 @@ button{
   text-align: center;
 }
 
+.rectAngle-SizeForm28{
+  position: relative;
+  margin-top: 35px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
+.rectAngle-SizeForm29{
+  position: relative;
+  margin-top: 30px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+}
+
 .size-form-error{
   position: relative;
   color: red;
@@ -1121,6 +1157,51 @@ button{
 }
 
 .size-form-error2{
+  position: relative;
+  color: red;
+  font-size: 12px;
+  margin-top: -140px;
+  text-align: center;
+
+}
+
+.size-form-error3{
+  position: relative;
+  color: red;
+  font-size: 12px;
+  margin-top: -140px;
+  text-align: center;
+
+}
+
+.size-form-error4{
+  position: relative;
+  color: red;
+  font-size: 12px;
+  margin-top: -140px;
+  text-align: center;
+
+}
+
+.size-form-error5{
+  position: relative;
+  color: red;
+  font-size: 12px;
+  margin-top: -140px;
+  text-align: center;
+
+}
+
+.size-form-error6{
+  position: relative;
+  color: red;
+  font-size: 12px;
+  margin-top: -140px;
+  text-align: center;
+
+}
+
+.size-form-error7{
   position: relative;
   color: red;
   font-size: 12px;
@@ -1249,6 +1330,16 @@ button{
 
 }
 
+.note13{
+  position: absolute;
+  color: blue;
+  margin-left: 10px;
+  font-size: 10px;
+  margin-top: 115px;
+  text-align: center;
+
+}
+
 .div2{
   position: absolute;
   border-width: 2px;
@@ -1357,4 +1448,45 @@ button{
   margin-top: -385px;
   margin-left: 425px;
   background-color: rgb(13, 141, 158);
+}
+
+.div22{
+  position: absolute;
+  border-width: 2px;
+  border-style: solid;
+  width: 250px;
+  height: 270px;
+  margin-top: -385px;
+  margin-left: 425px;
+  background-color: rgb(13, 141, 158);
+}
+
+.paturn-text{
+  font-size: 10px;
+  text-align: center;
+}
+
+.check1{
+  position: absolute;
+  margin-top: 6px;
+  margin-left: 35px;
+}
+
+.check2{
+  position: absolute;
+  margin-top: 6px;
+  margin-left: 10px;
+}
+
+.paturn1{
+  width: 60px;
+  height: 60px;
+  margin-left: 50px;
+  
+}
+
+.paturn2{
+  width: 60px;
+  height: 60px;
+  margin-left: 35px;
 }
