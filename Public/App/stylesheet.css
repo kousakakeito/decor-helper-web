@@ -915,6 +915,46 @@ button{
   box-shadow: 0 8px #008000;
 }
 
+.rectAngle-confirm12{
+  position: relative;
+  margin-top: 20px;
+  margin-left: 160px;
+  width: 60px;
+  height: 20px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+.rectAngle-confirm12:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
+.rectAngle-confirm13{
+  position: relative;
+  margin-top: 38px;
+  margin-left: 160px;
+  width: 60px;
+  height: 20px;
+  border: none;
+  background-color: #0c9611;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+.rectAngle-confirm13:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
 .rectAngle-SizeForm1{
   position: relative;
   margin-top: 35px;
@@ -1147,6 +1187,24 @@ button{
   text-align: center;
 }
 
+.rectAngle-SizeForm30{
+  position: relative;
+  margin-top: 35px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.rectAngle-SizeForm31{
+  position: relative;
+  margin-top: 30px;
+  margin-left: 20px;
+  width: 200px;
+  text-align: center;
+  font-size: 10px;
+}
+
 .size-form-error{
   position: relative;
   color: red;
@@ -1202,6 +1260,24 @@ button{
 }
 
 .size-form-error7{
+  position: relative;
+  color: red;
+  font-size: 12px;
+  margin-top: -140px;
+  text-align: center;
+
+}
+
+.size-form-error8{
+  position: relative;
+  color: red;
+  font-size: 12px;
+  margin-top: -140px;
+  text-align: center;
+
+}
+
+.size-form-error9{
   position: relative;
   color: red;
   font-size: 12px;
@@ -1340,6 +1416,17 @@ button{
 
 }
 
+.note14{
+  position: absolute;
+  color: black;
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 180px;
+  text-align: center;
+
+}
+
 .div2{
   position: absolute;
   border-width: 2px;
@@ -1451,6 +1538,17 @@ button{
 }
 
 .div22{
+  position: absolute;
+  border-width: 2px;
+  border-style: solid;
+  width: 250px;
+  height: 270px;
+  margin-top: -385px;
+  margin-left: 425px;
+  background-color: rgb(13, 141, 158);
+}
+
+.div24{
   position: absolute;
   border-width: 2px;
   border-style: solid;
