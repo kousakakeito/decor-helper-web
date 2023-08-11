@@ -7173,6 +7173,176 @@ function isMouseOnBorder(rectangle, x, y) {
           document.querySelector(".note5").textContent = "※右端または左端のどちらかを入力してください※";
           document.querySelector(".note6").textContent = "※上端または下端のどちらかを入力してください※";
 
+          document.querySelector(".rectAngle-confirm7").addEventListener("click",function(){
+
+            const size2 =document.querySelector(".rectAngle-SizeForm12").value;
+            const size3 =document.querySelector(".rectAngle-SizeForm13").value;
+            const size4 =document.querySelector(".rectAngle-SizeForm14").value;
+            const size5 =document.querySelector(".rectAngle-SizeForm15").value;
+            const size2Y = Number.parseFloat(size2);
+            const size3Y = Number.parseFloat(size3);
+            const size4Y = Number.parseFloat(size4);
+            const size5Y = Number.parseFloat(size5);
+            const size2Num = size2Y /1.06;
+            const size3Num = size3Y /1.06;
+            const size4Num = size4Y /1.06;
+            const size5Num = size5Y /1.06;
+            console.log(size2Num)
+            console.log(size3Num)
+            console.log(size4Num)
+            console.log(size5Num)
+            
+            
+            if(size2 !== "" && size3 === "" && size4 !== "" && size5 === ""){
+
+            if(Number.isNaN(size2Num)){
+
+             const sizeFormError3 = document.createElement("p");
+             sizeFormError3.classList.add("size-form-error3");
+             div6.append(sizeFormError3);
+             document.querySelector(".size-form-error3").textContent = "※数値のみ入力してください※";  
+            }
+              console.log("A");
+
+            if(Number.isNaN(size4Num)){
+
+             const sizeFormError3 = document.createElement("p");
+             sizeFormError3.classList.add("size-form-error3");
+             div6.append(sizeFormError3);
+             document.querySelector(".size-form-error3").textContent = "※数値のみ入力してください※";  
+            }
+              console.log("A");
+      
+           // 長さを格納する変数
+           let length2 = size2Num;
+           let length3 = size4Num;  
+
+           midRect.destroy();
+           dashedLine.destroy();
+
+           // 図形の上辺の左端から指定した距離の位置を計算して新しい左の丸い点のX座標を設定
+           const newLeftCircleX = rectangle.x() + length2;
+           // 図形の右辺の上端から指定した距離の位置を計算して新しい上の丸い点のX座標を設定
+           const newRightCircleX = rectangle.y() + length3;
+
+           // 左の丸い点の座標を更新
+           dots[0].x(newLeftCircleX);
+           layer.draw();
+
+           // 右の丸い点の座標を更新
+           dots[1].y(newRightCircleX);
+           layer.draw();
+
+           
+             // 丸い点の座標を取得
+             const x1 = dots[0].x();
+             const y1 = dots[0].y();
+
+             // 丸い点の座標を取得
+             const x2 = dots[1].x();
+             const y2 = dots[1].y();
+
+             const intersectionX1 = dots[1].x(); 
+             const intersectionY1 = dots[0].y();
+
+   
+
+             const polygon = new Konva.Line({
+              points: [x1,y1,intersectionX1,intersectionY1,x2,y2],
+              stroke: 'white', // 線の色
+              strokeWidth: 2, // 線の太さ
+              closed: true, // 閉じた形状として描画
+              fill: 'white', // 塗りつぶし色（透明）
+            });
+            
+             layer.add(polygon);
+             dots[0].destroy();
+             dots[1].destroy();
+             layer.draw();
+
+          
+           while (document.querySelector(".div13").lastChild) {
+            document.querySelector(".div13").removeChild(document.querySelector(".div13").lastChild);
+           }
+
+
+
+
+          }else if(size2 !== "" && size3 === "" && size4 === "" && size5 !== ""){
+
+            if(Number.isNaN(size2Num)){
+
+              const sizeFormError3 = document.createElement("p");
+              sizeFormError3.classList.add("size-form-error3");
+              div6.append(sizeFormError3);
+              document.querySelector(".size-form-error3").textContent = "※数値のみ入力してください※";  
+             }
+               console.log("A");
+ 
+             if(Number.isNaN(size5Num)){
+ 
+              const sizeFormError3 = document.createElement("p");
+              sizeFormError3.classList.add("size-form-error3");
+              div6.append(sizeFormError3);
+              document.querySelector(".size-form-error3").textContent = "※数値のみ入力してください※";  
+             }
+               console.log("A");
+       
+            // 長さを格納する変数
+            let length2 = size3Num; 
+
+          }else if(size2 === "" && size3 !== "" && size4 !== "" && size5 === ""){
+
+            if(Number.isNaN(size3Num)){
+
+              const sizeFormError3 = document.createElement("p");
+              sizeFormError3.classList.add("size-form-error3");
+              div6.append(sizeFormError3);
+              document.querySelector(".size-form-error3").textContent = "※数値のみ入力してください※";  
+             }
+               console.log("A");
+ 
+             if(Number.isNaN(size4Num)){
+ 
+              const sizeFormError3 = document.createElement("p");
+              sizeFormError3.classList.add("size-form-error3");
+              div6.append(sizeFormError3);
+              document.querySelector(".size-form-error3").textContent = "※数値のみ入力してください※";  
+             }
+               console.log("A");
+       
+            // 長さを格納する変数
+            let length2 = size4Num; 
+
+          }else if(size2 === "" && size3 !== "" && size4 === "" && size5 !== ""){
+
+            if(Number.isNaN(size3Num)){
+
+              const sizeFormError3 = document.createElement("p");
+              sizeFormError3.classList.add("size-form-error3");
+              div6.append(sizeFormError3);
+              document.querySelector(".size-form-error3").textContent = "※数値のみ入力してください※";  
+             }
+               console.log("A");
+ 
+             if(Number.isNaN(size5Num)){
+ 
+              const sizeFormError3 = document.createElement("p");
+              sizeFormError3.classList.add("size-form-error3");
+              div6.append(sizeFormError3);
+              document.querySelector(".size-form-error3").textContent = "※数値のみ入力してください※";  
+             }
+               console.log("A");
+       
+            // 長さを格納する変数
+            let length2 = size5Num; 
+
+
+
+          };
+
+          });
+
 
         } else if(dots.length === 2 && dots[0].y() === rectangle.y() && dots[1].x() === rectangle.x() ||
                   dots.length === 2 && dots[0].x() === rectangle.x() && dots[1].y() === rectangle.y()){
