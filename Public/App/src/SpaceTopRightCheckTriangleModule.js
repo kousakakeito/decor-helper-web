@@ -1,5 +1,5 @@
 
-module.exports = function rightCheckTriangle(stage,dots,rectangle,isMouseOnBorder,layer,dashedLine,drawDashedLine,midRect,spacecenterInner,handleClick2,handleConfirm2,length,size2Num,dashedLine5, circle1, circle2,handleConfirm3,check,dashedLine6,newCircle,newRect,handleConfirm11){
+module.exports = function topRightCheckTriangle(stage,dots,rectangle,isMouseOnBorder,layer,dashedLine,drawDashedLine,midRect,spacecenterInner,handleClick2,handleConfirm2,length,size2Num,dashedLine5, circle1, circle2,handleConfirm3,check,dashedLine6,newCircle,newRect,handleConfirm11){
 
 
   const size4 =document.querySelector(".rectAngle-SizeForm28").value;
@@ -385,7 +385,9 @@ module.exports = function rightCheckTriangle(stage,dots,rectangle,isMouseOnBorde
 
      };
 
-     document.querySelector(".rectAngle-confirm12").addEventListener("click",function(){
+     document.querySelector(".rectAngle-confirm12").addEventListener("click", handle2Confirm12);
+     
+     function handle2Confirm12(){
 
       
        const size6 =document.querySelector(".rectAngle-SizeForm30").value;
@@ -440,9 +442,16 @@ module.exports = function rightCheckTriangle(stage,dots,rectangle,isMouseOnBorde
         circle2.destroy();
         newRect.destroy();
 
+        dots.length = 0 ;
+        stage.on("click",handleClick2);
+        document.querySelector(".rectAngle-confirm12").removeEventListener("click",handle2Confirm12);
+  
         while (document.querySelector(".div23").lastChild) {
           document.querySelector(".div23").removeChild(document.querySelector(".div23").lastChild);
          }
+  
+  
+          document.querySelector(".div23").parentNode.removeChild(document.querySelector(".div23"));
 
 
 
@@ -491,15 +500,22 @@ module.exports = function rightCheckTriangle(stage,dots,rectangle,isMouseOnBorde
         circle2.destroy();
         newRect.destroy();
 
+        dots.length = 0 ;
+        stage.on("click",handleClick2);
+        document.querySelector(".rectAngle-confirm12").removeEventListener("click",handle2Confirm12);
+  
         while (document.querySelector(".div23").lastChild) {
           document.querySelector(".div23").removeChild(document.querySelector(".div23").lastChild);
          }
+  
+  
+          document.querySelector(".div23").parentNode.removeChild(document.querySelector(".div23"));
 
 
 
        };
 
-     });
+     };
     };
   };
 };
