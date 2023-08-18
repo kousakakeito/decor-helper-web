@@ -151,7 +151,7 @@ function isMouseOnBorder(rectangle, x, y) {
     layer.batchDraw();
 
 
-    const  handleClick  = require('src/SquareClickModule');
+    const  handleClick  = require('src/SpaceSquareClickModule');
 
     const handleClick2 = () =>{
 
