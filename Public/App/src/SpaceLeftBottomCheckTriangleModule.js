@@ -361,10 +361,10 @@ module.exports = function leftBottomCheckTriangle(stage,dots,rectangle,isMouseOn
 
       const polygon = new Konva.Line({
         points: [circleX1, circleY1,  midRectX1, midRectY1, circleX2, circleY2],
-        stroke: 'blue', // 線の色
+        stroke: '#F0BE99', // 線の色
         strokeWidth: 2, // 線の太さ
         closed: true, // 閉じた形状として描画
-        fill: 'blue', // 塗りつぶし色（透明）
+        fill: '#F0BE99', // 塗りつぶし色（透明）
       });
       
       layer.add(polygon);
@@ -432,10 +432,10 @@ module.exports = function leftBottomCheckTriangle(stage,dots,rectangle,isMouseOn
 
          const polygon = new Konva.Line({
           points: [circleX1A, circleY1A, midRectX1A, midRectY1A, circleX2A, circleY2A],
-          stroke: 'blue', // 線の色
+          stroke: '#F0BE99', // 線の色
           strokeWidth: 2, // 線の太さ
           closed: true, // 閉じた形状として描画
-          fill: 'blue', // 塗りつぶし色（透明）
+          fill: '#F0BE99', // 塗りつぶし色（透明）
         });
         
         layer.add(polygon);
@@ -491,10 +491,10 @@ module.exports = function leftBottomCheckTriangle(stage,dots,rectangle,isMouseOn
 
          const polygon = new Konva.Line({
           points: [circleX1A, circleY1A, midRectX1A, midRectY1A, circleX2A, circleY2A],
-          stroke: 'blue', // 線の色
+          stroke: '#F0BE99', // 線の色
           strokeWidth: 2, // 線の太さ
           closed: true, // 閉じた形状として描画
-          fill: 'blue', // 塗りつぶし色（透明）
+          fill: '#F0BE99', // 塗りつぶし色（透明）
         });
         
         layer.add(polygon);

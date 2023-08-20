@@ -1,5 +1,5 @@
 
-module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorder,layer,dashedLine,drawDashedLine,midRect,spacecenterInner,handleClick2,handleConfirm2,length,size3Num,dashedLine5, circle1, circle2,handleConfirm3,check,dashedLine6,newCircle,newRect,handleConfirm11){
+module.exports = function bottomLeftCheckSquare(stage,dots,rectangle,isMouseOnBorder,layer,dashedLine,drawDashedLine,midRect,spacecenterInner,handleClick2,handleConfirm2,length,size3Num,dashedLine5, circle1, circle2,handleConfirm6,check,dashedLine6,newCircle,newRect,handleConfirm11){
 
   const size4 =document.querySelector(".rectAngle-SizeForm28").value;
   const size5 =document.querySelector(".rectAngle-SizeForm29").value;
@@ -56,10 +56,10 @@ module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorde
 
     const polygon = new Konva.Line({
       points: [circleX1, circleY1, intersectionX1, intersectionY1, midRectX1, midRectY1, intersectionX2, intersectionY2, circleX2, circleY2],
-      stroke: '#F0BE99', // 線の色
+      stroke: 'white', // 線の色
       strokeWidth: 2, // 線の太さ
       closed: true, // 閉じた形状として描画
-      fill: '#F0BE99', // 塗りつぶし色（透明）
+      fill: 'white', // 塗りつぶし色（透明）
     });
     
     layer.add(polygon);
@@ -135,10 +135,10 @@ module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorde
 
     const polygon = new Konva.Line({
       points: [circleX1, circleY1, intersectionX1, intersectionY1, midRectX1, midRectY1, intersectionX2, intersectionY2, circleX2, circleY2],
-      stroke: 'white', // 線の色
+      stroke: '#F0BE99', // 線の色
       strokeWidth: 2, // 線の太さ
       closed: true, // 閉じた形状として描画
-      fill: 'white', // 塗りつぶし色（透明）
+      fill: '#F0BE99', // 塗りつぶし色（透明）
     });
     
     layer.add(polygon);
@@ -165,6 +165,5 @@ module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorde
     document.querySelector(".div21").parentNode.removeChild(document.querySelector(".div21"));
 
     };
-
   };
 };

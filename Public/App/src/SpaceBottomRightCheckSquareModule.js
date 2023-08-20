@@ -1,5 +1,5 @@
 
-module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorder,layer,dashedLine,drawDashedLine,midRect,spacecenterInner,handleClick2,handleConfirm2,length,size3Num,dashedLine5, circle1, circle2,handleConfirm3,check,dashedLine6,newCircle,newRect,handleConfirm11){
+module.exports = function bottomRightCheckSquare(stage,dots,rectangle,isMouseOnBorder,layer,dashedLine,drawDashedLine,midRect,spacecenterInner,handleClick2,handleConfirm2,length,size2Num,dashedLine5, circle1, circle2,handleConfirm6,check,dashedLine6,newCircle,newRect,handleConfirm11){
 
   const size4 =document.querySelector(".rectAngle-SizeForm28").value;
   const size5 =document.querySelector(".rectAngle-SizeForm29").value;
@@ -18,7 +18,7 @@ module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorde
       sizeFormError5.classList.add("size-form-error5");
       div22.append(sizeFormError5);
       document.querySelector(".size-form-error5").textContent = "※数値のみ入力してください※";
-     } else {
+     } else{
 
     dashedLine6.destroy();
 
@@ -32,8 +32,8 @@ module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorde
     const circleX1 = newCircle.x();
     const circleY1 = newCircle.y();
 
-    const circleX2 = circle1.x();
-    const circleY2 = circle1.y();
+    const circleX2 = circle2.x();
+    const circleY2 = circle2.y();
 
     // 新しい座標を計算して設定
     const newX = currentX;
@@ -47,7 +47,7 @@ module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorde
     const intersectionY1 = newRect.y()+5;
 
     //もう一方の丸い点と四角が垂直に交わる座標
-    const intersectionX2 = circle1.x(); 
+    const intersectionX2 = circle2.x(); 
     const intersectionY2 = newRect.y()+5;
 
     // 四角の真ん中の座標を計算
@@ -56,10 +56,10 @@ module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorde
 
     const polygon = new Konva.Line({
       points: [circleX1, circleY1, intersectionX1, intersectionY1, midRectX1, midRectY1, intersectionX2, intersectionY2, circleX2, circleY2],
-      stroke: '#F0BE99', // 線の色
+      stroke: 'white', // 線の色
       strokeWidth: 2, // 線の太さ
       closed: true, // 閉じた形状として描画
-      fill: '#F0BE99', // 塗りつぶし色（透明）
+      fill: 'white', // 塗りつぶし色（透明）
     });
     
     layer.add(polygon);
@@ -67,7 +67,7 @@ module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorde
     // レイヤーを再描画
     layer.draw();
 
-    circle1.destroy();
+    circle2.destroy();
     newRect.destroy();
     newCircle.destroy();
 
@@ -111,8 +111,8 @@ module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorde
     const circleX1 = newCircle.x();
     const circleY1 = newCircle.y();
 
-    const circleX2 = circle1.x();
-    const circleY2 = circle1.y();
+    const circleX2 = circle2.x();
+    const circleY2 = circle2.y();
 
     // 新しい座標を計算して設定
     const newX = currentX;
@@ -126,7 +126,7 @@ module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorde
     const intersectionY1 = newRect.y()+5;
 
     //もう一方の丸い点と四角が垂直に交わる座標
-    const intersectionX2 = circle1.x(); 
+    const intersectionX2 = circle2.x(); 
     const intersectionY2 = newRect.y()+5;
 
     // 四角の真ん中の座標を計算
@@ -135,10 +135,10 @@ module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorde
 
     const polygon = new Konva.Line({
       points: [circleX1, circleY1, intersectionX1, intersectionY1, midRectX1, midRectY1, intersectionX2, intersectionY2, circleX2, circleY2],
-      stroke: 'white', // 線の色
+      stroke: '#F0BE99', // 線の色
       strokeWidth: 2, // 線の太さ
       closed: true, // 閉じた形状として描画
-      fill: 'white', // 塗りつぶし色（透明）
+      fill: '#F0BE99', // 塗りつぶし色（透明）
     });
     
     layer.add(polygon);
@@ -146,7 +146,7 @@ module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorde
     // レイヤーを再描画
     layer.draw();
 
-    circle1.destroy();
+    circle2.destroy();
     newRect.destroy();
     newCircle.destroy();
 
@@ -165,6 +165,5 @@ module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorde
     document.querySelector(".div21").parentNode.removeChild(document.querySelector(".div21"));
 
     };
-
   };
 };

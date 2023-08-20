@@ -1,5 +1,5 @@
 
-module.exports = function leftTopCheckTriangle(stage,dots,rectangle,isMouseOnBorder,layer,dashedLine,drawDashedLine,midRect,spacecenterInner,handleClick2,handleConfirm2,length,size2Num,dashedLine5, circle1, circle2,check,dashedLine6,newCircle,newRect,handleConfirm11,handleConfirm5){
+module.exports = function bottomRightCheckTriangle(stage,dots,rectangle,isMouseOnBorder,layer,dashedLine,drawDashedLine,midRect,spacecenterInner,handleClick2,handleConfirm2,length,size2Num,dashedLine5, circle1, circle2,handleConfirm6,check,dashedLine6,newCircle,newRect,handleConfirm11){
 
   const size4 =document.querySelector(".rectAngle-SizeForm28").value;
   const size5 =document.querySelector(".rectAngle-SizeForm29").value;
@@ -18,12 +18,12 @@ module.exports = function leftTopCheckTriangle(stage,dots,rectangle,isMouseOnBor
       sizeFormError5.classList.add("size-form-error5");
       div22.append(sizeFormError5);
       document.querySelector(".size-form-error5").textContent = "※数値のみ入力してください※";
-     } else {
+     } else{
 
     dashedLine6.destroy();
 
-    // 右に移動させる距離を指定
-    const offsetX = size4Num;
+    // 上に移動させる距離を指定
+    const offsetY = -size4Num;
 
     // 現在の midRect の座標を取得
     const currentX = newRect.x();
@@ -36,8 +36,8 @@ module.exports = function leftTopCheckTriangle(stage,dots,rectangle,isMouseOnBor
     const circleY2 = circle2.y();
 
     // 新しい座標を計算して設定
-    const newX = currentX + offsetX;
-    const newY = currentY;
+    const newX = currentX;
+    const newY = currentY + offsetY;
 
     // midRect の座標を更新
     newRect.position({ x: newX, y: newY });
@@ -55,15 +55,16 @@ module.exports = function leftTopCheckTriangle(stage,dots,rectangle,isMouseOnBor
     layer.draw();
 
 
+
      const rectAngleSizeForm30 = document.createElement('input');
      rectAngleSizeForm30.type = "text";
      rectAngleSizeForm30.classList.add("rectAngle-SizeForm30");
-     rectAngleSizeForm30.placeholder = "四角を上方向に動かす場合はその長さを入力";
+     rectAngleSizeForm30.placeholder = "四角を右方向に動かす場合はその長さを入力";
 
      const rectAngleSizeForm31 = document.createElement('input');
      rectAngleSizeForm31.type = "text";
      rectAngleSizeForm31.classList.add("rectAngle-SizeForm31");
-     rectAngleSizeForm31.placeholder = "四角を下方向に動かす場合はその長さを入力";
+     rectAngleSizeForm31.placeholder = "四角を左方向に動かす場合はその長さを入力";
 
      const rectAngleConfirm12 = document.createElement('button');
      rectAngleConfirm12.classList.add("rectAngle-confirm12");
@@ -101,7 +102,7 @@ module.exports = function leftTopCheckTriangle(stage,dots,rectangle,isMouseOnBor
      document.querySelector(".div21").parentNode.removeChild(document.querySelector(".div21"));
 
 
-      function handleConfirm13(){
+     function handleConfirm13(){
 
       const polygon = new Konva.Line({
         points: [circleX1, circleY1,  midRectX1, midRectY1, circleX2, circleY2],
@@ -150,11 +151,11 @@ module.exports = function leftTopCheckTriangle(stage,dots,rectangle,isMouseOnBor
           document.querySelector(".size-form-error8").textContent = "※数値のみ入力してください※";
          } else{
   
-         const offsetX = -size6Num;
+         const offsetX = size6Num;
          const currentX = newRect.x();
          const currentY = newRect.y();
-         const newX = currentX;
-         const newY = currentY + offsetX;
+         const newX = currentX + offsetX;
+         const newY = currentY;
 
          newRect.position({ x: newX, y: newY });
 
@@ -212,8 +213,8 @@ module.exports = function leftTopCheckTriangle(stage,dots,rectangle,isMouseOnBor
          const offsetX = size7Num;
          const currentX = newRect.x();
          const currentY = newRect.y();
-         const newX = currentX;
-         const newY = currentY + offsetX;
+         const newX = currentX - offsetX;
+         const newY = currentY;
 
          newRect.position({ x: newX, y: newY });
 
@@ -257,8 +258,8 @@ module.exports = function leftTopCheckTriangle(stage,dots,rectangle,isMouseOnBor
           document.querySelector(".div23").parentNode.removeChild(document.querySelector(".div23"));
 
 
-        };
 
+        };
        };
 
      };
@@ -279,8 +280,8 @@ module.exports = function leftTopCheckTriangle(stage,dots,rectangle,isMouseOnBor
 
      dashedLine6.destroy();
 
-    // 左に移動させる距離を指定
-    const offsetX = -size5Num;
+    // 下に移動させる距離を指定
+    const offsetY = size5Num;
 
     // 現在の midRect の座標を取得
     const currentX = newRect.x();
@@ -293,8 +294,8 @@ module.exports = function leftTopCheckTriangle(stage,dots,rectangle,isMouseOnBor
     const circleY2 = circle2.y();
 
     // 新しい座標を計算して設定
-    const newX = currentX + offsetX;
-    const newY = currentY;
+    const newX = currentX;
+    const newY = currentY + offsetY;
 
     // midRect の座標を更新
     newRect.position({ x: newX, y: newY });
@@ -316,12 +317,12 @@ module.exports = function leftTopCheckTriangle(stage,dots,rectangle,isMouseOnBor
      const rectAngleSizeForm30 = document.createElement('input');
      rectAngleSizeForm30.type = "text";
      rectAngleSizeForm30.classList.add("rectAngle-SizeForm30");
-     rectAngleSizeForm30.placeholder = "四角を上方向に動かす場合はその長さを入力";
+     rectAngleSizeForm30.placeholder = "四角を右方向に動かす場合はその長さを入力";
 
      const rectAngleSizeForm31 = document.createElement('input');
      rectAngleSizeForm31.type = "text";
      rectAngleSizeForm31.classList.add("rectAngle-SizeForm31");
-     rectAngleSizeForm31.placeholder = "四角を下方向に動かす場合はその長さを入力";
+     rectAngleSizeForm31.placeholder = "四角を左方向に動かす場合はその長さを入力";
 
      const rectAngleConfirm12 = document.createElement('button');
      rectAngleConfirm12.classList.add("rectAngle-confirm12");
@@ -408,11 +409,11 @@ module.exports = function leftTopCheckTriangle(stage,dots,rectangle,isMouseOnBor
           document.querySelector(".size-form-error8").textContent = "※数値のみ入力してください※";
          } else{
   
-         const offsetX = -size6Num;
+         const offsetX = size6Num;
          const currentX = newRect.x();
          const currentY = newRect.y();
-         const newX = currentX;
-         const newY = currentY + offsetX;
+         const newX = currentX + offsetX;
+         const newY = currentY;
 
          newRect.position({ x: newX, y: newY });
 
@@ -454,6 +455,7 @@ module.exports = function leftTopCheckTriangle(stage,dots,rectangle,isMouseOnBor
   
   
           document.querySelector(".div23").parentNode.removeChild(document.querySelector(".div23"));
+
 
         };
 
@@ -469,8 +471,8 @@ module.exports = function leftTopCheckTriangle(stage,dots,rectangle,isMouseOnBor
          const offsetX = size7Num;
          const currentX = newRect.x();
          const currentY = newRect.y();
-         const newX = currentX;
-         const newY = currentY + offsetX;
+         const newX = currentX - offsetX;
+         const newY = currentY;
 
          newRect.position({ x: newX, y: newY });
 
@@ -514,8 +516,8 @@ module.exports = function leftTopCheckTriangle(stage,dots,rectangle,isMouseOnBor
           document.querySelector(".div23").parentNode.removeChild(document.querySelector(".div23"));
 
 
-
         };
+
        };
 
      };

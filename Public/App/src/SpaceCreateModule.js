@@ -87,7 +87,7 @@ function isMouseOnBorder(rectangle, x, y) {
     y: (spacecenterInner.offsetHeight - heightValue) / 2, // spacecenterInnerの中央に配置
     width: widthValue, // 適宜調整
     height: heightValue, // 適宜調整
-    fill: 'blue', // 適宜調整
+    fill: '#F0BE99', // 適宜調整
     draggable: false,
   });
   

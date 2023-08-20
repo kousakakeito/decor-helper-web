@@ -58,10 +58,10 @@ module.exports = function topRightCheckSquare(stage,dots,rectangle,isMouseOnBord
 
     const polygon = new Konva.Line({
       points: [circleX1, circleY1, intersectionX1, intersectionY1, midRectX1, midRectY1, intersectionX2, intersectionY2, circleX2, circleY2],
-      stroke: 'blue', // 線の色
+      stroke: '#F0BE99', // 線の色
       strokeWidth: 2, // 線の太さ
       closed: true, // 閉じた形状として描画
-      fill: 'blue', // 塗りつぶし色（透明）
+      fill: '#F0BE99', // 塗りつぶし色（透明）
     });
     
     layer.add(polygon);
@@ -111,7 +111,7 @@ module.exports = function topRightCheckSquare(stage,dots,rectangle,isMouseOnBord
       sizeFormError6.classList.add("size-form-error6");
       div22.append(sizeFormError6);
       document.querySelector(".size-form-error6").textContent = "※数値のみ入力してください※";
-     } 
+     } else{
 
     dashedLine6.destroy();
 
@@ -177,5 +177,6 @@ module.exports = function topRightCheckSquare(stage,dots,rectangle,isMouseOnBord
     };
 
     document.querySelector(".div21").parentNode.removeChild(document.querySelector(".div21"));
+  };
   };
 };
