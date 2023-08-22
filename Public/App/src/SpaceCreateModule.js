@@ -77,6 +77,8 @@ function isMouseOnBorder(rectangle, x, y) {
   
   layer = new Konva.Layer(); // グローバル変数を使うために、constをletに変更
   stage.add(layer)
+
+
   
   let widthValue = 0;
   let heightValue = 0;
@@ -171,11 +173,75 @@ function isMouseOnBorder(rectangle, x, y) {
 
 
 
+    document.querySelector('.space-compbtn').addEventListener('click', () => {
+
+  
+       if( spaceFormValue === ""){
+         const spaceFormError = document.createElement("p");
+         spaceFormError.classList.add("space-form-error");
+         document.querySelector(".spacecenter-outer").append(spaceFormError);
+         document.querySelector(".space-form-error").textContent = "※空間名を入力してください※";
+       } else {
+
+        const list = document.createElement("li");
+        const container = document.createElement("div");
+        container.classList.add("list-container");
+        document.querySelector('.space-list').append(list);
+
+        const spaceForm = document.querySelector('.space-form');
+        const spaceFormValue = spaceForm.value;
+        const sourceLayers = stage.getLayers(); // すべてのレイヤーの配列を取得
+
+
+        // 2つの変数をサーバーサイドに送信する処理
+
+
+
+      /*  const listcontainer = document.querySelector('.list-container');
+
+        const stage2 = new Konva.Stage({
+          container: listcontainer,
+          width: listcontainer.offsetWidth,
+          height: listcontainer.offsetHeight,
+        });
+        
+        
+        sourceLayers.forEach(sourceLayer => {
+          const newLayer = new Konva.Layer(); // 新しいレイヤーのインスタンスを作成
+          sourceLayer.getChildren().forEach(shape => {
+            const newShape = shape.clone(); // shape をクローンして新しいレイヤーに追加
+            console.log("Original x:", shape.x());
+            console.log("Cloned x:", newShape.x());
+            newLayer.add(newShape);
+          });
+          stage2.add(newLayer); // 新しいステージに新しいレイヤーを追加
+        });
+        
+        */
+        
+        
+        
+        
+        
+        
+
+        
+
+
+        
+  
+  
+       };
+    
+  
+  
+    });
   
    
     }
   
 
   };
+
 
 };

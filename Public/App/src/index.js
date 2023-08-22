@@ -176,19 +176,6 @@ dropdownItems.forEach(item => {
 });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
  // 空間新規作成ボタンがクリックされたときの処理
   const spaceCreate  = require('src/SpaceCreateModule');
 
@@ -200,6 +187,7 @@ dropdownItems.forEach(item => {
 
   const furnitureCreateBtn = document.querySelector('.furniture-createbtn');
   furnitureCreateBtn.addEventListener('click', furnitureCreate);
+
 
 
   
