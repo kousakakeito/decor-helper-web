@@ -1,6 +1,6 @@
 const express = require('express');
 const mysql = require('mysql');
-const cookieParser = require('cookie-parser'); 
+const session = require('express-session');
 const config = require('../../config/config');
 
 const connection = mysql.createConnection({
@@ -12,8 +12,12 @@ const connection = mysql.createConnection({
 
 const router = express.Router();
 
-// cookie-parserミドルウェアを使用
-router.use(cookieParser());
+// express-sessionミドルウェアを使用
+router.use(session({
+  secret: 'your_secret_key', // セッションの暗号化に使用するキー
+  resave: false,
+  saveUninitialized: false
+}));
 
 // テーブル作成処理
 const createUsersTable = () => {
@@ -109,13 +113,24 @@ async function updateLoginAttempts(username, attempts) {
 
 
 
+
+
 // ログイン成功時の処理
 function handleLoginSuccess(res, username) {
+ 
   // ログインに成功した場合は試行回数をリセット
   updateLoginAttempts(username, 0)
     .then(() => {
-      // クッキーにユーザー名を設定
-      res.cookie('username', username);
+
+      
+      // セッションからユーザー名を取得して返すエンドポイントを追加
+      router.get('/get-session', (req, res) => {
+        const sessionData = {
+          username: req.session.username
+        };
+        res.json(sessionData);
+      });
+
       // リダイレクトを行うエンドポイントにリダイレクトする
       res.redirect('/redirect-home');
     })
@@ -169,11 +184,11 @@ async function handleLoginFailure(res, attempts, username) {
 
 // ログイン後のリダイレクト処理を行うエンドポイント
 router.get('/redirect-home', (req, res) => {
-  // クッキーからユーザー名を取得
-  const username = req.cookies.username;
+  // セッションからユーザー名を取得
+  const username = req.session.username;
   if (!username) {
-    // クッキーにユーザー名が存在しない場合はログインページにリダイレクト
-    res.redirect('/login.html');
+    // セッションにユーザー名が存在しない場合はログインページにリダイレクト
+    res.redirect('/index.html');
     return;
   }
   res.redirect(`/App/home.html`);

@@ -7,21 +7,23 @@ const contentPhoto = document.querySelector('#content-photo');
 const contentInquiry = document.querySelector('#content-inquiry');
 
 
-// クッキーからユーザー名を取得
-const username = getCookie('username');
-
-// Display the username on the page
-if (username) {
-  const userName = document.querySelector('.user-name');
-  userName.textContent = `${username}`;
+// セッション情報を取得してユーザー名を表示する関数
+function getSessionData() {
+  fetch('/get-session')
+    .then(response => response.json())
+    .then(data => {
+      console.log(username);
+      const username = data.username;
+      const userNameElement = document.querySelector('.user-name');
+      userNameElement.textContent = `${username}`;
+    })
+    .catch(error => {
+      console.error('エラー:', error);
+    });
 }
 
-// クッキーを取得する関数
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}
+// ページがロードされたときにセッション情報を取得して表示する
+window.addEventListener('load', getSessionData);
 
 // ログアウトボタンをクリックしたときの処理
 const logoutButton = document.querySelector('#logout-button');
@@ -29,7 +31,7 @@ logoutButton.addEventListener('click', () => {
   // サーバーにログアウトリクエストを送信
   fetch('/logout', {
     method: 'POST',
-    credentials: 'same-origin', // クッキーをサーバーに送信するための設定
+    credentials: 'same-origin', 
   })
     .then((response) => {
       if (response.ok) {
@@ -43,6 +45,7 @@ logoutButton.addEventListener('click', () => {
       console.error('Error during logout:', error);
     });
 });
+
 
 
 

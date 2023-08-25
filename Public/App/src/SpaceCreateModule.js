@@ -195,6 +195,45 @@ function isMouseOnBorder(rectangle, x, y) {
 
         // 2つの変数をサーバーサイドに送信する処理
 
+        const layerData = {
+          name: sourceLayers.name(),   // レイヤーの名前など、必要なプロパティを抽出
+          children: [],         // 子要素の情報を格納する配列
+        };
+        
+        sourceLayers.getChildren().each((shape) => {
+          // 各シェイプの情報を抽出してオブジェクトを作成
+          const shapeData = {
+            type: shape.getType(),   // シェイプの種類（Rect、Circle など）
+            x: shape.x(),
+            y: shape.y(),
+            // その他の必要なプロパティを追加
+          };
+        
+          layerData.children.push(shapeData); // 子要素の情報を配列に追加
+        });
+
+        // 送信するデータを用意
+const dataToSend = {
+  spaceFormValue: spaceFormValue,
+  layerData: layerData,
+};
+
+// Ajaxリクエストを作成
+const xhr = new XMLHttpRequest();
+xhr.open("POST", "/api/send-data", true);
+xhr.setRequestHeader("Content-Type", "application/json");
+
+// レスポンス受信時の処理
+xhr.onload = function () {
+  if (xhr.status === 200) {
+    console.log("データがサーバーサイドに送信されました。");
+  }
+};
+
+// リクエスト送信
+xhr.send(JSON.stringify(dataToSend));
+
+
 
 
       /*  const listcontainer = document.querySelector('.list-container');

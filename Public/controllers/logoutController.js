@@ -1,11 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-// ログアウト処理
 router.post('/logout', (req, res) => {
-  // クッキーを削除してログアウト
-  res.clearCookie('username');
-  res.status(200).send('Logout successful');
+  // セッションを破棄してログアウト
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Error destroying session:', err);
+      res.status(500).send('An error occurred during logout.');
+    } else {
+      res.status(200).send('Logout successful');
+    }
+  });
 });
 
 module.exports = router;
