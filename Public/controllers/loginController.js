@@ -114,22 +114,21 @@ async function updateLoginAttempts(username, attempts) {
 
 
 
-
 // ログイン成功時の処理
-function handleLoginSuccess(res, username) {
+function handleLoginSuccess(res, req, username) {
+
+    // セッションにユーザー名を保存
+    req.session.username = username;
  
   // ログインに成功した場合は試行回数をリセット
   updateLoginAttempts(username, 0)
     .then(() => {
 
-      
       // セッションからユーザー名を取得して返すエンドポイントを追加
       router.get('/get-session', (req, res) => {
-        const sessionData = {
-          username: req.session.username
-        };
-        res.json(sessionData);
-      });
+        const sessionData = req.session.username;
+        res.json({ username: sessionData });
+      });      
 
       // リダイレクトを行うエンドポイントにリダイレクトする
       res.redirect('/redirect-home');
@@ -184,8 +183,9 @@ async function handleLoginFailure(res, attempts, username) {
 
 // ログイン後のリダイレクト処理を行うエンドポイント
 router.get('/redirect-home', (req, res) => {
-  // セッションからユーザー名を取得
-  const username = req.session.username;
+
+  const username = req.session.username; // セッションからユーザー名を取得
+
   if (!username) {
     // セッションにユーザー名が存在しない場合はログインページにリダイレクト
     res.redirect('/index.html');
@@ -212,7 +212,8 @@ router.post('/login', async (req, res) => {
 
       if (results.length > 0) {
         // ログイン成功時の処理
-        handleLoginSuccess(res, username);
+        const username = results[0].username; // ログイン成功時にusernameを取得
+        handleLoginSuccess(res, req, username);
       } else {
         // ログイン失敗時の処理
         const attempts = await getLoginAttempts(username);

@@ -12,8 +12,9 @@ function getSessionData() {
   fetch('/get-session')
     .then(response => response.json())
     .then(data => {
-      console.log(username);
+      
       const username = data.username;
+      console.log(username);
       const userNameElement = document.querySelector('.user-name');
       userNameElement.textContent = `${username}`;
     })
