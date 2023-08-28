@@ -2,6 +2,8 @@ const express = require('express');
 const mysql = require('mysql');
 const session = require('express-session');
 const config = require('../../config/config');
+const redis = require('redis');
+const cache = redis.createClient(); 
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -119,6 +121,17 @@ function handleLoginSuccess(res, req, username) {
 
     // セッションにユーザー名を保存
     req.session.username = username;
+
+    // Redis クライアントが有効であることを確認してから操作
+    if (cache.connected) {
+    // RedisにユーザーのセッションIDと関連するユーザーデータを保存
+     const userSessionKey = `user:${username}`;
+     const userSessionData = {
+      sessionId: req.sessionID,
+      // 他に必要なユーザー情報を含めることも可能
+     };
+     cache.set(userSessionKey, JSON.stringify(userSessionData));
+    };
  
   // ログインに成功した場合は試行回数をリセット
   updateLoginAttempts(username, 0)
@@ -128,7 +141,7 @@ function handleLoginSuccess(res, req, username) {
       router.get('/get-session', (req, res) => {
         const sessionData = req.session.username;
         res.json({ username: sessionData });
-      });      
+      });     
 
       // リダイレクトを行うエンドポイントにリダイレクトする
       res.redirect('/redirect-home');
@@ -138,6 +151,9 @@ function handleLoginSuccess(res, req, username) {
       res.status(500).send('An error occurred while logging in.');
     });
 }
+
+
+
 
 
 // ログイン失敗時の処理
@@ -229,5 +245,24 @@ router.post('/login', async (req, res) => {
 
 
 createUsersTable();
+
+// モジュールが終了するときにRedisクライアントを閉じる
+process.on('exit', () => {
+  cache.quit(); // クライアントを閉じる
+});
+
+// モジュールが異常終了する場合もRedisクライアントを閉じる
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught exception:', err);
+  cache.quit(); // クライアントを閉じる
+  process.exit(1);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('Unhandled promise rejection:', reason);
+  cache.quit(); // クライアントを閉じる
+  process.exit(1);
+});
+
 
 module.exports = router;

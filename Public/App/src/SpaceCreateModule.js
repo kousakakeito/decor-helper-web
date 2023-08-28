@@ -121,7 +121,7 @@ function isMouseOnBorder(rectangle, x, y) {
   
   document.querySelector(".rectAngle-confirm").addEventListener("click",handleConfirm);
   
-  function handleConfirm(){
+   function handleConfirm(){
 
     const size1 =document.querySelector(".rectAngle-SizeForm1").value;
     const size2 =document.querySelector(".rectAngle-SizeForm2").value;
@@ -175,6 +175,9 @@ function isMouseOnBorder(rectangle, x, y) {
 
     document.querySelector('.space-compbtn').addEventListener('click', () => {
 
+      const spaceForm = document.querySelector('.space-form');
+      const spaceFormValue = spaceForm.value;
+
   
        if( spaceFormValue === ""){
          const spaceFormError = document.createElement("p");
@@ -182,57 +185,86 @@ function isMouseOnBorder(rectangle, x, y) {
          document.querySelector(".spacecenter-outer").append(spaceFormError);
          document.querySelector(".space-form-error").textContent = "※空間名を入力してください※";
        } else {
+        
 
-        const list = document.createElement("li");
-        const container = document.createElement("div");
-        container.classList.add("list-container");
-        document.querySelector('.space-list').append(list);
-
-        const spaceForm = document.querySelector('.space-form');
-        const spaceFormValue = spaceForm.value;
         const sourceLayers = stage.getLayers(); // すべてのレイヤーの配列を取得
 
 
-        // 2つの変数をサーバーサイドに送信する処理
-
         const layerData = {
-          name: sourceLayers.name(),   // レイヤーの名前など、必要なプロパティを抽出
-          children: [],         // 子要素の情報を格納する配列
+          layers: [],  // レイヤーの情報を格納する配列
         };
         
-        sourceLayers.getChildren().each((shape) => {
-          // 各シェイプの情報を抽出してオブジェクトを作成
-          const shapeData = {
-            type: shape.getType(),   // シェイプの種類（Rect、Circle など）
-            x: shape.x(),
-            y: shape.y(),
-            // その他の必要なプロパティを追加
+        sourceLayers.forEach(layer => {
+          const layerInfo = {
+            name: layer.name(),  // レイヤーの名前を取得
+            children: [],      // 子要素の情報を格納する配列
           };
+          
+          layer.getChildren().forEach(shape => {
+            // 各シェイプの情報を抽出してオブジェクトを作成
+            const shapeData = {
+              type: shape.getType(),   // シェイプの種類（Rect、Circle など）
+              x: shape.x(),
+              y: shape.y(),
+              // その他の必要なプロパティを追加
+            };
+            
+            layerInfo.children.push(shapeData); // 子要素の情報を配列に追加
+          });
         
-          layerData.children.push(shapeData); // 子要素の情報を配列に追加
+          layerData.layers.push(layerInfo); // レイヤーの情報を配列に追加
         });
+        
+        
 
-        // 送信するデータを用意
-const dataToSend = {
-  spaceFormValue: spaceFormValue,
-  layerData: layerData,
-};
 
-// Ajaxリクエストを作成
-const xhr = new XMLHttpRequest();
-xhr.open("POST", "/api/send-data", true);
-xhr.setRequestHeader("Content-Type", "application/json");
+  const newData = {
+    spaceFormValue: spaceFormValue,
+    layerData: layerData,
+  };
 
-// レスポンス受信時の処理
-xhr.onload = function () {
-  if (xhr.status === 200) {
-    console.log("データがサーバーサイドに送信されました。");
-  }
-};
+  // /user-data の fetch 処理
+fetch('/user-data', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(newData),
+})
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Server response:', data);
+    // サーバーからのレスポンスを処理
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    // エラー処理
+  });
 
-// リクエスト送信
-xhr.send(JSON.stringify(dataToSend));
-
+// /get-new-data の fetch 処理
+fetch('/get-new-data')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    const list = document.createElement("li");
+    list.textContent = data.spaceFormValue;
+    const container = document.createElement("div");
+    container.classList.add("list-container");
+    document.querySelector('.space-list').append(list);
+  })
+  .catch(error => {
+    console.error('Error getting new data:', error);
+    // エラー処理
+  });
 
 
 

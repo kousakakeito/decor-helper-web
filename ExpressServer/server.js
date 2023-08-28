@@ -18,6 +18,9 @@ app.use(loginController);
 const logoutController = require('../Public/controllers/logoutController'); 
 app.use(logoutController);
 
+const spaceController = require('../Public/controllers/spaceController'); 
+app.use(spaceController);
+
 const registerUser = require('../Public/controllers/registerController');
 
 app.get('/register.html', (req, res) => {
