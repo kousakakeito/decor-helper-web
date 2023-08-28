@@ -1594,3 +1594,67 @@ button{
   margin-left: -500px;
 }
 
+.addBtn{
+  width: 35px;
+  height: 15px;
+  margin-left: 10px;
+  font-size: 12px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+.addBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
+.cancelBtn{
+  width: 35px;
+  height: 15px;
+  margin-left: 10px;
+  font-size: 12px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+.cancelBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
+.editBtn{
+  width: 35px;
+  height: 15px;
+  margin-left: 10px;
+  font-size: 12px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+.editBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
+.add-list{
+  margin-left: -30px;
+  margin-top: 30px;
+  font-weight: bold;
+}
+
+.btn-box{
+  margin-top: -23px;
+  margin-left: 80px;
+}

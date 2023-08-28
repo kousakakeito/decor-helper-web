@@ -257,8 +257,20 @@ fetch('/get-new-data')
   .then(data => {
     const list = document.createElement("li");
     list.textContent = data.spaceFormValue;
-    const container = document.createElement("div");
-    container.classList.add("list-container");
+    list.classList.add("add-list");
+    const addBtn = document.createElement("button");
+    addBtn.append("追加");
+    addBtn.classList.add("addBtn");
+    const cancelBtn = document.createElement("button");
+    cancelBtn.append("取消");
+    cancelBtn.classList.add("cancelBtn");
+    const editBtn = document.createElement("button");
+    editBtn.append("編集");
+    editBtn.classList.add("editBtn");
+    const btnBox = document.createElement("div");
+    btnBox.classList.add("btn-box");
+    btnBox.append(addBtn,cancelBtn,editBtn);
+    list.append(btnBox);
     document.querySelector('.space-list').append(list);
   })
   .catch(error => {
