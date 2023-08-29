@@ -21,6 +21,9 @@ app.use(logoutController);
 const spaceController = require('../Public/controllers/spaceController'); 
 app.use(spaceController);
 
+const homeController = require('../Public/controllers/homeController'); 
+app.use(homeController);
+
 const registerUser = require('../Public/controllers/registerController');
 
 app.get('/register.html', (req, res) => {

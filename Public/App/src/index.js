@@ -194,3 +194,44 @@ dropdownItems.forEach(item => {
 
 
 
+  const spaceList = document.querySelector(".space-list");
+
+  spaceList.addEventListener("click", event => {
+    if (event.target.classList.contains("addBtn")) {
+      const liElement = event.target.closest("li");
+      const spaceFormValue = liElement.firstChild.textContent.trim();
+      const requestData = {
+          spaceFormValue: spaceFormValue
+      };
+        
+        fetch('/get-layer-data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(layerData => {
+        
+          const homecenterInner = document.querySelector('.homecenter-inner');
+
+        const stage2 = new Konva.Stage({
+          container: homecenterInner,
+          width: homecenterInner.offsetWidth,
+          height: homecenterInner.offsetHeight,
+        });
+
+        const newLayer = new Konva.Layer();
+
+      
+      
+        stage2.add(newLayer);
+      })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+        
+      }
+  });
+  

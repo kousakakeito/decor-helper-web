@@ -173,10 +173,24 @@ function isMouseOnBorder(rectangle, x, y) {
 
 
 
-    document.querySelector('.space-compbtn').addEventListener('click', () => {
+    document.querySelector('.space-compbtn').addEventListener('click', spaceComp); 
+    
+    function spaceComp(){
 
       const spaceForm = document.querySelector('.space-form');
       const spaceFormValue = spaceForm.value;
+      const ul = document.querySelector(".space-list");
+
+      function isDuplicateValuePresent(value, elements) {
+        let isDuplicate = false;
+        elements.forEach(element => {
+          if (element.textContent.trim() === value) {
+            isDuplicate = true;
+            return;
+          }
+        });
+        return isDuplicate;
+      };
 
   
        if( spaceFormValue === ""){
@@ -184,6 +198,16 @@ function isMouseOnBorder(rectangle, x, y) {
          spaceFormError.classList.add("space-form-error");
          document.querySelector(".spacecenter-outer").append(spaceFormError);
          document.querySelector(".space-form-error").textContent = "※空間名を入力してください※";
+       } else if(spaceFormValue.length >= 6){
+        const spaceFormError = document.createElement("p");
+        spaceFormError.classList.add("space-form-error");
+        document.querySelector(".spacecenter-outer").append(spaceFormError);
+        document.querySelector(".space-form-error").textContent = "※５文字以内で指定してください※";
+       }  else if (isDuplicateValuePresent(spaceFormValue+"追加"+"取消"+"編集", ul.querySelectorAll("li"))) {
+        const spaceFormError = document.createElement("p");
+        spaceFormError.classList.add("space-form-error");
+        document.querySelector(".spacecenter-outer").append(spaceFormError);
+        document.querySelector(".space-form-error").textContent = "※この空間名は既に登録されています※";
        } else {
         
 
@@ -278,30 +302,14 @@ fetch('/get-new-data')
     // エラー処理
   });
 
+  layer.destroy();
+  spaceForm.value = "";
+  const errorElement = document.querySelector(".space-form-error");
+  if (errorElement && errorElement.textContent !== "") {
+      errorElement.textContent = "";
+  }  
 
-
-      /*  const listcontainer = document.querySelector('.list-container');
-
-        const stage2 = new Konva.Stage({
-          container: listcontainer,
-          width: listcontainer.offsetWidth,
-          height: listcontainer.offsetHeight,
-        });
-        
-        
-        sourceLayers.forEach(sourceLayer => {
-          const newLayer = new Konva.Layer(); // 新しいレイヤーのインスタンスを作成
-          sourceLayer.getChildren().forEach(shape => {
-            const newShape = shape.clone(); // shape をクローンして新しいレイヤーに追加
-            console.log("Original x:", shape.x());
-            console.log("Cloned x:", newShape.x());
-            newLayer.add(newShape);
-          });
-          stage2.add(newLayer); // 新しいステージに新しいレイヤーを追加
-        });
-        
-        */
-        
+  document.querySelector('.space-compbtn').removeEventListener('click', spaceComp);
         
         
         
@@ -318,7 +326,7 @@ fetch('/get-new-data')
     
   
   
-    });
+    };
   
    
     }
