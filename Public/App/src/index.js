@@ -213,21 +213,51 @@ dropdownItems.forEach(item => {
         })
         .then(response => response.json())
         .then(layerData => {
-        
           const homecenterInner = document.querySelector('.homecenter-inner');
+          
+          
+          const stage2 = new Konva.Stage({
+            container: homecenterInner,
+            width: homecenterInner.offsetWidth,
+            height: homecenterInner.offsetHeight,
+          });
+        
+          // レイヤーごとに新しい Layer を作成
+          layerData.layerData.layers.forEach(layerInfo => {
+            const newLayer = new Konva.Layer();
+            
+            layerInfo.children.forEach(shapeData => {
+                // shapeData から必要な情報を取得して図形を作成
+                const rect = new Konva.Rect({
+                  x: (homecenterInner.offsetWidth - shapeData.width) / 2, 
+                  y: (homecenterInner.offsetHeight - shapeData.height) / 2,
+                  width: shapeData.width,
+                  height: shapeData.height,
+                  fill: shapeData.fill,
+                  // その他の必要なプロパティを設定
+                });
+                console.log(rect);
+                newLayer.add(rect); // 図形を newLayer に追加
+                newLayer.draw();
+              
+              // 他の図形タイプに対する処理も同様に追加可能
+            });
+            stage2.add(newLayer); // 新しいレイヤーを stage2 に追加
 
-        const stage2 = new Konva.Stage({
-          container: homecenterInner,
-          width: homecenterInner.offsetWidth,
-          height: homecenterInner.offsetHeight,
-        });
-
-        const newLayer = new Konva.Layer();
-
-      
-      
-        stage2.add(newLayer);
-      })
+        
+            stage2.draw();
+  
+            // 描画が完了した後の処理を行う
+            newLayer.on('draw', function () {
+              console.log('レイヤーの描画が完了しました。');
+              // ここで描画が完了した後の処理を実行できます。
+            });
+          });
+    
+        })
+        
+        
+        
         .catch(error => {
             console.error('Error:', error);
         });

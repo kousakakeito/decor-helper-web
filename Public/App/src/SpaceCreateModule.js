@@ -230,8 +230,12 @@ function isMouseOnBorder(rectangle, x, y) {
               type: shape.getType(),   // シェイプの種類（Rect、Circle など）
               x: shape.x(),
               y: shape.y(),
+              width: shape.width(),
+              height: shape.height(),
+              fill: shape.fill(),
               // その他の必要なプロパティを追加
             };
+
             
             layerInfo.children.push(shapeData); // 子要素の情報を配列に追加
           });
