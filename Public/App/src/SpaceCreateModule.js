@@ -223,21 +223,42 @@ function isMouseOnBorder(rectangle, x, y) {
             name: layer.name(),  // レイヤーの名前を取得
             children: [],      // 子要素の情報を格納する配列
           };
+
+          function getShapeType(shape) {
+            if (shape instanceof Konva.Rect) {
+              return "Rect";
+            } else if (shape instanceof Konva.Line) {
+              return "Line";
+            } 
+          };
           
           layer.getChildren().forEach(shape => {
-            // 各シェイプの情報を抽出してオブジェクトを作成
-            const shapeData = {
+            const shapeType = getShapeType(shape);
+            if (shapeType === "Rect") {
+            const rectData = {
               type: shape.getType(),   // シェイプの種類（Rect、Circle など）
               x: shape.x(),
               y: shape.y(),
               width: shape.width(),
               height: shape.height(),
-              fill: shape.fill(),
-              // その他の必要なプロパティを追加
+              fill: shape.fill(),    
             };
+            layerInfo.children.push(rectData); // 子要素の情報を配列に追加
+          }
 
+          if (shapeType === "Line") {
+            const lineData = {
+              type: shape.getType(),   // シェイプの種類（Rect、Circle など）
+              points: shape.points(),
+              stroke: shape.stroke(), // 線の色
+              strokeWidth: shape.strokeWidth(), // 線の太さ
+              closed: shape.closed(), // 閉じた形状として描画
+              fill: shape.fill(),    
+            };
+            layerInfo.children.push(lineData); // 子要素の情報を配列に追加
+          }
             
-            layerInfo.children.push(shapeData); // 子要素の情報を配列に追加
+            
           });
         
           layerData.layers.push(layerInfo); // レイヤーの情報を配列に追加

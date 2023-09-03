@@ -193,6 +193,12 @@ dropdownItems.forEach(item => {
   furnitureCreateBtn.addEventListener('click', furnitureCreate);
 
 
+  const homecenterInner = document.querySelector('.homecenter-inner');    
+  const stage2 = new Konva.Stage({
+    container: homecenterInner,
+    width: homecenterInner.offsetWidth,
+    height: homecenterInner.offsetHeight,
+  });
 
   const spaceList = document.querySelector(".space-list");
 
@@ -213,14 +219,6 @@ dropdownItems.forEach(item => {
         })
         .then(response => response.json())
         .then(layerData => {
-          const homecenterInner = document.querySelector('.homecenter-inner');
-          
-          
-          const stage2 = new Konva.Stage({
-            container: homecenterInner,
-            width: homecenterInner.offsetWidth,
-            height: homecenterInner.offsetHeight,
-          });
         
           // レイヤーごとに新しい Layer を作成
           layerData.layerData.layers.forEach(layerInfo => {
@@ -236,12 +234,24 @@ dropdownItems.forEach(item => {
                   fill: shapeData.fill,
                   // その他の必要なプロパティを設定
                 });
+
+                const line = new Konva.Line({
+                  points: shapeData.points,
+                  stroke: shapeData.stroke, 
+                  strokeWidth: shapeData.strokeWidth, 
+                  closed: shapeData.closed,
+                  fill: shapeData.fill,
+                  // その他の必要なプロパティを設定
+                });
+
                 console.log(rect);
-                newLayer.add(rect); // 図形を newLayer に追加
+                newLayer.add(line);
+                newLayer.add(rect);
                 newLayer.draw();
               
               // 他の図形タイプに対する処理も同様に追加可能
             });
+            destroyLayer = newLayer;
             stage2.add(newLayer); // 新しいレイヤーを stage2 に追加
 
         
@@ -263,5 +273,53 @@ dropdownItems.forEach(item => {
         });
         
       }
+  });
+
+  let destroyLayer;
+  
+
+  spaceList.addEventListener("click", event => {
+    if (event.target.classList.contains("cancelBtn")) {
+      const liElement = event.target.closest("li");
+      const spaceFormValue = liElement.firstChild.textContent.trim();
+      const requestData = {
+        spaceFormValue: spaceFormValue
+      };
+  
+      fetch('/get-layer-data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestData)
+      })
+        .then(response => response.json())
+        .then(layerData => {
+  
+          const stageLayers = stage2.getLayers();
+          const layerDataLayers = layerData.layers;
+          
+          const isMatching = stageLayers.length === layerDataLayers.length &&
+            stageLayers.every((stageLayer, index) => {
+              const layerInfo = layerDataLayers[index];
+              return layerInfo.width === stageLayer.width() &&
+                     layerInfo.height === stageLayer.height() &&
+                     layerInfo.fill === stageLayer.fill() &&
+                     layerInfo.points === stageLayer.points() &&
+                     layerInfo.stroke === stageLayer.stroke()         
+            });
+          
+          if (isMatching) {
+            destroyLayer.destroy();
+          } else {
+            console.log('Stage and layerData do not match.');
+          }
+  
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+  
+    }
   });
   
