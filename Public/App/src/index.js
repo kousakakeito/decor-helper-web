@@ -282,43 +282,87 @@ dropdownItems.forEach(item => {
     if (event.target.classList.contains("cancelBtn")) {
       const liElement = event.target.closest("li");
       const spaceFormValue = liElement.firstChild.textContent.trim();
-      const requestData = {
-        spaceFormValue: spaceFormValue
-      };
+
   
-      fetch('/get-layer-data', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestData)
-      })
-        .then(response => response.json())
-        .then(layerData => {
-  
-          const stageLayers = stage2.getLayers();
-          const layerDataLayers = layerData.layers;
+          const sourceLayers = stage2.getLayers(); // すべてのレイヤーの配列を取得
+
+
+          const layerData = {
+            layers: [],  // レイヤーの情報を格納する配列
+          };
           
-          const isMatching = stageLayers.length === layerDataLayers.length &&
-            stageLayers.every((stageLayer, index) => {
-              const layerInfo = layerDataLayers[index];
-              return layerInfo.width === stageLayer.width() &&
-                     layerInfo.height === stageLayer.height() &&
-                     layerInfo.fill === stageLayer.fill() &&
-                     layerInfo.points === stageLayer.points() &&
-                     layerInfo.stroke === stageLayer.stroke()         
+          sourceLayers.forEach(layer => {
+            const layerInfo = {
+              name: layer.name(),  // レイヤーの名前を取得
+              children: [],      // 子要素の情報を格納する配列
+            };
+  
+            function getShapeType(shape) {
+              if (shape instanceof Konva.Rect) {
+                return "Rect";
+              } else if (shape instanceof Konva.Line) {
+                return "Line";
+              } 
+            };
+            
+            layer.getChildren().forEach(shape => {
+              const shapeType = getShapeType(shape);
+              if (shapeType === "Rect") {
+              const rectData = {
+                type: shape.getType(),   // シェイプの種類（Rect、Circle など）
+                x: shape.x(),
+                y: shape.y(),
+                width: shape.width(),
+                height: shape.height(),
+                fill: shape.fill(),    
+              };
+              layerInfo.children.push(rectData); // 子要素の情報を配列に追加
+            }
+
+              
+              
             });
           
-          if (isMatching) {
-            destroyLayer.destroy();
-          } else {
-            console.log('Stage and layerData do not match.');
-          }
+            layerData.layers.push(layerInfo); // レイヤーの情報を配列に追加
+          });
+          
+          
   
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
+  
+    const newData2 = {
+      spaceFormValue: spaceFormValue,
+      layerData: layerData,
+    };
+  
+    // /user-data の fetch 処理
+    fetch('/user-data2', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newData2),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Server response:', data);
+        if (data.result) {
+          destroyLayer.destroy();
+        } else {
+          console.log("not");
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        // エラー処理
+      });
+    
+
+
   
     }
   });
