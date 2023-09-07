@@ -220,7 +220,7 @@ function isMouseOnBorder(rectangle, x, y) {
         
         sourceLayers.forEach(layer => {
           const layerInfo = {
-            name: layer.name(),  // レイヤーの名前を取得
+            name: spaceFormValue,  // レイヤーの名前を取得
             children: [],      // 子要素の情報を格納する配列
           };
 

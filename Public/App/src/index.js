@@ -202,6 +202,8 @@ dropdownItems.forEach(item => {
 
   const spaceList = document.querySelector(".space-list");
 
+  let destroyLayer;
+
   spaceList.addEventListener("click", event => {
     if (event.target.classList.contains("addBtn")) {
       const liElement = event.target.closest("li");
@@ -222,7 +224,9 @@ dropdownItems.forEach(item => {
         
           // レイヤーごとに新しい Layer を作成
           layerData.layerData.layers.forEach(layerInfo => {
-            const newLayer = new Konva.Layer();
+            const newLayer = new Konva.Layer({
+              name: layerInfo.name, 
+          });
             
             layerInfo.children.forEach(shapeData => {
                 // shapeData から必要な情報を取得して図形を作成
@@ -251,7 +255,7 @@ dropdownItems.forEach(item => {
               
               // 他の図形タイプに対する処理も同様に追加可能
             });
-            destroyLayer = newLayer;
+            destroyLayer = newLayer
             stage2.add(newLayer); // 新しいレイヤーを stage2 に追加
 
         
@@ -272,98 +276,24 @@ dropdownItems.forEach(item => {
             console.error('Error:', error);
         });
         
+      } else if (event.target.classList.contains("cancelBtn")) {
+        // 削除ボタンをクリックした場合の処理
+        const liElement = event.target.closest("li");
+        const spaceFormValue = liElement.firstChild.textContent.trim();
+    
+        // 削除対象のレイヤーを特定
+        const layerToRemove = stage2.find(node => node.name() === spaceFormValue);
+
+        console.log(layerToRemove);
+        
+        if (layerToRemove) {
+
+          layerToRemove.destroy();
+         
+        }else {
+          console.log('対象のレイヤーが見つかりませんでした。');
+        }
       }
   });
 
-  let destroyLayer;
-  
-
-  spaceList.addEventListener("click", event => {
-    if (event.target.classList.contains("cancelBtn")) {
-      const liElement = event.target.closest("li");
-      const spaceFormValue = liElement.firstChild.textContent.trim();
-
-  
-          const sourceLayers = stage2.getLayers(); // すべてのレイヤーの配列を取得
-
-
-          const layerData = {
-            layers: [],  // レイヤーの情報を格納する配列
-          };
-          
-          sourceLayers.forEach(layer => {
-            const layerInfo = {
-              name: layer.name(),  // レイヤーの名前を取得
-              children: [],      // 子要素の情報を格納する配列
-            };
-  
-            function getShapeType(shape) {
-              if (shape instanceof Konva.Rect) {
-                return "Rect";
-              } else if (shape instanceof Konva.Line) {
-                return "Line";
-              } 
-            };
-            
-            layer.getChildren().forEach(shape => {
-              const shapeType = getShapeType(shape);
-              if (shapeType === "Rect") {
-              const rectData = {
-                type: shape.getType(),   // シェイプの種類（Rect、Circle など）
-                x: shape.x(),
-                y: shape.y(),
-                width: shape.width(),
-                height: shape.height(),
-                fill: shape.fill(),    
-              };
-              layerInfo.children.push(rectData); // 子要素の情報を配列に追加
-            }
-
-              
-              
-            });
-          
-            layerData.layers.push(layerInfo); // レイヤーの情報を配列に追加
-          });
-          
-          
-  
-  
-    const newData2 = {
-      spaceFormValue: spaceFormValue,
-      layerData: layerData,
-    };
-  
-    // /user-data の fetch 処理
-    fetch('/user-data2', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newData2),
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Server response:', data);
-        if (data.result) {
-          destroyLayer.destroy();
-        } else {
-          console.log("not");
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        // エラー処理
-      });
-    
-
-
-  
-    }
-  });
-  
+ 
