@@ -202,10 +202,11 @@ dropdownItems.forEach(item => {
 
   const spaceList = document.querySelector(".space-list");
 
-  let destroyLayer;
 
   spaceList.addEventListener("click", event => {
     if (event.target.classList.contains("addBtn")) {
+      if (stage2.getChildren().length === 0) {
+
       const liElement = event.target.closest("li");
       const spaceFormValue = liElement.firstChild.textContent.trim();
       const requestData = {
@@ -255,7 +256,7 @@ dropdownItems.forEach(item => {
               
               // 他の図形タイプに対する処理も同様に追加可能
             });
-            destroyLayer = newLayer
+            
             stage2.add(newLayer); // 新しいレイヤーを stage2 に追加
 
         
@@ -264,7 +265,7 @@ dropdownItems.forEach(item => {
             // 描画が完了した後の処理を行う
             newLayer.on('draw', function () {
               console.log('レイヤーの描画が完了しました。');
-              // ここで描画が完了した後の処理を実行できます。
+             
             });
           });
     
@@ -275,22 +276,35 @@ dropdownItems.forEach(item => {
         .catch(error => {
             console.error('Error:', error);
         });
+
+      } else {
+        const spaceFormError = document.createElement("p");
+         spaceFormError.classList.add("space-form-error");
+         document.querySelector(".homecenter-outer").append(spaceFormError);
+         document.querySelector(".space-form-error").textContent = "※既に空間が追加されています。新たに空間を追加する場合は追加済みの空間を取消してください※";
+      }
         
       } else if (event.target.classList.contains("cancelBtn")) {
         // 削除ボタンをクリックした場合の処理
         const liElement = event.target.closest("li");
         const spaceFormValue = liElement.firstChild.textContent.trim();
+
     
         // 削除対象のレイヤーを特定
-        const layerToRemove = stage2.find(node => node.name() === spaceFormValue);
+        const layerToRemove = stage2.find(node => node.name() === spaceFormValue)[0];
 
-        console.log(layerToRemove);
+        console.log('spaceFormValue:', spaceFormValue);
+        console.log('すべてのステージの子要素:', stage2.children);
+        console.log('削除するレイヤー:', layerToRemove);
+        console.log("layerToRemoveの名前:",layerToRemove.name());
         
-        if (layerToRemove) {
-
+        if (layerToRemove instanceof Konva.Layer) {
           layerToRemove.destroy();
-         
-        }else {
+          const errorElement = document.querySelector(".space-form-error");
+          if (errorElement && errorElement.textContent !== "") {
+              errorElement.textContent = "";
+          }  
+        } else {
           console.log('対象のレイヤーが見つかりませんでした。');
         }
       }
