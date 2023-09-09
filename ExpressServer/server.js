@@ -21,6 +21,9 @@ app.use(logoutController);
 const spaceController = require('../Public/controllers/spaceController'); 
 app.use(spaceController);
 
+const furnitureController = require('../Public/controllers/furnitureController'); 
+app.use(furnitureController);
+
 const homeController = require('../Public/controllers/homeController'); 
 app.use(homeController);
 

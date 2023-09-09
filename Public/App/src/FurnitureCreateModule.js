@@ -170,6 +170,181 @@ function isMouseOnBorder(rectangle, x, y) {
     document.querySelector(".div1").parentNode.removeChild(document.querySelector(".div1"));
 
 
+    document.querySelector('.furniture-addbtn').addEventListener('click', furnitureAdd);
+    
+    function furnitureAdd(){
+
+      const furnitureForm = document.querySelector('.furniture-form');
+      const genreForm = document.querySelector('.genre-form');
+      const furnitureFormValue = furnitureForm.value;
+      const genreFormValue = genreForm.value;
+      const ul = document.querySelector(".furniture-addlist");
+
+      function isDuplicateValuePresent(value, elements) {
+        let isDuplicate = false;
+        elements.forEach(element => {
+          if (element.textContent.trim() === value) {
+            isDuplicate = true;
+            return;
+          }
+        });
+        return isDuplicate;
+      };
+
+  
+       if( furnitureFormValue === ""){
+         const furnitureFormError = document.createElement("p");
+         furnitureFormError.classList.add("furniture-form-error");
+         document.querySelector(".furniturecenter-outer").append(furnitureFormError);
+         document.querySelector(".furniture-form-error").textContent = "※家具名を入力してください※";
+       } else if(furnitureFormValue.length >= 6){
+        const furnitureFormError = document.createElement("p");
+        furnitureFormError.classList.add("furniture-form-error");
+        document.querySelector(".furniturecenter-outer").append(furnitureFormError);
+        document.querySelector(".furniture-form-error").textContent = "※５文字以内で指定してください※";
+       }  else if (isDuplicateValuePresent(furnitureFormValue+"追加"+"取消"+"編集", ul.querySelectorAll("li"))) {
+        const furnitureFormError = document.createElement("p");
+        furnitureFormError.classList.add("furniture-form-error");
+        document.querySelector(".furniturecenter-outer").append(furnitureFormError);
+        document.querySelector(".furniture-form-error").textContent = "※この家具名は既に追加されています※";
+        } else if( genreFormValue === ""){
+          const furnitureFormError = document.createElement("p");
+          furnitureFormError.classList.add("furniture-form-error");
+          document.querySelector(".furniturecenter-outer").append(furnitureFormError);
+          document.querySelector(".furniture-form-error").textContent = "※ジャンル名を入力してください※";
+        } else if(genreFormValue.length >= 6){
+         const furnitureFormError = document.createElement("p");
+         furnitureFormError.classList.add("furniture-form-error");
+         document.querySelector(".furniturecenter-outer").append(furnitureFormError);
+         document.querySelector(".furniture-form-error").textContent = "※５文字以内で指定してください※";
+        }  else if (isDuplicateValuePresent(genreFormValue+"追加"+"取消"+"編集", ul.querySelectorAll("li"))) {
+         const furnitureFormError = document.createElement("p");
+         furnitureFormError.classList.add("furniture-form-error");
+         document.querySelector(".furniturecenter-outer").append(furnitureFormError);
+         document.querySelector(".furniture-form-error").textContent = "※このジャンル名は既に追加されています※";
+       } else {
+
+        const sourceLayers = stage.getLayers(); // すべてのレイヤーの配列を取得
+
+
+        const layerData = {
+          layers: [],  // レイヤーの情報を格納する配列
+        };
+        
+        sourceLayers.forEach(layer => {
+          const layerInfo = {
+            name: furnitureFormValue,  // レイヤーの名前を取得
+            children: [],      // 子要素の情報を格納する配列
+          };
+
+          function getShapeType(shape) {
+            if (shape instanceof Konva.Rect) {
+              return "Rect";
+            } else if (shape instanceof Konva.Line) {
+              return "Line";
+            } 
+          };
+          
+          layer.getChildren().forEach(shape => {
+            const shapeType = getShapeType(shape);
+            if (shapeType === "Rect") {
+            const rectData = {
+              type: shape.getType(),   // シェイプの種類（Rect、Circle など）
+              x: shape.x(),
+              y: shape.y(),
+              width: shape.width(),
+              height: shape.height(),
+              fill: shape.fill(),    
+            };
+            layerInfo.children.push(rectData); // 子要素の情報を配列に追加
+          }
+
+          if (shapeType === "Line") {
+            const lineData = {
+              type: shape.getType(),   // シェイプの種類（Rect、Circle など）
+              points: shape.points(),
+              stroke: shape.stroke(), // 線の色
+              strokeWidth: shape.strokeWidth(), // 線の太さ
+              closed: shape.closed(), // 閉じた形状として描画
+              fill: shape.fill(),    
+            };
+            layerInfo.children.push(lineData); // 子要素の情報を配列に追加
+          }
+            
+            
+          });
+        
+          layerData.layers.push(layerInfo); // レイヤーの情報を配列に追加
+        });
+        
+        
+
+
+  const newData = {
+    furnitureFormValue: furnitureFormValue,
+    genreFormValue: genreFormValue,
+    layerData: layerData,
+  };
+
+    // /user-data の fetch 処理
+fetch('/user-data2', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(newData),
+})
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    console.log('Server response:', data);
+    // サーバーからのレスポンスを処理
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    // エラー処理
+  });
+
+
+  fetch('/get-new-data2')
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
+  })
+  .then(data => {
+    const list = document.createElement("li");
+    list.classList.add("add-list");
+    const furnitureTextNode = document.createTextNode("家具名:" + furnitureFormValue);
+    const genreTextNode = document.createTextNode("ジャンル名:" + genreFormValue);
+    list.append(furnitureTextNode,document.createTextNode("\u2003\u2003"),genreTextNode);
+    const deleteBtn = document.createElement("button");
+    deleteBtn.append("削除");
+    deleteBtn.classList.add("deleteBtn");
+    const btnBox = document.createElement("div");
+    btnBox.classList.add("btn-box");
+    btnBox.append(deletetBtn);
+    list.append(btnBox);
+    document.querySelector('.furniture-addlist').append(list);
+  })
+  .catch(error => {
+    console.error('Error getting new data:', error);
+    // エラー処理
+  });
+
+
+
+       };
+
+       document.querySelector('.furniture-addbtn').removeEventListener('click', furnitureAdd);
+
+    };
+
 
   
    

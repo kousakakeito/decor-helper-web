@@ -12,22 +12,22 @@ const connection = mysql.createConnection({
 });
 
 // テーブル作成処理
-const createSpaceTable = () => {
+const createFurnitureTable = () => {
   try {
     const createTableSql = `
-      CREATE TABLE IF NOT EXISTS space (
+      CREATE TABLE IF NOT EXISTS furniture (
         id INT AUTO_INCREMENT PRIMARY KEY,
         username VARCHAR(255),
-        space_data TEXT
+        furniture_data TEXT
       )
     `;
 
     connection.query(createTableSql, (error) => {
       if (error) {
-        console.error('Error creating space table:', error);
+        console.error('Error creating furniture table:', error);
         return;
       }
-      console.log('Space table created successfully!');
+      console.log('Furniture table created successfully!');
     });
   } catch (error) {
     console.error('Error:', error);
@@ -44,12 +44,11 @@ const authenticateSession = (req, res, next) => {
   next();
 };
 
-// ユーザー専用のエンドポイント
-router.post('/user-data', authenticateSession, async (req, res) => {
+router.post('/user-data2', authenticateSession, async (req, res) => {
   const username = req.session.username;
   const newData = req.body;
 
-  const insertDataSql = 'INSERT INTO space (username, space_data) VALUES (?, ?)';
+  const insertDataSql = 'INSERT INTO furniture (username, furniture_data) VALUES (?, ?)';
   const values = [username, JSON.stringify(newData)];
 
   connection.query(insertDataSql, values, (error, results, fields) => {
@@ -63,29 +62,26 @@ router.post('/user-data', authenticateSession, async (req, res) => {
   });
 });
 
-// クライアントに新しい入力データを送信するエンドポイント
-
-router.get('/get-new-data', authenticateSession, async (req, res) => {
+router.get('/get-new-data2', authenticateSession, async (req, res) => {
   const username = req.session.username;
 
-  const selectLastSpaceDataSql = 'SELECT space_data FROM space WHERE username = ? ORDER BY id DESC LIMIT 1';
-  connection.query(selectLastSpaceDataSql, [username], (error, results, fields) => {
+  const selectLastFurnitureDataSql = 'SELECT furniture_data FROM furniture WHERE username = ? ORDER BY id DESC LIMIT 1';
+  connection.query(selectLastFurnitureDataSql, [username], (error, results, fields) => {
     if (error) {
-      console.error('Error while fetching last space data:', error);
-      res.status(500).send('An error occurred while fetching last space data.');
+      console.error('Error while fetching last furniture data:', error);
+      res.status(500).send('An error occurred while fetching last furniture data.');
     } else {
       if (results.length > 0) {
-        const lastSpaceData = JSON.parse(results[0].space_data);
-        res.json(lastSpaceData);
+        const lastFurnitureData = JSON.parse(results[0].furniture_data);
+        res.json(lastFurnitureData);
       } else {
-        res.status(404).send('No space data found for the user.');
+        res.status(404).send('No furniture data found for the user.');
       }
     }
   });
 });
 
-createSpaceTable();
-
+createFurnitureTable();
 
 // モジュールが終了するときにMySQL接続を閉じる
 process.on('exit', () => {
@@ -104,5 +100,6 @@ process.on('unhandledRejection', (reason, promise) => {
   connection.end(); // 接続を閉じる
   process.exit(1);
 });
+
 
 module.exports = router;
