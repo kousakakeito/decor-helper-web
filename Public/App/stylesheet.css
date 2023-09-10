@@ -1599,7 +1599,7 @@ button{
   position: absolute;
   margin-top: -650px;
   color: red;
-  margin-left: -50px;
+  margin-left: -10px;
 }
 
 .addBtn{
@@ -1664,13 +1664,12 @@ button{
 
 .btn-box{
   margin-top: -23px;
-  margin-left: 80px;
+  margin-left: 200px;
 }
 
 .deleteBtn{
   width: 35px;
   height: 15px;
-  margin-left: 10px;
   font-size: 12px;
   border: none;
   background-color: #4CAF50;
@@ -1683,4 +1682,9 @@ button{
 .deleteBtn:hover {
   transform: scale(1.1);
   box-shadow: 0 8px #008000;
+}
+
+.furniture-addlist{
+  position: absolute;
+  list-style: none;
 }

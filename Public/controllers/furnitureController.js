@@ -81,6 +81,36 @@ router.get('/get-new-data2', authenticateSession, async (req, res) => {
   });
 });
 
+router.post('/user-data3', authenticateSession, async (req, res) => {
+  const username = req.session.username;
+  const furnitureFormValue = req.body.furnitureName; // クライアントから送信されたデータ
+
+  console.log(furnitureFormValue);
+
+  // furnitureFormValue と一致するデータを furniture テーブルから削除
+  const deleteFurnitureSql = 'DELETE FROM furniture WHERE username = ? AND JSON_EXTRACT(furniture_data, "$.furnitureFormValue") = ?';
+  const values = [username, furnitureFormValue];
+
+  connection.query(deleteFurnitureSql, values, (error, results, fields) => {
+    if (error) {
+      console.error('Error deleting furniture data:', error);
+      res.status(500).send('An error occurred while deleting furniture data.');
+    } else {
+      if (results.affectedRows > 0) {
+        console.log('Furniture data deleted successfully.');
+        res.json({ message: 'Furniture data deleted successfully.' });
+      } else {
+        console.log('No matching furniture data found.');
+        res.status(404).send('No matching furniture data found.');
+      }
+    }
+  });
+});
+
+
+
+
+
 createFurnitureTable();
 
 // モジュールが終了するときにMySQL接続を閉じる
