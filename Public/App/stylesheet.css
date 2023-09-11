@@ -203,6 +203,7 @@ button{
   align-items: flex-start;
   height: 350px;
   width: 250px;
+  overflow: auto;
   border: 2px solid #000;
   margin-top: 40px;
   background-color:rgba(255, 255, 255, 0.8);
@@ -286,6 +287,7 @@ button{
   border-width: 2px;
   width: 250px;
   height: 735px;
+  overflow: auto;
   background-color:rgba(255, 255, 255, 0.8);
 }
 
@@ -1662,10 +1664,23 @@ button{
   font-weight: bold;
 }
 
+.add-list2{
+  margin-left: -15px;
+  margin-top: 30px;
+  font-weight: bold;
+}
+
 .btn-box{
+  margin-top: -23px;
+  margin-left: 70px;
+}
+
+.btn-box2{
   margin-top: -23px;
   margin-left: 200px;
 }
+
+
 
 .deleteBtn{
   width: 35px;
@@ -1688,3 +1703,4 @@ button{
   position: absolute;
   list-style: none;
 }
+

@@ -108,6 +108,40 @@ router.post('/user-data3', authenticateSession, async (req, res) => {
 });
 
 
+// POSTリクエストを処理するエンドポイント
+router.post('/user-data4', (req, res) => {
+  const username = req.session.username; // リクエストボディからusernameを取得
+  const selectAllFurnitureFormValuesSql = 'SELECT JSON_EXTRACT(furniture_data, "$.furnitureFormValue") AS furnitureFormValue FROM furniture WHERE username = ?';
+  connection.query(selectAllFurnitureFormValuesSql, [username], (error, results, fields) => {
+    if (error) {
+      console.error('Error fetching furniture data:', error);
+      res.status(500).send('An error occurred while fetching furniture data.');
+    } else {
+      const furnitureFormValues = [];
+
+      console.log("A");
+      console.log(results);
+
+
+      // データベースから取得したすべての行に対して処理を行う
+      results.forEach(row => {
+        try {
+          const furnitureFormValue = JSON.parse(row.furnitureFormValue);
+          if (furnitureFormValue !== null && furnitureFormValue !== "") {
+            furnitureFormValues.push(furnitureFormValue);
+          } 
+        } catch (e) {
+          console.error('Error parsing JSON:', e);
+        }
+      });
+
+      console.log(furnitureFormValues);
+
+      res.json(furnitureFormValues);
+    }
+  });
+});
+
 
 
 

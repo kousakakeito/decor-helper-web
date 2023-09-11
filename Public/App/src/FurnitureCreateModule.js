@@ -321,7 +321,7 @@ fetch('/user-data2', {
     deleteBtn.append("削除");
     deleteBtn.classList.add("deleteBtn");
     const btnBox = document.createElement("div");
-    btnBox.classList.add("btn-box");
+    btnBox.classList.add("btn-box2");
     btnBox.append(deleteBtn);
     list.append(btnBox);
     document.querySelector('.furniture-addlist').append(list);
@@ -405,7 +405,49 @@ fetch('/user-data2', {
 
       if (liElements.length > 0) {
 
+        fetch('/user-data4', {
+          method: 'POST', // または 'GET' など、HTTPメソッドを選択
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Server response:', data);
+            // サーバーからのレスポンスを処理
+            const ul = document.querySelector('.furniture-list');
+            ul.innerHTML = ''; // リストをクリア
+        
+            data.forEach(furnitureFormValues => {
+              const li = document.createElement('li');
+              li.textContent = furnitureFormValues;
+              li.classList.add("add-list2");
+              const addBtn = document.createElement("button");
+              addBtn.append("追加");
+              addBtn.classList.add("addBtn");
+              const cancelBtn = document.createElement("button");
+              cancelBtn.append("取消");
+              cancelBtn.classList.add("cancelBtn");
+              const editBtn = document.createElement("button");
+              editBtn.append("編集");
+              editBtn.classList.add("editBtn");
+              const btnBox = document.createElement("div");
+              btnBox.classList.add("btn-box");
+              btnBox.append(addBtn,cancelBtn,editBtn);
+              li.append(btnBox);
+              ul.appendChild(li);
+            });
 
+            while (document.querySelector('.furniture-addlist').firstChild) {
+              document.querySelector('.furniture-addlist').removeChild(document.querySelector('.furniture-addlist').firstChild);
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            // エラー処理
+          });
 
  
       } else {
