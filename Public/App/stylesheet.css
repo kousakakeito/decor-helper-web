@@ -1704,3 +1704,89 @@ button{
   list-style: none;
 }
 
+.dropdown-container{
+  border-style: solid;
+  border-width: 0px;
+  background-color: white;
+}
+
+.genre-text{
+
+  margin-top: 1px;
+  font-size: 12px;
+}
+
+.genre-checktext{
+  position: absolute;
+  margin-top: 1px;
+  margin-left: 10px;
+  font-size: 12px;
+}
+
+.caret-down{
+  position: absolute;
+  cursor: pointer;
+  margin-left: 200px;
+  margin-top: -22px;
+  font-size: 20px;
+}
+
+.fa-caret-up{
+  position: absolute;
+  
+  
+  margin-top: 2px;
+  
+}
+
+
+
+
+.genre-dropdown > li {
+  background-color: rgba(255,255,255,0);
+  text-align: center;
+  width: 200px;
+  /* 閉じている状態 */
+  border-top: 0 white solid;
+  padding-top: 0;
+  padding-bottom: 0 ;
+  /* 閉じるアニメーション */
+  transition:
+    border-top     .3s ease-out,
+    padding-top    .3s ease-out,
+    padding-bottom .3s ease-out;
+}
+.genre-dropdown.is-open > li {
+  /* 開いている状態 */
+ 
+  border-bottom: 1px white solid;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  /* 開くアニメーション */
+  transition:
+    border-top     .3s ease-out,
+    padding-top    .3s ease-out,
+    padding-bottom .3s ease-out;
+}
+.genre-dropdown > li {
+  /* 閉じている状態 */
+  line-height: 0;
+  opacity: 0;
+  visibility: hidden;
+  /* 閉じるアニメーション */
+  transition:
+    line-height .3s ease-out,
+    opacity     .1s linear,
+    visibility  .1s linear;
+}
+.genre-dropdown.is-open > li {
+  /* 開いている状態 */
+  line-height: 1.5;
+  opacity: 1;
+  visibility: visible;
+  /* 開くアニメーション */
+  transition:
+    line-height .3s ease-out,
+    opacity     .1s linear .1s,
+    visibility  .1s linear .1s;
+}

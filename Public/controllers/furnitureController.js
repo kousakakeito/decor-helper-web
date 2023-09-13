@@ -143,6 +143,40 @@ router.post('/user-data4', (req, res) => {
 });
 
 
+router.post('/user-data5', (req, res) => {
+  const username = req.session.username; // リクエストボディからusernameを取得
+  const selectAllGenreFormValuesSql = 'SELECT JSON_EXTRACT(furniture_data, "$.genreFormValue") AS genreFormValue FROM furniture WHERE username = ?';
+  connection.query(selectAllGenreFormValuesSql, [username], (error, results, fields) => {
+    if (error) {
+      console.error('Error fetching furniture data:', error);
+      res.status(500).send('An error occurred while fetching furniture data.');
+    } else {
+      const genreFormValues = [];
+
+      console.log("A");
+      console.log(results);
+
+
+      // データベースから取得したすべての行に対して処理を行う
+      results.forEach(row => {
+        try {
+          const genreFormValue = JSON.parse(row.genreFormValue);
+          if (genreFormValue !== null && genreFormValue !== "") {
+            genreFormValues.push(genreFormValue);
+          } 
+        } catch (e) {
+          console.error('Error parsing JSON:', e);
+        }
+      });
+
+      console.log(genreFormValues);
+
+      res.json(genreFormValues);
+    }
+  });
+});
+
+
 
 
 createFurnitureTable();

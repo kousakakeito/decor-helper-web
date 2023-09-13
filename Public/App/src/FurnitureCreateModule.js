@@ -449,6 +449,40 @@ fetch('/user-data2', {
             // エラー処理
           });
 
+          fetch('/user-data5', {
+            method: 'POST', 
+          })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.json();
+            })
+            .then(data => {
+              console.log('Server response:', data);
+              // サーバーからのレスポンスを処理
+              const ol = document.querySelector('.genre-dropdown');
+              ol.innerHTML = ''; // リストをクリア
+          
+              data.forEach(genreFormValues => {
+                const li = document.createElement('li');
+                li.textContent = genreFormValues;
+  
+                const check = document.createElement("input");
+                check.type = "checkbox";
+                
+                li.append(check);
+                ol.appendChild(li);
+              });
+
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              // エラー処理
+            });
+
+          
+
  
       } else {
         const furnitureFormError = document.createElement("p");

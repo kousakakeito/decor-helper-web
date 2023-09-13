@@ -179,6 +179,24 @@ dropdownItems.forEach(item => {
   });
 });
 
+document.querySelector('.caret-down')
+  .addEventListener('click', function() {
+    document.querySelector('.genre-dropdown').classList.toggle('is-open');
+
+    if ( document.querySelector('.genre-dropdown').style.display === "block") {
+     
+      document.querySelector('.caret-down').innerHTML = '<i class="fa-solid fa-caret-down"></i>'; // メニューが閉じている時のアイコン
+    } else {
+      
+      document.querySelector('.caret-down').innerHTML = '<i class="fa-solid fa-caret-up"></i>'; // メニューが開いた時のアイコン
+    }
+  });
+
+
+
+
+
+
 
  // 空間新規作成ボタンがクリックされたときの処理
   const spaceCreate  = require('src/SpaceCreateModule');
