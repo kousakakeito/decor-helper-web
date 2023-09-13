@@ -466,12 +466,12 @@ fetch('/user-data2', {
           
               data.forEach(genreFormValues => {
                 const li = document.createElement('li');
-                li.textContent = genreFormValues;
-  
+                const label = document.createElement('label');
+                label.classList.add("li-label");
+                label.textContent = genreFormValues;
                 const check = document.createElement("input");
                 check.type = "checkbox";
-                
-                li.append(check);
+                li.append(check,label);
                 ol.appendChild(li);
               });
 

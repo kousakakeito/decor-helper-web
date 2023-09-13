@@ -179,16 +179,18 @@ dropdownItems.forEach(item => {
   });
 });
 
+
+let n = 1;
 document.querySelector('.caret-down')
   .addEventListener('click', function() {
     document.querySelector('.genre-dropdown').classList.toggle('is-open');
 
-    if ( document.querySelector('.genre-dropdown').style.display === "block") {
-     
+    if (n === 0) {
       document.querySelector('.caret-down').innerHTML = '<i class="fa-solid fa-caret-down"></i>'; // メニューが閉じている時のアイコン
+      n++;
     } else {
-      
       document.querySelector('.caret-down').innerHTML = '<i class="fa-solid fa-caret-up"></i>'; // メニューが開いた時のアイコン
+      n--;
     }
   });
 

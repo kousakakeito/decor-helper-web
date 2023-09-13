@@ -1708,18 +1708,19 @@ button{
   border-style: solid;
   border-width: 0px;
   background-color: white;
+  border-top-width: 2px;
+  border-bottom-width: 2px;
 }
 
 .genre-text{
-
+  margin-left: 20px;
   margin-top: 1px;
   font-size: 12px;
 }
 
 .genre-checktext{
   position: absolute;
-  margin-top: 1px;
-  margin-left: 10px;
+  margin-left: 25px;
   font-size: 12px;
 }
 
@@ -1727,18 +1728,18 @@ button{
   position: absolute;
   cursor: pointer;
   margin-left: 200px;
-  margin-top: -22px;
+  margin-top: -21px;
   font-size: 20px;
 }
 
 .fa-caret-up{
   position: absolute;
-  
-  
   margin-top: 2px;
-  
 }
 
+.check{
+  position: absolute;
+}
 
 
 
