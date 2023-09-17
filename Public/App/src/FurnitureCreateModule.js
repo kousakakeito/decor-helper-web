@@ -471,10 +471,52 @@ fetch('/user-data2', {
                 label.textContent = genreFormValues;
                 const check = document.createElement("input");
                 check.type = "checkbox";
+                check.name = "check";
                 li.append(check,label);
                 ol.appendChild(li);
               });
 
+              let check = document.querySelectorAll('[name=check]');
+              const genreDropdown = document.querySelector('.genre-dropdown');
+              
+              genreDropdown.addEventListener('click', function (event) {
+                  const target = event.target.closest('li');
+                  
+                  if (target) {
+                      const checkbox = target.querySelector('[name="check"]');
+                      
+                      if (checkbox) {
+                          if (checkbox.checked) {
+                              check.forEach((checkbox) => {
+                                  checkbox.checked = false;
+                              });
+                              checkbox.checked = true;
+                              const checkText = target.textContent;
+                              setTimeout(() => {
+                                  genreDropdown.classList.remove('is-open');
+                                  target.remove();
+              
+                                  const genreText = document.querySelector('.genre-checktext').textContent;
+                                  document.querySelector('.genre-checktext').textContent = '';
+                                  document.querySelector('.genre-checktext').textContent = checkText;
+              
+                                  const list = document.createElement('li');
+                                  const label = document.createElement('label');
+                                  label.classList.add('li-label');
+                                  label.textContent = genreText;
+                                  const newCheckbox = document.createElement('input');
+                                  newCheckbox.type = 'checkbox';
+                                  newCheckbox.name = 'check';
+                                  list.append(newCheckbox, label);
+                                  ol.appendChild(list);
+              
+                                  check = document.querySelectorAll('[name=check]');
+                              }, 300);
+                          }
+                      }
+                  }
+              });
+              
             })
             .catch(error => {
               console.error('Error:', error);

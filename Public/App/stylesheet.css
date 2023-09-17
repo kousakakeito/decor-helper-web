@@ -1710,36 +1710,38 @@ button{
   background-color: white;
   border-top-width: 2px;
   border-bottom-width: 2px;
+  height: 19px;
+  
 }
 
 .genre-text{
   margin-left: 20px;
-  margin-top: 1px;
+  display: inline-block;
+  vertical-align: 2px;
   font-size: 12px;
 }
 
 .genre-checktext{
-  position: absolute;
-  margin-left: 25px;
+  display: inline-block;
+  vertical-align: 2px;
+  margin-left: 0px;
   font-size: 12px;
 }
 
 .caret-down{
-  position: absolute;
+  
   cursor: pointer;
-  margin-left: 200px;
+  margin-left: 210px;
   margin-top: -21px;
   font-size: 20px;
 }
 
 .fa-caret-up{
-  position: absolute;
+  
   margin-top: 2px;
 }
 
-.check{
-  position: absolute;
-}
+
 
 
 
@@ -1748,6 +1750,7 @@ button{
   text-align: center;
   width: 200px;
   /* 閉じている状態 */
+  height: 0;
   border-top: 0 white solid;
   padding-top: 0;
   padding-bottom: 0 ;
@@ -1771,6 +1774,7 @@ button{
 }
 .genre-dropdown > li {
   /* 閉じている状態 */
+  height: 0;
   line-height: 0;
   opacity: 0;
   visibility: hidden;

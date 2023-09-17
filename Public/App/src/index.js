@@ -200,6 +200,8 @@ document.querySelector('.caret-down')
 
 
 
+
+
  // 空間新規作成ボタンがクリックされたときの処理
   const spaceCreate  = require('src/SpaceCreateModule');
 
