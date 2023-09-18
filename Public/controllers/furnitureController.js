@@ -177,6 +177,74 @@ router.post('/user-data5', (req, res) => {
 });
 
 
+router.post('/user-data6', (req, res) => {
+  const username = req.session.username; 
+  const genreFormValue = req.body.checkText;
+
+  const selectGenreAllFurnitureFormValuesSql = 'SELECT JSON_EXTRACT(furniture_data, "$.furnitureFormValue") AS furnitureFormValue FROM furniture WHERE username = ? AND JSON_EXTRACT(furniture_data, "$.genreFormValue") = ?';
+  const values = [username, genreFormValue];
+
+  // データベースクエリを実行してfurnitureFormValueを取得
+  connection.query(selectGenreAllFurnitureFormValuesSql, values, (error, results) => {
+      if (error) {
+          console.error('Error fetching furniture data:', error);
+          res.status(500).send('An error occurred while fetching furniture data.');
+      } else {
+        const furnitureFormValues = [];
+
+        console.log("A");
+        console.log(results);
+  
+  
+        // データベースから取得したすべての行に対して処理を行う
+        results.forEach(row => {
+          try {
+            const furnitureFormValue = JSON.parse(row.furnitureFormValue);
+            if (furnitureFormValue !== null && furnitureFormValue !== "") {
+              furnitureFormValues.push(furnitureFormValue);
+            } 
+          } catch (e) {
+            console.error('Error parsing JSON:', e);
+          }
+        });
+  
+        console.log(furnitureFormValues);
+  
+        res.json(furnitureFormValues);
+      }
+  });
+});
+
+
+router.post('/user-data7', (req, res) => {
+  const username = req.session.username; // リクエストボディからusernameを取得
+  const selectAllGenreFormValuesSql = 'SELECT JSON_EXTRACT(furniture_data, "$.furnitureFormValue") AS furnitureFormValue FROM furniture WHERE username = ?';
+  connection.query(selectAllGenreFormValuesSql, [username], (error, results) => {
+
+          const furnitureFormValues = [];
+
+      console.log("A");
+      console.log(results);
+
+
+      // データベースから取得したすべての行に対して処理を行う
+      results.forEach(row => {
+        try {
+          const furnitureFormValue = JSON.parse(row.furnitureFormValue);
+          if (furnitureFormValue !== null && furnitureFormValue !== "") {
+            furnitureFormValues.push(furnitureFormValue);
+          } 
+        } catch (e) {
+          console.error('Error parsing JSON:', e);
+        }
+      });
+    console.log(furnitureFormValues);
+    res.json(furnitureFormValues);
+    
+  });
+});
+
+
 
 
 createFurnitureTable();

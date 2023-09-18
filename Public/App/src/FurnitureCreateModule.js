@@ -487,6 +487,48 @@ fetch('/user-data2', {
                       
                       if (checkbox) {
                           if (checkbox.checked) {
+                            if (target.textContent === "全て表示") {
+                              fetch('/user-data7', {
+                                method: 'POST', 
+                              })
+                                .then(response => {
+                                  if (!response.ok) {
+                                    throw new Error('Network response was not ok');
+                                  }
+                                  return response.json();
+                                })
+                                .then(data => {
+
+                                  setTimeout(() => {
+
+                                  const ul = document.querySelector('.furniture-list');
+                                 
+                                  console.log(data);
+                                  // dataをulに追加
+                                  data.forEach(item => {
+                                    
+                                    const newlist = document.createElement('li');
+                                    newlist.textContent = item;
+                                    newlist.classList.add("add-list2");
+                                    const addBtn = document.createElement("button");
+                                    addBtn.append("追加");
+                                    addBtn.classList.add("addBtn");
+                                    const cancelBtn = document.createElement("button");
+                                    cancelBtn.append("取消");
+                                    cancelBtn.classList.add("cancelBtn");
+                                    const editBtn = document.createElement("button");
+                                    editBtn.append("編集");
+                                    editBtn.classList.add("editBtn");
+                                    const btnBox = document.createElement("div");
+                                    btnBox.classList.add("btn-box");
+                                    btnBox.append(addBtn,cancelBtn,editBtn);
+                                    newlist.append(btnBox);
+                                    ul.appendChild(newlist);
+                                  });
+                                },350);
+                                });
+
+                            };
                               check.forEach((checkbox) => {
                                   checkbox.checked = false;
                               });
@@ -511,6 +553,44 @@ fetch('/user-data2', {
                                   ol.appendChild(list);
               
                                   check = document.querySelectorAll('[name=check]');
+
+                                  fetch('/user-data6', {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                    body: JSON.stringify({ checkText }),
+                                })
+                                .then(response => response.json())
+                                .then(data => {
+                                    const ul = document.querySelector('.furniture-list');
+                                    ul.innerHTML = ''; 
+                                    
+                                    // dataをulに追加
+                                    data.forEach(item => {
+                                      
+                                      const newlist = document.createElement('li');
+                                      newlist.textContent = item;
+                                      newlist.classList.add("add-list2");
+                                      const addBtn = document.createElement("button");
+                                      addBtn.append("追加");
+                                      addBtn.classList.add("addBtn");
+                                      const cancelBtn = document.createElement("button");
+                                      cancelBtn.append("取消");
+                                      cancelBtn.classList.add("cancelBtn");
+                                      const editBtn = document.createElement("button");
+                                      editBtn.append("編集");
+                                      editBtn.classList.add("editBtn");
+                                      const btnBox = document.createElement("div");
+                                      btnBox.classList.add("btn-box");
+                                      btnBox.append(addBtn,cancelBtn,editBtn);
+                                      newlist.append(btnBox);
+                                      ul.appendChild(newlist);
+                                    });
+                                })
+                                .catch(error => {
+                                    console.error('Error:', error);
+                                });
                               }, 300);
                           }
                       }
@@ -522,6 +602,9 @@ fetch('/user-data2', {
               console.error('Error:', error);
               // エラー処理
             });
+        
+        
+        
 
           
 
