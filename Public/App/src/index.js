@@ -185,9 +185,15 @@ document.querySelector('.caret-down')
   .addEventListener('click', function() {
     document.querySelector('.genre-dropdown').classList.toggle('is-open');
 
-    if (n === 0) {
+    if (n === 0 && document.querySelector('.caret-down').innerHTML === '<i class="fa-solid fa-caret-up"></i>') {
       document.querySelector('.caret-down').innerHTML = '<i class="fa-solid fa-caret-down"></i>'; // メニューが閉じている時のアイコン
       n++;
+    } else if(n === 0 && document.querySelector('.caret-down').innerHTML === '<i class="fa-solid fa-caret-down"></i>'){
+
+      console.log("ok")
+      document.querySelector('.caret-down').innerHTML = '<i class="fa-solid fa-caret-up"></i>'; // メニューが開いた時のアイコン
+      n = 0;
+
     } else {
       document.querySelector('.caret-down').innerHTML = '<i class="fa-solid fa-caret-up"></i>'; // メニューが開いた時のアイコン
       n--;

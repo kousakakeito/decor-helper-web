@@ -1745,53 +1745,62 @@ button{
 
 
 
+/* ドロップダウンメニューのアニメーション */
 .genre-dropdown > li {
-  background-color: rgba(255,255,255,0);
+  position: relative;
+  background-color: rgba(255, 255, 255, 0);
   text-align: center;
-  width: 200px;
-  /* 閉じている状態 */
-  height: 0;
-  border-top: 0 white solid;
-  padding-top: 0;
-  padding-bottom: 0 ;
-  /* 閉じるアニメーション */
-  transition:
-    border-top     .3s ease-out,
-    padding-top    .3s ease-out,
-    padding-bottom .3s ease-out;
-}
-.genre-dropdown.is-open > li {
-  /* 開いている状態 */
- 
-  border-bottom: 1px white solid;
-  padding-top: 13px;
-  padding-bottom: 13px;
-  /* 開くアニメーション */
-  transition:
-    border-top     .3s ease-out,
-    padding-top    .3s ease-out,
-    padding-bottom .3s ease-out;
-}
-.genre-dropdown > li {
+  width: 240px;
   /* 閉じている状態 */
   height: 0;
   line-height: 0;
   opacity: 0;
   visibility: hidden;
-  /* 閉じるアニメーション */
+  border-top: 0 white solid;
+  padding-top: 0;
+  padding-bottom: 0;
   transition:
-    line-height .3s ease-out,
-    opacity     .1s linear,
-    visibility  .1s linear;
+    height 0.3s ease-out,
+    border-top 0.3s ease-out,
+    padding-top 0.3s ease-out,
+    padding-bottom 0.3s ease-out,
+    line-height 0.3s ease-out,
+    opacity 0.1s linear,
+    visibility 0.1s linear;
 }
+
 .genre-dropdown.is-open > li {
   /* 開いている状態 */
+  border-bottom: 1px white solid;
+  padding-top: 13px;
+  padding-bottom: 13px;
   line-height: 1.5;
   opacity: 1;
   visibility: visible;
-  /* 開くアニメーション */
   transition:
-    line-height .3s ease-out,
-    opacity     .1s linear .1s,
-    visibility  .1s linear .1s;
+    height 0.3s ease-out,
+    border-top 0.3s ease-out,
+    padding-top 0.3s ease-out,
+    padding-bottom 0.3s ease-out,
+    line-height 0.3s ease-out,
+    opacity 0.1s linear 0.1s,
+    visibility 0.1s linear 0.1s;
+}
+
+/* チェックボックスを絶対位置指定して親<li>に対して位置を調整 */
+.genre-dropdown li input[type="checkbox"] {
+  position: absolute;
+  top: 10px; /* 上下中央に配置 */
+  transform: translateY(-50%); /* 上下中央に配置 */
+  left: 10px; /* 左からの位置調整（必要に応じて調整） */
+}
+
+.genre-dropdown li label {
+  position: absolute;
+  margin-top: -12px;
+}
+
+.genre-dropdown{
+  list-style: none;
+  margin-left: -32px;
 }

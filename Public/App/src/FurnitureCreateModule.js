@@ -464,17 +464,22 @@ fetch('/user-data2', {
               const ol = document.querySelector('.genre-dropdown');
               ol.innerHTML = ''; // リストをクリア
           
-              data.forEach(genreFormValues => {
-                const li = document.createElement('li');
-                const label = document.createElement('label');
-                label.classList.add("li-label");
-                label.textContent = genreFormValues;
-                const check = document.createElement("input");
-                check.type = "checkbox";
-                check.name = "check";
-                li.append(check,label);
-                ol.appendChild(li);
+              // データから重複を削除
+              const uniqueGenreFormValues = [...new Set(data)];
+
+              
+              uniqueGenreFormValues.forEach(genreFormValue => {
+               const li = document.createElement('li');
+               const label = document.createElement('label');
+               label.classList.add("li-label");
+               label.textContent = genreFormValue;
+               const check = document.createElement("input");
+               check.type = "checkbox";
+               check.name = "check";
+               li.append(check, label);
+               ol.appendChild(li);
               });
+
 
               let check = document.querySelectorAll('[name=check]');
               const genreDropdown = document.querySelector('.genre-dropdown');
@@ -536,6 +541,7 @@ fetch('/user-data2', {
                               const checkText = target.textContent;
                               setTimeout(() => {
                                   genreDropdown.classList.remove('is-open');
+                                  document.querySelector('.caret-down').innerHTML = '<i class="fa-solid fa-caret-down"></i>';
                                   target.remove();
               
                                   const genreText = document.querySelector('.genre-checktext').textContent;
