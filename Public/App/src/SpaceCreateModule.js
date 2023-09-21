@@ -316,7 +316,10 @@ fetch('/get-new-data')
     cancelBtn.append("取消");
     cancelBtn.classList.add("cancelBtn");
     const editBtn = document.createElement("button");
-    editBtn.append("編集");
+    const trash = document.createElement("i");
+    trash.classList.add("fa-solid")
+    trash.classList.add("fa-trash-can")
+    editBtn.append(trash);
     editBtn.classList.add("editBtn");
     const btnBox = document.createElement("div");
     btnBox.classList.add("btn-box");

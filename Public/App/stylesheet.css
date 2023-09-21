@@ -198,6 +198,7 @@ button{
 
 /* home-spacelist のスタイル */
 .home-spacelist {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -211,7 +212,6 @@ button{
 
 /* home-spacetext のスタイル */
 .home-spacetext {
-  position: absolute;
   margin-top: 5px;
   text-align: center;
 }
@@ -392,15 +392,26 @@ button{
 /* furniture-compbtn のスタイル */
 .furniture-compbtn {
   position: absolute;
-  margin-top: 646px;
-  width: 250px;
+  margin-top: -41px;
+  margin-left: 1646px;
+  border-left-width: 2px;
+  border-left-style: solid;
+  border-left-color: black;
+  border-right-width: 2px;
+  border-right-style: solid;
+  border-right-color: black;
+  width: 254px;
   height: 40px;
-  border: none;
   background-color: #4CAF50;
   color: white;
   font-size: 16px;
   cursor: pointer;
-  box-shadow: 0 4px #008000;
+  box-shadow: 0 2px black;
+}
+
+.furniture-compbtn:hover{
+  color: red;
+  font-size: 18px;
 }
 
 
@@ -477,12 +488,13 @@ button{
 /* furnitureright-outer のスタイル */
 .furnitureright-outer {
   float: right;
+  overflow-x: hidden;
   margin-top: -738px;
   margin-right: 20px;
   border-style: solid;
   border-width: 2px;
   width: 250px;
-  height: 735px;
+  height: 695px;
   background-color:rgba(255, 255, 255, 0.8);
 }
 
@@ -1607,7 +1619,6 @@ button{
 .addBtn{
   width: 35px;
   height: 15px;
-  margin-left: 10px;
   font-size: 12px;
   border: none;
   background-color: #4CAF50;
@@ -1641,6 +1652,7 @@ button{
 }
 
 .editBtn{
+  position: relative;
   width: 35px;
   height: 15px;
   margin-left: 10px;
@@ -1659,7 +1671,7 @@ button{
 }
 
 .add-list{
-  margin-left: -30px;
+  margin-left: -55px;
   margin-top: 30px;
   font-weight: bold;
 }
@@ -1667,6 +1679,12 @@ button{
 .add-list2{
   margin-left: -15px;
   margin-top: 30px;
+  font-weight: bold;
+}
+
+.add-list3{
+  margin-left: -30px;
+  margin-top: 50px;
   font-weight: bold;
 }
 
@@ -1700,7 +1718,6 @@ button{
 }
 
 .furniture-addlist{
-  position: absolute;
   list-style: none;
 }
 
@@ -1803,4 +1820,14 @@ button{
 .genre-dropdown{
   list-style: none;
   margin-left: -32px;
+}
+
+.space-list{
+  position: absolute;
+  margin-left: 20px;
+}
+
+.fa-trash-can{
+  text-align: center;
+  margin-top: 3px;
 }

@@ -314,11 +314,14 @@ fetch('/user-data2', {
   })
   .then(data => {
     const list = document.createElement("li");
-    list.classList.add("add-list");
+    list.classList.add("add-list3");
     const furnitureTextNode = document.createTextNode("家具名:" + furnitureFormValue);
     list.append(furnitureTextNode);
     const deleteBtn = document.createElement("button");
-    deleteBtn.append("削除");
+    const trash = document.createElement("i");
+    trash.classList.add("fa-solid")
+    trash.classList.add("fa-trash-can")
+    deleteBtn.append(trash);
     deleteBtn.classList.add("deleteBtn");
     const btnBox = document.createElement("div");
     btnBox.classList.add("btn-box2");
@@ -431,7 +434,10 @@ fetch('/user-data2', {
               cancelBtn.append("取消");
               cancelBtn.classList.add("cancelBtn");
               const editBtn = document.createElement("button");
-              editBtn.append("編集");
+              const trash = document.createElement("i");
+              trash.classList.add("fa-solid")
+              trash.classList.add("fa-trash-can")
+              editBtn.append(trash);
               editBtn.classList.add("editBtn");
               const btnBox = document.createElement("div");
               btnBox.classList.add("btn-box");
@@ -522,7 +528,10 @@ fetch('/user-data2', {
                                     cancelBtn.append("取消");
                                     cancelBtn.classList.add("cancelBtn");
                                     const editBtn = document.createElement("button");
-                                    editBtn.append("編集");
+                                    const trash = document.createElement("i");
+                                    trash.classList.add("fa-solid")
+                                    trash.classList.add("fa-trash-can")
+                                    editBtn.append(trash);
                                     editBtn.classList.add("editBtn");
                                     const btnBox = document.createElement("div");
                                     btnBox.classList.add("btn-box");
@@ -585,7 +594,10 @@ fetch('/user-data2', {
                                       cancelBtn.append("取消");
                                       cancelBtn.classList.add("cancelBtn");
                                       const editBtn = document.createElement("button");
-                                      editBtn.append("編集");
+                                      const trash = document.createElement("i");
+                                      trash.classList.add("fa-solid")
+                                      trash.classList.add("fa-trash-can")
+                                      editBtn.append(trash);
                                       editBtn.classList.add("editBtn");
                                       const btnBox = document.createElement("div");
                                       btnBox.classList.add("btn-box");
