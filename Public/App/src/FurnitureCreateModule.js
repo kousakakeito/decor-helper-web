@@ -348,7 +348,7 @@ fetch('/user-data2', {
        };
 
        ul.addEventListener("click", event => {
-        if (event.target.classList.contains("deleteBtn")) {
+        if (event.target.classList.contains("deleteBtn")||event.target.classList.contains("fa-trash-can")) {
     
           const liElement = event.target.closest("li");
           const text = liElement.firstChild.textContent.trim();

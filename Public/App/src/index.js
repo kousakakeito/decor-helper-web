@@ -341,3 +341,41 @@ document.querySelector('.caret-down')
  
 
 
+  spaceList.addEventListener("click", event => {
+    if (event.target.classList.contains("deleteBtn")||event.target.classList.contains("fa-trash-can")) {
+
+      const liElement = event.target.closest("li");
+      const spaceFormValue = liElement.firstChild.textContent.trim();
+
+
+       if (liElement && spaceList.contains(liElement)) {
+        // 存在する場合、liElement を削除
+        spaceList.removeChild(liElement);
+      }
+
+      fetch('/delete-data', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({spaceFormValue}),
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Server response:', data);
+          // サーバーからのレスポンスを処理
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          // エラー処理
+        });
+
+      };
+  
+      
+  });

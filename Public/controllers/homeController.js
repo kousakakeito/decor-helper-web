@@ -48,6 +48,33 @@ router.post('/get-layer-data', authenticateSession, async (req, res) => {
 });
 
 
+router.post('/delete-data', authenticateSession, async (req, res) => {
+  const username = req.session.username;
+  const spaceFormValue = req.body.spaceFormValue; // クライアントから送信されたデータ
+
+  console.log(spaceFormValue);
+
+  // spaceFormValue と一致するデータを space テーブルから削除
+  const deleteSpaceSql = 'DELETE FROM space WHERE username = ? AND JSON_EXTRACT(space_data, "$.spaceFormValue") = ?';
+  const values = [username, spaceFormValue];
+
+  connection.query(deleteSpaceSql, values, (error, results, fields) => {
+    if (error) {
+      console.error('Error deleting space data:', error);
+      res.status(500).send('An error occurred while deleting space data.');
+    } else {
+      if (results.affectedRows > 0) {
+        console.log('Space data deleted successfully.');
+        res.json({ message: 'Space data deleted successfully.' });
+      } else {
+        console.log('No matching space data found.');
+        res.status(404).send('No matching space data found.');
+      }
+    }
+  });
+});
+
+
 
 
 
