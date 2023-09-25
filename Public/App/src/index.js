@@ -296,11 +296,14 @@ document.querySelector('.caret-down')
              
             });
           });
+
+          const errorElement = document.querySelector(".space-form-error");
+          if (errorElement && errorElement.textContent !== "") {
+              errorElement.textContent = "";
+          }  
     
         })
-        
-        
-        
+
         .catch(error => {
             console.error('Error:', error);
         });
@@ -328,6 +331,12 @@ document.querySelector('.caret-down')
         
         if (layerToRemove instanceof Konva.Layer) {
           layerToRemove.destroy();
+          stage2.getChildren().forEach(function(layer) {
+            if (layer instanceof Konva.Layer) {
+              layer.destroy();
+            }
+          });
+
           const errorElement = document.querySelector(".space-form-error");
           if (errorElement && errorElement.textContent !== "") {
               errorElement.textContent = "";
@@ -335,6 +344,7 @@ document.querySelector('.caret-down')
         } else {
           console.log('対象のレイヤーが見つかりませんでした。');
         }
+
       }
   });
 
@@ -378,4 +388,164 @@ document.querySelector('.caret-down')
       };
   
       
+  });
+
+
+  const furnitureList = document.querySelector(".furniture-list");
+
+
+  furnitureList.addEventListener("click", event => {
+    if (event.target.classList.contains("deleteBtn")||event.target.classList.contains("fa-trash-can")) {
+
+      const liElement = event.target.closest("li");
+      const furnitureFormValue = liElement.firstChild.textContent.trim();
+
+
+       if (liElement && furnitureList.contains(liElement)) {
+        // 存在する場合、liElement を削除
+        furnitureList.removeChild(liElement);
+      }
+
+      fetch('/delete-data2', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({furnitureFormValue}),
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Server response:', data);
+          // サーバーからのレスポンスを処理
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          // エラー処理
+        });
+
+      };
+  
+      
+  });
+
+
+
+
+
+  furnitureList.addEventListener("click", event => {
+    if (event.target.classList.contains("addBtn")) {
+      if (stage2.getChildren().length > 0) {
+
+      const liElement = event.target.closest("li");
+      const furnitureFormValue = liElement.firstChild.textContent.trim();
+      const requestData = {
+        furnitureFormValue: furnitureFormValue
+      };
+        
+        fetch('/get-layer-data2', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(layerData => {
+        
+          // レイヤーごとに新しい Layer を作成
+          layerData.layerData.layers.forEach(layerInfo => {
+            const newLayer = new Konva.Layer({
+              name: layerInfo.name, 
+          });
+            
+            layerInfo.children.forEach(shapeData => {
+                // shapeData から必要な情報を取得して図形を作成
+                const rect = new Konva.Rect({
+                  x: (homecenterInner.offsetWidth - shapeData.width) / 2, 
+                  y: (homecenterInner.offsetHeight - shapeData.height) / 2,
+                  width: shapeData.width,
+                  height: shapeData.height,
+                  fill: shapeData.fill,
+                  
+                  // その他の必要なプロパティを設定
+                });
+
+                const line = new Konva.Line({
+                  points: shapeData.points,
+                  stroke: shapeData.stroke, 
+                  strokeWidth: shapeData.strokeWidth, 
+                  closed: shapeData.closed,
+                  fill: shapeData.fill,
+                  // その他の必要なプロパティを設定
+                });
+
+                console.log(rect);
+                newLayer.add(line);
+                newLayer.add(rect);
+                newLayer.draw();
+              
+              // 他の図形タイプに対する処理も同様に追加可能
+            });
+            
+            stage2.add(newLayer); // 新しいレイヤーを stage2 に追加
+
+        
+            stage2.draw();
+  
+            // 描画が完了した後の処理を行う
+            newLayer.on('draw', function () {
+              console.log('レイヤーの描画が完了しました。');
+             
+            });
+          });
+
+          const errorElement = document.querySelector(".space-form-error");
+          if (errorElement && errorElement.textContent !== "") {
+              errorElement.textContent = "";
+          }  
+    
+        })
+        
+        
+        
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+      } else {
+        const spaceFormError = document.createElement("p");
+         spaceFormError.classList.add("space-form-error");
+         document.querySelector(".homecenter-outer").append(spaceFormError);
+         document.querySelector(".space-form-error").textContent = "※空間一覧内から空間を追加後に家具一覧内の家具を追加してください※";
+      }
+        
+      } else if (event.target.classList.contains("cancelBtn")) {
+        // 削除ボタンをクリックした場合の処理
+        const liElement = event.target.closest("li");
+        const furnitureFormValue = liElement.firstChild.textContent.trim();
+
+    
+        // 削除対象のレイヤーを特定
+        const layerToRemove = stage2.find(node => node.name() === furnitureFormValue)[0];
+
+        console.log('furnitureFormValue:', furnitureFormValue);
+        console.log('すべてのステージの子要素:', stage2.children);
+        console.log('削除するレイヤー:', layerToRemove);
+        console.log("layerToRemoveの名前:",layerToRemove.name());
+        
+        if (layerToRemove instanceof Konva.Layer) {
+          layerToRemove.destroy();
+          const errorElement = document.querySelector(".space-form-error");
+          if (errorElement && errorElement.textContent !== "") {
+              errorElement.textContent = "";
+          }  
+        } else {
+          console.log('対象のレイヤーが見つかりませんでした。');
+        }
+      }
   });

@@ -48,6 +48,30 @@ router.post('/get-layer-data', authenticateSession, async (req, res) => {
 });
 
 
+router.post('/get-layer-data2', authenticateSession, async (req, res) => {
+  const username = req.session.username;
+  const requestData = req.body;
+
+  // データベースから特定の furnitureFormValue のデータを取得する処理
+  const selectDataSql = 'SELECT furniture_data FROM furniture WHERE username = ? AND furniture_data->"$.furnitureFormValue" = ?';
+  const values = [username, requestData.furnitureFormValue];
+
+  connection.query(selectDataSql, values, (error, results, fields) => {
+    if (error) {
+      console.error('Error while fetching data:', error);
+      res.status(500).send('An error occurred while fetching data.');
+    } else {
+      if (results.length > 0) {
+        const layerData = JSON.parse(results[0].furniture_data);
+        res.json(layerData);
+      } else {
+        res.status(404).send('Data not found.');
+      }
+    }
+  });
+});
+
+
 router.post('/delete-data', authenticateSession, async (req, res) => {
   const username = req.session.username;
   const spaceFormValue = req.body.spaceFormValue; // クライアントから送信されたデータ
@@ -69,6 +93,33 @@ router.post('/delete-data', authenticateSession, async (req, res) => {
       } else {
         console.log('No matching space data found.');
         res.status(404).send('No matching space data found.');
+      }
+    }
+  });
+});
+
+
+router.post('/delete-data2', authenticateSession, async (req, res) => {
+  const username = req.session.username;
+  const furnitureFormValue = req.body.furnitureFormValue; // クライアントから送信されたデータ
+
+  console.log(furnitureFormValue);
+
+  // furnitureFormValue と一致するデータを furniture テーブルから削除
+  const deleteFurnitureSql = 'DELETE FROM furniture WHERE username = ? AND JSON_EXTRACT(furniture_data, "$.furnitureFormValue") = ?';
+  const values = [username, furnitureFormValue];
+
+  connection.query(deleteFurnitureSql, values, (error, results, fields) => {
+    if (error) {
+      console.error('Error deleting furniture data:', error);
+      res.status(500).send('An error occurred while deleting furniture data.');
+    } else {
+      if (results.affectedRows > 0) {
+        console.log('Furniture data deleted successfully.');
+        res.json({ message: 'Furniture data deleted successfully.' });
+      } else {
+        console.log('No matching furniture data found.');
+        res.status(404).send('No matching furniture data found.');
       }
     }
   });

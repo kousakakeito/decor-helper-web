@@ -1616,6 +1616,13 @@ button{
   margin-left: -10px;
 }
 
+.furniture-form-error2{
+  position: absolute;
+  margin-top: -650px;
+  color: red;
+  margin-left: -800px;
+}
+
 .addBtn{
   width: 35px;
   height: 15px;
