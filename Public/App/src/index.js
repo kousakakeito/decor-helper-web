@@ -461,6 +461,7 @@ document.querySelector('.caret-down')
           layerData.layerData.layers.forEach(layerInfo => {
             const newLayer = new Konva.Layer({
               name: layerInfo.name, 
+              draggable: true,
           });
             
             layerInfo.children.forEach(shapeData => {
@@ -471,7 +472,6 @@ document.querySelector('.caret-down')
                   width: shapeData.width,
                   height: shapeData.height,
                   fill: shapeData.fill,
-                  
                   // その他の必要なプロパティを設定
                 });
 
@@ -488,14 +488,16 @@ document.querySelector('.caret-down')
                 newLayer.add(line);
                 newLayer.add(rect);
                 newLayer.draw();
+                stage2.add(newLayer); // 新しいレイヤーを stage2 に追加
+                stage2.draw();
+
+                
               
               // 他の図形タイプに対する処理も同様に追加可能
             });
             
-            stage2.add(newLayer); // 新しいレイヤーを stage2 に追加
 
-        
-            stage2.draw();
+
   
             // 描画が完了した後の処理を行う
             newLayer.on('draw', function () {
