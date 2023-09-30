@@ -366,6 +366,7 @@ module.exports = function rightTopCheckTriangle(stage,dots,rectangle,isMouseOnBo
         strokeWidth: 2, // 線の太さ
         closed: true, // 閉じた形状として描画
         fill: 'white', // 塗りつぶし色（透明）
+        opacity: 0,
       });
       
       layer.add(polygon);
@@ -437,6 +438,7 @@ module.exports = function rightTopCheckTriangle(stage,dots,rectangle,isMouseOnBo
           strokeWidth: 2, // 線の太さ
           closed: true, // 閉じた形状として描画
           fill: 'white', // 塗りつぶし色（透明）
+          opacity: 0,
         });
         
         layer.add(polygon);
@@ -496,6 +498,7 @@ module.exports = function rightTopCheckTriangle(stage,dots,rectangle,isMouseOnBo
           strokeWidth: 2, // 線の太さ
           closed: true, // 閉じた形状として描画
           fill: 'white', // 塗りつぶし色（透明）
+          opacity: 0,
         });
         
         layer.add(polygon);
