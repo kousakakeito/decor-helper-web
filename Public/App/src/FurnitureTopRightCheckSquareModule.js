@@ -147,19 +147,23 @@ module.exports = function topRightCheckSquare(stage,dots,rectangle,isMouseOnBord
     const midRectX1 = newRect.x() + newRect.width() / 2;
     const midRectY1 = newRect.y() + newRect.height() / 2;
 
-    const polygon = new Konva.Line({
-      points: [circleX1, circleY1, intersectionX1, intersectionY1, midRectX1, midRectY1, intersectionX2, intersectionY2, circleX2, circleY2],
-      stroke: 'white', // 線の色
-      strokeWidth: 2, // 線の太さ
-      closed: true, // 閉じた形状として描画
-      fill: 'white', // 塗りつぶし色（透明）
-      opacity: 0,
-    });
-    
-    layer.add(polygon);
+    const group = new Konva.Group({
+      clipFunc: function (ctx) {
+        ctx.beginPath();
+        ctx.moveTo(circleX1, circleY1);
+        ctx.lineTo(intersectionX1, intersectionY1);
+        ctx.lineTo(intersectionX2, intersectionY2);
+        ctx.lineTo(circleX2, circleY2);
+        ctx.lineTo(rectangle.x() + rectangle.width(),rectangle.y());
+        ctx.lineTo(rectangle.x() + rectangle.width(),rectangle.y() + rectangle.height());
+        ctx.lineTo(rectangle.x(),rectangle.y() + rectangle.height());
+        ctx.lineTo(rectangle.x(),rectangle.y());
+        ctx.closePath();
+      },
+      });
 
-    // レイヤーを再描画
-    layer.draw();
+      group.add(rectangle);
+      layer.add(group);
 
     circle2.destroy();
     newRect.destroy();
