@@ -147,23 +147,42 @@ module.exports = function topRightCheckSquare(stage,dots,rectangle,isMouseOnBord
     const midRectX1 = newRect.x() + newRect.width() / 2;
     const midRectY1 = newRect.y() + newRect.height() / 2;
 
-    const group = new Konva.Group({
-      clipFunc: function (ctx) {
-        ctx.beginPath();
-        ctx.moveTo(circleX1, circleY1);
-        ctx.lineTo(intersectionX1, intersectionY1);
-        ctx.lineTo(intersectionX2, intersectionY2);
-        ctx.lineTo(circleX2, circleY2);
-        ctx.lineTo(rectangle.x() + rectangle.width(),rectangle.y());
-        ctx.lineTo(rectangle.x() + rectangle.width(),rectangle.y() + rectangle.height());
-        ctx.lineTo(rectangle.x(),rectangle.y() + rectangle.height());
-        ctx.lineTo(rectangle.x(),rectangle.y());
-        ctx.closePath();
-      },
-      });
+    
 
-      group.add(rectangle);
-      layer.add(group);
+
+// 新しい座標の範囲
+const newPoints = [circleX1, circleY1, intersectionX1, intersectionY1, midRectX1, midRectY1, intersectionX2, intersectionY2, circleX2, circleY2];
+
+const minX = Math.min(circleX1, intersectionX1, midRectX1, intersectionX2, circleX2);
+const minY = Math.min(circleY1, intersectionY1, midRectY1, intersectionY2, circleY2);
+const maxX = Math.max(circleX1, intersectionX1, midRectX1, intersectionX2, circleX2);
+const maxY = Math.max(circleY1, intersectionY1, midRectY1, intersectionY2, circleY2);
+
+
+const customShape = new Konva.Shape({
+  sceneFunc: function (context, shape) {
+    context.beginPath();
+    context.moveTo(circleX1, circleY1); // 変数を使用した座標の指定
+    context.lineTo(intersectionX1, intersectionY1);
+    context.lineTo(midRectX1, midRectY1);
+    context.lineTo(intersectionX2, intersectionY2);
+    context.lineTo(circleX2, circleY2);
+    context.lineTo(circleX1, circleY1);
+    context.closePath();
+    context.fill();
+    context.clearRect(minX, minY, maxX - minX, maxY - minY);
+    context.beginPath();
+    context.stroke();
+  },
+});
+
+layer.add(customShape);
+layer.draw();
+
+    
+     
+
+  
 
     circle2.destroy();
     newRect.destroy();

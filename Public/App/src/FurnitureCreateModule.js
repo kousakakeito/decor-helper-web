@@ -90,11 +90,10 @@ function isMouseOnBorder(rectangle, x, y) {
     fill: '#8b4513', // 適宜調整
     draggable: false,
   });
-
-
   
   layer.add(rectangle);
   layer.draw();
+
   
 
   const rectAngleSizeForm1 = document.createElement('input');
