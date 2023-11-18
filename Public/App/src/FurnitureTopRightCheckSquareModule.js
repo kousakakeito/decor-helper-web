@@ -161,18 +161,10 @@ const maxY = Math.max(circleY1, intersectionY1, midRectY1, intersectionY2, circl
 
 const customShape = new Konva.Shape({
   sceneFunc: function (context, shape) {
-    context.beginPath();
-    context.moveTo(circleX1, circleY1); // 変数を使用した座標の指定
-    context.lineTo(intersectionX1, intersectionY1);
-    context.lineTo(midRectX1, midRectY1);
-    context.lineTo(intersectionX2, intersectionY2);
-    context.lineTo(circleX2, circleY2);
-    context.lineTo(circleX1, circleY1);
-    context.closePath();
-    context.fill();
-    context.clearRect(minX, minY, maxX - minX, maxY - minY);
-    context.beginPath();
-    context.stroke();
+
+    context.clearRect(minX, minY-1, maxX - minX, maxY - minY);
+
+
   },
 });
 
