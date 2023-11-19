@@ -51,6 +51,8 @@ router.post('/user-data2', authenticateSession, async (req, res) => {
   const insertDataSql = 'INSERT INTO furniture (username, furniture_data) VALUES (?, ?)';
   const values = [username, JSON.stringify(newData)];
 
+  console.log(values);
+
   connection.query(insertDataSql, values, (error, results, fields) => {
     if (error) {
       console.error('Error while saving data:', error);

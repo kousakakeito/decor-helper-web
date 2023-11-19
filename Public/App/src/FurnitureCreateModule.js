@@ -238,6 +238,8 @@ function isMouseOnBorder(rectangle, x, y) {
               return "Rect";
             } else if (shape instanceof Konva.Line) {
               return "Line";
+            } else if (shape instanceof Konva.Shape) {
+              return "Shape";
             } 
           };
           
@@ -266,6 +268,24 @@ function isMouseOnBorder(rectangle, x, y) {
             };
             layerInfo.children.push(lineData); // 子要素の情報を配列に追加
           }
+
+
+          function getFunctionAsString(func) {
+            const funcString = func.toString();
+            const startIndex = funcString.indexOf("{") + 1;
+            const endIndex = funcString.lastIndexOf("}");
+            return funcString.substring(startIndex, endIndex).trim();
+          };
+
+          if (shapeType === "Shape") {
+            const shapeData = {
+              type: shape.getType(),
+              sceneFunc: getFunctionAsString(shape.sceneFunc),
+            };
+            layerInfo.children.push(shapeData);
+          }
+
+          console.log(getFunctionAsString(shape.sceneFunc));
             
             
           });

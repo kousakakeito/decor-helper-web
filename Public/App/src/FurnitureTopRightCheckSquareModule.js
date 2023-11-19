@@ -158,12 +158,12 @@ const minY = Math.min(circleY1, intersectionY1, midRectY1, intersectionY2, circl
 const maxX = Math.max(circleX1, intersectionX1, midRectX1, intersectionX2, circleX2);
 const maxY = Math.max(circleY1, intersectionY1, midRectY1, intersectionY2, circleY2);
 
+const clearTop = [minX, minY-1, maxX - minX, maxY - minY];
 
 const customShape = new Konva.Shape({
   sceneFunc: function (context, shape) {
 
-    context.clearRect(minX, minY-1, maxX - minX, maxY - minY);
-
+    context.clearRect(...clearTop);
 
   },
 });

@@ -484,9 +484,21 @@ document.querySelector('.caret-down')
                   // その他の必要なプロパティを設定
                 });
 
+                function stringToFunction(str) {
+                  return new Function(`return ${str}`)();
+                }
+      
+               
+                
+                const shape = new Konva.Shape({
+                  sceneFunc: stringToFunction(shapeData.sceneFunc),
+                });
+           
+
                 console.log(rect);
                 newLayer.add(line);
                 newLayer.add(rect);
+                newLayer.add(shape);
                 newLayer.draw();
                 stage2.add(newLayer); // 新しいレイヤーを stage2 に追加
                 stage2.draw();
