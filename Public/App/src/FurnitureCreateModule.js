@@ -270,22 +270,17 @@ function isMouseOnBorder(rectangle, x, y) {
           }
 
 
-          function getFunctionAsString(func) {
-            const funcString = func.toString();
-            const startIndex = funcString.indexOf("{") + 1;
-            const endIndex = funcString.lastIndexOf("}");
-            return funcString.substring(startIndex, endIndex).trim();
-          };
+
 
           if (shapeType === "Shape") {
             const shapeData = {
               type: shape.getType(),
-              sceneFunc: getFunctionAsString(shape.sceneFunc),
+              clearTop: shape.clearTop,
             };
             layerInfo.children.push(shapeData);
           }
 
-          console.log(getFunctionAsString(shape.sceneFunc));
+          console.log(shape.clearTop);
             
             
           });
