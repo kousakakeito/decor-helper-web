@@ -485,16 +485,24 @@ document.querySelector('.caret-down')
                 });
 
     
+               
+                console.log(layerInfo);
                 
                 const shape = new Konva.Shape({
-                  clearTop: shapeData.clearTop, 
-                  myCustomClearTop: shapeData.clearTop, // カスタムプロパティを作成
                   sceneFunc: function (context, shape) {
-                    const clearTop = shape.myCustomClearTop; // カスタムプロパティを参照
-                    context.clearRect(...clearTop);
+                    layerInfo.children.forEach(child => {
+                      if (child.clearTop) {
+                        context.clearRect(...child.clearTop);
+                      }
+                    });
                   },
-                  console.log(shapeData.clearTop)
                 });
+                
+                
+                
+                
+
+                
                 
 
                 console.log(rect);
