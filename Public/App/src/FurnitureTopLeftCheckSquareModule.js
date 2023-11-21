@@ -133,18 +133,29 @@ module.exports = function topLeftCheckSquare(stage,dots,rectangle,isMouseOnBorde
     const midRectX1 = newRect.x() + newRect.width() / 2;
     const midRectY1 = newRect.y() + newRect.height() / 2;
 
-    const polygon = new Konva.Line({
-      points: [circleX1, circleY1, intersectionX1, intersectionY1, midRectX1, midRectY1, intersectionX2, intersectionY2, circleX2, circleY2],
-      stroke: 'white', // 線の色
-      strokeWidth: 2, // 線の太さ
-      closed: true, // 閉じた形状として描画
-      fill: 'white', // 塗りつぶし色（透明）
-      opacity: 0,
+    const customShape = new Konva.Shape({
+
+      sceneFunc: function (context, shape) {
+    
+        const minX = Math.min(circleX1, intersectionX1, midRectX1, intersectionX2, circleX2);
+        const minY = Math.min(circleY1, intersectionY1, midRectY1, intersectionY2, circleY2);
+        const maxX = Math.max(circleX1, intersectionX1, midRectX1, intersectionX2, circleX2);
+        const maxY = Math.max(circleY1, intersectionY1, midRectY1, intersectionY2, circleY2);
+    
+        const clear = [minX, minY-1, maxX - minX, maxY - minY];
+    
+        console.log(clear);
+    
+        context.clearRect(...clear);
+    
+        shape.clear = clear;
+    
+      },
+    
+      
     });
     
-    layer.add(polygon);
-
-    // レイヤーを再描画
+    layer.add(customShape);
     layer.draw();
 
     circle1.destroy();

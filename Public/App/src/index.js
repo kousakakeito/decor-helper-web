@@ -491,8 +491,20 @@ document.querySelector('.caret-down')
                 const shape = new Konva.Shape({
                   sceneFunc: function (context, shape) {
                     layerInfo.children.forEach(child => {
-                      if (child.clearTop) {
-                        context.clearRect(...child.clearTop);
+                      if (child.clear) {
+                        context.clearRect(...child.clear);
+                      }
+                      if (child.clearLine1||child.clearLine2||child.clearLine3){
+                        context.beginPath();
+                        context.moveTo(...child.clearLine1);
+                        context.lineTo(...child.clearLine2);
+                        context.lineTo(...child.clearLine3);
+                        context.closePath();
+                    
+                        // 三角形のパスをクリアする
+                        context.globalCompositeOperation = 'destination-out';
+                        context.fill();
+                        context.globalCompositeOperation = 'source-over';
                       }
                     });
                   },

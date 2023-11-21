@@ -275,12 +275,15 @@ function isMouseOnBorder(rectangle, x, y) {
           if (shapeType === "Shape") {
             const shapeData = {
               type: shape.getType(),
-              clearTop: shape.clearTop,
+              clear: shape.clear,
+              clearLine1 : shape.clearLine1,
+              clearLine2 : shape.clearLine2,
+              clearLine3 : shape.clearLine3,
             };
             layerInfo.children.push(shapeData);
           }
 
-          console.log(shape.clearTop);
+          console.log(shape.clear);
             
             
           });

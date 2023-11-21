@@ -355,20 +355,49 @@ module.exports = function topLeftCheckTriangle(stage,dots,rectangle,isMouseOnBor
      
      function handleConfirm13(){
 
-      const polygon = new Konva.Line({
-        points: [circleX1, circleY1,  midRectX1, midRectY1, circleX2, circleY2],
-        stroke: 'white', // 線の色
-        strokeWidth: 2, // 線の太さ
-        closed: true, // 閉じた形状として描画
-        fill: 'white', // 塗りつぶし色（透明）
-        opacity: 0,
+      const customShape = new Konva.Shape({
+
+        sceneFunc: function (context, shape) {
+      
+          const x1 = circleX1; // 三角形の頂点1の X 座標
+          const y1 = circleY1; // 三角形の頂点1の Y 座標
+          const x2 = midRectX1; // 三角形の頂点2の X 座標
+          const y2 = midRectY1; // 三角形の頂点2の Y 座標
+          const x3 = circleX2; // 三角形の頂点3の X 座標
+          const y3 = circleY2; // 三角形の頂点3の Y 座標
+
+          const clearLine1 = [x1, y1-1];
+          const clearLine2 = [x2, y2];
+          const clearLine3 = [x3, y3-1];
+
+          context.beginPath();
+          context.moveTo(...clearLine1);
+          context.lineTo(...clearLine2);
+          context.lineTo(...clearLine3);
+          context.closePath();
+      
+          // 三角形のパスをクリアする
+          context.globalCompositeOperation = 'destination-out';
+          context.fill();
+          context.globalCompositeOperation = 'source-over';
+      
+          shape.clearLine1 = clearLine1;
+          shape.clearLine2 = clearLine2;
+          shape.clearLine3 = clearLine3;
+      
+        },
+      
+        
       });
       
-      layer.add(polygon);
+    layer.add(customShape);
+    layer.draw();
 
       circle1.destroy();
       newRect.destroy();
       newCircle.destroy();
+      dashedLine7.destroy();
+      dashedLine8.destroy();
 
       dots.length = 0 ;
       stage.on("click",handleClick2);
@@ -427,16 +456,43 @@ module.exports = function topLeftCheckTriangle(stage,dots,rectangle,isMouseOnBor
          const midRectX1A = newRect.x() + newRect.width() / 2;
          const midRectY1A = newRect.y() + newRect.height() / 2;
 
-         const polygon = new Konva.Line({
-          points: [circleX1A, circleY1A, midRectX1A, midRectY1A, circleX2A, circleY2A],
-          stroke: 'white', // 線の色
-          strokeWidth: 2, // 線の太さ
-          closed: true, // 閉じた形状として描画
-          fill: 'white', // 塗りつぶし色（透明）
-          opacity: 0,
+         const customShape = new Konva.Shape({
+
+          sceneFunc: function (context, shape) {
+        
+            const x1 = circleX1A; // 三角形の頂点1の X 座標
+            const y1 = circleY1A; // 三角形の頂点1の Y 座標
+            const x2 = midRectX1A; // 三角形の頂点2の X 座標
+            const y2 = midRectY1A; // 三角形の頂点2の Y 座標
+            const x3 = circleX2A; // 三角形の頂点3の X 座標
+            const y3 = circleY2A; // 三角形の頂点3の Y 座標
+  
+            const clearLine1 = [x1, y1-1];
+            const clearLine2 = [x2, y2];
+            const clearLine3 = [x3, y3-1];
+  
+            context.beginPath();
+            context.moveTo(...clearLine1);
+            context.lineTo(...clearLine2);
+            context.lineTo(...clearLine3);
+            context.closePath();
+        
+            // 三角形のパスをクリアする
+            context.globalCompositeOperation = 'destination-out';
+            context.fill();
+            context.globalCompositeOperation = 'source-over';
+        
+            shape.clearLine1 = clearLine1;
+            shape.clearLine2 = clearLine2;
+            shape.clearLine3 = clearLine3;
+        
+          },
+        
+          
         });
         
-        layer.add(polygon);
+      layer.add(customShape);
+      layer.draw();
         newCircle.destroy();
         circle1.destroy();
         newRect.destroy();
@@ -487,16 +543,43 @@ module.exports = function topLeftCheckTriangle(stage,dots,rectangle,isMouseOnBor
          const midRectX1A = newRect.x() + newRect.width() / 2;
          const midRectY1A = newRect.y() + newRect.height() / 2;
 
-         const polygon = new Konva.Line({
-          points: [circleX1A, circleY1A, midRectX1A, midRectY1A, circleX2A, circleY2A],
-          stroke: 'white', // 線の色
-          strokeWidth: 2, // 線の太さ
-          closed: true, // 閉じた形状として描画
-          fill: 'white', // 塗りつぶし色（透明）
-          opacity: 0,
+         const customShape = new Konva.Shape({
+
+          sceneFunc: function (context, shape) {
+        
+            const x1 = circleX1A; // 三角形の頂点1の X 座標
+            const y1 = circleY1A; // 三角形の頂点1の Y 座標
+            const x2 = midRectX1A; // 三角形の頂点2の X 座標
+            const y2 = midRectY1A; // 三角形の頂点2の Y 座標
+            const x3 = circleX2A; // 三角形の頂点3の X 座標
+            const y3 = circleY2A; // 三角形の頂点3の Y 座標
+  
+            const clearLine1 = [x1, y1-1];
+            const clearLine2 = [x2, y2];
+            const clearLine3 = [x3, y3-1];
+  
+            context.beginPath();
+            context.moveTo(...clearLine1);
+            context.lineTo(...clearLine2);
+            context.lineTo(...clearLine3);
+            context.closePath();
+        
+            // 三角形のパスをクリアする
+            context.globalCompositeOperation = 'destination-out';
+            context.fill();
+            context.globalCompositeOperation = 'source-over';
+        
+            shape.clearLine1 = clearLine1;
+            shape.clearLine2 = clearLine2;
+            shape.clearLine3 = clearLine3;
+        
+          },
+        
+          
         });
         
-        layer.add(polygon);
+      layer.add(customShape);
+      layer.draw();
         newCircle.destroy();
         circle1.destroy();
         newRect.destroy();

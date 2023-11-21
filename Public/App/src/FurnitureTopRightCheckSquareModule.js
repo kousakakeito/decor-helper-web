@@ -150,9 +150,6 @@ module.exports = function topRightCheckSquare(stage,dots,rectangle,isMouseOnBord
     
 
 
-// 新しい座標の範囲
-const newPoints = [circleX1, circleY1, intersectionX1, intersectionY1, midRectX1, midRectY1, intersectionX2, intersectionY2, circleX2, circleY2];
-
 
 const customShape = new Konva.Shape({
 
@@ -163,13 +160,13 @@ const customShape = new Konva.Shape({
     const maxX = Math.max(circleX1, intersectionX1, midRectX1, intersectionX2, circleX2);
     const maxY = Math.max(circleY1, intersectionY1, midRectY1, intersectionY2, circleY2);
 
-    const clearTop = [minX, minY-1, maxX - minX, maxY - minY];
+    const clear = [minX, minY-1, maxX - minX, maxY - minY];
 
-    console.log(clearTop);
+    console.log(clear);
 
-    context.clearRect(...clearTop);
+    context.clearRect(...clear);
 
-    shape.clearTop = clearTop;
+    shape.clear = clear;
 
   },
 
