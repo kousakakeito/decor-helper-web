@@ -231,6 +231,8 @@ function isMouseOnBorder(rectangle, x, y) {
               return "Rect";
             } else if (shape instanceof Konva.Line) {
               return "Line";
+            } else if (shape instanceof Konva.Shape) {
+              return "Shape";
             } 
           };
           
@@ -260,6 +262,17 @@ function isMouseOnBorder(rectangle, x, y) {
             layerInfo.children.push(lineData); // 子要素の情報を配列に追加
           }
             
+          if (shapeType === "Shape") {
+            const shapeData = {
+              type: shape.getType(),
+              clear: shape.clear,
+              clearLine1 : shape.clearLine1,
+              clearLine2 : shape.clearLine2,
+              clearLine3 : shape.clearLine3,
+            };
+            layerInfo.children.push(shapeData);
+          }
+
             
           });
         

@@ -54,15 +54,40 @@ module.exports = function firstBottomNextRightPoints(stage,dots,rectangle,isMous
 
 
 
-     const polygon = new Konva.Line({
-      points: [x1,y1,intersectionX1,intersectionY1,x2,y2],
-      stroke: 'white', // 線の色
-      strokeWidth: 2, // 線の太さ
-      closed: true, // 閉じた形状として描画
-      fill: 'white', // 塗りつぶし色（透明）
+     const customShape = new Konva.Shape({
+
+      sceneFunc: function (context, shape) {
+    
+
+        const x3 = intersectionX1; // 三角形の頂点3の X 座標
+        const y3 = intersectionY1; // 三角形の頂点3の Y 座標
+
+        const clearLine1 = [x1+1, y1];
+        const clearLine2 = [x2, y2+1];
+        const clearLine3 = [x3+1, y3+1];
+
+        context.beginPath();
+        context.moveTo(...clearLine1);
+        context.lineTo(...clearLine2);
+        context.lineTo(...clearLine3);
+        context.closePath();
+    
+        // 三角形のパスをクリアする
+        context.globalCompositeOperation = 'destination-out';
+        context.fill();
+        context.globalCompositeOperation = 'source-over';
+    
+        shape.clearLine1 = clearLine1;
+        shape.clearLine2 = clearLine2;
+        shape.clearLine3 = clearLine3;
+    
+      },
+    
+      
     });
     
-     layer.add(polygon);
+  layer.add(customShape);
+  layer.draw();
      dots[0].destroy();
      dots[1].destroy();
      layer.draw();
@@ -134,15 +159,40 @@ module.exports = function firstBottomNextRightPoints(stage,dots,rectangle,isMous
 
 
 
-     const polygon = new Konva.Line({
-      points: [x1,y1,intersectionX1,intersectionY1,x2,y2],
-      stroke: 'white', // 線の色
-      strokeWidth: 2, // 線の太さ
-      closed: true, // 閉じた形状として描画
-      fill: 'white', // 塗りつぶし色（透明）
+     const customShape = new Konva.Shape({
+
+      sceneFunc: function (context, shape) {
+    
+
+        const x3 = intersectionX1; // 三角形の頂点3の X 座標
+        const y3 = intersectionY1; // 三角形の頂点3の Y 座標
+
+        const clearLine1 = [x1+1, y1];
+        const clearLine2 = [x2, y2+1];
+        const clearLine3 = [x3+1, y3+1];
+
+        context.beginPath();
+        context.moveTo(...clearLine1);
+        context.lineTo(...clearLine2);
+        context.lineTo(...clearLine3);
+        context.closePath();
+    
+        // 三角形のパスをクリアする
+        context.globalCompositeOperation = 'destination-out';
+        context.fill();
+        context.globalCompositeOperation = 'source-over';
+    
+        shape.clearLine1 = clearLine1;
+        shape.clearLine2 = clearLine2;
+        shape.clearLine3 = clearLine3;
+    
+      },
+    
+      
     });
     
-     layer.add(polygon);
+  layer.add(customShape);
+  layer.draw();
      dots[0].destroy();
      dots[1].destroy();
      layer.draw();
@@ -211,15 +261,40 @@ module.exports = function firstBottomNextRightPoints(stage,dots,rectangle,isMous
 
 
 
-     const polygon = new Konva.Line({
-      points: [x1,y1,intersectionX1,intersectionY1,x2,y2],
-      stroke: 'white', // 線の色
-      strokeWidth: 2, // 線の太さ
-      closed: true, // 閉じた形状として描画
-      fill: 'white', // 塗りつぶし色（透明）
+     const customShape = new Konva.Shape({
+
+      sceneFunc: function (context, shape) {
+    
+
+        const x3 = intersectionX1; // 三角形の頂点3の X 座標
+        const y3 = intersectionY1; // 三角形の頂点3の Y 座標
+
+        const clearLine1 = [x1+1, y1];
+        const clearLine2 = [x2, y2+1];
+        const clearLine3 = [x3+1, y3+1];
+
+        context.beginPath();
+        context.moveTo(...clearLine1);
+        context.lineTo(...clearLine2);
+        context.lineTo(...clearLine3);
+        context.closePath();
+    
+        // 三角形のパスをクリアする
+        context.globalCompositeOperation = 'destination-out';
+        context.fill();
+        context.globalCompositeOperation = 'source-over';
+    
+        shape.clearLine1 = clearLine1;
+        shape.clearLine2 = clearLine2;
+        shape.clearLine3 = clearLine3;
+    
+      },
+    
+      
     });
     
-     layer.add(polygon);
+  layer.add(customShape);
+  layer.draw();
      dots[0].destroy();
      dots[1].destroy();
      layer.draw();
@@ -288,15 +363,40 @@ module.exports = function firstBottomNextRightPoints(stage,dots,rectangle,isMous
 
 
 
-     const polygon = new Konva.Line({
-      points: [x1,y1,intersectionX1,intersectionY1,x2,y2],
-      stroke: 'white', // 線の色
-      strokeWidth: 2, // 線の太さ
-      closed: true, // 閉じた形状として描画
-      fill: 'white', // 塗りつぶし色（透明）
+     const customShape = new Konva.Shape({
+
+      sceneFunc: function (context, shape) {
+    
+
+        const x3 = intersectionX1; // 三角形の頂点3の X 座標
+        const y3 = intersectionY1; // 三角形の頂点3の Y 座標
+
+        const clearLine1 = [x1+1, y1];
+        const clearLine2 = [x2, y2+1];
+        const clearLine3 = [x3+1, y3+1];
+
+        context.beginPath();
+        context.moveTo(...clearLine1);
+        context.lineTo(...clearLine2);
+        context.lineTo(...clearLine3);
+        context.closePath();
+    
+        // 三角形のパスをクリアする
+        context.globalCompositeOperation = 'destination-out';
+        context.fill();
+        context.globalCompositeOperation = 'source-over';
+    
+        shape.clearLine1 = clearLine1;
+        shape.clearLine2 = clearLine2;
+        shape.clearLine3 = clearLine3;
+    
+      },
+    
+      
     });
     
-     layer.add(polygon);
+  layer.add(customShape);
+  layer.draw();
      dots[0].destroy();
      dots[1].destroy();
      layer.draw();
