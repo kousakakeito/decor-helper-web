@@ -218,11 +218,13 @@ button{
 
 /* home-roomlist のスタイル */
 .home-roomlist {
+  position: relative;
   display: flex;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-start;
   height: 350px;
   width: 250px;
+  overflow: auto;
   border: 2px solid #000;
   margin-top: 30px;
   background-color:rgba(255, 255, 255, 0.8);
@@ -230,7 +232,7 @@ button{
 
 /* home-roomtext のスタイル */
 .home-roomtext {
- margin-bottom: 320px;
+ margin-top: 5px;
  text-align: center;
 }
 
@@ -635,11 +637,13 @@ button{
 
 /* photo-roomlist のスタイル */
 .photo-roomlist {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   height: 733px;
   width: 250px;
+  overflow: auto;
   border: 2px solid #000;
   margin-top: -739px;
   background-color:rgba(255, 255, 255, 0.8);
@@ -650,6 +654,7 @@ button{
   margin-top: 5px;
   text-align: center;
 }
+
 
 
 /* inquirycenter-outer のスタイル */
@@ -1834,7 +1839,132 @@ button{
   margin-left: 20px;
 }
 
+.home-addlist{
+  position: absolute;
+  margin-left: 20px;
+}
+
 .fa-trash-can{
   text-align: center;
   margin-top: 3px;
+}
+
+.home-form{
+  position: absolute;
+  margin-top: -50px;
+  left: 0;
+  margin-left: 408px;
+  height: 25px;
+  width: 200px;
+}
+
+.home-form-error{
+  position: absolute;
+  margin-top: -650px;
+  color: red;
+  margin-left: -400px;
+}
+
+
+
+.photo-addlist{
+  position: absolute;
+  margin-left: 20px;
+}
+
+.editBtn2{
+  width: 35px;
+  height: 15px;
+  font-size: 12px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+.editBtn2:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
+.cancelBtn2{
+  width: 35px;
+  height: 15px;
+  margin-left: 10px;
+  font-size: 12px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+.cancelBtn2:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
+.deleteBtn2{
+  position: relative;
+  width: 35px;
+  height: 15px;
+  margin-left: 10px;
+  font-size: 12px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+.deleteBtn2:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
+.addBtn2{
+  width: 35px;
+  height: 15px;
+  margin-left: 10px;
+  font-size: 12px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+.addBtn2:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
+.cancelBtn3{
+  position: relative;
+  width: 35px;
+  height: 15px;
+  margin-left: 10px;
+  font-size: 12px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px #008000;
+  transition: all 0.3s ease;
+}
+
+.cancelBtn3:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #008000;
+}
+
+.add-list4{
+  margin-left: -85px;
+  margin-top: 30px;
+  font-weight: bold;
 }

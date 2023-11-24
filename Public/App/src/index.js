@@ -545,8 +545,7 @@ document.querySelector('.caret-down')
                 newLayer.add(rect);
                 newLayer.add(shape);
                 newLayer.draw();
-                stage2.add(newLayer); // 新しいレイヤーを stage2 に追加
-                stage2.draw();
+ 
 
                 
               
@@ -554,6 +553,8 @@ document.querySelector('.caret-down')
             });
             
 
+            stage2.add(newLayer); // 新しいレイヤーを stage2 に追加
+            stage2.draw();
 
   
             // 描画が完了した後の処理を行う
@@ -608,3 +609,241 @@ document.querySelector('.caret-down')
         }
       }
   });
+
+  document.querySelector(".home-compbtn").addEventListener("click",function(){
+
+    const homeForm = document.querySelector('.home-form');
+    const homeFormValue = homeForm.value;
+    const ul = document.querySelector(".home-addlist");
+
+    function isDuplicateValuePresent(value, elements) {
+      let isDuplicate = false;
+      elements.forEach(element => {
+        if (element.textContent.trim() === value) {
+          isDuplicate = true;
+          return;
+        }
+      });
+      return isDuplicate;
+    };
+
+    if( homeFormValue === ""){
+      const homeFormError = document.createElement("p");
+      homeFormError.classList.add("home-form-error");
+      document.querySelector(".homecenter-outer").append(homeFormError);
+      document.querySelector(".home-form-error").textContent = "※配置図名を入力してください※";
+    } else if(homeFormValue.length >= 6){
+     const homeFormError = document.createElement("p");
+     homeFormError.classList.add("home-form-error");
+     document.querySelector(".homecenter-outer").append(homeFormError);
+     document.querySelector(".home-form-error").textContent = "※５文字以内で指定してください※";
+    }  else if (isDuplicateValuePresent(homeFormValue+"編集"+"取消", ul.querySelectorAll("li"))) {
+     const homeFormError = document.createElement("p");
+     homeFormError.classList.add("home-form-error");
+     document.querySelector(".homecenter-outer").append(homeFormError);
+     document.querySelector(".home-form-error").textContent = "※この配置図名は既に追加されています※";
+     } else if(stage2.getChildren().length < 2){
+       const homeFormError = document.createElement("p");
+       homeFormError.classList.add("home-form-error");
+       document.querySelector(".homecenter-outer").append(homeFormError);
+       document.querySelector(".home-form-error").textContent = "※家具が配置されていません※";
+    } else {
+
+      const sourceLayers = stage2.getLayers(); // すべてのレイヤーの配列を取得
+
+
+      const layerData = {
+        layers: [],  // レイヤーの情報を格納する配列
+      };
+      
+      sourceLayers.forEach(layer => {
+        const layerInfo = {
+          name: homeFormValue,  // レイヤーの名前を取得
+          children: [],      // 子要素の情報を格納する配列
+        };
+
+        function getShapeType(shape) {
+          if (shape instanceof Konva.Rect) {
+            return "Rect";
+          } else if (shape instanceof Konva.Line) {
+            return "Line";
+          } else if (shape instanceof Konva.Shape) {
+            return "Shape";
+          } 
+        };
+        
+        layer.getChildren().forEach(shape => {
+          const shapeType = getShapeType(shape);
+          if (shapeType === "Rect") {
+          const rectData = {
+            type: shape.getType(),   // シェイプの種類（Rect、Circle など）
+            x: shape.x(),
+            y: shape.y(),
+            width: shape.width(),
+            height: shape.height(),
+            fill: shape.fill(),    
+          };
+          layerInfo.children.push(rectData); // 子要素の情報を配列に追加
+        }
+
+        if (shapeType === "Line") {
+          const lineData = {
+            type: shape.getType(),   // シェイプの種類（Rect、Circle など）
+            points: shape.points(),
+            stroke: shape.stroke(), // 線の色
+            strokeWidth: shape.strokeWidth(), // 線の太さ
+            closed: shape.closed(), // 閉じた形状として描画
+            fill: shape.fill(),    
+          };
+          layerInfo.children.push(lineData); // 子要素の情報を配列に追加
+        }
+
+
+
+
+        if (shapeType === "Shape") {
+          const shapeData = {
+            type: shape.getType(),
+            clear: shape.clear,
+            clearLine1 : shape.clearLine1,
+            clearLine2 : shape.clearLine2,
+            clearLine3 : shape.clearLine3,
+          };
+          layerInfo.children.push(shapeData);
+        }
+
+        console.log(shape.clear);
+          
+          
+        });
+      
+        layerData.layers.push(layerInfo); // レイヤーの情報を配列に追加
+      });
+      
+      
+
+
+const newData = {
+  homeFormValue: homeFormValue,
+  layerData: layerData,
+};
+
+  // /user-data の fetch 処理
+fetch('/user-data8', {
+method: 'POST',
+headers: {
+  'Content-Type': 'application/json'
+},
+body: JSON.stringify(newData),
+})
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+})
+.then(data => {
+  console.log('Server response:', data);
+  // サーバーからのレスポンスを処理
+})
+.catch(error => {
+  console.error('Error:', error);
+  // エラー処理
+});
+
+
+fetch('/get-new-data8')
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+})
+.then(data => {
+  const list = document.createElement("li");
+  list.classList.add("add-list");
+  list.append(homeFormValue);
+  const editBtn = document.createElement("button");
+  editBtn.append("編集");
+  editBtn.classList.add("editBtn2");
+  const cancelBtn = document.createElement("button");
+  cancelBtn.append("取消");
+  cancelBtn.classList.add("cancelBtn2");
+  const deleteBtn = document.createElement("button");
+  const trash = document.createElement("i");
+  trash.classList.add("fa-solid")
+  trash.classList.add("fa-trash-can")
+  deleteBtn.append(trash);
+  deleteBtn.classList.add("deleteBtn2");
+  const btnBox = document.createElement("div");
+  btnBox.classList.add("btn-box");
+  btnBox.append(editBtn,cancelBtn,deleteBtn);
+  list.append(btnBox);
+  document.querySelector('.home-addlist').append(list);
+})
+.catch(error => {
+  console.error('Error getting new data:', error);
+  // エラー処理
+});
+
+
+
+
+
+
+
+
+fetch('/get-new-data9')
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+})
+.then(data => {
+  const list = document.createElement("li");
+  list.classList.add("add-list4");
+  list.append(homeFormValue);
+  const addBtn = document.createElement("button");
+  addBtn.append("表示");
+  addBtn.classList.add("addBtn2");
+  const cancelBtn = document.createElement("button");
+  cancelBtn.append("取消");
+  cancelBtn.classList.add("cancelBtn3");
+  const btnBox = document.createElement("div");
+  btnBox.classList.add("btn-box");
+  btnBox.append(addBtn,cancelBtn);
+  list.append(btnBox);
+  document.querySelector('.photo-addlist').append(list);
+})
+.catch(error => {
+  console.error('Error getting new data:', error);
+  // エラー処理
+});
+
+
+
+
+// stage2.getChildren().forEach(layer => {layer.destroy()}) 左に記載している処理だとstage2に追加した順番でのレイヤー配列のインデックス番号が偶数のレイヤーだけが削除され奇数のインデックス番号のレイヤーのみ削除されないという挙動に陥ったためsliceメソッドを使用しインデックス番号をコピーした新しい配列を作成することでとりあえずstage2内の全てのレイヤーを削除することに成功
+
+function removeAllLayers() {
+  const deleteLayers = stage2.getLayers().slice(); 
+
+
+  deleteLayers.forEach(deleteLayer => {
+    deleteLayer.destroy();
+  });
+}
+
+removeAllLayers();
+
+homeForm.value = "";
+const errorElement = document.querySelector(".home-form-error");
+if (errorElement && errorElement.textContent !== "") {
+    errorElement.textContent = "";
+}  
+
+   }
+  });
+
+
