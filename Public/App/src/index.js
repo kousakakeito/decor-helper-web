@@ -229,6 +229,7 @@ document.querySelector('.caret-down')
   });
 
   const spaceList = document.querySelector(".space-list");
+  
 
 
   spaceList.addEventListener("click", event => {
@@ -279,11 +280,21 @@ document.querySelector('.caret-down')
 
                 const shape = new Konva.Shape({
                   sceneFunc: function (context, shape) {
+                    const clear = shapeData.clear;
+                    shape.clear = clear;
+                    const clearLine1 = shapeData.clearLine1;
+                    const clearLine2 = shapeData.clearLine2;
+                    const clearLine3 = shapeData.clearLine3;
+                    shape.clearLine1 = clearLine1;
+                    shape.clearLine2 = clearLine2;
+                    shape.clearLine3 = clearLine3;
                     layerInfo.children.forEach(child => {
                       if (child.clear) {
+
                         context.clearRect(...child.clear);
                       }
                       if (child.clearLine1||child.clearLine2||child.clearLine3){
+
                         context.beginPath();
                         context.moveTo(...child.clearLine1);
                         context.lineTo(...child.clearLine2);
@@ -296,8 +307,11 @@ document.querySelector('.caret-down')
                         context.globalCompositeOperation = 'source-over';
                       }
                     });
+
+                    
                   },
                 });
+
 
                 console.log(rect);
                 newLayer.add(line);
@@ -312,6 +326,7 @@ document.querySelector('.caret-down')
 
         
             stage2.draw();
+
   
             // 描画が完了した後の処理を行う
             newLayer.on('draw', function () {
@@ -513,11 +528,20 @@ document.querySelector('.caret-down')
                 
                 const shape = new Konva.Shape({
                   sceneFunc: function (context, shape) {
+                    const clear = shapeData.clear;
+                    shape.clear = clear;
+                    const clearLine1 = shapeData.clearLine1;
+                    const clearLine2 = shapeData.clearLine2;
+                    const clearLine3 = shapeData.clearLine3;
+                    shape.clearLine1 = clearLine1;
+                    shape.clearLine2 = clearLine2;
+                    shape.clearLine3 = clearLine3;
                     layerInfo.children.forEach(child => {
                       if (child.clear) {
                         context.clearRect(...child.clear);
                       }
                       if (child.clearLine1||child.clearLine2||child.clearLine3){
+
                         context.beginPath();
                         context.moveTo(...child.clearLine1);
                         context.lineTo(...child.clearLine2);
@@ -555,6 +579,7 @@ document.querySelector('.caret-down')
 
             stage2.add(newLayer); // 新しいレイヤーを stage2 に追加
             stage2.draw();
+      
 
   
             // 描画が完了した後の処理を行う
@@ -611,6 +636,7 @@ document.querySelector('.caret-down')
   });
 
   document.querySelector(".home-compbtn").addEventListener("click",function(){
+    
 
     const homeForm = document.querySelector('.home-form');
     const homeFormValue = homeForm.value;
@@ -650,6 +676,7 @@ document.querySelector('.caret-down')
     } else {
 
       const sourceLayers = stage2.getLayers(); // すべてのレイヤーの配列を取得
+
 
 
       const layerData = {
@@ -847,3 +874,350 @@ if (errorElement && errorElement.textContent !== "") {
   });
 
 
+
+  const homeList = document.querySelector(".home-addlist");
+
+
+  homeList.addEventListener("click", event => {
+    if (event.target.classList.contains("editBtn2")) {
+      if (stage2.getChildren().length === 0) {
+
+      const liElement = event.target.closest("li");
+      const homeFormValue = liElement.firstChild.textContent.trim();
+      const requestData = {
+          homeFormValue: homeFormValue
+      };
+        
+        fetch('/get-layer-data3', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(layerData => {
+        
+          // レイヤーごとに新しい Layer を作成
+          layerData.layerData.layers.forEach(layerInfo => {
+            const newLayer = new Konva.Layer({
+              name: layerInfo.name, 
+              draggable: true,
+          });
+          
+            
+            layerInfo.children.forEach(shapeData => {
+                // shapeData から必要な情報を取得して図形を作成
+                const rect = new Konva.Rect({
+                  x: (homecenterInner.offsetWidth - shapeData.width) / 2, 
+                  y: (homecenterInner.offsetHeight - shapeData.height) / 2,
+                  width: shapeData.width,
+                  height: shapeData.height,
+                  fill: shapeData.fill,
+                  // その他の必要なプロパティを設定
+                });
+
+
+
+                const line = new Konva.Line({
+                  points: shapeData.points,
+                  stroke: shapeData.stroke, 
+                  strokeWidth: shapeData.strokeWidth, 
+                  closed: shapeData.closed,
+                  fill: shapeData.fill,
+                  // その他の必要なプロパティを設定
+                });
+
+                
+
+
+                const shape = new Konva.Shape({
+                  sceneFunc: function (context, shape) {
+                    layerInfo.children.forEach(child => {
+                      if (child.clear) {
+                        context.clearRect(...child.clear);
+                      }
+                      if (child.clearLine1||child.clearLine2||child.clearLine3){
+                        context.beginPath();
+                        context.moveTo(...child.clearLine1);
+                        context.lineTo(...child.clearLine2);
+                        context.lineTo(...child.clearLine3);
+                        context.closePath();
+                    
+                        // 三角形のパスをクリアする
+                        context.globalCompositeOperation = 'destination-out';
+                        context.fill();
+                        context.globalCompositeOperation = 'source-over';
+                      }
+                    });
+                  },
+                });
+
+                
+
+                console.log(rect);
+                newLayer.add(line);
+                newLayer.add(rect);
+                newLayer.add(shape);
+                newLayer.draw();
+              
+              // 他の図形タイプに対する処理も同様に追加可能
+            });
+            
+            stage2.add(newLayer); // 新しいレイヤーを stage2 に追加
+
+        
+            stage2.draw();
+  
+            // 描画が完了した後の処理を行う
+            newLayer.on('draw', function () {
+              console.log('レイヤーの描画が完了しました。');
+             
+            });
+          });
+
+          const errorElement = document.querySelector(".home-form-error");
+          if (errorElement && errorElement.textContent !== "") {
+              errorElement.textContent = "";
+          }  
+    
+        })
+
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+      } else {
+        const homeFormError = document.createElement("p");
+         homeFormError.classList.add("home-form-error");
+         document.querySelector(".homecenter-outer").append(homeFormError);
+         document.querySelector(".home-form-error").textContent = "※既に配置図が追加されています。新たな配置図を編集する場合は追加済みの配置図を取消してください※";
+      }
+        
+      } else if (event.target.classList.contains("cancelBtn2")) {
+        // 削除ボタンをクリックした場合の処理
+        const liElement = event.target.closest("li");
+        const homeFormValue = liElement.firstChild.textContent.trim();
+
+    
+        // 削除対象のレイヤーを特定
+        const layerToRemove = stage2.find(node => node.name() === homeFormValue)[0];
+
+        console.log('homeFormValue:', homeFormValue);
+        console.log('すべてのステージの子要素:', stage2.children);
+        console.log('削除するレイヤー:', layerToRemove);
+        console.log("layerToRemoveの名前:",layerToRemove.name());
+        
+        if (layerToRemove instanceof Konva.Layer) {
+          layerToRemove.destroy();
+          stage2.getChildren().forEach(function(layer) {
+            if (layer instanceof Konva.Layer) {
+              layer.destroy();
+            }
+          });
+
+          const errorElement = document.querySelector(".home-form-error");
+          if (errorElement && errorElement.textContent !== "") {
+              errorElement.textContent = "";
+          }  
+        } else {
+          console.log('対象のレイヤーが見つかりませんでした。');
+        }
+
+      }
+  });
+
+ 
+
+
+  homeList.addEventListener("click", event => {
+    if (event.target.classList.contains("deleteBtn2")||event.target.classList.contains("fa-trash-can")) {
+
+      const liElement = event.target.closest("li");
+      const homeFormValue = liElement.firstChild.textContent.trim();
+
+
+       if (liElement && homeList.contains(liElement)) {
+        // 存在する場合、liElement を削除
+        homeList.removeChild(liElement);
+      }
+
+      fetch('/delete-data3', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({homeFormValue}),
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          console.log('Server response:', data);
+          // サーバーからのレスポンスを処理
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          // エラー処理
+        });
+
+      };
+  
+      
+  });
+ 
+
+
+
+  const photocenterInner = document.querySelector('.photocenter-inner');    
+  const stage3 = new Konva.Stage({
+    container: photocenterInner,
+    width: photocenterInner.offsetWidth,
+    height: photocenterInner.offsetHeight,
+  });
+
+  const photoList = document.querySelector(".photo-addlist");
+
+
+  photoList.addEventListener("click", event => {
+    if (event.target.classList.contains("addBtn2")) {
+      if (stage3.getChildren().length === 0) {
+
+      const liElement = event.target.closest("li");
+      const homeFormValue = liElement.firstChild.textContent.trim();
+      const requestData = {
+          homeFormValue: homeFormValue
+      };
+        
+        fetch('/get-layer-data3', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(requestData)
+        })
+        .then(response => response.json())
+        .then(layerData => {
+        
+          // レイヤーごとに新しい Layer を作成
+          layerData.layerData.layers.forEach(layerInfo => {
+            const newLayer = new Konva.Layer({
+              name: layerInfo.name, 
+          });
+            
+            layerInfo.children.forEach(shapeData => {
+                // shapeData から必要な情報を取得して図形を作成
+                const rect = new Konva.Rect({
+                  x: (homecenterInner.offsetWidth - shapeData.width) / 2, 
+                  y: (homecenterInner.offsetHeight - shapeData.height) / 2,
+                  width: shapeData.width,
+                  height: shapeData.height,
+                  fill: shapeData.fill,
+                  // その他の必要なプロパティを設定
+                });
+
+                const line = new Konva.Line({
+                  points: shapeData.points,
+                  stroke: shapeData.stroke, 
+                  strokeWidth: shapeData.strokeWidth, 
+                  closed: shapeData.closed,
+                  fill: shapeData.fill,
+                  // その他の必要なプロパティを設定
+                });
+
+                const shape = new Konva.Shape({
+                  sceneFunc: function (context, shape) {
+                    layerInfo.children.forEach(child => {
+                      if (child.clear) {
+                        context.clearRect(...child.clear);
+                      }
+                      if (child.clearLine1||child.clearLine2||child.clearLine3){
+                        context.beginPath();
+                        context.moveTo(...child.clearLine1);
+                        context.lineTo(...child.clearLine2);
+                        context.lineTo(...child.clearLine3);
+                        context.closePath();
+                    
+                        // 三角形のパスをクリアする
+                        context.globalCompositeOperation = 'destination-out';
+                        context.fill();
+                        context.globalCompositeOperation = 'source-over';
+                      }
+                    });
+                  },
+                });
+
+                console.log(rect);
+                newLayer.add(line);
+                newLayer.add(rect);
+                newLayer.add(shape);
+                newLayer.draw();
+              
+              // 他の図形タイプに対する処理も同様に追加可能
+            });
+            
+            stage3.add(newLayer); // 新しいレイヤーを stage3 に追加
+
+        
+            stage3.draw();
+  
+            // 描画が完了した後の処理を行う
+            newLayer.on('draw', function () {
+              console.log('レイヤーの描画が完了しました。');
+             
+            });
+          });
+
+          const errorElement = document.querySelector(".photo-form-error");
+          if (errorElement && errorElement.textContent !== "") {
+              errorElement.textContent = "";
+          }  
+    
+        })
+
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
+      } else {
+        const photoFormError = document.createElement("p");
+         photoFormError.classList.add("photo-form-error");
+         document.querySelector(".photocenter-outer").append(photoFormError);
+         document.querySelector(".photo-form-error").textContent = "※既に配置図が表示されています。新たな配置図を表示する場合は表示済みの配置図を取消してください※";
+      }
+        
+      } else if (event.target.classList.contains("cancelBtn3")) {
+        // 削除ボタンをクリックした場合の処理
+        const liElement = event.target.closest("li");
+        const homeFormValue = liElement.firstChild.textContent.trim();
+
+    
+        // 削除対象のレイヤーを特定
+        const layerToRemove = stage3.find(node => node.name() === homeFormValue)[0];
+
+        console.log('homeFormValue:', homeFormValue);
+        console.log('すべてのステージの子要素:', stage3.children);
+        console.log('削除するレイヤー:', layerToRemove);
+        console.log("layerToRemoveの名前:",layerToRemove.name());
+        
+        if (layerToRemove instanceof Konva.Layer) {
+          layerToRemove.destroy();
+          stage3.getChildren().forEach(function(layer) {
+            if (layer instanceof Konva.Layer) {
+              layer.destroy();
+            }
+          });
+
+          const errorElement = document.querySelector(".photo-form-error");
+          if (errorElement && errorElement.textContent !== "") {
+              errorElement.textContent = "";
+          }  
+        } else {
+          console.log('対象のレイヤーが見つかりませんでした。');
+        }
+
+      }
+  });

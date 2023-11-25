@@ -96,6 +96,30 @@ router.post('/get-layer-data2', authenticateSession, async (req, res) => {
   });
 });
 
+router.post('/get-layer-data3', authenticateSession, async (req, res) => {
+  const username = req.session.username;
+  const requestData = req.body;
+
+  // データベースから特定の homeFormValue のデータを取得する処理
+  const selectDataSql = 'SELECT room_data FROM room WHERE username = ? AND room_data->"$.homeFormValue" = ?';
+  const values = [username, requestData.homeFormValue];
+
+  connection.query(selectDataSql, values, (error, results, fields) => {
+    if (error) {
+      console.error('Error while fetching data:', error);
+      res.status(500).send('An error occurred while fetching data.');
+    } else {
+      if (results.length > 0) {
+        const layerData = JSON.parse(results[0].room_data);
+        res.json(layerData);
+      } else {
+        res.status(404).send('Data not found.');
+      }
+    }
+  });
+});
+
+
 
 router.post('/delete-data', authenticateSession, async (req, res) => {
   const username = req.session.username;
@@ -145,6 +169,32 @@ router.post('/delete-data2', authenticateSession, async (req, res) => {
       } else {
         console.log('No matching furniture data found.');
         res.status(404).send('No matching furniture data found.');
+      }
+    }
+  });
+});
+
+router.post('/delete-data3', authenticateSession, async (req, res) => {
+  const username = req.session.username;
+  const roomFormValue = req.body.roomFormValue; // クライアントから送信されたデータ
+
+  console.log(roomFormValue);
+
+  // roomFormValue と一致するデータを room テーブルから削除
+  const deleteRoomSql = 'DELETE FROM room WHERE username = ? AND JSON_EXTRACT(room_data, "$.roomFormValue") = ?';
+  const values = [username, roomFormValue];
+
+  connection.query(deleteRoomSql, values, (error, results, fields) => {
+    if (error) {
+      console.error('Error deleting room data:', error);
+      res.status(500).send('An error occurred while deleting room data.');
+    } else {
+      if (results.affectedRows > 0) {
+        console.log('Room data deleted successfully.');
+        res.json({ message: 'Room data deleted successfully.' });
+      } else {
+        console.log('No matching room data found.');
+        res.status(404).send('No matching room data found.');
       }
     }
   });

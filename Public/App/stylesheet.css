@@ -1968,3 +1968,11 @@ button{
   margin-top: 30px;
   font-weight: bold;
 }
+
+
+.photo-form-error{
+  position: absolute;
+  margin-top: -650px;
+  color: red;
+  margin-left: -400px;
+}
