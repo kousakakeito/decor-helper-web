@@ -594,6 +594,7 @@ button{
   background-color:rgba(255, 255, 255, 0.8);
 }
 
+
 /* photo-photobtn のスタイル */
 .photo-photobtn {
   position: absolute;
@@ -618,9 +619,6 @@ button{
 
 /* photocenter-inner のスタイル */
 .photocenter-inner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   height: 600px;
   width: 1100px;
   border: 2px solid #000;

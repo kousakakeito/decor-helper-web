@@ -119,6 +119,29 @@ router.post('/get-layer-data3', authenticateSession, async (req, res) => {
   });
 });
 
+router.post('/get-layer-data4', authenticateSession, async (req, res) => {
+  const username = req.session.username;
+  const requestData = req.body;
+
+  // データベースから特定の homeFormValue のデータを取得する処理
+  const selectDataSql = 'SELECT room_data FROM room WHERE username = ? AND room_data->"$.homeFormValue" = ?';
+  const values = [username, requestData.homeFormValue];
+
+  connection.query(selectDataSql, values, (error, results, fields) => {
+    if (error) {
+      console.error('Error while fetching data:', error);
+      res.status(500).send('An error occurred while fetching data.');
+    } else {
+      if (results.length > 0) {
+        const layerData = JSON.parse(results[0].room_data);
+        res.json(layerData);
+      } else {
+        res.status(404).send('Data not found.');
+      }
+    }
+  });
+});
+
 
 
 router.post('/delete-data', authenticateSession, async (req, res) => {
@@ -176,13 +199,13 @@ router.post('/delete-data2', authenticateSession, async (req, res) => {
 
 router.post('/delete-data3', authenticateSession, async (req, res) => {
   const username = req.session.username;
-  const roomFormValue = req.body.roomFormValue; // クライアントから送信されたデータ
+  const homeFormValue = req.body.homeFormValue; // クライアントから送信されたデータ
 
-  console.log(roomFormValue);
+  console.log(homeFormValue);
 
-  // roomFormValue と一致するデータを room テーブルから削除
-  const deleteRoomSql = 'DELETE FROM room WHERE username = ? AND JSON_EXTRACT(room_data, "$.roomFormValue") = ?';
-  const values = [username, roomFormValue];
+  // homeFormValue と一致するデータを room テーブルから削除
+  const deleteRoomSql = 'DELETE FROM room WHERE username = ? AND JSON_EXTRACT(room_data, "$.homeFormValue") = ?';
+  const values = [username, homeFormValue];
 
   connection.query(deleteRoomSql, values, (error, results, fields) => {
     if (error) {

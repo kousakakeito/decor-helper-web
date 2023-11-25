@@ -399,6 +399,12 @@ document.querySelector('.caret-down')
        if (liElement && spaceList.contains(liElement)) {
         // 存在する場合、liElement を削除
         spaceList.removeChild(liElement);
+
+        const layerToRemove = stage2.find(node => node.name() === spaceFormValue)[0];
+
+        if(layerToRemove instanceof Konva.Layer){
+          layerToRemove.destroy();
+        }
       }
 
       fetch('/delete-data', {
@@ -442,6 +448,13 @@ document.querySelector('.caret-down')
        if (liElement && furnitureList.contains(liElement)) {
         // 存在する場合、liElement を削除
         furnitureList.removeChild(liElement);
+
+        const layerToRemove = stage2.find(node => node.name() === furnitureFormValue)[0];
+
+        if(layerToRemove instanceof Konva.Layer){
+          layerToRemove.destroy();
+        }
+
       }
 
       fetch('/delete-data2', {
@@ -621,7 +634,7 @@ document.querySelector('.caret-down')
         console.log('furnitureFormValue:', furnitureFormValue);
         console.log('すべてのステージの子要素:', stage2.children);
         console.log('削除するレイヤー:', layerToRemove);
-        console.log("layerToRemoveの名前:",layerToRemove.name());
+        
         
         if (layerToRemove instanceof Konva.Layer) {
           layerToRemove.destroy();
@@ -709,7 +722,9 @@ document.querySelector('.caret-down')
             width: shape.width(),
             height: shape.height(),
             fill: shape.fill(),    
+            absolutePositionRect: shape.getAbsolutePosition(),
           };
+
           layerInfo.children.push(rectData); // 子要素の情報を配列に追加
         }
 
@@ -735,6 +750,7 @@ document.querySelector('.caret-down')
             clearLine1 : shape.clearLine1,
             clearLine2 : shape.clearLine2,
             clearLine3 : shape.clearLine3,
+            absolutePositionShape: shape.getAbsolutePosition(),
           };
           layerInfo.children.push(shapeData);
         }
@@ -916,7 +932,10 @@ if (errorElement && errorElement.textContent !== "") {
                   fill: shapeData.fill,
                   // その他の必要なプロパティを設定
                 });
-
+                
+                if (shapeData.absolutePositionRect) {
+                  rect.setAbsolutePosition(shapeData.absolutePositionRect);
+                }
 
 
                 const line = new Konva.Line({
@@ -933,15 +952,14 @@ if (errorElement && errorElement.textContent !== "") {
 
                 const shape = new Konva.Shape({
                   sceneFunc: function (context, shape) {
-                    layerInfo.children.forEach(child => {
-                      if (child.clear) {
-                        context.clearRect(...child.clear);
+                      if (shapeData.clear) {
+                        context.clearRect(...shapeData.clear);
                       }
-                      if (child.clearLine1||child.clearLine2||child.clearLine3){
+                      if (shapeData.clearLine1||shapeData.clearLine2||shapeData.clearLine3){
                         context.beginPath();
-                        context.moveTo(...child.clearLine1);
-                        context.lineTo(...child.clearLine2);
-                        context.lineTo(...child.clearLine3);
+                        context.moveTo(...shapeData.clearLine1);
+                        context.lineTo(...shapeData.clearLine2);
+                        context.lineTo(...shapeData.clearLine3);
                         context.closePath();
                     
                         // 三角形のパスをクリアする
@@ -949,9 +967,12 @@ if (errorElement && errorElement.textContent !== "") {
                         context.fill();
                         context.globalCompositeOperation = 'source-over';
                       }
-                    });
                   },
                 });
+
+                if (shapeData.absolutePositionShape) {
+                  shape.setAbsolutePosition(shapeData.absolutePositionShape);
+                }
 
                 
 
@@ -1010,11 +1031,13 @@ if (errorElement && errorElement.textContent !== "") {
         
         if (layerToRemove instanceof Konva.Layer) {
           layerToRemove.destroy();
-          stage2.getChildren().forEach(function(layer) {
-            if (layer instanceof Konva.Layer) {
-              layer.destroy();
+          const deleteLayers = stage2.getLayers().slice();
+          deleteLayers.forEach(deleteLayer => {
+            if (deleteLayer instanceof Konva.Layer) {
+              deleteLayer.destroy();
             }
           });
+
 
           const errorElement = document.querySelector(".home-form-error");
           if (errorElement && errorElement.textContent !== "") {
@@ -1040,6 +1063,22 @@ if (errorElement && errorElement.textContent !== "") {
        if (liElement && homeList.contains(liElement)) {
         // 存在する場合、liElement を削除
         homeList.removeChild(liElement);
+
+        // photoListから該当するhomeFormValueのliを探し、削除
+        Array.from(photoList.children).forEach(photoLi => {
+        if (photoLi.firstChild.textContent.trim() === homeFormValue) {
+          photoList.removeChild(photoLi);
+        }
+      });
+
+      const layerToRemove = stage2.find(node => node.name() === homeFormValue)[0];
+
+        if(stage2.getLayers().length !== 0 && layerToRemove instanceof Konva.Layer){
+          const deleteLayers = stage2.getLayers().slice();
+          deleteLayers.forEach(deleteLayer => {
+              deleteLayer.destroy();
+          });
+        }
       }
 
       fetch('/delete-data3', {
@@ -1092,7 +1131,7 @@ if (errorElement && errorElement.textContent !== "") {
           homeFormValue: homeFormValue
       };
         
-        fetch('/get-layer-data3', {
+        fetch('/get-layer-data4', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -1119,6 +1158,10 @@ if (errorElement && errorElement.textContent !== "") {
                   // その他の必要なプロパティを設定
                 });
 
+                if (shapeData.absolutePositionRect) {
+                  rect.setAbsolutePosition(shapeData.absolutePositionRect);
+                }
+
                 const line = new Konva.Line({
                   points: shapeData.points,
                   stroke: shapeData.stroke, 
@@ -1130,15 +1173,14 @@ if (errorElement && errorElement.textContent !== "") {
 
                 const shape = new Konva.Shape({
                   sceneFunc: function (context, shape) {
-                    layerInfo.children.forEach(child => {
-                      if (child.clear) {
-                        context.clearRect(...child.clear);
+                      if (shapeData.clear) {
+                        context.clearRect(...shapeData.clear);
                       }
-                      if (child.clearLine1||child.clearLine2||child.clearLine3){
+                      if (shapeData.clearLine1||shapeData.clearLine2||shapeData.clearLine3){
                         context.beginPath();
-                        context.moveTo(...child.clearLine1);
-                        context.lineTo(...child.clearLine2);
-                        context.lineTo(...child.clearLine3);
+                        context.moveTo(...shapeData.clearLine1);
+                        context.lineTo(...shapeData.clearLine2);
+                        context.lineTo(...shapeData.clearLine3);
                         context.closePath();
                     
                         // 三角形のパスをクリアする
@@ -1146,9 +1188,13 @@ if (errorElement && errorElement.textContent !== "") {
                         context.fill();
                         context.globalCompositeOperation = 'source-over';
                       }
-                    });
                   },
                 });
+
+                if (shapeData.absolutePositionShape) {
+                  shape.setAbsolutePosition(shapeData.absolutePositionShape);
+                }
+                
 
                 console.log(rect);
                 newLayer.add(line);
@@ -1205,11 +1251,14 @@ if (errorElement && errorElement.textContent !== "") {
         
         if (layerToRemove instanceof Konva.Layer) {
           layerToRemove.destroy();
-          stage3.getChildren().forEach(function(layer) {
-            if (layer instanceof Konva.Layer) {
-              layer.destroy();
+          const deleteLayers = stage3.getLayers().slice();
+          deleteLayers.forEach(deleteLayer => {
+            if (deleteLayer instanceof Konva.Layer) {
+              deleteLayer.destroy();
             }
           });
+
+  
 
           const errorElement = document.querySelector(".photo-form-error");
           if (errorElement && errorElement.textContent !== "") {
