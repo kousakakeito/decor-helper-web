@@ -1,3 +1,4 @@
+
 const contentHome = document.querySelector('#content-home');
 const contentSpace = document.querySelector('#content-space');
 const contentFurniture = document.querySelector('#content-furniture');
@@ -222,11 +223,15 @@ document.querySelector('.caret-down')
 
 
   const homecenterInner = document.querySelector('.homecenter-inner');    
+  console.log(homecenterInner.offsetWidth, homecenterInner.offsetHeight);
+
   const stage2 = new Konva.Stage({
     container: homecenterInner,
     width: homecenterInner.offsetWidth,
     height: homecenterInner.offsetHeight,
   });
+
+  console.log(stage2.width(), stage2.height());
 
   const spaceList = document.querySelector(".space-list");
   
@@ -920,6 +925,7 @@ if (errorElement && errorElement.textContent !== "") {
               name: layerInfo.name, 
               draggable: true,
           });
+
           
             
             layerInfo.children.forEach(shapeData => {
@@ -974,7 +980,6 @@ if (errorElement && errorElement.textContent !== "") {
                   shape.setAbsolutePosition(shapeData.absolutePositionShape);
                 }
 
-                
 
                 console.log(rect);
                 newLayer.add(line);
@@ -989,6 +994,11 @@ if (errorElement && errorElement.textContent !== "") {
 
         
             stage2.draw();
+
+            
+ 
+
+          
   
             // 描画が完了した後の処理を行う
             newLayer.on('draw', function () {
@@ -1109,21 +1119,27 @@ if (errorElement && errorElement.textContent !== "") {
   });
  
 
+  const photoTab = document.querySelector('[data-target="content-photo"]');
+  const photoList = document.querySelector(".photo-addlist");
 
+  photoTab.addEventListener("click",function(){
 
   const photocenterInner = document.querySelector('.photocenter-inner');    
+  console.log(photocenterInner.offsetWidth, photocenterInner.offsetHeight);
   const stage3 = new Konva.Stage({
     container: photocenterInner,
     width: photocenterInner.offsetWidth,
     height: photocenterInner.offsetHeight,
   });
+  console.log(stage3.width(), stage3.height());
 
-  const photoList = document.querySelector(".photo-addlist");
 
 
   photoList.addEventListener("click", event => {
     if (event.target.classList.contains("addBtn2")) {
       if (stage3.getChildren().length === 0) {
+
+        
 
       const liElement = event.target.closest("li");
       const homeFormValue = liElement.firstChild.textContent.trim();
@@ -1150,8 +1166,8 @@ if (errorElement && errorElement.textContent !== "") {
             layerInfo.children.forEach(shapeData => {
                 // shapeData から必要な情報を取得して図形を作成
                 const rect = new Konva.Rect({
-                  x: (homecenterInner.offsetWidth - shapeData.width) / 2, 
-                  y: (homecenterInner.offsetHeight - shapeData.height) / 2,
+                  x: (photocenterInner.offsetWidth - shapeData.width) / 2, 
+                  y: (photocenterInner.offsetHeight - shapeData.height) / 2,
                   width: shapeData.width,
                   height: shapeData.height,
                   fill: shapeData.fill,
@@ -1204,11 +1220,12 @@ if (errorElement && errorElement.textContent !== "") {
               
               // 他の図形タイプに対する処理も同様に追加可能
             });
+
             
             stage3.add(newLayer); // 新しいレイヤーを stage3 に追加
 
-        
             stage3.draw();
+        
   
             // 描画が完了した後の処理を行う
             newLayer.on('draw', function () {
@@ -1270,3 +1287,5 @@ if (errorElement && errorElement.textContent !== "") {
 
       }
   });
+
+});

@@ -14,6 +14,7 @@ body, html {
   z-index: 1; 
 }
 
+
 .background-animation {
   position: fixed;
   top: 0;
@@ -314,6 +315,7 @@ button{
   background-color:rgba(255, 255, 255, 0.8);
 }
 
+
 /* space-compbtn のスタイル */
 .space-compbtn {
   position: absolute;
@@ -563,6 +565,7 @@ button{
 
 /* print-roomlist のスタイル */
 .print-roomlist {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -590,7 +593,7 @@ button{
   width: 1200px;
   height: 735px;
   border: 2px solid #000;
-  margin-top: 40px;
+  margin-top: -738px;
   background-color:rgba(255, 255, 255, 0.8);
 }
 
@@ -610,6 +613,8 @@ button{
   box-shadow: 0 4px #008000;
   transition: all 0.3s ease;
 }
+
+
 
 /* ボタンがホバーされたときのスタイル */
 .photo-photobtn:hover {
@@ -633,6 +638,8 @@ button{
   padding-left: 20px;
 }
 
+
+
 /* photo-roomlist のスタイル */
 .photo-roomlist {
   position: relative;
@@ -643,7 +650,7 @@ button{
   width: 250px;
   overflow: auto;
   border: 2px solid #000;
-  margin-top: -739px;
+  margin-top: 40px;
   background-color:rgba(255, 255, 255, 0.8);
 }
 
