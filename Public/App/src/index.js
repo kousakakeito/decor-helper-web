@@ -741,6 +741,7 @@ document.querySelector('.caret-down')
             strokeWidth: shape.strokeWidth(), // 線の太さ
             closed: shape.closed(), // 閉じた形状として描画
             fill: shape.fill(),    
+            absolutePositionLine: shape.getAbsolutePosition(),
           };
           layerInfo.children.push(lineData); // 子要素の情報を配列に追加
         }
@@ -920,15 +921,22 @@ if (errorElement && errorElement.textContent !== "") {
         .then(layerData => {
         
           // レイヤーごとに新しい Layer を作成
+          const layers = layerData.layerData.layers;
+
           layerData.layerData.layers.forEach(layerInfo => {
-            const newLayer = new Konva.Layer({
+            const newLayer1 = new Konva.Layer({
               name: layerInfo.name, 
-              draggable: true,
           });
 
+          const newLayer2 = new Konva.Layer({
+            name: layerInfo.name, 
+            draggable: true,
+        });
           
             
             layerInfo.children.forEach(shapeData => {
+
+              if(layers[0].children.some(child => child === shapeData)){
                 // shapeData から必要な情報を取得して図形を作成
                 const rect = new Konva.Rect({
                   x: (homecenterInner.offsetWidth - shapeData.width) / 2, 
@@ -952,6 +960,10 @@ if (errorElement && errorElement.textContent !== "") {
                   fill: shapeData.fill,
                   // その他の必要なプロパティを設定
                 });
+
+                if (shapeData.absolutePositionLine) {
+                  line.setAbsolutePosition(shapeData.absolutePositionLine);
+                }
 
                 
 
@@ -982,16 +994,81 @@ if (errorElement && errorElement.textContent !== "") {
 
 
                 console.log(rect);
-                newLayer.add(line);
-                newLayer.add(rect);
-                newLayer.add(shape);
-                newLayer.draw();
+                newLayer1.add(line);
+                newLayer1.add(rect);
+                newLayer1.add(shape);
+                newLayer1.draw();
+
+              } else {
+
+                // shapeData から必要な情報を取得して図形を作成
+                const rect = new Konva.Rect({
+                  x: (homecenterInner.offsetWidth - shapeData.width) / 2, 
+                  y: (homecenterInner.offsetHeight - shapeData.height) / 2,
+                  width: shapeData.width,
+                  height: shapeData.height,
+                  fill: shapeData.fill,
+                  // その他の必要なプロパティを設定
+                });
+                
+                if (shapeData.absolutePositionRect) {
+                  rect.setAbsolutePosition(shapeData.absolutePositionRect);
+                }
+
+
+                const line = new Konva.Line({
+                  points: shapeData.points,
+                  stroke: shapeData.stroke, 
+                  strokeWidth: shapeData.strokeWidth, 
+                  closed: shapeData.closed,
+                  fill: shapeData.fill,
+                  // その他の必要なプロパティを設定
+                });
+
+                
+                if (shapeData.absolutePositionLine) {
+                  line.setAbsolutePosition(shapeData.absolutePositionLine);
+                }
+
+
+                const shape = new Konva.Shape({
+                  sceneFunc: function (context, shape) {
+                      if (shapeData.clear) {
+                        context.clearRect(...shapeData.clear);
+                      }
+                      if (shapeData.clearLine1||shapeData.clearLine2||shapeData.clearLine3){
+                        context.beginPath();
+                        context.moveTo(...shapeData.clearLine1);
+                        context.lineTo(...shapeData.clearLine2);
+                        context.lineTo(...shapeData.clearLine3);
+                        context.closePath();
+                    
+                        // 三角形のパスをクリアする
+                        context.globalCompositeOperation = 'destination-out';
+                        context.fill();
+                        context.globalCompositeOperation = 'source-over';
+                      }
+                  },
+                });
+
+                if (shapeData.absolutePositionShape) {
+                  shape.setAbsolutePosition(shapeData.absolutePositionShape);
+                }
+
+
+                console.log(rect);
+                newLayer2.add(line);
+                newLayer2.add(rect);
+                newLayer2.add(shape);
+                newLayer2.draw();
+
+              };
               
               // 他の図形タイプに対する処理も同様に追加可能
             });
             
-            stage2.add(newLayer); // 新しいレイヤーを stage2 に追加
-
+            stage2.add(newLayer1); // 新しいレイヤーを stage2 に追加
+            stage2.add(newLayer2);
         
             stage2.draw();
 
@@ -1001,7 +1078,11 @@ if (errorElement && errorElement.textContent !== "") {
           
   
             // 描画が完了した後の処理を行う
-            newLayer.on('draw', function () {
+            newLayer1.on('draw', function () {
+              console.log('レイヤーの描画が完了しました。');
+             
+            });
+            newLayer2.on('draw', function () {
               console.log('レイヤーの描画が完了しました。');
              
             });
@@ -1186,6 +1267,10 @@ if (errorElement && errorElement.textContent !== "") {
                   fill: shapeData.fill,
                   // その他の必要なプロパティを設定
                 });
+
+                if (shapeData.absolutePositionLine) {
+                  line.setAbsolutePosition(shapeData.absolutePositionLine);
+                }
 
                 const shape = new Konva.Shape({
                   sceneFunc: function (context, shape) {
