@@ -1981,3 +1981,24 @@ button{
   color: red;
   margin-left: -400px;
 }
+
+.home-overwritebtn {
+  position: absolute;
+  margin-left:980px;
+  margin-top: 665px;
+  width: 120px;
+  height: 40px;
+  border: none;
+  background-color: #af634c;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px #802900;
+  transition: all 0.3s ease;
+}
+
+/* ボタンがホバーされたときのスタイル */
+.home-overwritebtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #802900;
+}

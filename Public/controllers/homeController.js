@@ -223,7 +223,53 @@ router.post('/delete-data3', authenticateSession, async (req, res) => {
   });
 });
 
+router.post('/delete-data4', authenticateSession, async (req, res) => {
+  const username = req.session.username;
+  const homeFormValue = req.body.homeFormValue; // クライアントから送信されたデータ
+
+  console.log(homeFormValue);
+
+  // homeFormValue と一致するデータを room テーブルから削除
+  const deleteRoomSql = 'DELETE FROM room WHERE username = ? AND JSON_EXTRACT(room_data, "$.homeFormValue") = ?';
+  const values = [username, homeFormValue];
+
+  connection.query(deleteRoomSql, values, (error, results, fields) => {
+    if (error) {
+      console.error('Error deleting room data:', error);
+      res.status(500).send('An error occurred while deleting room data.');
+    } else {
+      if (results.affectedRows > 0) {
+        console.log('Room data deleted successfully.');
+        res.json({ message: 'Room data deleted successfully.' });
+      } else {
+        console.log('No matching room data found.');
+        res.status(404).send('No matching room data found.');
+      }
+    }
+  });
+});
+
 router.post('/user-data8', authenticateSession, async (req, res) => {
+  const username = req.session.username;
+  const newData = req.body;
+
+  const insertDataSql = 'INSERT INTO room (username, room_data) VALUES (?, ?)';
+  const values = [username, JSON.stringify(newData)];
+
+  console.log(values);
+
+  connection.query(insertDataSql, values, (error, results, fields) => {
+    if (error) {
+      console.error('Error while saving data:', error);
+      res.status(500).send('An error occurred while saving data.');
+    } else {
+      console.log('Data saved successfully.');
+      res.json({ message: 'Data saved successfully.' });
+    }
+  });
+});
+
+router.post('/user-data9', authenticateSession, async (req, res) => {
   const username = req.session.username;
   const newData = req.body;
 
@@ -281,6 +327,43 @@ router.get('/get-new-data9', authenticateSession, async (req, res) => {
   });
 });
 
+router.get('/get-new-data10', authenticateSession, async (req, res) => {
+  const username = req.session.username;
+
+  const selectLastRoomDataSql = 'SELECT room_data FROM room WHERE username = ? ORDER BY id DESC LIMIT 1';
+  connection.query(selectLastRoomDataSql, [username], (error, results, fields) => {
+    if (error) {
+      console.error('Error while fetching last room data:', error);
+      res.status(500).send('An error occurred while fetching last room data.');
+    } else {
+      if (results.length > 0) {
+        const lastRoomData = JSON.parse(results[0].room_data);
+        res.json(lastRoomData);
+      } else {
+        res.status(404).send('No room data found for the user.');
+      }
+    }
+  });
+});
+
+router.get('/get-new-data11', authenticateSession, async (req, res) => {
+  const username = req.session.username;
+
+  const selectLastRoomDataSql = 'SELECT room_data FROM room WHERE username = ? ORDER BY id DESC LIMIT 1';
+  connection.query(selectLastRoomDataSql, [username], (error, results, fields) => {
+    if (error) {
+      console.error('Error while fetching last room data:', error);
+      res.status(500).send('An error occurred while fetching last room data.');
+    } else {
+      if (results.length > 0) {
+        const lastRoomData = JSON.parse(results[0].room_data);
+        res.json(lastRoomData);
+      } else {
+        res.status(404).send('No room data found for the user.');
+      }
+    }
+  });
+});
 
 
 
