@@ -881,6 +881,7 @@ function removeAllLayers() {
 
   deleteLayers.forEach(deleteLayer => {
     deleteLayer.destroy();
+
   });
 }
 
@@ -941,6 +942,7 @@ if (errorElement && errorElement.textContent !== "") {
           
             
             layerInfo.children.forEach(shapeData => {
+
 
               if(layers[0].children.some(child => child === shapeData)){
                 // shapeData から必要な情報を取得して図形を作成
@@ -1190,6 +1192,8 @@ if (errorElement && errorElement.textContent !== "") {
                 name: homeFormValue2,  // レイヤーの名前を取得
                 children: [],      // 子要素の情報を格納する配列
               };
+
+
       
               function getShapeType(shape) {
                 if (shape instanceof Konva.Rect) {
@@ -1202,6 +1206,8 @@ if (errorElement && errorElement.textContent !== "") {
               };
               
               layer.getChildren().forEach(shape => {
+
+
                 const shapeType = getShapeType(shape);
                 if (shapeType === "Rect") {
                 const rectData = {
@@ -1252,6 +1258,9 @@ if (errorElement && errorElement.textContent !== "") {
             
               layerData.layers.push(layerInfo); // レイヤーの情報を配列に追加
             });
+
+
+      
             
             
       
