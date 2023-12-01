@@ -944,7 +944,6 @@ if (errorElement && errorElement.textContent !== "") {
             layerInfo.children.forEach(shapeData => {
 
 
-              if(layers[0].children.some(child => child === shapeData)){
                 // shapeData から必要な情報を取得して図形を作成
                 const rect = new Konva.Rect({
                   x: (homecenterInner.offsetWidth - shapeData.width) / 2, 
@@ -1009,88 +1008,25 @@ if (errorElement && errorElement.textContent !== "") {
                 }
 
 
-                console.log(rect);
-                newLayer1.add(line);
-                newLayer1.add(rect);
-                newLayer1.add(shape);
-                newLayer1.draw();
-
-              } else {
-
-                // shapeData から必要な情報を取得して図形を作成
-                const rect = new Konva.Rect({
-                  x: (homecenterInner.offsetWidth - shapeData.width) / 2, 
-                  y: (homecenterInner.offsetHeight - shapeData.height) / 2,
-                  width: shapeData.width,
-                  height: shapeData.height,
-                  fill: shapeData.fill,
-                  // その他の必要なプロパティを設定
-                });
-                
-                if (shapeData.absolutePositionRect) {
-                  rect.setAbsolutePosition(shapeData.absolutePositionRect);
+                if (layers[0].children.some(child => child === shapeData)) {
+                  newLayer1.add(line);
+                  newLayer1.add(rect);
+                  newLayer1.add(shape);
+                } else {
+                  newLayer2.add(line);
+                  newLayer2.add(rect);
+                  newLayer2.add(shape);
                 }
-
-
-                const line = new Konva.Line({
-                  points: shapeData.points,
-                  stroke: shapeData.stroke, 
-                  strokeWidth: shapeData.strokeWidth, 
-                  closed: shapeData.closed,
-                  fill: shapeData.fill,
-                  // その他の必要なプロパティを設定
-                });
-
-                
-                if (shapeData.absolutePositionLine) {
-                  line.setAbsolutePosition(shapeData.absolutePositionLine);
-                }
-
-
-                const shape = new Konva.Shape({
-                  sceneFunc: function (context, shape) {
-                    const clear = shapeData.clear;
-                    shape.clear = clear;
-                    const clearLine1 = shapeData.clearLine1;
-                    const clearLine2 = shapeData.clearLine2;
-                    const clearLine3 = shapeData.clearLine3;
-                    shape.clearLine1 = clearLine1;
-                    shape.clearLine2 = clearLine2;
-                    shape.clearLine3 = clearLine3;
-                      if (shapeData.clear) {
-                        context.clearRect(...shapeData.clear);
-                      }
-                      if (shapeData.clearLine1||shapeData.clearLine2||shapeData.clearLine3){
-                        context.beginPath();
-                        context.moveTo(...shapeData.clearLine1);
-                        context.lineTo(...shapeData.clearLine2);
-                        context.lineTo(...shapeData.clearLine3);
-                        context.closePath();
-                    
-                        // 三角形のパスをクリアする
-                        context.globalCompositeOperation = 'destination-out';
-                        context.fill();
-                        context.globalCompositeOperation = 'source-over';
-                      }
-                  },
-                });
-
-                if (shapeData.absolutePositionShape) {
-                  shape.setAbsolutePosition(shapeData.absolutePositionShape);
-                }
-
-
-                console.log(rect);
-                newLayer2.add(line);
-                newLayer2.add(rect);
-                newLayer2.add(shape);
-                newLayer2.draw();
-
-              };
               
               // 他の図形タイプに対する処理も同様に追加可能
             });
-            
+
+            console.log(newLayer1);
+            console.log(newLayer2);
+            console.log(newLayer1.getChildren());
+            console.log(newLayer2.getChildren());
+
+
             stage2.add(newLayer1); // 新しいレイヤーを stage2 に追加
             stage2.add(newLayer2);
         
@@ -1181,6 +1117,7 @@ if (errorElement && errorElement.textContent !== "") {
       
             const sourceLayers = stage2.getLayers(); // すべてのレイヤーの配列を取得
       
+            console.log(stage2.getLayers());
       
       
             const layerData = {

@@ -111,6 +111,7 @@ router.post('/get-layer-data3', authenticateSession, async (req, res) => {
     } else {
       if (results.length > 0) {
         const layerData = JSON.parse(results[0].room_data);
+        console.log(results[0].room_data);
         res.json(layerData);
       } else {
         res.status(404).send('Data not found.');
