@@ -1007,8 +1007,10 @@ if (errorElement && errorElement.textContent !== "") {
                   shape.setAbsolutePosition(shapeData.absolutePositionShape);
                 }
 
+                const targetLayer = layers.find(layer => layer.children.length > 0); 
 
-                if (layers[0].children.some(child => child === shapeData)) {
+
+                if (targetLayer && targetLayer.children.some(child => child === shapeData)) {
                   newLayer1.add(line);
                   newLayer1.add(rect);
                   newLayer1.add(shape);
