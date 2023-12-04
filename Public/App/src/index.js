@@ -930,16 +930,17 @@ if (errorElement && errorElement.textContent !== "") {
           // レイヤーごとに新しい Layer を作成
           const layers = layerData.layerData.layers;
 
-          layerData.layerData.layers.forEach(layerInfo => {
-            const newLayer1 = new Konva.Layer({
-              name: layerInfo.name, 
+          const layerName = layers.find(obj => obj.name);
+          const newLayer1 = new Konva.Layer({
+            name: layerName.name,
           });
-
-          const newLayer2 = new Konva.Layer({
-            name: layerInfo.name, 
-            draggable: true,
-        });
           
+          const newLayer2 = new Konva.Layer({
+            name: layerName.name,
+            draggable: true,
+          });
+          
+          layers.forEach(layerInfo => {
             
             layerInfo.children.forEach(shapeData => {
 
@@ -1015,15 +1016,25 @@ if (errorElement && errorElement.textContent !== "") {
                 console.log(layers[targetLayer].children)
 
 
+
                 if (layers[targetLayer].children.some(child => child === shapeData)) {
-                  newLayer1.add(line);
-                  newLayer1.add(rect);
-                  newLayer1.add(shape);
-                } else {
-                  newLayer2.add(line);
-                  newLayer2.add(rect);
-                  newLayer2.add(shape);
-                }
+
+                  if(shapeData.hasOwnProperty("absolutePositionLine")){
+                    newLayer1.add(line);
+                  }else if(shapeData.hasOwnProperty("absolutePositionRect")){
+                    newLayer1.add(rect);
+                  }else if(shapeData.hasOwnProperty("absolutePositionShape")){
+                    newLayer1.add(shape);
+                  };
+                   } else {
+                   if(shapeData.hasOwnProperty("absolutePositionLine")){
+                    newLayer2.add(line);
+                  }else if(shapeData.hasOwnProperty("absolutePositionRect")){
+                    newLayer2.add(rect);
+                  }else if(shapeData.hasOwnProperty("absolutePositionShape")){
+                    newLayer2.add(shape);
+                  };   
+                   }
               
               // 他の図形タイプに対する処理も同様に追加可能
             });
