@@ -311,11 +311,10 @@ document.querySelector('.caret-down')
                         context.fill();
                         context.globalCompositeOperation = 'source-over';
                       }
-                    });
-
-                    
+                    });               
                   },
                 });
+                
 
 
                 console.log(rect);
@@ -331,6 +330,74 @@ document.querySelector('.caret-down')
 
         
             stage2.draw();
+
+
+
+            const foundRect = newLayer.getChildren().find(node => node instanceof Konva.Rect);
+            const rectX = foundRect.x();
+            const rectY = foundRect.y();
+            const rectW = foundRect.width();
+            const rectH = foundRect.height();
+
+            newLayer.getChildren().forEach(obj => {
+
+            if(obj instanceof Konva.Line){
+
+              if(rectX === obj.points()[0]){
+
+                const line = new Konva.Line({
+                  points: obj.points(),
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(rectX + rectW === obj.points()[0]){
+
+                const line = new Konva.Line({
+                  points: obj.points(),
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(rectY === obj.points()[1]){
+
+                const line = new Konva.Line({
+                  points: obj.points(),
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(rectY - rectH === obj.points()[1]){
+
+                const line = new Konva.Line({
+                  points: obj.points(),
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              };
+
+            };
+             
+            });
+
+
 
   
             // 描画が完了した後の処理を行う
