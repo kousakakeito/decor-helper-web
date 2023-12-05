@@ -393,9 +393,45 @@ document.querySelector('.caret-down')
 
               };
 
+            }else if(obj instanceof Konva.Shape){
+              if(rectX === obj.clear()[0]){
+
+              }else if(rectX + rectW === obj.clear()[0]){
+
+              }else if(rectY === obj.clear()[1]){
+              
+              }else if(rectY - rectH === obj.clear()[1]){
+
+              }else if(rectX === obj.clearLine1()[0]){
+
+              }else if(rectX + rectW === obj.clearLine1()[0]){
+
+              }else if(rectY === obj.clearLine1()[1]){
+
+              }else if(rectY - rectH === obj.clearLine1()[1]){
+                
+              }else if(rectY-1 === obj.clearLine1()[0] && rectX-1 === obj.clearLine2()[1]){
+
+              }else if(rectY-1 === obj.clearLine1()[1] && rectX-1 === obj.clearLine2()[0]){
+
+              }else if(rectY+1 === obj.clearLine1()[0] && rectX + rectW -1 === obj.clearLine2()[1]){
+
+              }else if(rectY-1 === obj.clearLine1()[1] && rectX + rectW +1 === obj.clearLine2()[0]){
+
+              }else if(rectY - rectH-1 === obj.clearLine1()[0] && rectX+1 === obj.clearLine2()[1]){
+
+              }else if(rectY - rectH+1 === obj.clearLine1()[1] && rectX-1 === obj.clearLine2()[0]){
+
+              }else if(rectY - rectH+1 === obj.clearLine1()[0] && rectX + rectW+1 === obj.clearLine2()[1]){
+
+              }else if(rectY - rectH+1 === obj.clearLine1()[1] && rectX + rectW+1 === obj.clearLine2()[0]){
+
+              }
+
             };
              
             });
+       
 
 
 
