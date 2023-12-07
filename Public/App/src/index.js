@@ -394,6 +394,136 @@ document.querySelector('.caret-down')
               };
 
             }else if(obj instanceof Konva.Shape){
+              if(obj.clear && rectX === obj.clear[0] && rectY-1 === obj.clear[1]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+               
+              }else if(obj.clear && rectX + rectW - obj.clear[2] === obj.clear[0] && rectY-1 === obj.clear[1]){  
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clear && rectY === obj.clear[1] && rectX-1 === obj.clear[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clear && rectY + rectH - obj.clear[3] === obj.clear[1] && rectX-1 === obj.clear[0]){  
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clear && rectY+1 + rectH - obj.clear[3] === obj.clear[1] && rectX === obj.clear[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+                
+              }else if(obj.clear && rectY+1 + rectH - obj.clear[3] === obj.clear[1] && rectX + rectW - obj.clear[2] === obj.clear[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);        
+                
+              }else if(obj.clear && rectX+1 + rectW - obj.clear[2] === obj.clear[0] && rectY === obj.clear[1]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clear && rectX+1 + rectW - obj.clear[2] === obj.clear[0] && rectY + rectH - obj.clear[3] === obj.clear[1]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else {
+
               if(obj.clear && rectX-1 === obj.clear[0]){
 
                 const line = new Konva.Line({
@@ -647,6 +777,8 @@ document.querySelector('.caret-down')
                 stage2.add(newLayer);
 
               }
+
+            };
 
             };
              
