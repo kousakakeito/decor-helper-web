@@ -592,7 +592,11 @@ document.querySelector('.caret-down')
                 newLayer.add(line);
                 stage2.add(newLayer);
 
-              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectX-1 === obj.clearLine1[0] && rectY-1 !== obj.clearLine2[1] && rectY + rectH+1 !== obj.clearLine2[1]){
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectX-1 === obj.clearLine1[0] && rectY-1 !== obj.clearLine2[1] && rectY + rectH+1 !== obj.clearLine2[1] &&
+              !(rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0]) && 
+              !(rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0]) &&
+              !(rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1]) &&
+              !(rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1])){
 
                 const line = new Konva.Line({
                   points: [
@@ -608,7 +612,11 @@ document.querySelector('.caret-down')
                 newLayer.add(line);
                 stage2.add(newLayer);
 
-              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectX+1 + rectW === obj.clearLine1[0] && rectY-1 !== obj.clearLine2[1] && rectY + rectH+1 !== obj.clearLine2[1]){
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectX+1 + rectW === obj.clearLine1[0] && rectY-1 !== obj.clearLine2[1] && rectY + rectH+1 !== obj.clearLine2[1] && 
+              !(rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0]) && 
+              !(rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0]) &&
+              !(rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1]) &&
+              !(rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1])){
 
                 const line = new Konva.Line({
                   points: [
@@ -624,7 +632,11 @@ document.querySelector('.caret-down')
                 newLayer.add(line);
                 stage2.add(newLayer);
 
-              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectY-1 === obj.clearLine1[1]){
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectY-1 === obj.clearLine1[1] && 
+              !(rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0]) && 
+              !(rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0]) &&
+              !(rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1]) &&
+              !(rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1])){
 
                 const line = new Konva.Line({
                   points: [
@@ -640,7 +652,12 @@ document.querySelector('.caret-down')
                 newLayer.add(line);
                 stage2.add(newLayer);
 
-              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectY+1 + rectH === obj.clearLine1[1]){
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectY+1 + rectH === obj.clearLine1[1] && 
+              !(rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0]) && 
+              !(rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0]) &&
+              !(rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1]) &&
+              !(rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1])){
+                
 
                 const line = new Konva.Line({
                   points: [
@@ -656,7 +673,14 @@ document.querySelector('.caret-down')
                 newLayer.add(line);
                 stage2.add(newLayer);
 
-              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] === obj.clearLine3[0] && rectY-1 === obj.clearLine1[1] && rectY-1 === obj.clearLine3[1]){
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] === obj.clearLine3[0] && rectY-1 === obj.clearLine1[1] && rectY-1 === obj.clearLine3[1] && 
+              !(rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0]) && 
+              !(rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0]) &&
+              !(rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1]) &&
+              !(rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1]) &&
+              !(rectX-1 === obj.clearLine2[0]) &&
+              !(rectX-1 === obj.clearLine1[0])){
+
 
                 const line = new Konva.Line({
                   points: [
@@ -672,7 +696,14 @@ document.querySelector('.caret-down')
                 newLayer.add(line);
                 stage2.add(newLayer);
 
-              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] === obj.clearLine3[0] && rectY+1 + rectH === obj.clearLine1[1] && rectY+1 + rectH === obj.clearLine3[1]){
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] === obj.clearLine3[0] && rectY+1 + rectH === obj.clearLine1[1] && rectY+1 + rectH === obj.clearLine3[1] && 
+              !(rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0]) && 
+              !(rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0]) &&
+              !(rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1]) &&
+              !(rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1]) &&
+              !(rectX-1 === obj.clearLine2[0]) &&
+              !(rectX + rectW+1 === obj.clearLine2[0])){
+
 
                 const line = new Konva.Line({
                   points: [
@@ -705,6 +736,7 @@ document.querySelector('.caret-down')
 
               }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0] && rectY-1 === obj.clearLine1[1] && rectY-1 === obj.clearLine3[1]){
 
+                
                 const line = new Konva.Line({
                   points: [
                     obj.clearLine1[0], obj.clearLine1[1],                
@@ -734,6 +766,67 @@ document.querySelector('.caret-down')
                 stage2.add(newLayer);
 
               }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0] && rectY+1 + rectH === obj.clearLine1[1] && rectY+1 + rectH === obj.clearLine3[1]){
+                
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                           
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1] && rectX-1 === obj.clearLine1[0] && rectX-1 === obj.clearLine3[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                           
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1] && rectX+1 + rectW === obj.clearLine1[0] && rectX+1 + rectW === obj.clearLine3[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                           
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1] && rectX-1 === obj.clearLine1[0] && rectX-1 === obj.clearLine3[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                           
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                });
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1] && rectX+1 + rectW === obj.clearLine1[0] && rectX+1 + rectW === obj.clearLine3[0]){
 
                 const line = new Konva.Line({
                   points: [
