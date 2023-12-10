@@ -339,6 +339,11 @@ document.querySelector('.caret-down')
             const rectW = foundRect.width();
             const rectH = foundRect.height();
 
+            let topRectBorder = [];
+            let bottomRectBorder = [];
+            let rightRectBorder = [];
+            let leftRectBorder = [];
+
             newLayer.getChildren().forEach(obj => {
 
             if(obj instanceof Konva.Line){
@@ -352,6 +357,12 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                if(obj.points.length === 10){
+                  leftRectBorder.push(obj.points()[1],obj.points()[9]);
+                }else if(obj.points.length === 4){
+                  leftRectBorder.push(obj.children[1].points()[1],obj.children[2].points()[3]);
+                };
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -363,6 +374,12 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                if(obj.points.length === 10){
+                  rightRectBorder.push(obj.points()[1],obj.points()[9]);
+                }else if(obj.points.length === 4){
+                  rightRectBorder.push(obj.children[1].points()[1],obj.children[2].points()[3]);
+                };
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -376,6 +393,15 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                if(obj.points().length === 10){
+                  window.alert("ok1")
+                  topRectBorder.push(obj.points()[0],obj.points()[8]);
+                }else if(obj.points().length === 4){
+                  window.alert("ok2")
+                  console.log(obj.points())
+                  topRectBorder.push(obj.points()[1][0],obj.points()[2][2]);
+                };
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -387,6 +413,12 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                if(obj.points.length === 10){
+                  bottomRectBorder.push(obj.points()[0],obj.points()[8]);
+                }else if(obj.points.length === 4){
+                  bottomRectBorder.push(obj.children[1].points()[0],obj.children[2].points()[2]);
+                };
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -407,6 +439,9 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                leftRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
                
@@ -422,6 +457,9 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                rightRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -439,6 +477,9 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                leftRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -454,6 +495,9 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                bottomRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                leftRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -471,6 +515,9 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                bottomRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                leftRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
                 
@@ -486,6 +533,9 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                bottomRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                rightRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
 
                 newLayer.add(line);
                 stage2.add(newLayer);        
@@ -503,6 +553,9 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                rightRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -518,6 +571,9 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                bottomRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                rightRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -538,6 +594,8 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                leftRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -554,6 +612,8 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                rightRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -572,6 +632,8 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
               
@@ -588,6 +650,8 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                bottomRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -609,6 +673,8 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                leftRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -628,6 +694,8 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                rightRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -650,6 +718,8 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -671,6 +741,8 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -696,6 +768,9 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -719,6 +794,9 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -733,6 +811,9 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -750,6 +831,9 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -764,6 +848,9 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -781,6 +868,9 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -795,6 +885,9 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                topRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -811,6 +904,10 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                topRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -825,6 +922,10 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                bottomRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -841,6 +942,10 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                bottomRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
+
                 newLayer.add(line);
                 stage2.add(newLayer);
                 
@@ -855,6 +960,10 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
+
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -871,6 +980,9 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                topRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -885,6 +997,9 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -901,6 +1016,9 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                topRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -915,6 +1033,9 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -931,6 +1052,9 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                bottomRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -945,6 +1069,9 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                 });
+
+                bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -961,6 +1088,9 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
+                bottomRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
                 newLayer.add(line);
                 stage2.add(newLayer);
 
@@ -971,6 +1101,59 @@ document.querySelector('.caret-down')
             };
              
             });
+
+            console.log(topRectBorder)
+            const topBorder = topRectBorder.sort((a, b) => a - b);
+            const topMax = topBorder.length;
+            console.log(topMax)
+            const bottomBorder = bottomRectBorder.sort((a, b) => a - b);
+            const bottomMax = bottomBorder.length;
+            const leftBorder = leftRectBorder.sort((a, b) => a - b);
+            const leftMax = leftBorder.length;
+            const rightBorder = rightRectBorder.sort((a, b) => a - b);
+            const rightMax = rightBorder.length;
+
+          if (topBorder.length === topMax) {
+              const firstPoint = topBorder.shift();
+              const line = new Konva.Line({
+                points: [rectX,rectY,firstPoint,rectY],
+                stroke: "black", 
+                strokeWidth: 2, 
+                closed: false,
+              });
+
+              newLayer.add(line);
+              stage2.add(newLayer);
+          }
+
+          while (topBorder.length > 1) {
+              const point1 = topBorder.shift();
+              const point2 = topBorder.shift();
+
+              const line = new Konva.Line({
+                points: [point1,rectY,point2,rectY],
+                stroke: "black", 
+                strokeWidth: 2, 
+                closed: false,
+              });
+
+              newLayer.add(line);
+              stage2.add(newLayer);       
+          }
+          
+          if (topBorder.length === 1) {
+
+              const lastPoint = topBorder.shift();
+              const line = new Konva.Line({
+                points: [lastPoint,rectY,rectX+rectW,rectY],
+                stroke: "black", 
+                strokeWidth: 2, 
+                closed: false,
+              });
+
+              newLayer.add(line);
+              stage2.add(newLayer);
+          }
        
 
 
