@@ -635,6 +635,7 @@ document.querySelector('.caret-down')
               }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectY-1 === obj.clearLine1[1] && 
               !(rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0]) && 
               !(rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0]) &&
+              !(Math.round(rectX + rectW) === Math.round(obj.clearLine2[0]) && Math.round(rectX + rectW) === Math.round(obj.clearLine3[0])) &&
               !(rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1]) &&
               !(rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1])){
 
@@ -655,6 +656,7 @@ document.querySelector('.caret-down')
               }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectY+1 + rectH === obj.clearLine1[1] && 
               !(rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0]) && 
               !(rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0]) &&
+              !(Math.round(rectX + rectW) === Math.round(obj.clearLine2[0]) && Math.round(rectX + rectW) === Math.round(obj.clearLine3[0])) &&
               !(rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1]) &&
               !(rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1])){
                 
@@ -676,6 +678,7 @@ document.querySelector('.caret-down')
               }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] === obj.clearLine3[0] && rectY-1 === obj.clearLine1[1] && rectY-1 === obj.clearLine3[1] && 
               !(rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0]) && 
               !(rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0]) &&
+              !(rectX + rectW+1 === obj.clearLine2[0] && rectX + rectW+1 === obj.clearLine3[0]) &&
               !(rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1]) &&
               !(rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1]) &&
               !(rectX-1 === obj.clearLine2[0]) &&
@@ -734,7 +737,7 @@ document.querySelector('.caret-down')
                 newLayer.add(line);
                 stage2.add(newLayer);
 
-              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0] && rectY-1 === obj.clearLine1[1] && rectY-1 === obj.clearLine3[1]){
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && Math.round(rectX + rectW) === Math.round(obj.clearLine2[0]) && Math.round(rectX + rectW) === Math.round(obj.clearLine3[0]) && rectY-1 === obj.clearLine1[1] && rectY-1 === obj.clearLine3[1]){
 
                 
                 const line = new Konva.Line({
@@ -765,7 +768,7 @@ document.querySelector('.caret-down')
                 newLayer.add(line);
                 stage2.add(newLayer);
 
-              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0] && rectY+1 + rectH === obj.clearLine1[1] && rectY+1 + rectH === obj.clearLine3[1]){
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && Math.round(rectX + rectW) === Math.round(obj.clearLine2[0]) && Math.round(rectX + rectW) === Math.round(obj.clearLine3[0]) && rectY+1 + rectH === obj.clearLine1[1] && rectY+1 + rectH === obj.clearLine3[1]){
                 
 
                 const line = new Konva.Line({
