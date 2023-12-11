@@ -357,10 +357,10 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
-                if(obj.points.length === 10){
+                if(obj.points().length === 10){
                   leftRectBorder.push(obj.points()[1],obj.points()[9]);
-                }else if(obj.points.length === 4){
-                  leftRectBorder.push(obj.children[1].points()[1],obj.children[2].points()[3]);
+                }else if(obj.points().length === 6){
+                  leftRectBorder.push(obj.points()[1],obj.points()[5]);
                 };
 
                 newLayer.add(line);
@@ -375,10 +375,10 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
-                if(obj.points.length === 10){
+                if(obj.points().length === 10){
                   rightRectBorder.push(obj.points()[1],obj.points()[9]);
-                }else if(obj.points.length === 4){
-                  rightRectBorder.push(obj.children[1].points()[1],obj.children[2].points()[3]);
+                }else if(obj.points().length === 6){
+                  rightRectBorder.push(obj.points()[1],obj.points()[5]);
                 };
 
                 newLayer.add(line);
@@ -394,12 +394,9 @@ document.querySelector('.caret-down')
                 });
 
                 if(obj.points().length === 10){
-                  window.alert("ok1")
                   topRectBorder.push(obj.points()[0],obj.points()[8]);
-                }else if(obj.points().length === 4){
-                  window.alert("ok2")
-                  console.log(obj.points())
-                  topRectBorder.push(obj.points()[1][0],obj.points()[2][2]);
+                }else if(obj.points().length === 6){
+                  topRectBorder.push(obj.points()[0],obj.points()[4]);
                 };
 
                 newLayer.add(line);
@@ -414,10 +411,10 @@ document.querySelector('.caret-down')
                   closed: false,
                 });
 
-                if(obj.points.length === 10){
+                if(obj.points().length === 10){
                   bottomRectBorder.push(obj.points()[0],obj.points()[8]);
-                }else if(obj.points.length === 4){
-                  bottomRectBorder.push(obj.children[1].points()[0],obj.children[2].points()[2]);
+                }else if(obj.points().length === 6){
+                  bottomRectBorder.push(obj.points()[0],obj.points()[4]);
                 };
 
                 newLayer.add(line);
@@ -1102,10 +1099,9 @@ document.querySelector('.caret-down')
              
             });
 
-            console.log(topRectBorder)
+
             const topBorder = topRectBorder.sort((a, b) => a - b);
             const topMax = topBorder.length;
-            console.log(topMax)
             const bottomBorder = bottomRectBorder.sort((a, b) => a - b);
             const bottomMax = bottomBorder.length;
             const leftBorder = leftRectBorder.sort((a, b) => a - b);
@@ -1154,9 +1150,135 @@ document.querySelector('.caret-down')
               newLayer.add(line);
               stage2.add(newLayer);
           }
+
+
+          if (bottomBorder.length === bottomMax) {
+            const firstPoint = bottomBorder.shift();
+            const line = new Konva.Line({
+              points: [rectX,rectY+rectH,firstPoint,rectY+rectH],
+              stroke: "black", 
+              strokeWidth: 2, 
+              closed: false,
+            });
+
+            newLayer.add(line);
+            stage2.add(newLayer);
+        }
+
+        while (bottomBorder.length > 1) {
+            const point1 = bottomBorder.shift();
+            const point2 = bottomBorder.shift();
+
+            const line = new Konva.Line({
+              points: [point1,rectY+rectH,point2,rectY+rectH],
+              stroke: "black", 
+              strokeWidth: 2, 
+              closed: false,
+            });
+
+            newLayer.add(line);
+            stage2.add(newLayer);       
+        }
+        
+        if (bottomBorder.length === 1) {
+
+            const lastPoint = bottomBorder.shift();
+            const line = new Konva.Line({
+              points: [lastPoint,rectY+rectH,rectX+rectW,rectY+rectH],
+              stroke: "black", 
+              strokeWidth: 2, 
+              closed: false,
+            });
+
+            newLayer.add(line);
+            stage2.add(newLayer);
+        }
        
 
+        if (leftBorder.length === leftMax) {
+          const firstPoint = leftBorder.shift();
+          const line = new Konva.Line({
+            points: [rectX,rectY,rectX,firstPoint],
+            stroke: "black", 
+            strokeWidth: 2, 
+            closed: false,
+          });
 
+          newLayer.add(line);
+          stage2.add(newLayer);
+      }
+
+      while (leftBorder.length > 1) {
+          const point1 = leftBorder.shift();
+          const point2 = leftBorder.shift();
+
+          const line = new Konva.Line({
+            points: [rectX,point1,rectX,point2],
+            stroke: "black", 
+            strokeWidth: 2, 
+            closed: false,
+          });
+
+          newLayer.add(line);
+          stage2.add(newLayer);       
+      }
+      
+      if (leftBorder.length === 1) {
+
+          const lastPoint = leftBorder.shift();
+          const line = new Konva.Line({
+            points: [rectX,lastPoint,rectX,rectY+rectH],
+            stroke: "black", 
+            strokeWidth: 2, 
+            closed: false,
+          });
+
+          newLayer.add(line);
+          stage2.add(newLayer);
+      }
+
+
+      if (rightBorder.length === rightMax) {
+        const firstPoint = rightBorder.shift();
+        const line = new Konva.Line({
+          points: [rectX+rectW,rectY,rectX+rectW,firstPoint],
+          stroke: "black", 
+          strokeWidth: 2, 
+          closed: false,
+        });
+
+        newLayer.add(line);
+        stage2.add(newLayer);
+    }
+
+    while (rightBorder.length > 1) {
+        const point1 = rightBorder.shift();
+        const point2 = rightBorder.shift();
+
+        const line = new Konva.Line({
+          points: [rectX+rectW,point1,rectX+rectW,point2],
+          stroke: "black", 
+          strokeWidth: 2, 
+          closed: false,
+        });
+
+        newLayer.add(line);
+        stage2.add(newLayer);       
+    }
+    
+    if (rightBorder.length === 1) {
+
+        const lastPoint = rightBorder.shift();
+        const line = new Konva.Line({
+          points: [rectX+rectW,lastPoint,rectX+rectW,rectY+rectH],
+          stroke: "black", 
+          strokeWidth: 2, 
+          closed: false,
+        });
+
+        newLayer.add(line);
+        stage2.add(newLayer);
+    }
 
   
             // 描画が完了した後の処理を行う
