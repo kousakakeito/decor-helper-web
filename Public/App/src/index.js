@@ -1110,6 +1110,17 @@ document.querySelector('.caret-down')
             const rightMax = rightBorder.length;
 
           if (topBorder.length === topMax) {
+            if(topBorder.length === 0){
+              const line = new Konva.Line({
+                points: [rectX,rectY,rectX+rectW,rectY],
+                stroke: "black", 
+                strokeWidth: 2, 
+                closed: false,
+              });
+  
+              newLayer.add(line);
+              stage2.add(newLayer);
+            }else{
               const firstPoint = topBorder.shift();
               const line = new Konva.Line({
                 points: [rectX,rectY,firstPoint,rectY],
@@ -1120,6 +1131,7 @@ document.querySelector('.caret-down')
 
               newLayer.add(line);
               stage2.add(newLayer);
+            }
           }
 
           while (topBorder.length > 1) {
@@ -1153,6 +1165,17 @@ document.querySelector('.caret-down')
 
 
           if (bottomBorder.length === bottomMax) {
+            if(bottomBorder.length === 0){
+              const line = new Konva.Line({
+                points: [rectX,rectY+rectH,rectX+rectW,rectY+rectH],
+                stroke: "black", 
+                strokeWidth: 2, 
+                closed: false,
+              });
+    
+              newLayer.add(line);
+              stage2.add(newLayer);
+            }else{
             const firstPoint = bottomBorder.shift();
             const line = new Konva.Line({
               points: [rectX,rectY+rectH,firstPoint,rectY+rectH],
@@ -1163,6 +1186,7 @@ document.querySelector('.caret-down')
 
             newLayer.add(line);
             stage2.add(newLayer);
+          }
         }
 
         while (bottomBorder.length > 1) {
@@ -1196,6 +1220,17 @@ document.querySelector('.caret-down')
        
 
         if (leftBorder.length === leftMax) {
+          if(leftBorder.length === 0){
+            const line = new Konva.Line({
+              points: [rectX,rectY,rectX,rectY+rectH],
+              stroke: "black", 
+              strokeWidth: 2, 
+              closed: false,
+            });
+    
+            newLayer.add(line);
+            stage2.add(newLayer);
+          }else{
           const firstPoint = leftBorder.shift();
           const line = new Konva.Line({
             points: [rectX,rectY,rectX,firstPoint],
@@ -1206,6 +1241,7 @@ document.querySelector('.caret-down')
 
           newLayer.add(line);
           stage2.add(newLayer);
+          }  
       }
 
       while (leftBorder.length > 1) {
@@ -1239,6 +1275,17 @@ document.querySelector('.caret-down')
 
 
       if (rightBorder.length === rightMax) {
+        if(rightBorder.length === 0){
+          const line = new Konva.Line({
+            points: [rectX+rectW,rectY,rectX+rectW,rectY+rectH],
+            stroke: "black", 
+            strokeWidth: 2, 
+            closed: false,
+          });
+    
+          newLayer.add(line);
+          stage2.add(newLayer);
+        }else{
         const firstPoint = rightBorder.shift();
         const line = new Konva.Line({
           points: [rectX+rectW,rectY,rectX+rectW,firstPoint],
@@ -1249,6 +1296,7 @@ document.querySelector('.caret-down')
 
         newLayer.add(line);
         stage2.add(newLayer);
+      } 
     }
 
     while (rightBorder.length > 1) {
@@ -1546,6 +1594,1056 @@ document.querySelector('.caret-down')
             stage2.add(newLayer); // 新しいレイヤーを stage2 に追加
             stage2.draw();
       
+
+            const foundRect = newLayer.getChildren().find(node => node instanceof Konva.Rect);
+            console.log(foundRect)
+            const rectX = foundRect.x();
+            const rectY = foundRect.y();
+            const rectW = foundRect.width();
+            const rectH = foundRect.height();
+
+            let topRectBorder = [];
+            let bottomRectBorder = [];
+            let rightRectBorder = [];
+            let leftRectBorder = [];
+
+            newLayer.getChildren().forEach(obj => {
+
+            if(obj instanceof Konva.Line){
+
+              if(rectX === obj.points()[0]){
+
+                const line = new Konva.Line({
+                  points: obj.points(),
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                if(obj.points().length === 10){
+                  leftRectBorder.push(obj.points()[1],obj.points()[9]);
+                }else if(obj.points().length === 6){
+                  leftRectBorder.push(obj.points()[1],obj.points()[5]);
+                };
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(rectX + rectW === obj.points()[0]){
+
+                const line = new Konva.Line({
+                  points: obj.points(),
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                if(obj.points().length === 10){
+                  rightRectBorder.push(obj.points()[1],obj.points()[9]);
+                }else if(obj.points().length === 6){
+                  rightRectBorder.push(obj.points()[1],obj.points()[5]);
+                };
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(rectY === obj.points()[1]){
+
+                const line = new Konva.Line({
+                  points: obj.points(),
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                if(obj.points().length === 10){
+                  topRectBorder.push(obj.points()[0],obj.points()[8]);
+                }else if(obj.points().length === 6){
+                  topRectBorder.push(obj.points()[0],obj.points()[4]);
+                };
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(rectY + rectH === obj.points()[1]){
+
+                const line = new Konva.Line({
+                  points: obj.points(),
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                if(obj.points().length === 10){
+                  bottomRectBorder.push(obj.points()[0],obj.points()[8]);
+                }else if(obj.points().length === 6){
+                  bottomRectBorder.push(obj.points()[0],obj.points()[4]);
+                };
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              };
+
+            }else if(obj instanceof Konva.Shape){
+              if(obj.clear && rectX === obj.clear[0] && rectY-1 === obj.clear[1]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                leftRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+               
+              }else if(obj.clear && rectX + rectW - obj.clear[2] === obj.clear[0] && rectY-1 === obj.clear[1]){  
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                rightRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clear && rectY === obj.clear[1] && rectX-1 === obj.clear[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                leftRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clear && rectY + rectH - obj.clear[3] === obj.clear[1] && rectX-1 === obj.clear[0]){  
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                bottomRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                leftRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clear && rectY+1 + rectH - obj.clear[3] === obj.clear[1] && rectX === obj.clear[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                bottomRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                leftRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+                
+              }else if(obj.clear && rectY+1 + rectH - obj.clear[3] === obj.clear[1] && rectX + rectW - obj.clear[2] === obj.clear[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                bottomRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                rightRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);        
+                
+              }else if(obj.clear && rectX+1 + rectW - obj.clear[2] === obj.clear[0] && rectY === obj.clear[1]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                rightRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clear && rectX+1 + rectW - obj.clear[2] === obj.clear[0] && rectY + rectH - obj.clear[3] === obj.clear[1]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                bottomRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                rightRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else {
+
+              if(obj.clear && rectX-1 === obj.clear[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                leftRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clear && rectX + rectW - obj.clear[2]+1 === obj.clear[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)                   
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                rightRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clear && rectY-1 === obj.clear[1]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)   
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)           
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+              
+              }else if(obj.clear && rectY + rectH - obj.clear[3]+1 === obj.clear[1]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clear[0], obj.clear[1] + obj.clear[3],                 // 左下の座標 (x, y + height)
+                    obj.clear[0], obj.clear[1],                                // 左上の座標 (x, y)
+                    obj.clear[0] + obj.clear[2], obj.clear[1],                 // 右上の座標 (x + width, y)         
+                    obj.clear[0] + obj.clear[2], obj.clear[1] + obj.clear[3],  // 右下の座標 (x + width, y + height)   
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                bottomRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectX-1 === obj.clearLine1[0] && rectY-1 !== obj.clearLine2[1] && rectY + rectH+1 !== obj.clearLine2[1] &&
+              !(rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0]) && 
+              !(rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0]) &&
+              !(rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1]) &&
+              !(rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1])){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                
+                    obj.clearLine3[0], obj.clearLine3[1],                
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                leftRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectX+1 + rectW === obj.clearLine1[0] && rectY-1 !== obj.clearLine2[1] && rectY + rectH+1 !== obj.clearLine2[1] && 
+              !(rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0]) && 
+              !(rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0]) &&
+              !(rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1]) &&
+              !(rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1])){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                
+                    obj.clearLine3[0], obj.clearLine3[1],                
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                rightRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectY-1 === obj.clearLine1[1] && 
+              !(rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0]) && 
+              !(rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0]) &&
+              !(Math.round(rectX + rectW) === Math.round(obj.clearLine2[0]) && Math.round(rectX + rectW) === Math.round(obj.clearLine3[0])) &&
+              !(rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1]) &&
+              !(rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1])){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                
+                    obj.clearLine3[0], obj.clearLine3[1],                
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectY+1 + rectH === obj.clearLine1[1] && 
+              !(rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0]) && 
+              !(rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0]) &&
+              !(Math.round(rectX + rectW) === Math.round(obj.clearLine2[0]) && Math.round(rectX + rectW) === Math.round(obj.clearLine3[0])) &&
+              !(rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1]) &&
+              !(rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1])){
+                
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                
+                    obj.clearLine3[0], obj.clearLine3[1],                
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] === obj.clearLine3[0] && rectY-1 === obj.clearLine1[1] && rectY-1 === obj.clearLine3[1] && 
+              !(rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0]) && 
+              !(rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0]) &&
+              !(rectX + rectW+1 === obj.clearLine2[0] && rectX + rectW+1 === obj.clearLine3[0]) &&
+              !(rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1]) &&
+              !(rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1]) &&
+              !(rectX-1 === obj.clearLine2[0]) &&
+              !(rectX-1 === obj.clearLine1[0])){
+
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                
+                    obj.clearLine3[0], obj.clearLine3[1],                
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] === obj.clearLine3[0] && rectY+1 + rectH === obj.clearLine1[1] && rectY+1 + rectH === obj.clearLine3[1] && 
+              !(rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0]) && 
+              !(rectX + rectW === obj.clearLine2[0] && rectX + rectW === obj.clearLine3[0]) &&
+              !(rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1]) &&
+              !(rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1]) &&
+              !(rectX-1 === obj.clearLine2[0]) &&
+              !(rectX + rectW+1 === obj.clearLine2[0])){
+
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                
+                    obj.clearLine3[0], obj.clearLine3[1],                
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0] && rectY-1 === obj.clearLine1[1] && rectY-1 === obj.clearLine3[1]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                           
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && Math.round(rectX + rectW) === Math.round(obj.clearLine2[0]) && Math.round(rectX + rectW) === Math.round(obj.clearLine3[0]) && rectY-1 === obj.clearLine1[1] && rectY-1 === obj.clearLine3[1]){
+
+                
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                           
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && rectX === obj.clearLine2[0] && rectX === obj.clearLine3[0] && rectY+1 + rectH === obj.clearLine1[1] && rectY+1 + rectH === obj.clearLine3[1]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                           
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && Math.round(rectX + rectW) === Math.round(obj.clearLine2[0]) && Math.round(rectX + rectW) === Math.round(obj.clearLine3[0]) && rectY+1 + rectH === obj.clearLine1[1] && rectY+1 + rectH === obj.clearLine3[1]){
+                
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                           
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1] && rectX-1 === obj.clearLine1[0] && rectX-1 === obj.clearLine3[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                           
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                topRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && rectY === obj.clearLine2[1] && rectY === obj.clearLine3[1] && rectX+1 + rectW === obj.clearLine1[0] && rectX+1 + rectW === obj.clearLine3[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                           
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                topRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1] && rectX-1 === obj.clearLine1[0] && rectX-1 === obj.clearLine3[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                           
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                bottomRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && rectY + rectH === obj.clearLine2[1] && rectY + rectH === obj.clearLine3[1] && rectX+1 + rectW === obj.clearLine1[0] && rectX+1 + rectW === obj.clearLine3[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                           
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                bottomRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+                
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] === obj.clearLine3[0] && rectY-1 === obj.clearLine1[1] && rectX-1 === obj.clearLine2[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                              
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
+
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectX-1 === obj.clearLine1[0] && rectY-1 === obj.clearLine2[1]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                              
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                topRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] === obj.clearLine3[0] && rectY-1 === obj.clearLine1[1] && rectX + rectW +1 === obj.clearLine2[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                              
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectX + rectW +1 === obj.clearLine1[0] && rectY-1 === obj.clearLine2[1]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                              
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                topRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] === obj.clearLine3[0] && rectY + rectH+1 === obj.clearLine1[1] && rectX-1 === obj.clearLine2[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                              
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectX-1 === obj.clearLine1[0] && rectY + rectH+1  === obj.clearLine2[1]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                              
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                bottomRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                leftRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] !== obj.clearLine3[0] && obj.clearLine2[0] === obj.clearLine3[0] && rectY + rectH+1 === obj.clearLine1[1] && rectX + rectW+1 === obj.clearLine2[0]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                              
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine2[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }else if(obj.clearLine1 && obj.clearLine1[0] === obj.clearLine3[0] && obj.clearLine2[0] !== obj.clearLine3[0] && rectX + rectW+1 === obj.clearLine1[0] && rectY + rectH+1 === obj.clearLine2[1]){
+
+                const line = new Konva.Line({
+                  points: [
+                    obj.clearLine1[0], obj.clearLine1[1],                
+                    obj.clearLine2[0], obj.clearLine2[1],                              
+                  ],
+                  stroke: "black", 
+                  strokeWidth: 2, 
+                  closed: false,
+                  fill: "black",
+                });
+
+                bottomRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
+                rightRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
+
+                newLayer.add(line);
+                stage2.add(newLayer);
+
+              }
+
+            };
+
+            };
+             
+            });
+
+
+            const topBorder = topRectBorder.sort((a, b) => a - b);
+            const topMax = topBorder.length;
+            const bottomBorder = bottomRectBorder.sort((a, b) => a - b);
+            const bottomMax = bottomBorder.length;
+            const leftBorder = leftRectBorder.sort((a, b) => a - b);
+            const leftMax = leftBorder.length;
+            const rightBorder = rightRectBorder.sort((a, b) => a - b);
+            const rightMax = rightBorder.length;
+
+          if (topBorder.length === topMax) {
+            if(topBorder.length === 0){
+              const line = new Konva.Line({
+                points: [rectX,rectY,rectX+rectW,rectY],
+                stroke: "black", 
+                strokeWidth: 2, 
+                closed: false,
+                fill: "black",
+              });
+  
+              newLayer.add(line);
+              stage2.add(newLayer);
+            }else{
+              const firstPoint = topBorder.shift();
+              const line = new Konva.Line({
+                points: [rectX,rectY,firstPoint,rectY],
+                stroke: "black", 
+                strokeWidth: 2, 
+                closed: false,
+                fill: "black",
+              });
+
+              newLayer.add(line);
+              stage2.add(newLayer);
+            }
+          }
+
+          while (topBorder.length > 1) {
+              const point1 = topBorder.shift();
+              const point2 = topBorder.shift();
+
+              const line = new Konva.Line({
+                points: [point1,rectY,point2,rectY],
+                stroke: "black", 
+                strokeWidth: 2, 
+                closed: false,
+                fill: "black",
+              });
+
+              newLayer.add(line);
+              stage2.add(newLayer);       
+          }
+          
+          if (topBorder.length === 1) {
+
+              const lastPoint = topBorder.shift();
+              const line = new Konva.Line({
+                points: [lastPoint,rectY,rectX+rectW,rectY],
+                stroke: "black", 
+                strokeWidth: 2, 
+                closed: false,
+                fill: "black",
+              });
+
+              newLayer.add(line);
+              stage2.add(newLayer);
+          }
+
+
+          if (bottomBorder.length === bottomMax) {
+            if(bottomBorder.length === 0){
+              const line = new Konva.Line({
+                points: [rectX,rectY+rectH,rectX+rectW,rectY+rectH],
+                stroke: "black", 
+                strokeWidth: 2, 
+                closed: false,
+                fill: "black",
+              });
+    
+              newLayer.add(line);
+              stage2.add(newLayer);
+            }else{
+            const firstPoint = bottomBorder.shift();
+            const line = new Konva.Line({
+              points: [rectX,rectY+rectH,firstPoint,rectY+rectH],
+              stroke: "black", 
+              strokeWidth: 2, 
+              closed: false,
+              fill: "black",
+            });
+
+            newLayer.add(line);
+            stage2.add(newLayer);
+          }
+        }
+
+        while (bottomBorder.length > 1) {
+            const point1 = bottomBorder.shift();
+            const point2 = bottomBorder.shift();
+
+            const line = new Konva.Line({
+              points: [point1,rectY+rectH,point2,rectY+rectH],
+              stroke: "black", 
+              strokeWidth: 2, 
+              closed: false,
+              fill: "black",
+            });
+
+            newLayer.add(line);
+            stage2.add(newLayer);       
+        }
+        
+        if (bottomBorder.length === 1) {
+
+            const lastPoint = bottomBorder.shift();
+            const line = new Konva.Line({
+              points: [lastPoint,rectY+rectH,rectX+rectW,rectY+rectH],
+              stroke: "black", 
+              strokeWidth: 2, 
+              closed: false,
+              fill: "black",
+            });
+
+            newLayer.add(line);
+            stage2.add(newLayer);
+        }
+       
+
+        if (leftBorder.length === leftMax) {
+          if(leftBorder.length === 0){
+            const line = new Konva.Line({
+              points: [rectX,rectY,rectX,rectY+rectH],
+              stroke: "black", 
+              strokeWidth: 2, 
+              closed: false,
+              fill: "black",
+            });
+    
+            newLayer.add(line);
+            stage2.add(newLayer);
+          }else{
+          const firstPoint = leftBorder.shift();
+          const line = new Konva.Line({
+            points: [rectX,rectY,rectX,firstPoint],
+            stroke: "black", 
+            strokeWidth: 2, 
+            closed: false,
+            fill: "black",
+          });
+
+          newLayer.add(line);
+          stage2.add(newLayer);
+          }  
+      }
+
+      while (leftBorder.length > 1) {
+          const point1 = leftBorder.shift();
+          const point2 = leftBorder.shift();
+
+          const line = new Konva.Line({
+            points: [rectX,point1,rectX,point2],
+            stroke: "black", 
+            strokeWidth: 2, 
+            closed: false,
+            fill: "black",
+          });
+
+          newLayer.add(line);
+          stage2.add(newLayer);       
+      }
+      
+      if (leftBorder.length === 1) {
+
+          const lastPoint = leftBorder.shift();
+          const line = new Konva.Line({
+            points: [rectX,lastPoint,rectX,rectY+rectH],
+            stroke: "black", 
+            strokeWidth: 2, 
+            closed: false,
+            fill: "black",
+          });
+
+          newLayer.add(line);
+          stage2.add(newLayer);
+      }
+
+
+      if (rightBorder.length === rightMax) {
+        if(rightBorder.length === 0){
+          const line = new Konva.Line({
+            points: [rectX+rectW,rectY,rectX+rectW,rectY+rectH],
+            stroke: "black", 
+            strokeWidth: 2, 
+            closed: false,
+            fill: "black",
+          });
+    
+          newLayer.add(line);
+          stage2.add(newLayer);
+        }else{
+        const firstPoint = rightBorder.shift();
+        const line = new Konva.Line({
+          points: [rectX+rectW,rectY,rectX+rectW,firstPoint],
+          stroke: "black", 
+          strokeWidth: 2, 
+          closed: false,
+          fill: "black",
+        });
+
+        newLayer.add(line);
+        stage2.add(newLayer);
+      } 
+    }
+
+    while (rightBorder.length > 1) {
+        const point1 = rightBorder.shift();
+        const point2 = rightBorder.shift();
+
+        const line = new Konva.Line({
+          points: [rectX+rectW,point1,rectX+rectW,point2],
+          stroke: "black", 
+          strokeWidth: 2, 
+          closed: false,
+          fill: "black",
+        });
+
+        newLayer.add(line);
+        stage2.add(newLayer);       
+    }
+    
+    if (rightBorder.length === 1) {
+
+        const lastPoint = rightBorder.shift();
+        const line = new Konva.Line({
+          points: [rectX+rectW,lastPoint,rectX+rectW,rectY+rectH],
+          stroke: "black", 
+          strokeWidth: 2, 
+          closed: false,
+          fill: "black",
+        });
+
+        newLayer.add(line);
+        stage2.add(newLayer);
+    }
 
   
             // 描画が完了した後の処理を行う
