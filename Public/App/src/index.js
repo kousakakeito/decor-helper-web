@@ -1524,6 +1524,7 @@ document.querySelector('.caret-down')
                   width: shapeData.width,
                   height: shapeData.height,
                   fill: shapeData.fill,
+                  name: layerInfo.name,
                   // その他の必要なプロパティを設定
                 });
 
@@ -1533,6 +1534,7 @@ document.querySelector('.caret-down')
                   strokeWidth: shapeData.strokeWidth, 
                   closed: shapeData.closed,
                   fill: shapeData.fill,
+                  name: layerInfo.name,
                   // その他の必要なプロパティを設定
                 });
 
@@ -1541,6 +1543,7 @@ document.querySelector('.caret-down')
                 console.log(layerInfo);
                 
                 const shape = new Konva.Shape({
+                  name: layerInfo.name,
                   sceneFunc: function (context, shape) {
                     const clear = shapeData.clear;
                     shape.clear = clear;
@@ -1619,6 +1622,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 if(obj.points().length === 10){
@@ -1638,6 +1642,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 if(obj.points().length === 10){
@@ -1657,6 +1662,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 if(obj.points().length === 10){
@@ -1676,6 +1682,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 if(obj.points().length === 10){
@@ -1702,6 +1709,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
@@ -1722,6 +1730,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
@@ -1742,6 +1751,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
@@ -1762,6 +1772,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 bottomRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
@@ -1782,6 +1793,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 bottomRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
@@ -1802,6 +1814,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 bottomRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
@@ -1822,6 +1835,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
@@ -1842,6 +1856,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 bottomRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
@@ -1865,6 +1880,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 leftRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
@@ -1885,6 +1901,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 rightRectBorder.push( obj.clear[1], obj.clear[1] + obj.clear[3]);
@@ -1905,6 +1922,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
@@ -1925,6 +1943,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 bottomRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
@@ -1948,6 +1967,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 leftRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
@@ -1971,6 +1991,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 rightRectBorder.push(obj.clearLine1[1],obj.clearLine3[1]);
@@ -1995,6 +2016,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
@@ -2020,6 +2042,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
@@ -2047,6 +2070,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
@@ -2074,6 +2098,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
@@ -2093,6 +2118,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
@@ -2113,6 +2139,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
@@ -2132,6 +2159,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
@@ -2152,6 +2180,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
@@ -2171,6 +2200,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 topRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
@@ -2190,6 +2220,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 topRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
@@ -2210,6 +2241,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 bottomRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
@@ -2230,6 +2262,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 bottomRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
@@ -2250,6 +2283,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
@@ -2270,6 +2304,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 topRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
@@ -2289,6 +2324,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 topRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
@@ -2308,6 +2344,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 topRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
@@ -2327,6 +2364,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
@@ -2346,6 +2384,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 bottomRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
@@ -2365,6 +2404,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 bottomRectBorder.push(obj.clearLine1[0],obj.clearLine3[0]);
@@ -2384,6 +2424,7 @@ document.querySelector('.caret-down')
                   strokeWidth: 2, 
                   closed: false,
                   fill: "black",
+                  name: layerInfo.name,
                 });
 
                 bottomRectBorder.push(obj.clearLine2[0],obj.clearLine3[0]);
@@ -2418,6 +2459,7 @@ document.querySelector('.caret-down')
                 strokeWidth: 2, 
                 closed: false,
                 fill: "black",
+                name: layerInfo.name,
               });
   
               newLayer.add(line);
@@ -2430,6 +2472,7 @@ document.querySelector('.caret-down')
                 strokeWidth: 2, 
                 closed: false,
                 fill: "black",
+                name: layerInfo.name,
               });
 
               newLayer.add(line);
@@ -2447,6 +2490,7 @@ document.querySelector('.caret-down')
                 strokeWidth: 2, 
                 closed: false,
                 fill: "black",
+                name: layerInfo.name,
               });
 
               newLayer.add(line);
@@ -2462,6 +2506,7 @@ document.querySelector('.caret-down')
                 strokeWidth: 2, 
                 closed: false,
                 fill: "black",
+                name: layerInfo.name,
               });
 
               newLayer.add(line);
@@ -2477,6 +2522,7 @@ document.querySelector('.caret-down')
                 strokeWidth: 2, 
                 closed: false,
                 fill: "black",
+                name: layerInfo.name,
               });
     
               newLayer.add(line);
@@ -2489,6 +2535,7 @@ document.querySelector('.caret-down')
               strokeWidth: 2, 
               closed: false,
               fill: "black",
+              name: layerInfo.name,
             });
 
             newLayer.add(line);
@@ -2506,6 +2553,7 @@ document.querySelector('.caret-down')
               strokeWidth: 2, 
               closed: false,
               fill: "black",
+              name: layerInfo.name,
             });
 
             newLayer.add(line);
@@ -2521,6 +2569,7 @@ document.querySelector('.caret-down')
               strokeWidth: 2, 
               closed: false,
               fill: "black",
+              name: layerInfo.name,
             });
 
             newLayer.add(line);
@@ -2536,6 +2585,7 @@ document.querySelector('.caret-down')
               strokeWidth: 2, 
               closed: false,
               fill: "black",
+              name: layerInfo.name,
             });
     
             newLayer.add(line);
@@ -2548,6 +2598,7 @@ document.querySelector('.caret-down')
             strokeWidth: 2, 
             closed: false,
             fill: "black",
+            name: layerInfo.name,
           });
 
           newLayer.add(line);
@@ -2565,6 +2616,7 @@ document.querySelector('.caret-down')
             strokeWidth: 2, 
             closed: false,
             fill: "black",
+            name: layerInfo.name,
           });
 
           newLayer.add(line);
@@ -2580,6 +2632,7 @@ document.querySelector('.caret-down')
             strokeWidth: 2, 
             closed: false,
             fill: "black",
+            name: layerInfo.name,
           });
 
           newLayer.add(line);
@@ -2595,6 +2648,7 @@ document.querySelector('.caret-down')
             strokeWidth: 2, 
             closed: false,
             fill: "black",
+            name: layerInfo.name,
           });
     
           newLayer.add(line);
@@ -2607,6 +2661,7 @@ document.querySelector('.caret-down')
           strokeWidth: 2, 
           closed: false,
           fill: "black",
+          name: layerInfo.name,
         });
 
         newLayer.add(line);
@@ -2624,6 +2679,7 @@ document.querySelector('.caret-down')
           strokeWidth: 2, 
           closed: false,
           fill: "black",
+          name: layerInfo.name,
         });
 
         newLayer.add(line);
@@ -2639,6 +2695,7 @@ document.querySelector('.caret-down')
           strokeWidth: 2, 
           closed: false,
           fill: "black",
+          name: layerInfo.name,
         });
 
         newLayer.add(line);
@@ -2773,6 +2830,7 @@ document.querySelector('.caret-down')
             width: shape.width(),
             height: shape.height(),
             fill: shape.fill(),    
+            name: shape.name(),
             absolutePositionRect: shape.getAbsolutePosition(),
           };
 
@@ -2787,6 +2845,7 @@ document.querySelector('.caret-down')
             strokeWidth: shape.strokeWidth(), // 線の太さ
             closed: shape.closed(), // 閉じた形状として描画
             fill: shape.fill(),    
+            name: shape.name(),
             absolutePositionLine: shape.getAbsolutePosition(),
           };
           layerInfo.children.push(lineData); // 子要素の情報を配列に追加
@@ -2798,6 +2857,7 @@ document.querySelector('.caret-down')
         if (shapeType === "Shape") {
           const shapeData = {
             type: shape.getType(),
+            name: shape.name(),
             clear: shape.clear,
             clearLine1 : shape.clearLine1,
             clearLine2 : shape.clearLine2,
@@ -2998,6 +3058,7 @@ if (errorElement && errorElement.textContent !== "") {
                   width: shapeData.width,
                   height: shapeData.height,
                   fill: shapeData.fill,
+                  name: shapeData.name,
                   // その他の必要なプロパティを設定
                 });
                 
@@ -3012,6 +3073,7 @@ if (errorElement && errorElement.textContent !== "") {
                   strokeWidth: shapeData.strokeWidth, 
                   closed: shapeData.closed,
                   fill: shapeData.fill,
+                  name: shapeData.name,
                   // その他の必要なプロパティを設定
                 });
 
@@ -3023,6 +3085,7 @@ if (errorElement && errorElement.textContent !== "") {
 
 
                 const shape = new Konva.Shape({
+                  name: shapeData.name,
                   sceneFunc: function (context, shape) {
                     const clear = shapeData.clear;
                     shape.clear = clear;
@@ -3073,7 +3136,7 @@ if (errorElement && errorElement.textContent !== "") {
                     newLayer1.add(shape);
                   };
                    } else {
-                    //ここの処理を変更
+                    //１回目はshapeDataをレイヤーに追加し2回目のshapeDataは１回目にaddされたshapeDataのnameプロパティと値を比較し違う場合は新たなレイヤーを作成し追加、同じ場合は１回目の同じnameプロパティの値が入ったレイヤーに追加、３回目は１，２回目のnameプロパティと値が違う場合は新たなレイヤーを作成し追加、nameプロパティの値が１，２回目のいずれかに該当すれば該当したレイヤーに追加....これらを最後まで繰り返す
                    if(shapeData.hasOwnProperty("absolutePositionLine")){
                     newLayer2.add(line);
                   }else if(shapeData.hasOwnProperty("absolutePositionRect")){
