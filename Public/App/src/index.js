@@ -3073,6 +3073,7 @@ if (errorElement && errorElement.textContent !== "") {
                     newLayer1.add(shape);
                   };
                    } else {
+                    //ここの処理を変更
                    if(shapeData.hasOwnProperty("absolutePositionLine")){
                     newLayer2.add(line);
                   }else if(shapeData.hasOwnProperty("absolutePositionRect")){
