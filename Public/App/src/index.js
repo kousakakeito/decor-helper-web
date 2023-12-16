@@ -3045,6 +3045,9 @@ if (errorElement && errorElement.textContent !== "") {
             name: layerName.name,
             draggable: true,
           });
+
+          let layersAry = [];
+          let n = 0;
           
           layers.forEach(layerInfo => {
             
@@ -3125,7 +3128,6 @@ if (errorElement && errorElement.textContent !== "") {
                 console.log(layers[targetLayer].children)
 
 
-
                 if (layers[targetLayer].children.some(child => child === shapeData)) {
 
                   if(shapeData.hasOwnProperty("absolutePositionLine")){
@@ -3137,13 +3139,62 @@ if (errorElement && errorElement.textContent !== "") {
                   };
                    } else {
                     //１回目はshapeDataをレイヤーに追加し2回目のshapeDataは１回目にaddされたshapeDataのnameプロパティと値を比較し違う場合は新たなレイヤーを作成し追加、同じ場合は１回目の同じnameプロパティの値が入ったレイヤーに追加、３回目は１，２回目のnameプロパティと値が違う場合は新たなレイヤーを作成し追加、nameプロパティの値が１，２回目のいずれかに該当すれば該当したレイヤーに追加....これらを最後まで繰り返す
-                   if(shapeData.hasOwnProperty("absolutePositionLine")){
-                    newLayer2.add(line);
-                  }else if(shapeData.hasOwnProperty("absolutePositionRect")){
-                    newLayer2.add(rect);
-                  }else if(shapeData.hasOwnProperty("absolutePositionShape")){
-                    newLayer2.add(shape);
-                  };   
+                    n++;
+                   if(n === 1){ 
+
+                     if(shapeData.hasOwnProperty("absolutePositionLine")){
+                      newLayer2.add(line);
+                    }else if(shapeData.hasOwnProperty("absolutePositionRect")){
+                      newLayer2.add(rect);
+                    }else if(shapeData.hasOwnProperty("absolutePositionShape")){
+                      newLayer2.add(shape);
+                    };   
+                    
+                   }else{
+
+                    if(newLayer2.getChildren()[0].name() === shapeData.name){
+
+                      if(shapeData.hasOwnProperty("absolutePositionLine")){
+                        newLayer2.add(line);
+                      }else if(shapeData.hasOwnProperty("absolutePositionRect")){
+                        newLayer2.add(rect);
+                      }else if(shapeData.hasOwnProperty("absolutePositionShape")){
+                        newLayer2.add(shape);
+                      };  
+
+                    }else if(layersAry.find(layer =>layer.name() === shapeData.name)){
+
+
+                      const matchLayer = layersAry.find(layer =>layer.getChildren()[0].name() === shapeData.name);
+
+                      if(shapeData.hasOwnProperty("absolutePositionLine")){
+                        matchLayer.add(line);
+                      }else if(shapeData.hasOwnProperty("absolutePositionRect")){
+                        matchLayer.add(rect);
+                      }else if(shapeData.hasOwnProperty("absolutePositionShape")){
+                        matchLayer.add(shape);
+                      };  
+
+
+                    }else{
+
+                  
+                     layersAry.push(new Konva.Layer({
+                      name: shapeData.name,
+                      draggable: true,
+                     }));
+
+                     if(shapeData.hasOwnProperty("absolutePositionLine")){
+                      layersAry[layersAry.length-1].add(line);
+                    }else if(shapeData.hasOwnProperty("absolutePositionRect")){
+                      layersAry[layersAry.length-1].add(rect);
+                    }else if(shapeData.hasOwnProperty("absolutePositionShape")){
+                      layersAry[layersAry.length-1].add(shape);
+                    };  
+
+                    }
+
+                   }
                    }
               
               // 他の図形タイプに対する処理も同様に追加可能
@@ -3157,6 +3208,8 @@ if (errorElement && errorElement.textContent !== "") {
 
             stage2.add(newLayer1); // 新しいレイヤーを stage2 に追加
             stage2.add(newLayer2);
+            layersAry.forEach(layer =>{stage2.add(layer)});
+            
         
             stage2.draw();
 
@@ -3282,6 +3335,7 @@ if (errorElement && errorElement.textContent !== "") {
                   width: shape.width(),
                   height: shape.height(),
                   fill: shape.fill(),    
+                  name: shape.name(),
                   absolutePositionRect: shape.getAbsolutePosition(),
                 };
       
@@ -3296,6 +3350,7 @@ if (errorElement && errorElement.textContent !== "") {
                   strokeWidth: shape.strokeWidth(), // 線の太さ
                   closed: shape.closed(), // 閉じた形状として描画
                   fill: shape.fill(),    
+                  name: shape.name(),
                   absolutePositionLine: shape.getAbsolutePosition(),
                 };
                 layerInfo.children.push(lineData); // 子要素の情報を配列に追加
@@ -3307,6 +3362,7 @@ if (errorElement && errorElement.textContent !== "") {
               if (shapeType === "Shape") {
                 const shapeData = {
                   type: shape.getType(),
+                  name: shape.name(),
                   clear: shape.clear,
                   clearLine1 : shape.clearLine1,
                   clearLine2 : shape.clearLine2,
