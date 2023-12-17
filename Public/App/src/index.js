@@ -395,8 +395,10 @@ document.querySelector('.caret-down')
 
                 if(obj.points().length === 10){
                   topRectBorder.push(obj.points()[0],obj.points()[8]);
+                  topSpaceRange.push(obj.points()[0],obj.points()[8],obj.points()[3]);
                 }else if(obj.points().length === 6){
                   topRectBorder.push(obj.points()[0],obj.points()[4]);
+                  topSpaceRange.push(obj.points()[0],obj.points()[4],obj.points()[3]);
                 };
 
                 newLayer.add(line);
@@ -1438,6 +1440,8 @@ document.querySelector('.caret-down')
 
   const furnitureList = document.querySelector(".furniture-list");
 
+  let topSpaceRange = [];
+
 
   furnitureList.addEventListener("click", event => {
     if (event.target.classList.contains("deleteBtn")||event.target.classList.contains("fa-trash-can")) {
@@ -1610,6 +1614,12 @@ document.querySelector('.caret-down')
             let rightRectBorder = [];
             let leftRectBorder = [];
 
+            let topPoints = [];
+            let bottomPoints = [];
+            let rightPoints = [];
+            let leftPoints = [];
+
+
             newLayer.getChildren().forEach(obj => {
 
             if(obj instanceof Konva.Line){
@@ -1627,8 +1637,10 @@ document.querySelector('.caret-down')
 
                 if(obj.points().length === 10){
                   leftRectBorder.push(obj.points()[1],obj.points()[9]);
+                  leftPoints.push(obj.points()[2]);
                 }else if(obj.points().length === 6){
                   leftRectBorder.push(obj.points()[1],obj.points()[5]);
+                  leftPoints.push(obj.points()[2]);
                 };
 
                 newLayer.add(line);
@@ -1647,8 +1659,10 @@ document.querySelector('.caret-down')
 
                 if(obj.points().length === 10){
                   rightRectBorder.push(obj.points()[1],obj.points()[9]);
+                  rightPoints.push(obj.points()[2]);
                 }else if(obj.points().length === 6){
                   rightRectBorder.push(obj.points()[1],obj.points()[5]);
+                  rightPoints.push(obj.points()[2]);
                 };
 
                 newLayer.add(line);
@@ -1667,8 +1681,10 @@ document.querySelector('.caret-down')
 
                 if(obj.points().length === 10){
                   topRectBorder.push(obj.points()[0],obj.points()[8]);
+                  topPoints.push(obj.points()[3]);
                 }else if(obj.points().length === 6){
                   topRectBorder.push(obj.points()[0],obj.points()[4]);
+                  topPoints.push(obj.points()[3]);
                 };
 
                 newLayer.add(line);
@@ -1687,8 +1703,10 @@ document.querySelector('.caret-down')
 
                 if(obj.points().length === 10){
                   bottomRectBorder.push(obj.points()[0],obj.points()[8]);
+                  bottomPoints.push(obj.points()[3]);
                 }else if(obj.points().length === 6){
                   bottomRectBorder.push(obj.points()[0],obj.points()[4]);
+                  bottomPoints.push(obj.points()[3]);
                 };
 
                 newLayer.add(line);
@@ -2708,6 +2726,33 @@ document.querySelector('.caret-down')
               console.log('レイヤーの描画が完了しました。');
              
             });
+
+            const topLowPoint = topPoints.sort((a, b) => a - b);
+            const bottomHeighPoint = bottomPoints.sort((a, b) => b - a);
+            const leftLowPoint = leftPoints.sort((a, b) => a - b);
+            const rightHeighPoint = rightPoints.sort((a, b) => b - a);
+
+
+            newLayer.on("dragmove",function(){
+
+                while (topSpaceRange.length > 0) {
+                  const point1x = topSpaceRange.shift();
+                  const point2x = topSpaceRange.shift();
+                  const point3y = topSpaceRange.shift();
+
+                  if(rightHeighPoint[0] > point1x && rightHeighPoint[0] < point2x){
+
+                  newLayer.y(Math.max(topLowPoint[0],point3y))
+              }
+
+              }
+
+              newLayer.y(Math.max(topLowPoint[0],rectY))
+              
+            })
+
+
+
           });
 
           const errorElement = document.querySelector(".space-form-error");
