@@ -2733,23 +2733,9 @@ document.querySelector('.caret-down')
             const rightHeighPoint = rightPoints.sort((a, b) => b - a);
 
 
-            newLayer.on("dragmove",function(){
-
-                while (topSpaceRange.length > 0) {
-                  const point1x = topSpaceRange.shift();
-                  const point2x = topSpaceRange.shift();
-                  const point3y = topSpaceRange.shift();
-
-                  if(rightHeighPoint[0] > point1x && rightHeighPoint[0] < point2x){
-
-                  newLayer.y(Math.max(topLowPoint[0],point3y))
-              }
-
-              }
-
-              newLayer.y(Math.max(topLowPoint[0],rectY))
-              
-            })
+            /*furunitureのボーダー線のlineオブジェクトに対してdragBoundsFuncプロパティを設定してドラッグ範囲に制約を掛ける。成功すれば  const topLowPoint = topPoints.sort((a, b) => a - b);これらを消去
+            rectやshapeその他lineの周囲にボーダー線のlineをレイヤーに追加した時、lineに対してdragBoundsFuncプロパティでドラッグ範囲を制約している場合、rectやその他オブジェクトより外側にボーダー線のlineがあるため
+            lineのdragBoundsFuncによってlineが制限されることで内側にあるrectも必然的に制限される*/
 
 
 
