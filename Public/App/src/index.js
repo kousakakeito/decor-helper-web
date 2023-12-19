@@ -234,6 +234,11 @@ document.querySelector('.caret-down')
   console.log(stage2.width(), stage2.height());
 
   const spaceList = document.querySelector(".space-list");
+
+  let rectSpBoundsX = [];
+  let rectSpBoundsY = [];
+  let rectSpBoundsW = [];
+  let rectSpBoundsH = [];
   
 
 
@@ -335,9 +340,13 @@ document.querySelector('.caret-down')
 
             const foundRect = newLayer.getChildren().find(node => node instanceof Konva.Rect);
             const rectX = foundRect.x();
+            rectSpBoundsX.push(rectX);
             const rectY = foundRect.y();
+            rectSpBoundsY.push(rectY);
             const rectW = foundRect.width();
+            rectSpBoundsW.push(rectW);
             const rectH = foundRect.height();
+            rectSpBoundsH.push(rectH);
 
             let topRectBorder = [];
             let bottomRectBorder = [];
@@ -1489,8 +1498,11 @@ document.querySelector('.caret-down')
       
   });
 
-
-
+   
+  let rectFnBoundsX = [];
+  let rectFnBoundsY = [];
+  let rectFnBoundsW = [];
+  let rectFnBoundsH = [];
 
 
   furnitureList.addEventListener("click", event => {
@@ -1515,9 +1527,24 @@ document.querySelector('.caret-down')
         
           // レイヤーごとに新しい Layer を作成
           layerData.layerData.layers.forEach(layerInfo => {
-            const newLayer = new Konva.Layer({
+            console.log(rectSpBoundsX[0])
+            const newLayer = new Konva.Layer({//(rectFnBoundsW[0]/2)ここのインデックス番号が配列内最初の要素で固定の為挙動がおかしい。条件分岐でnameプロパティなどを使用してクリックしたtextと比較し配列から該当する要素をインデックス番号に指定するようにする
               name: layerInfo.name, 
               draggable: true,
+              dragBoundFunc: (pos) =>{
+                const minX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2)+(rectFnBoundsW[0]/2);
+                const minY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(rectFnBoundsH[0]/2);
+                const maxX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0]-(rectFnBoundsW[0]/2);
+                const maxY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2) + rectSpBoundsH[0]-(rectFnBoundsH[0]/2);
+
+                const newX = Math.max(minX,Math.min(maxX,pos.x));
+                const newY = Math.max(minY,Math.min(maxY,pos.y));
+
+                return {
+                  x: newX,
+                  y: newY,
+                };
+              },
           });
             
             layerInfo.children.forEach(shapeData => {
@@ -1539,6 +1566,7 @@ document.querySelector('.caret-down')
                   closed: shapeData.closed,
                   fill: shapeData.fill,
                   name: layerInfo.name,
+                  draggable: true,
                   // その他の必要なプロパティを設定
                 });
 
@@ -1605,9 +1633,13 @@ document.querySelector('.caret-down')
             const foundRect = newLayer.getChildren().find(node => node instanceof Konva.Rect);
             console.log(foundRect)
             const rectX = foundRect.x();
+            rectFnBoundsX.push(rectX);
             const rectY = foundRect.y();
+            rectFnBoundsY.push(rectY);
             const rectW = foundRect.width();
+            rectFnBoundsW.push(rectW);
             const rectH = foundRect.height();
+            rectFnBoundsH.push(rectH);
 
             let topRectBorder = [];
             let bottomRectBorder = [];
@@ -2733,9 +2765,6 @@ document.querySelector('.caret-down')
             const rightHeighPoint = rightPoints.sort((a, b) => b - a);
 
 
-            /*furunitureのボーダー線のlineオブジェクトに対してdragBoundsFuncプロパティを設定してドラッグ範囲に制約を掛ける。成功すれば  const topLowPoint = topPoints.sort((a, b) => a - b);これらを消去
-            rectやshapeその他lineの周囲にボーダー線のlineをレイヤーに追加した時、lineに対してdragBoundsFuncプロパティでドラッグ範囲を制約している場合、rectやその他オブジェクトより外側にボーダー線のlineがあるため
-            lineのdragBoundsFuncによってlineが制限されることで内側にあるrectも必然的に制限される*/
 
 
 
