@@ -1528,14 +1528,18 @@ document.querySelector('.caret-down')
           // レイヤーごとに新しい Layer を作成
           layerData.layerData.layers.forEach(layerInfo => {
             console.log(rectSpBoundsX[0])
-            const newLayer = new Konva.Layer({//(rectFnBoundsW[0]/2)ここのインデックス番号が配列内最初の要素で固定の為挙動がおかしい。条件分岐でnameプロパティなどを使用してクリックしたtextと比較し配列から該当する要素をインデックス番号に指定するようにする
+            const newLayer = new Konva.Layer({
               name: layerInfo.name, 
               draggable: true,
               dragBoundFunc: (pos) =>{
-                const minX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2)+(rectFnBoundsW[0]/2);
-                const minY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(rectFnBoundsH[0]/2);
-                const maxX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0]-(rectFnBoundsW[0]/2);
-                const maxY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2) + rectSpBoundsH[0]-(rectFnBoundsH[0]/2);
+                
+                const sameNameW = rectFnBoundsW.find(n => n.name === furnitureFormValue);
+                const sameNameH = rectFnBoundsH.find(n => n.name === furnitureFormValue);
+
+                const minX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2)+(sameNameW.width/2);                       //rect左辺のlimt 現在は一直線のみで、
+                const minY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2);                     //rect上辺のlimt rectSpBoundsY[0]でy座標の一直線のみにしているが、指定したx座標の範囲のみのy座標に限定させる
+                const maxX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0]-(sameNameW.width/2);    //rect右辺のlimt
+                const maxY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2) + rectSpBoundsH[0]-(sameNameH.height/2);  //rect下辺のlimt
 
                 const newX = Math.max(minX,Math.min(maxX,pos.x));
                 const newY = Math.max(minY,Math.min(maxY,pos.y));
@@ -1632,14 +1636,18 @@ document.querySelector('.caret-down')
 
             const foundRect = newLayer.getChildren().find(node => node instanceof Konva.Rect);
             console.log(foundRect)
+
+            const rectName = foundRect.name();
+
             const rectX = foundRect.x();
             rectFnBoundsX.push(rectX);
             const rectY = foundRect.y();
             rectFnBoundsY.push(rectY);
             const rectW = foundRect.width();
-            rectFnBoundsW.push(rectW);
+            rectFnBoundsW.push({width:rectW,name:rectName});
             const rectH = foundRect.height();
-            rectFnBoundsH.push(rectH);
+            rectFnBoundsH.push({height:rectH,name:rectName});
+
 
             let topRectBorder = [];
             let bottomRectBorder = [];
