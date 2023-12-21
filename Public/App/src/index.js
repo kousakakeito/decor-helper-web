@@ -400,14 +400,15 @@ document.querySelector('.caret-down')
                   stroke: "black", 
                   strokeWidth: 2, 
                   closed: false,
+                  name: layerInfo.name,
                 });
 
                 if(obj.points().length === 10){
                   topRectBorder.push(obj.points()[0],obj.points()[8]);
-                  topSpaceRange.push(obj.points()[0],obj.points()[8],obj.points()[3]);
+                  topSpaceRange.push({x1:obj.points()[0],x2:obj.points()[8],y:obj.points()[3],name:obj.name()});
                 }else if(obj.points().length === 6){
                   topRectBorder.push(obj.points()[0],obj.points()[4]);
-                  topSpaceRange.push(obj.points()[0],obj.points()[4],obj.points()[3]);
+                  topSpaceRange.push({x1:obj.points()[0],x2:obj.points()[4],y:obj.points()[3],name:obj.name()});
                 };
 
                 newLayer.add(line);
@@ -1537,9 +1538,19 @@ document.querySelector('.caret-down')
                 const sameNameH = rectFnBoundsH.find(n => n.name === furnitureFormValue);
 
                 const minX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2)+(sameNameW.width/2);                       //rect左辺のlimt 現在は一直線のみで、
-                const minY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2);                     //rect上辺のlimt rectSpBoundsY[0]でy座標の一直線のみにしているが、指定したx座標の範囲のみのy座標に限定させる
+                                     //rect上辺のlimt rectSpBoundsY[0]でy座標の一直線のみにしているが、指定したx座標の範囲のみのy座標に限定させる
                 const maxX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0]-(sameNameW.width/2);    //rect右辺のlimt
                 const maxY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2) + rectSpBoundsH[0]-(sameNameH.height/2);  //rect下辺のlimt
+
+                const minRectY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2);
+                const minLineY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2);  
+                const minShapeY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2);  
+
+                if(){
+
+                }else if(){
+
+                }
 
                 const newX = Math.max(minX,Math.min(maxX,pos.x));
                 const newY = Math.max(minY,Math.min(maxY,pos.y));
