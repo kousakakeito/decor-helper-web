@@ -1537,28 +1537,30 @@ document.querySelector('.caret-down')
                 const sameNameW = rectFnBoundsW.find(n => n.name === furnitureFormValue);
                 const sameNameH = rectFnBoundsH.find(n => n.name === furnitureFormValue);
 
-                const minX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2)+(sameNameW.width/2);                       //rect左辺のlimt 現在は一直線のみで、
-                                     //rect上辺のlimt rectSpBoundsY[0]でy座標の一直線のみにしているが、指定したx座標の範囲のみのy座標に限定させる
-                const maxX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0]-(sameNameW.width/2);    //rect右辺のlimt
-                const maxY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2) + rectSpBoundsH[0]-(sameNameH.height/2);  //rect下辺のlimt
+               
 
-                const minRectY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2);
-                const minLineY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2);  
-                const minShapeY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2);  
 
-                if(){
+                const topSpRangeChange = topSpaceRange.sort((a, b) => a.x1 - b.x1);
 
-                }else if(){
+                if ((rectSpBoundsX[0] < pos.x && pos.x < topSpRangeChange[0].x1) || 
+                     topSpRangeChange.some((element, index, array) => index < array.length - 1 && element.x2 < pos.x && pos.x < array[index + 1].x1) || 
+                    (topSpRangeChange[topSpRangeChange.length - 1].x2 < pos.x && pos.x < rectSpBoundsX[0] + rectFnBoundsW[0])) {
 
+                      const minRectX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2)+(sameNameW.width/2);
+                      const maxRectX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0]-(sameNameW.width/2);   
+                      const minRectY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2); 
+                      const maxRectY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2) + rectSpBoundsH[0]-(sameNameH.height/2); 
+
+                      const newX = Math.max(minRectX,Math.min(maxRectX,pos.x));
+                      const newY = Math.max(minRectY,Math.min(maxRectY,pos.y));
+      
+                      return {
+                        x: newX,
+                        y: newY,
+                      };
                 }
 
-                const newX = Math.max(minX,Math.min(maxX,pos.x));
-                const newY = Math.max(minY,Math.min(maxY,pos.y));
 
-                return {
-                  x: newX,
-                  y: newY,
-                };
               },
           });
             
