@@ -1539,6 +1539,13 @@ document.querySelector('.caret-down')
 
                
 
+                let newY = pos.y;
+
+                const minRectX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2)+(sameNameW.width/2);
+                const maxRectX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0]-(sameNameW.width/2);   
+                const minRectY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2); 
+                const maxRectY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2) + rectSpBoundsH[0]-(sameNameH.height/2); 
+
 
                 const topSpRangeChange = topSpaceRange.sort((a, b) => a.x1 - b.x1);
 
@@ -1546,20 +1553,14 @@ document.querySelector('.caret-down')
                      topSpRangeChange.some((element, index, array) => index < array.length - 1 && element.x2 < pos.x && pos.x < array[index + 1].x1) || 
                     (topSpRangeChange[topSpRangeChange.length - 1].x2 < pos.x && pos.x < rectSpBoundsX[0] + rectFnBoundsW[0])) {
 
-                      const minRectX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2)+(sameNameW.width/2);
-                      const maxRectX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0]-(sameNameW.width/2);   
-                      const minRectY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2); 
-                      const maxRectY = rectSpBoundsY[0]-(homecenterInner.offsetHeight/2) + rectSpBoundsH[0]-(sameNameH.height/2); 
-
-                      const newX = Math.max(minRectX,Math.min(maxRectX,pos.x));
-                      const newY = Math.max(minRectY,Math.min(maxRectY,pos.y));
+                      newY = Math.max(newY,minRectY);
       
-                      return {
-                        x: newX,
-                        y: newY,
-                      };
                 }
 
+                return {
+                  x: pos.x,
+                  y: newY,
+                };
 
               },
           });
