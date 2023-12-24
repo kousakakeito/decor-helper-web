@@ -642,6 +642,7 @@ document.querySelector('.caret-down')
                 });
 
                 topRectBorder.push( obj.clear[0], obj.clear[0] + obj.clear[2]);
+                topSpaceRange.push({x1:obj.clear[0],x2:obj.clear[0]+obj.clear[2],y:obj.clear[1]+obj.clear[3],name:obj.name()});
 
                 newLayer.add(line);
                 stage2.add(newLayer);
@@ -1539,6 +1540,7 @@ document.querySelector('.caret-down')
 
                
 
+
                 let newY = pos.y;
 
                 const minRectX = rectSpBoundsX[0]-(homecenterInner.offsetWidth/2)+(sameNameW.width/2);
@@ -1549,12 +1551,27 @@ document.querySelector('.caret-down')
 
                 const topSpRangeChange = topSpaceRange.sort((a, b) => a.x1 - b.x1);
 
-                if ((rectSpBoundsX[0] < pos.x && pos.x < topSpRangeChange[0].x1) || 
-                     topSpRangeChange.some((element, index, array) => index < array.length - 1 && element.x2 < pos.x && pos.x < array[index + 1].x1) || 
-                    (topSpRangeChange[topSpRangeChange.length - 1].x2 < pos.x && pos.x < rectSpBoundsX[0] + rectFnBoundsW[0])) {
+                topSpRangeChange.forEach(element => {
+                  if(element.x1 > element.x2){
+                    [element.x1,element.x2] = [element.x2,element.x1];
+                  }
+                })
+
+                console.log(topSpaceRange)
+                console.log(topSpRangeChange)
+
+                const matchElem = topSpRangeChange.find((element) => element.x1-(homecenterInner.offsetWidth/2) < pos.x && pos.x < element.x2-(homecenterInner.offsetWidth/2))
+
+                if ((rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) < pos.x && pos.x < topSpRangeChange[0].x1-(homecenterInner.offsetWidth/2)) || 
+                     topSpRangeChange.some((element, index, array) => index < array.length - 1 && element.x2-(homecenterInner.offsetWidth/2) < pos.x && pos.x < array[index + 1].x1-(homecenterInner.offsetWidth/2)) || 
+                    (topSpRangeChange[topSpRangeChange.length - 1].x2-(homecenterInner.offsetWidth/2) < pos.x && pos.x < rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0]-(homecenterInner.offsetWidth/2))) {
 
                       newY = Math.max(newY,minRectY);
       
+                }else if(matchElem){
+
+                  newY = Math.max(newY,matchElem.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2));
+
                 }
 
                 return {
