@@ -1561,10 +1561,18 @@ document.querySelector('.caret-down')
                 console.log(topSpaceRange)
                 console.log(topSpRangeChange)
 
+                console.log(pos.x);
+                console.log(pos.x + sameNameW.width);
+
+            
+
                 const matchElemTopX = topSpRangeChange.find((element) => element.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2) < pos.x && pos.x < element.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2))
                 const matchElemTopLineY = topSpRangeChange.find((element) => rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) > pos.y && pos.y > element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
                 const matchElemTopShapeY = topSpRangeChange.find((element) => rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) < pos.y && pos.y < element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
 
+
+                console.log(matchElemTopLineY.x2-(homecenterInner.offsetWidth/2))
+                console.log(pos.x)
 
                 if ((rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) < pos.x && pos.x < topSpRangeChange[0].x1-(homecenterInner.offsetWidth/2)) || 
                      topSpRangeChange.some((element, index, array) => index < array.length - 1 && element.x2-(homecenterInner.offsetWidth/2) < pos.x && pos.x < array[index + 1].x1-(homecenterInner.offsetWidth/2)) || 
@@ -1580,7 +1588,7 @@ document.querySelector('.caret-down')
 
                       newX = Math.max(newX,matchElemTopLineY.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2));
 
-                }else if(matchElemTopLineY && matchElemTopLineY.x2-(homecenterInner.offsetWidth/2) < pos.x + sameNameW.width){
+                }else if(matchElemTopLineY && matchElemTopLineY.x2-(homecenterInner.offsetWidth/2) < pos.x + sameNameW.width ){
 
                   window.alert("A")
 
