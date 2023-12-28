@@ -1587,9 +1587,10 @@ document.querySelector('.caret-down')
 
                       newX = Math.max(newX,matchElemTopLineY.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2));
 
-                }else if(matchElemTopLineY && matchElemTopLineY.x2-(homecenterInner.offsetWidth/2) < pos.x + sameNameW.width ){
+                }else if(matchElemTopLineY && matchElemTopLineY.x2 -(homecenterInner.offsetWidth/2)< pos.x + sameNameW.width ){
 
                   console.log(matchElemTopLineY.x2)//取得されている値が１つだけになっている
+                  console.log(homecenterInner.offsetWidth/2)
 
                   window.alert("A")
 
