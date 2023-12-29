@@ -1579,22 +1579,19 @@ document.querySelector('.caret-down')
 
                       newY = Math.max(newY,minRectY);
       
-                }else if(matchElemTopX){
+                }else if(matchElemTopX == 0){
 
-                      newY = Math.max(newY,matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2));
+                      newY = Math.max(newY,matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
 
-                }else if(matchElemTopLineY && matchElemTopLineY.x1-(homecenterInner.offsetWidth/2) > pos.x){
+                }else if(matchElemTopLineY && matchElemTopLineY.x1-(homecenterInner.offsetWidth/2) < pos.x && pos.x < matchElemTopLineY.x2 -(homecenterInner.offsetWidth/2)){
 
-                      newX = Math.max(newX,matchElemTopLineY.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2));
+                
+                  console.log(matchElemTopLineY.x1)
 
-                }else if(matchElemTopLineY && matchElemTopLineY.x2 -(homecenterInner.offsetWidth/2)< pos.x + sameNameW.width ){
+                  
+                      newX = Math.max(matchElemTopLineY.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2,Math.min(newX,matchElemTopLineY.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2));
+             
 
-                  console.log(matchElemTopLineY.x2)//取得されている値が１つだけになっている
-                  console.log(homecenterInner.offsetWidth/2)
-
-                  window.alert("A")
-
-                      newX = Math.max(newX,matchElemTopLineY.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2));
 
                 }else if(matchElemTopShapeY && matchElemTopShapeY.x1 < pos.x){
 
