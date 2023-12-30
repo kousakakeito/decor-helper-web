@@ -1566,7 +1566,7 @@ document.querySelector('.caret-down')
 
             
 
-                const matchElemTopX = topSpRangeChange.find((element) => element.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2) < pos.x && pos.x < element.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2))
+                const matchElemTopX = topSpRangeChange.find((element) => element.x1-(homecenterInner.offsetWidth/2) < pos.x && pos.x < element.x2-(homecenterInner.offsetWidth/2))
                 const matchElemTopLineY = topSpRangeChange.find((element) => rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) > pos.y && pos.y > element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
                 const matchElemTopShapeY = topSpRangeChange.find((element) => rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) < pos.y && pos.y < element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
 
@@ -1579,27 +1579,66 @@ document.querySelector('.caret-down')
 
                       newY = Math.max(newY,minRectY);
       
-                }else if(matchElemTopX == 0){
+                }else if(matchElemTopX && matchElemTopX.y -(homecenterInner.offsetHeight/2) < pos.y === 0){
 
                       newY = Math.max(newY,matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
 
-                }else if(matchElemTopLineY && matchElemTopLineY.x1-(homecenterInner.offsetWidth/2) < pos.x && pos.x < matchElemTopLineY.x2 -(homecenterInner.offsetWidth/2)){
+                }else if(matchElemTopX && matchElemTopX.y -(homecenterInner.offsetHeight/2) > pos.y === 0){
+
+                      newY = Math.max(newY,matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
+
+                }else if(matchElemTopLineY && matchElemTopLineY.x1-(homecenterInner.offsetWidth/2) < pos.x && pos.x < matchElemTopLineY.x2 -(homecenterInner.offsetWidth/2)-sameNameW.width){
 
                 
-                  console.log(matchElemTopLineY.x1)
-
-                  
+                  console.log(matchElemTopLineY.x1)                
                       newX = Math.max(matchElemTopLineY.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2,Math.min(newX,matchElemTopLineY.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2));
+
+                }else if(matchElemTopLineY && matchElemTopLineY.x1-(homecenterInner.offsetWidth/2) > pos.x ){
+                        
+
+                      newX = Math.max(newX,matchElemTopLineY.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2);
+
+                }else if(matchElemTopLineY && pos.x > matchElemTopLineY.x2 -(homecenterInner.offsetWidth/2)-sameNameW.width){
+
+                      newX = Math.min(newX,matchElemTopLineY.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2);
+
+                      
              
 
 
-                }else if(matchElemTopShapeY && matchElemTopShapeY.x1 < pos.x){
+                }else if(matchElemTopShapeY && matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)+sameNameW.width > pos.x){
 
-                      newX = Math.max(newX,matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2));
+         
 
-                }else if(matchElemTopShapeY && matchElemTopShapeY.x2 > pos.x){
+                      newX = Math.min(newX,matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2);
 
-                      newX = Math.max(newX,matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2));
+                      
+
+                }else if(matchElemTopShapeY && matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)+sameNameW.width < pos.x && pos.x < matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2)+sameNameW.width){
+
+                  newX = Math.min(newX,matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2);
+                  
+
+                  
+
+
+                }else if(matchElemTopShapeY && matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2) < pos.x){
+
+
+                  console.log(matchElemTopShapeY.x2)
+         
+
+                  newX = Math.max(newX,matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2);
+
+                  
+
+                }else if(matchElemTopShapeY && matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2) > pos.x && pos.x > matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)){
+
+                  newX = Math.max(newX,matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2);
+
+
+                  console.log(matchElemTopShapeY.x2)
+              
 
                 }
 
