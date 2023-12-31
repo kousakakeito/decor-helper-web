@@ -1603,41 +1603,24 @@ document.querySelector('.caret-down')
                       newX = Math.min(newX,matchElemTopLineY.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2);
 
                       
+
+
              
-
-
                 }else if(matchElemTopShapeY && matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)+sameNameW.width > pos.x){
 
          
 
                       newX = Math.min(newX,matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2);
 
+                      //newX = Math.max(newX,matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2); x1とx2を同時に処理
                       
 
-                }else if(matchElemTopShapeY && matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)+sameNameW.width < pos.x && pos.x < matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2)+sameNameW.width){
+                }else if(matchElemTopShapeY && matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)+sameNameW.width < pos.x && pos.x < matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2)-sameNameW.width){
 
-                  newX = Math.min(newX,matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2);
-                  
-
-                  
+                      newX = Math.min(newX,matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2);
 
 
-                }else if(matchElemTopShapeY && matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2) < pos.x){
-
-
-                  console.log(matchElemTopShapeY.x2)
-         
-
-                  newX = Math.max(newX,matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2);
-
-                  
-
-                }else if(matchElemTopShapeY && matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2) > pos.x && pos.x > matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)){
-
-                  newX = Math.max(newX,matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2);
-
-
-                  console.log(matchElemTopShapeY.x2)
+                //newX = Math.max(newX,matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2); x1とx2を同時に処理
               
 
                 }
