@@ -1606,21 +1606,16 @@ document.querySelector('.caret-down')
 
 
              
-                }else if(matchElemTopShapeY && matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)+sameNameW.width > pos.x){
 
-         
-
-                      newX = Math.min(newX,matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2);
-
-                      //newX = Math.max(newX,matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2); x1とx2を同時に処理
                       
 
-                }else if(matchElemTopShapeY && matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)+sameNameW.width < pos.x && pos.x < matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2)-sameNameW.width){
+                }else if(matchElemTopShapeY && matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2 < pos.x ){
 
                       newX = Math.min(newX,matchElemTopShapeY.x1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2);
 
+                }else if(matchElemTopShapeY &&  pos.x < matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2){
 
-                //newX = Math.max(newX,matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2); x1とx2を同時に処理
+                      newX = Math.max(newX,matchElemTopShapeY.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2);
               
 
                 }
