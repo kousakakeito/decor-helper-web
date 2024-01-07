@@ -1577,9 +1577,9 @@ document.querySelector('.caret-down')
 
                if(pos.y < minRectY){ 
 
-                if ((rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) < pos.x && pos.x < topSpRangeChange[0].x1-(homecenterInner.offsetWidth/2)) || 
+                if ((rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) < pos.x && pos.x < topSpRangeChange[0].x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)) || 
                      topSpRangeChange.some((element, index, array) => index < array.length - 1 && element.x2-(homecenterInner.offsetWidth/2) < pos.x && pos.x < array[index + 1].x1-(homecenterInner.offsetWidth/2)) || 
-                    (topSpRangeChange[topSpRangeChange.length - 1].x2-(homecenterInner.offsetWidth/2) < pos.x && pos.x < rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0]-(homecenterInner.offsetWidth/2))) {
+                    (topSpRangeChange[topSpRangeChange.length - 1].x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2) < pos.x && pos.x < rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0])) {
 
                       newY = Math.max(newY,minRectY+2);
                       
@@ -1593,12 +1593,13 @@ document.querySelector('.caret-down')
                       newX = Math.max(matchElemTopLineY.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2,Math.min(newX,matchElemTopLineY.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2));
                       newY = Math.max(newY,matchElemTopLineY.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
 
+                      
+
                 }else if(matchElemTopX && matchElemTopX.y -(homecenterInner.offsetHeight/2) < pos.y && pos.y < rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)){
                   
 
                       newY = Math.max(newY,matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
                       newX = Math.max(matchElemTopX.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2,Math.min(newX,matchElemTopX.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2));
-
              
                     }else if(matchElemTopLineY && matchElemTopLineY.x1-(homecenterInner.offsetWidth/2) > pos.x ){
 
@@ -1634,7 +1635,8 @@ document.querySelector('.caret-down')
 
                 }
 
-              }else{
+              }else if (pos.y > maxRectY) {
+              
                 //minRectYよりも下のshape図形の各条件 
               };
 
