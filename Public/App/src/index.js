@@ -1633,6 +1633,18 @@ document.querySelector('.caret-down')
                       newX = Math.min(newX,matchElemTopX3.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2);
                       newY = Math.max(newY,matchElemTopX3.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
 
+
+                     /* ①if (matchElemTopX) {
+                        // matchElemTopX が見つかった場合の処理
+                        // ここでは、pos.x は必ず matchElemTopX.x1 と matchElemTopX.x2 の間
+                        // newX と newY を更新する処理
+                    } else {
+                        // matchElemTopX が見つからない場合の処理
+                        // ここでは、pos.x がどの範囲にも属していないと判断し、範囲外のドラッグを制限する
+                        // newX や newY を更新するか、あるいは特定の値に固定するなどの処理
+                    }*/
+
+                    //②もしくは現在else if が複数あるため、関連する条件に分けてif文を分別する←←優先☆
                 }
 
               }else if (pos.y > maxRectY) {
