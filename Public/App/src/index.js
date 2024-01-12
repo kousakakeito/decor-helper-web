@@ -1577,9 +1577,9 @@ document.querySelector('.caret-down')
 
                if(pos.y < minRectY){ 
 
-                if ((rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) < pos.x && pos.x < topSpRangeChange[0].x1-(homecenterInner.offsetWidth/2)) || 
+                if ((rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) < pos.x && pos.x < topSpRangeChange[0].x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)) || 
                      topSpRangeChange.some((element, index, array) => index < array.length - 1 && element.x2-(homecenterInner.offsetWidth/2) < pos.x && pos.x < array[index + 1].x1-(homecenterInner.offsetWidth/2)) || 
-                    (topSpRangeChange[topSpRangeChange.length - 1].x2-(homecenterInner.offsetWidth/2) < pos.x && pos.x < rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0])) {
+                    (topSpRangeChange[topSpRangeChange.length - 1].x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2) < pos.x && pos.x < rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0])) {
 
                       newY = Math.max(newY,minRectY+2);
 
@@ -1587,28 +1587,24 @@ document.querySelector('.caret-down')
                       
                 }
 
+                if(matchElemTopLineY){
+                  if(matchElemTopX){
 
+                    newX = Math.max(matchElemTopX.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2,Math.min(newX,matchElemTopX.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2));
 
-                if(matchElemTopX){
-                  if(matchElemTopLineY){
-
-                    newX = Math.max(matchElemTopX.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2,Math.min(newX,matchElemTopX.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2));     
-
-                  }else if(matchElemTopLineY2){
-
-                    newY = Math.max(newY,matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
-
-                  }
-                }else if(matchElemTopX2){
-                  if(matchElemTopLineY){
+                  }else if(matchElemTopX2){
 
                     newX = Math.max(newX,matchElemTopX2.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2);
-
-                  }
-                }else if(matchElemTopX3){
-                  if(matchElemTopLineY){
+            
+                  }else if(matchElemTopX3){
 
                     newX = Math.min(newX,matchElemTopX3.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2);
+
+                  }
+                }else if(matchElemTopLineY2){
+                  if(matchElemTopX){
+
+                    newY = Math.max(newY,matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
 
                   }
                 }
