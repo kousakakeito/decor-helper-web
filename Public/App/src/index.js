@@ -1568,7 +1568,7 @@ document.querySelector('.caret-down')
 
                 const matchElemTopX = topSpRangeChange.find((element) => element.x1-(homecenterInner.offsetWidth/2) < pos.x && pos.x < element.x2-(homecenterInner.offsetWidth/2))
                 const matchElemTopX2 = topSpRangeChange.find((element) => element.x1-(homecenterInner.offsetWidth/2) > pos.x )
-                const matchElemTopX3 = topSpRangeChange.find((element) => pos.x > element.x2-(homecenterInner.offsetWidth/2)-sameNameW.width)
+                const matchElemTopX3 = topSpRangeChange.find((element) => pos.x > element.x2-(homecenterInner.offsetWidth/2))
                 const matchElemTopLineY = topSpRangeChange.find((element) => rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) > pos.y && pos.y > element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
                 const matchElemTopLineY2 = topSpRangeChange.find((element) => pos.y < element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
                 const matchElemTopShapeY = topSpRangeChange.find((element) => rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) < pos.y && pos.y < element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
@@ -1577,9 +1577,9 @@ document.querySelector('.caret-down')
 
                if(pos.y < minRectY){ 
 
-                if ((rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) < pos.x && pos.x < topSpRangeChange[0].x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)) || 
+                if ((rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) < pos.x && pos.x < topSpRangeChange[0].x1-(homecenterInner.offsetWidth/2)) || 
                      topSpRangeChange.some((element, index, array) => index < array.length - 1 && element.x2-(homecenterInner.offsetWidth/2) < pos.x && pos.x < array[index + 1].x1-(homecenterInner.offsetWidth/2)) || 
-                    (topSpRangeChange[topSpRangeChange.length - 1].x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2) < pos.x && pos.x < rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0])) {
+                    (topSpRangeChange[topSpRangeChange.length - 1].x2-(homecenterInner.offsetWidth/2) < pos.x && pos.x < rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0])) {
 
                       newY = Math.max(newY,minRectY+2);
 
@@ -1587,24 +1587,18 @@ document.querySelector('.caret-down')
                       
                 }
 
+                //matchElemTopXの範囲をpos.xが越えないようにする処理....pos.x < x1 や pos.x > x2 などの条件式で制約をかけるのはNG,space図形のrect図形外でのfuruniture図形のドラッグ操作をできないようにする
+
                 if(matchElemTopLineY){
                   if(matchElemTopX){
 
                     newX = Math.max(matchElemTopX.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2,Math.min(newX,matchElemTopX.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2));
 
-                  }else if(matchElemTopX2){
-
-                    newX = Math.max(newX,matchElemTopX2.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2);
-            
-                  }else if(matchElemTopX3){
-
-                    newX = Math.min(newX,matchElemTopX3.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2);
-
                   }
                 }else if(matchElemTopLineY2){
                   if(matchElemTopX){
 
-                    newY = Math.max(newY,matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
+                    newY = matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2;
 
                   }
                 }
