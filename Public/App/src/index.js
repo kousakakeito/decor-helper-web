@@ -1587,28 +1587,26 @@ document.querySelector('.caret-down')
                       
                 }
 
-                //ポインターごと動かないようにすることで強制的に制限
+                //x2について深掘り。久々に進行気味。
 
                 if(matchElemTopLineY){
-                  if(matchElemTopX){
-
+                  if(matchElemTopX && matchElemTopX.y-(homecenterInner.offsetHeight/2) < minRectY){
                     newX = Math.max(matchElemTopX.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2,Math.min(newX,matchElemTopX.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2));
-
+                  }else if(matchElemTopX2 && matchElemTopX2.y-(homecenterInner.offsetHeight/2) < minRectY){
+                    newX = matchElemTopX2.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2;
+                  }else if(matchElemTopX3 && matchElemTopX3.y-(homecenterInner.offsetHeight/2) < minRectY){
+                    newX = matchElemTopX3.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2;
                   }
                 }else if(matchElemTopLineY2){
-                  if(matchElemTopX){
-
-                    newY = matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2;
-
+                  if(matchElemTopX && matchElemTopX.y-(homecenterInner.offsetHeight/2) < minRectY){
+                    newY = Math.max(newY,matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
                   }
                 }
 
 
 
 
-
-
-              }else if (pos.y > maxRectY) {
+              }else if (pos.y > minRectY) {
               
                 //minRectYよりも下のshape図形の各条件 
               };
