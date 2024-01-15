@@ -1587,7 +1587,7 @@ document.querySelector('.caret-down')
                       
                 }
 
-                //matchElemTopXの範囲をpos.xが越えないようにする処理....pos.x < x1 や pos.x > x2 などの条件式で制約をかけるのはNG,space図形のrect図形外でのfuruniture図形のドラッグ操作をできないようにする
+                //ポインターごと動かないようにすることで強制的に制限
 
                 if(matchElemTopLineY){
                   if(matchElemTopX){
@@ -1602,6 +1602,8 @@ document.querySelector('.caret-down')
 
                   }
                 }
+
+
 
 
 
