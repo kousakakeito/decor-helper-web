@@ -1558,22 +1558,29 @@ document.querySelector('.caret-down')
                   }
                 })
 
+                const topSpRangeChangeX2 = topSpRangeChange.slice().sort((a, b) => b.x2 - a.x2);
+                const topSpRangeChangeShapeX1 = topSpRangeChange.slice().sort((a, b) => b.x1 - a.x1);
+                
+
                 console.log(topSpaceRange)
                 console.log(topSpRangeChange)
+                console.log(topSpRangeChangeX2)
 
                 console.log(pos.x);
                 console.log(pos.x + sameNameW.width);
 
-            
+              
 
                 const matchElemTopX = topSpRangeChange.find((element) => element.x1-(homecenterInner.offsetWidth/2) < pos.x && pos.x < element.x2-(homecenterInner.offsetWidth/2))
                 const matchElemTopX2 = topSpRangeChange.find((element) => element.x1-(homecenterInner.offsetWidth/2) > pos.x )
-                const matchElemTopX3 = topSpRangeChange.find((element) => element.x2-(homecenterInner.offsetWidth/2) > pos.x)
+                const matchElemTopX3 = topSpRangeChangeX2.find((element) => element.x2-(homecenterInner.offsetWidth/2) < pos.x)
                 const matchElemTopLineY = topSpRangeChange.find((element) => rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) > pos.y && pos.y > element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
                 const matchElemTopLineY2 = topSpRangeChange.find((element) => pos.y < element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
                 const matchElemTopShapeY = topSpRangeChange.find((element) => rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) < pos.y && pos.y < element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
-
-
+                const matchElemTopShapeY2 = topSpRangeChange.find((element) => pos.y > element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
+                const matchElemTopShapeX = topSpRangeChange.find((element) =>  element.x1-(homecenterInner.offsetWidth/2) < pos.x && pos.x < element.x2-(homecenterInner.offsetWidth/2))
+                const matchElemTopShapeX2 = topSpRangeChangeShapeX1.find((element) => element.x1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2) < pos.x )
+                const matchElemTopShapeX3 = topSpRangeChange.find((element) => element.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2) > pos.x )
 
                if(pos.y < minRectY){ 
 
@@ -1583,33 +1590,53 @@ document.querySelector('.caret-down')
 
                       newY = Math.max(newY,minRectY+2);
 
-                      //この処理が下記の処理を邪魔してるためうまく統合
+                   
                       
                 }
 
-                //x2が問題あり。
+    
+                //x1 < pos.x , x2 > pos.x のような比較でドラッグ制限しているが、現時点だと制限が影響しあっているため、制限状態でポインターを移動させると別の条件が合発火してしまう。これらを改善する必要あり
 
                 if(matchElemTopLineY){
                   if(matchElemTopX && matchElemTopX.y-(homecenterInner.offsetHeight/2) < minRectY){
-                    console.log(matchElemTopX3)
                     newX = Math.max(matchElemTopX.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2,Math.min(newX,matchElemTopX.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2));
+                    newY = Math.max(newY,matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
                   }else if(matchElemTopX2 && matchElemTopX2.y-(homecenterInner.offsetHeight/2) < minRectY){
                     newX = matchElemTopX2.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2;
-                  }else if(matchElemTopX3 && matchElemTopX3.y-(homecenterInner.offsetHeight/2) < minRectY && matchElemTopX3.x2-(homecenterInner.offsetWidth/2) < pos.x){
+                    newY = Math.max(newY,matchElemTopX2.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
+                  }else if(matchElemTopX3 && matchElemTopX3.y-(homecenterInner.offsetHeight/2) < minRectY){
                     newX = matchElemTopX3.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2;
+                    newY = Math.max(newY,matchElemTopX3.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
                   }
                 }else if(matchElemTopLineY2){
                   if(matchElemTopX && matchElemTopX.y-(homecenterInner.offsetHeight/2) < minRectY){
+                    newX = Math.max(matchElemTopX.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2,Math.min(newX,matchElemTopX.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2));
                     newY = Math.max(newY,matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
+                  }else if(matchElemTopX2 && matchElemTopX2.y-(homecenterInner.offsetHeight/2) < minRectY){
+                    newX = matchElemTopX2.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2;
+                    newY = Math.max(newY,matchElemTopX2.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
+                  }else if(matchElemTopX3 && matchElemTopX3.y-(homecenterInner.offsetHeight/2) < minRectY){
+                    newX = matchElemTopX3.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2;
+                    newY = Math.max(newY,matchElemTopX3.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
                   }
                 }
 
-
-
-
               }else if (pos.y > minRectY) {
               
-                //minRectYよりも下のshape図形の各条件 
+                if(matchElemTopShapeY){
+                  if(matchElemTopShapeX2 && matchElemTopShapeX2.y-(homecenterInner.offsetHeight/2) > minRectY){
+                    newX = matchElemTopShapeX2.x1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2;
+                  }
+                  if(matchElemTopShapeX3 && matchElemTopShapeX3.y-(homecenterInner.offsetHeight/2) > minRectY){
+                    newX = matchElemTopShapeX3.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2;
+                  }
+                }else if(matchElemTopShapeY2){
+                  if(matchElemTopShapeX && matchElemTopShapeX.y-(homecenterInner.offsetHeight/2) > minRectY){
+
+                    newY = Math.max(newY,matchElemTopShapeX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
+
+                  }
+                }
               };
 
                 return {
