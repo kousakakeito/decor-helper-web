@@ -1582,6 +1582,9 @@ document.querySelector('.caret-down')
                 const matchElemTopShapeX2 = topSpRangeChangeShapeX1.find((element) => element.x1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2) < pos.x )
                 const matchElemTopShapeX3 = topSpRangeChange.find((element) => element.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2) > pos.x )
 
+                let lockX = false; //ロック変数
+                let lockY = false; //ロック変数
+
                if(pos.y < minRectY){ 
 
                 if ((rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) < pos.x && pos.x < topSpRangeChange[0].x1-(homecenterInner.offsetWidth/2)) || 
@@ -1595,7 +1598,8 @@ document.querySelector('.caret-down')
                 }
 
     
-                //x1 < pos.x , x2 > pos.x のような比較でドラッグ制限しているが、現時点だと制限が影響しあっているため、制限状態でポインターを移動させると別の条件が合発火してしまう。これらを改善する必要あり
+                //x1 < pos.x , x2 > pos.x のような比較でドラッグ制限しているが、現時点だと制限が影響しあっているため、制限状態でポインターを移動させると別の条件が合発火してしまう。ロックメカニズムを使用
+
 
                 if(matchElemTopLineY){
                   if(matchElemTopX && matchElemTopX.y-(homecenterInner.offsetHeight/2) < minRectY){
