@@ -1583,7 +1583,7 @@ document.querySelector('.caret-down')
                 const matchElemTopShapeX3 = topSpRangeChange.find((element) => element.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2) > pos.x )
 
                 let lockX = false; //ロック変数
-                let lockY = false; //ロック変数
+                let lockY = false; //ロック変数.....ロックフラグについて考える
 
                if(pos.y < minRectY){ 
 
