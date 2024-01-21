@@ -1582,35 +1582,29 @@ document.querySelector('.caret-down')
                 const matchElemTopShapeX2 = topSpRangeChangeShapeX1.find((element) => element.x1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2) < pos.x )
                 const matchElemTopShapeX3 = topSpRangeChange.find((element) => element.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2) > pos.x )
 
-                let lockX = false; //ロック変数
-                let lockY = false; //ロック変数.....ロックフラグについて考える
+ 
+                //ロックメカニズム
+                let lock = false;
+
 
                if(pos.y < minRectY){ 
-
-                if ((rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) < pos.x && pos.x < topSpRangeChange[0].x1-(homecenterInner.offsetWidth/2)) || 
-                     topSpRangeChange.some((element, index, array) => index < array.length - 1 && element.x2-(homecenterInner.offsetWidth/2) < pos.x && pos.x < array[index + 1].x1-(homecenterInner.offsetWidth/2)) || 
-                    (topSpRangeChange[topSpRangeChange.length - 1].x2-(homecenterInner.offsetWidth/2) < pos.x && pos.x < rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0])) {
-
-                      newY = Math.max(newY,minRectY+2);
-
-                   
-                      
-                }
-
-    
-                //x1 < pos.x , x2 > pos.x のような比較でドラッグ制限しているが、現時点だと制限が影響しあっているため、制限状態でポインターを移動させると別の条件が合発火してしまう。ロックメカニズムを使用
 
 
                 if(matchElemTopLineY){
                   if(matchElemTopX && matchElemTopX.y-(homecenterInner.offsetHeight/2) < minRectY){
                     newX = Math.max(matchElemTopX.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2,Math.min(newX,matchElemTopX.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2));
                     newY = Math.max(newY,matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
-                  }else if(matchElemTopX2 && matchElemTopX2.y-(homecenterInner.offsetHeight/2) < minRectY){
+                    lock = true;
+                  }else if(!lock){
+                    if(matchElemTopX2 && matchElemTopX2.y-(homecenterInner.offsetHeight/2) < minRectY){
                     newX = matchElemTopX2.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2;
                     newY = Math.max(newY,matchElemTopX2.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
-                  }else if(matchElemTopX3 && matchElemTopX3.y-(homecenterInner.offsetHeight/2) < minRectY){
+                    }
+                  }else if(!lock){
+                    if(matchElemTopX3 && matchElemTopX3.y-(homecenterInner.offsetHeight/2) < minRectY){
                     newX = matchElemTopX3.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2;
                     newY = Math.max(newY,matchElemTopX3.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
+                    }
                   }
                 }else if(matchElemTopLineY2){
                   if(matchElemTopX && matchElemTopX.y-(homecenterInner.offsetHeight/2) < minRectY){
@@ -1624,6 +1618,14 @@ document.querySelector('.caret-down')
                     newY = Math.max(newY,matchElemTopX3.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
                   }
                 }
+
+                if ((rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) < pos.x && pos.x < topSpRangeChange[0].x1-(homecenterInner.offsetWidth/2)) || 
+                topSpRangeChange.some((element, index, array) => index < array.length - 1 && element.x2-(homecenterInner.offsetWidth/2) < pos.x && pos.x < array[index + 1].x1-(homecenterInner.offsetWidth/2)) || 
+               (topSpRangeChange[topSpRangeChange.length - 1].x2-(homecenterInner.offsetWidth/2) < pos.x && pos.x < rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0])) {
+
+                 newY = Math.max(newY,minRectY+2);
+ 
+               }
 
               }else if (pos.y > minRectY) {
               
