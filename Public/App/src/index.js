@@ -1528,6 +1528,7 @@ document.querySelector('.caret-down')
         .then(layerData => {
         
           // レイヤーごとに新しい Layer を作成
+          let lock = false;
           layerData.layerData.layers.forEach(layerInfo => {
             console.log(rectSpBoundsX[0])
             const newLayer = new Konva.Layer({
@@ -1583,23 +1584,19 @@ document.querySelector('.caret-down')
                 const matchElemTopShapeX3 = topSpRangeChange.find((element) => element.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2) > pos.x )
 
  
-                //ロックメカニズム
-                let lock = false;
 
+                //ロックフラグ内の値が代入ごとに更新されなかったのは、スコープの問題だった。Layerコンストラクター外でロックフラグを設定することで改善。
+                //matchElemTopX2での範囲設定は不完全なためx1より小さいpos.xの値全てを対象とさせるようにする。
 
                if(pos.y < minRectY){ 
 
 
                 if(matchElemTopLineY){
-                  if(matchElemTopX && matchElemTopX.y-(homecenterInner.offsetHeight/2) < minRectY){
-                    newX = Math.max(matchElemTopX.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2,Math.min(newX,matchElemTopX.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2));
-                    newY = Math.max(newY,matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
-                    lock = true;
-                  }else if(!lock){
-                    if(matchElemTopX2 && matchElemTopX2.y-(homecenterInner.offsetHeight/2) < minRectY){
+                  
+                  if(matchElemTopX2 && matchElemTopX2.y-(homecenterInner.offsetHeight/2) < minRectY){
                     newX = matchElemTopX2.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2;
                     newY = Math.max(newY,matchElemTopX2.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
-                    }
+                    lock = true;
                   }else if(!lock){
                     if(matchElemTopX3 && matchElemTopX3.y-(homecenterInner.offsetHeight/2) < minRectY){
                     newX = matchElemTopX3.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2;
@@ -1619,6 +1616,7 @@ document.querySelector('.caret-down')
                   }
                 }
 
+               if(!lock){
                 if ((rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) < pos.x && pos.x < topSpRangeChange[0].x1-(homecenterInner.offsetWidth/2)) || 
                 topSpRangeChange.some((element, index, array) => index < array.length - 1 && element.x2-(homecenterInner.offsetWidth/2) < pos.x && pos.x < array[index + 1].x1-(homecenterInner.offsetWidth/2)) || 
                (topSpRangeChange[topSpRangeChange.length - 1].x2-(homecenterInner.offsetWidth/2) < pos.x && pos.x < rectSpBoundsX[0]-(homecenterInner.offsetWidth/2) + rectSpBoundsW[0])) {
@@ -1626,6 +1624,7 @@ document.querySelector('.caret-down')
                  newY = Math.max(newY,minRectY+2);
  
                }
+              }
 
               }else if (pos.y > minRectY) {
               
