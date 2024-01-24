@@ -1528,6 +1528,8 @@ document.querySelector('.caret-down')
         .then(layerData => {
         
           // レイヤーごとに新しい Layer を作成
+          let firstX1 = null;
+          let firstY = null;
           let lock = false;
           layerData.layerData.layers.forEach(layerInfo => {
             console.log(rectSpBoundsX[0])
@@ -1573,7 +1575,15 @@ document.querySelector('.caret-down')
               
 
                 const matchElemTopX = topSpRangeChange.find((element) => element.x1-(homecenterInner.offsetWidth/2) < pos.x && pos.x < element.x2-(homecenterInner.offsetWidth/2))
-                const matchElemTopX2 = topSpRangeChange.find((element) => element.x1-(homecenterInner.offsetWidth/2) > pos.x )
+                if(firstX1 === null){
+                  const matchElemTopX2 = topSpRangeChange.find((element) => element.x1-(homecenterInner.offsetWidth/2) > pos.x )
+                  if(matchElemTopX2 && matchElemTopX2.y-(homecenterInner.offsetHeight/2) < minRectY){
+                    firstX1 = matchElemTopX2.x1;
+                    firstY = matchElemTopX2.y;
+                    console.log(firstX1)
+                  }
+                }
+
                 const matchElemTopX3 = topSpRangeChangeX2.find((element) => element.x2-(homecenterInner.offsetWidth/2) < pos.x)
                 const matchElemTopLineY = topSpRangeChange.find((element) => rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) > pos.y && pos.y > element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
                 const matchElemTopLineY2 = topSpRangeChange.find((element) => pos.y < element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
@@ -1590,16 +1600,18 @@ document.querySelector('.caret-down')
                 //最初に取得したx1のelementに対して処理を行うようにする。現在はpos.xより大きいx1を取得するようにしているためドラッグ範囲が変わるほど取得されるx1も変わってしまい、制限箇所も都度変わってしまっている。
                 //初めて条件がtrueになった要素の配列１つのみを返すようにする。現在は条件がtrueになる度それぞれの要素の配列を返している。
                 //条件発火時のx1のみを取得。
+                //条件が解除されたとき、firstX1,firstYをnullにする。そして再び発火時はそのx1,yのみ取得。
 
                if(pos.y < minRectY){ 
 
 
                 if(matchElemTopLineY){
                   
-                  if(matchElemTopX2 && matchElemTopX2.y-(homecenterInner.offsetHeight/2) < minRectY){
-                    newX = matchElemTopX2.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2;
-                    newY = Math.max(newY,matchElemTopX2.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
+                  if(firstX1-(homecenterInner.offsetWidth/2) > pos.x && firstY-(homecenterInner.offsetHeight/2) < minRectY){
+                    newX = firstX1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2;
+                    newY = Math.max(newY,firstY-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
                     lock = true;
+                    
                   }else if(!lock){
                     if(matchElemTopX3 && matchElemTopX3.y-(homecenterInner.offsetHeight/2) < minRectY){
                     newX = matchElemTopX3.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2;
@@ -1610,9 +1622,9 @@ document.querySelector('.caret-down')
                   if(matchElemTopX && matchElemTopX.y-(homecenterInner.offsetHeight/2) < minRectY){
                     newX = Math.max(matchElemTopX.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2,Math.min(newX,matchElemTopX.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2));
                     newY = Math.max(newY,matchElemTopX.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
-                  }else if(matchElemTopX2 && matchElemTopX2.y-(homecenterInner.offsetHeight/2) < minRectY){
+                  /*}else if(matchElemTopX2 && matchElemTopX2.y-(homecenterInner.offsetHeight/2) < minRectY){
                     newX = matchElemTopX2.x1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2;
-                    newY = Math.max(newY,matchElemTopX2.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
+                    newY = Math.max(newY,matchElemTopX2.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);*/
                   }else if(matchElemTopX3 && matchElemTopX3.y-(homecenterInner.offsetHeight/2) < minRectY){
                     newX = matchElemTopX3.x2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2;
                     newY = Math.max(newY,matchElemTopX3.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
