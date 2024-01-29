@@ -1528,15 +1528,15 @@ document.querySelector('.caret-down')
         .then(layerData => {
         
           // レイヤーごとに新しい Layer を作成
-          let first1X0 = null;
-          let first2X0 = null;
-          let first0Y = null;
-
           let firstX1 = null;
           let first1Y = null;
 
           let firstX2 = null;
           let first2Y = null;
+
+          let firstY1X = null;
+          let firstY2X = null;
+          let firstY2 = null;
 
           let lock = false;
           layerData.layerData.layers.forEach(layerInfo => {
@@ -1583,15 +1583,8 @@ document.querySelector('.caret-down')
               
 
                
-                if(first1X0 === null && first2X0 === null){
+               
                   const matchElemTopX = topSpRangeChange.find((element) => element.x1-(homecenterInner.offsetWidth/2) < pos.x && pos.x < element.x2-(homecenterInner.offsetWidth/2))
-                  if(matchElemTopX && matchElemTopX.y-(homecenterInner.offsetHeight/2) < minRectY){
-                    first1X0 = matchElemTopX.x1;
-                    first2X0 = matchElemTopX.x2;
-                    first0Y = matchElemTopX.y;
-                    console.log(firstX1)
-                  }
-                }
 
                 if(firstX1 === null){
                   const matchElemTopX2 = topSpRangeChange.find((element) => element.x1-(homecenterInner.offsetWidth/2) > pos.x-(sameNameW.width/2) && pos.y < minRectY)
@@ -1612,7 +1605,16 @@ document.querySelector('.caret-down')
 
                 
                 const matchElemTopLineY = topSpRangeChange.find((element) => rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) > pos.y && pos.y > element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
-                const matchElemTopLineY2 = topSpRangeChange.find((element) => pos.y < element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
+
+                if(firstY2 === null){
+                  const matchElemTopLineY2 = topSpRangeChange.find((element) => pos.y < element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
+                  if(matchElemTopLineY2 && matchElemTopLineY2.y-(homecenterInner.offsetHeight/2) < minRectY){
+                    firstY1X = matchElemTopLineY2.x1;
+                    firstY2X = matchElemTopLineY2.x2;
+                    firstY2 = matchElemTopLineY2.y;
+                  }
+                }
+                
                 const matchElemTopShapeY = topSpRangeChange.find((element) => rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) < pos.y && pos.y < element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
                 const matchElemTopShapeY2 = topSpRangeChange.find((element) => pos.y > element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
                 const matchElemTopShapeX = topSpRangeChange.find((element) =>  element.x1-(homecenterInner.offsetWidth/2) < pos.x && pos.x < element.x2-(homecenterInner.offsetWidth/2))
@@ -1631,6 +1633,7 @@ document.querySelector('.caret-down')
                 //x2に対する処理の際furiniture図形が消える理由
                 //ロックフラグ適用要
                 //matchElemTopLineY,matchElemTopLineY2でx,y座標の制御をしているが、本来matchElemTopLineYはxに対しての制御、matchElemTopLineY2はyに対しての制御。yに対してのロジックがおかしいためmatchElemTopLineY2をmatchElemTopXに変更しブロック内の各条件式でxに対しての条件を設定しているが、yに対して条件に変更する。そうすれば上辺yを超えた場合、上辺yの内側の場合で処理を分けれる。
+                //firstY2,Y1X,Y2Xをnullにするブロックの条件を考える→現状の条件ではnullにできていない？nullの有無デバック要
 
                if(pos.y < minRectY){ 
 
@@ -1662,30 +1665,33 @@ document.querySelector('.caret-down')
                  
 
 
-                }else if(matchElemTopLineY2){//x座標の範囲、すなわちmatchElemTopXが該当
-                  if(first1X0-(homecenterInner.offsetWidth/2) < pos.x && pos.x < first2X0-(homecenterInner.offsetWidth/2) && first0Y-(homecenterInner.offsetHeight/2) < minRectY){
-                    newY = Math.max(newY,first0Y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
+                }else if(matchElemTopX){//x座標の範囲、すなわちmatchElemTopXが該当
+                  if(pos.y < firstY2-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) && firstY2-(homecenterInner.offsetHeight/2) < minRectY){
+                    newY = Math.max(newY,firstY2-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
+                    newX = Math.max(firstY1X-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2,Math.min(newX,firstY2X-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2));
+                  }else if(pos.y > firstY2-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) && firstY2-(homecenterInner.offsetHeight/2) < minRectY){
+                    firstY2 = null;
+                  }else if(pos.y > minRectY){
+                    firstY1X = null;
+                    firstY2X = null;
                   }
 
-                  if(firstX1-(homecenterInner.offsetWidth/2) > pos.x-(sameNameW.width/2) && first1Y-(homecenterInner.offsetHeight/2) < minRectY){
-                    newX = firstX1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2;
+                }else if(firstX1-(homecenterInner.offsetWidth/2) > pos.x-(sameNameW.width/2)){
+                  if(pos.y < first1Y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) && first1Y-(homecenterInner.offsetHeight/2) < minRectY){
                     newY = Math.max(newY,first1Y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
-                    lock = true;
-                  }else if(firstX1-(homecenterInner.offsetWidth/2) < pos.x+(sameNameW.width/2) || pos.y > minRectY){
+                    newX = firstX1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2;
+                  }else if(pos.y > first1Y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) && first1Y-(homecenterInner.offsetHeight/2) < minRectY){
                     firstX1 = null;
                     first1Y = null;
-                    lock = false;
                   }
-                 
-                  if(firstX2 !== null && first2Y !== null && firstX2-(homecenterInner.offsetWidth/2) < pos.x+(sameNameW.width/2) && first2Y-(homecenterInner.offsetHeight/2) < minRectY){
-                    newX = firstX2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2;
+
+                }else if(firstX2-(homecenterInner.offsetWidth/2) < pos.x+(sameNameW.width/2)){
+                  if(pos.y < first2Y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) && first2Y-(homecenterInner.offsetHeight/2) < minRectY){
                     newY = Math.max(newY,first2Y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
-                    lock = true;
-                  }else if(firstX2-(homecenterInner.offsetWidth/2) > pos.x-(sameNameW.width/2) || pos.y > minRectY){
+                    newX = firstX2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2;
+                  }else if(pos.y > first2Y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) && first2Y-(homecenterInner.offsetHeight/2) < minRectY){
                     firstX2 = null;
                     first2Y = null;
-                    lock = false;
-                    console.log(pos.x)
                   }
                 }
 
