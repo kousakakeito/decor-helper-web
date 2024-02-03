@@ -1608,12 +1608,7 @@ document.querySelector('.caret-down')
                     first0Y = matchElemTopX.y;
                     }
                   }
-                
-              
-              
-              
-            
-              
+
 
                 if(firstX2 === null){
                 if(firstX1 === null){
@@ -1697,9 +1692,6 @@ document.querySelector('.caret-down')
                     newX = firstX1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2;
                     newY = Math.max(newY,first1Y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
                     lock = true;
-                    first0Y = null;
-                    first1X0 = null;
-                    first2X0 = null;
                   }else if(firstX1-(homecenterInner.offsetWidth/2) < pos.x+(sameNameW.width/2) || pos.y > minRectY){
                     firstX1 = null;
                     first1Y = null;
@@ -1709,9 +1701,6 @@ document.querySelector('.caret-down')
                     newX = firstX2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2;
                     newY = Math.max(newY,first2Y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
                     lock = true;
-                    first0Y = null;
-                    first1X0 = null;
-                    first2X0 = null;
                   }else if(firstX2-(homecenterInner.offsetWidth/2) > pos.x-(sameNameW.width/2) || pos.y > minRectY){
                       firstX2 = null;
                       first2Y = null;
@@ -1733,17 +1722,13 @@ document.querySelector('.caret-down')
                     newY = Math.max(newY,first1Y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
                     newX = firstX1-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2;
                   }
-                  first0Y = null;
-                  first1X0 = null;
-                  first2X0 = null;
+
                 }else if(firstX2-(homecenterInner.offsetWidth/2) < pos.x+(sameNameW.width/2)){
                   if(pos.y-(sameNameH.height/2) < first2Y-(homecenterInner.offsetHeight/2) && first2Y-(homecenterInner.offsetHeight/2) < minRectY){
                     newY = Math.max(newY,first2Y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
                     newX = firstX2-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2;
                   }
-                  first0Y = null;
-                  first1X0 = null;
-                  first2X0 = null;
+
                 }
 
                if(!lock){
@@ -1755,9 +1740,16 @@ document.querySelector('.caret-down')
 
                }
               }
-              
-
+        
               }else if (pos.y > minRectY) {
+                //↓if(pos.y < minRectY)のブロック内のfirst0Y,first1X0,first2X0,firstX1,first1Y,firstX2,first2Yに対するnull
+                first0Y = null;
+                first1X0 = null;
+                first2X0 = null;
+                firstX1 = null;     
+                firstX2 = null;
+                first1Y = null;
+                first2Y = null;
               
                 if(matchElemTopShapeY){
                   if(firstShapeX1-(homecenterInner.offsetWidth/2) < pos.x+(sameNameW.width/2) && firstShape1Y-(homecenterInner.offsetHeight/2) > minRectY){
