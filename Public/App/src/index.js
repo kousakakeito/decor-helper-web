@@ -1597,14 +1597,23 @@ document.querySelector('.caret-down')
                
                 const matchElemTopLineY = topSpRangeChange.find((element) => rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) > pos.y && pos.y > element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
                  
+
+        
+              
                 if(first1X0 === null){
                   const matchElemTopX = topSpRangeChange.find((element) => element.x1-(homecenterInner.offsetWidth/2) < pos.x && pos.x < element.x2-(homecenterInner.offsetWidth/2))
                   if(matchElemTopX && matchElemTopX.y-(homecenterInner.offsetHeight/2) < minRectY){
                     first1X0 = matchElemTopX.x1;
                     first2X0 = matchElemTopX.x2;
                     first0Y = matchElemTopX.y;
+                    }
                   }
-                }
+                
+              
+              
+              
+            
+              
 
                 if(firstX2 === null){
                 if(firstX1 === null){
@@ -1678,6 +1687,7 @@ document.querySelector('.caret-down')
                 //firstY2,Y1X,Y2Xをnullにするブロックの条件を考える→現状の条件ではnullにできていない？nullの有無デバック要
                 //1688,1693のx1,x2,yに対する処理でおかしな挙動を起こしているのは、x2の場合、x2を越えて、yを越えたときnewX,Yの制御にnullが代入されている可能性を推測。現在は左のLinex2,右のLinex1にこの現象が起きている。デバック要
                 //1X0～2X0の範囲で0Yよりpos.yが上の時X1,X2がnullになる原因を特定
+                //nullの状況、null比較を具体的に一旦整理
 
                if(pos.y < minRectY){ 
 
@@ -1714,9 +1724,9 @@ document.querySelector('.caret-down')
                     newY = Math.max(newY,first0Y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
                     newX = Math.max(first1X0-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2,Math.min(newX,first2X0-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2));
                   }
-                  firstX1 = null;
-                  first1Y = null;
+                  firstX1 = null;     
                   firstX2 = null;
+                  first1Y = null;
                   first2Y = null;
                 }else if(firstX1-(homecenterInner.offsetWidth/2) > pos.x-(sameNameW.width/2)){
                   if(pos.y-(sameNameH.height/2) < first1Y-(homecenterInner.offsetHeight/2) && first1Y-(homecenterInner.offsetHeight/2) < minRectY){
