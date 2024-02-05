@@ -1633,6 +1633,7 @@ document.querySelector('.caret-down')
 
                 const matchElemTopShapeY = topSpRangeChange.find((element) => rectSpBoundsY[0]-(homecenterInner.offsetHeight/2)+(sameNameH.height/2) < pos.y && pos.y < element.y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2))
 
+             
                 if(firstShape0Y === null){
                   const matchElemTopShapeX = topSpRangeChange.find((element) =>  element.x1-(homecenterInner.offsetWidth/2) < pos.x && pos.x < element.x2-(homecenterInner.offsetWidth/2))
                   if(matchElemTopShapeX && matchElemTopShapeX.y-(homecenterInner.offsetHeight/2) > minRectY){
@@ -1641,22 +1642,27 @@ document.querySelector('.caret-down')
                     firstShape2X0 = matchElemTopShapeX.x2;
                   }
                 }
+              
 
+               if(firstShapeX2 === null){
                 if(firstShapeX1 === null){
-                  const matchElemTopShapeX2 = topSpRangeChangeShapeX1.find((element) => element.x1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2) < pos.x && pos.y > minRectY)
+                  const matchElemTopShapeX2 = topSpRangeChange.find((element) => element.x1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2) < pos.x && pos.y > minRectY)
                   if(matchElemTopShapeX2 && matchElemTopShapeX2.y-(homecenterInner.offsetHeight/2) > minRectY){
                     firstShapeX1 = matchElemTopShapeX2.x1;
                     firstShape1Y = matchElemTopShapeX2.y;
                   }
                 }
+               }
 
+               if(firstShapeX1 === null){
                 if(firstShapeX2 === null){
-                  const matchElemTopShapeX3 = topSpRangeChange.find((element) => element.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2) > pos.x && pos.y > minRectY)
+                  const matchElemTopShapeX3 = topSpRangeChangeX2.find((element) => element.x2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2) > pos.x && pos.y > minRectY)
                   if(matchElemTopShapeX3 && matchElemTopShapeX3.y-(homecenterInner.offsetHeight/2) > minRectY){
                     firstShapeX2 = matchElemTopShapeX3.x2;
                     firstShape2Y = matchElemTopShapeX3.y;
                   }
                 }
+               }
         
 
  
@@ -1667,6 +1673,14 @@ document.querySelector('.caret-down')
                 console.log(first0Y)
                 console.log(first1X0)
                 console.log(first2X0)
+
+                console.log(firstShapeX1)
+                console.log(firstShape1Y)
+                console.log(firstShapeX2)
+                console.log(firstShape2Y)
+                console.log(firstShape0Y)
+                console.log(firstShape1X0)
+                console.log(firstShape2X0)
 
 
                 //ロックフラグ内の値が代入ごとに更新されなかったのは、スコープの問題だった。Layerコンストラクター外でロックフラグを設定することで改善。
@@ -1751,34 +1765,43 @@ document.querySelector('.caret-down')
                 first1Y = null;
                 first2Y = null;
               
-                if(matchElemTopShapeY){
-                  if(firstShapeX1-(homecenterInner.offsetWidth/2) < pos.x+(sameNameW.width/2) && firstShape1Y-(homecenterInner.offsetHeight/2) > minRectY){
-                    newX = firstShapeX1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2;
-                    lock = true;
-                  }else if(firstShapeX1-(homecenterInner.offsetWidth/2) > pos.x-(sameNameW.width/2) || pos.y < minRectY){
-                    firstShapeX1 = null;
-                    firstShape1Y = null;
-                    lock = false;
-                  }
-                  if(firstShapeX2 !== null && firstShape2Y !== null && firstShapeX2-(homecenterInner.offsetWidth/2) > pos.x-(sameNameW.width/2) && firstShape2Y-(homecenterInner.offsetHeight/2) > minRectY){
-                    newX = firstShapeX2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2;
-                    lock = true;
-                  }else if(firstShapeX2-(homecenterInner.offsetWidth/2) < pos.x+(sameNameW.width/2) || pos.y < minRectY){
-                      firstShapeX2 = null;
-                      firstShape2Y = null;
-                      lock = false;
-                  }
-                  firstShape1X0 = null;
-                  firstShape2X0 = null;
-                  firstShape0Y = null;
-                }else if(firstShape1X0-(homecenterInner.offsetWidth/2) < pos.x && pos.x < firstShape2X0-(homecenterInner.offsetWidth/2)){
+
+                if(firstShape1X0-(homecenterInner.offsetWidth/2) < pos.x && pos.x < firstShape2X0-(homecenterInner.offsetWidth/2)){
                   if(pos.y-(sameNameH.height/2) < firstShape0Y-(homecenterInner.offsetHeight/2) && firstShape0Y-(homecenterInner.offsetHeight/2) > minRectY){
                     newY = Math.max(newY,firstShape0Y-(homecenterInner.offsetHeight/2)+(sameNameH.height/2)+2);
-                  }else if(pos.y-(sameNameH.height/2) > firstShape0Y-(homecenterInner.offsetHeight/2) || pos.y < minRectY){
+                  }
+                  firstShapeX1 = null;
+                  firstShape1Y = null;
+                  firstShapeX2 = null;
+                  firstShape2Y = null;
+                }else if(firstShape1X0-(homecenterInner.offsetWidth/2) > pos.x || pos.y-(sameNameH.height/2) > firstShape0Y-(homecenterInner.offsetHeight/2)){
+                  firstShape0Y = null;
+                  firstShape1X0 = null;
+                  firstShape2X0 = null;
+                }else if(firstShape2X0-(homecenterInner.offsetWidth/2) < pos.x || pos.y-(sameNameH.height/2) > firstShape0Y-(homecenterInner.offsetHeight/2)){
+                  firstShape0Y = null;
+                  firstShape1X0 = null;
+                  firstShape2X0 = null;
+                }else if(pos.y-(sameNameH.height/2) < firstShape1Y-(homecenterInner.offsetHeight/2) && firstShape1Y-(homecenterInner.offsetHeight/2) > minRectY){
+                  if(firstShapeX1-(homecenterInner.offsetWidth/2) < pos.x){
+                    newX = firstShapeX1-(homecenterInner.offsetWidth/2)-(sameNameW.width/2)-2;
+                    firstShape0Y = null;
                     firstShape1X0 = null;
                     firstShape2X0 = null;
-                    firstShape0Y = null;
+                  }else if(firstShapeX1-(homecenterInner.offsetWidth/2) > pos.x){
+                    firstShapeX1 = null;
+                    firstShape1Y = null;
                   }
+                }else if(pos.y-(sameNameH.height/2) < firstShape2Y-(homecenterInner.offsetHeight/2) && firstShape2Y-(homecenterInner.offsetHeight/2) > minRectY){
+                  if(firstShapeX2-(homecenterInner.offsetWidth/2) > pos.x){
+                    newX = firstShapeX2-(homecenterInner.offsetWidth/2)+(sameNameW.width/2)+2;
+                    firstShape0Y = null;
+                    firstShape1X0 = null;
+                    firstShape2X0 = null;
+                  }else if(firstShapeX2-(homecenterInner.offsetWidth/2) < pos.x){
+                    firstShapeX2 = null;
+                    firstShape2Y = null;
+                  }//x1,x2に対するnullが役割する箇所を特定する
                 }
               };
 
