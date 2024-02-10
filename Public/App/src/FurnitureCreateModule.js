@@ -1,6 +1,13 @@
 
 module.exports = function furnitureCreate(){
 
+  document.querySelector('.furniture-createbtn').style.display = "none";
+
+  const furnitureForm = document.querySelector('.furniture-form');
+  const genreForm = document.querySelector('.genre-form');
+  furnitureForm.disabled = false;
+  genreForm.disabled = false;
+
  // 破線の間隔と破線の長さを設定
 const dashInterval = 10;
 const dashLength = 5;
@@ -219,6 +226,10 @@ function isMouseOnBorder(rectangle, x, y) {
          document.querySelector(".furniturecenter-outer").append(furnitureFormError);
          document.querySelector(".furniture-form-error").textContent = "※５文字以内で指定してください※";
        } else {
+
+        document.querySelector('.furniture-createbtn').style.display = "block";
+        furnitureForm.disabled = true;
+        genreForm.disabled = true;
 
         const sourceLayers = stage.getLayers(); // すべてのレイヤーの配列を取得
 

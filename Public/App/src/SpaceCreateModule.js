@@ -1,7 +1,29 @@
 
 module.exports = function spaceCreate(){
 
-  
+  document.querySelector('.space-createbtn').style.display = "none";
+  if(document.querySelector('.space-createbtn').style.display === 'none'){
+
+   document.querySelector('.space-resetbtn').style.display = "block";
+    
+  }
+
+  document.querySelector('.space-resetbtn').addEventListener("click",function(){
+    spaceForm.disabled = true;
+    spaceForm.value = "";
+    document.querySelector('.space-resetbtn').style.display = "none";
+    document.querySelector('.space-createbtn').style.display = "block";
+    while(document.querySelector('.spacecenter-inner').firstChild){
+      document.querySelector('.spacecenter-inner').removeChild(document.querySelector('.spacecenter-inner').firstChild);
+    }
+
+    
+  });
+
+  const spaceForm = document.querySelector('.space-form');
+  spaceForm.disabled = false;
+
+
 
  // 破線の間隔と破線の長さを設定
 const dashInterval = 10;
@@ -75,6 +97,7 @@ function isMouseOnBorder(rectangle, x, y) {
     width: spacecenterInner.offsetWidth,
     height: spacecenterInner.offsetHeight,
   });
+
   
   
   layer = new Konva.Layer(); // グローバル変数を使うために、constをletに変更
@@ -119,11 +142,11 @@ function isMouseOnBorder(rectangle, x, y) {
   div1.append(div2);
   spacecenterInner.append(div1);
 
-  
-  
+
   document.querySelector(".rectAngle-confirm").addEventListener("click",handleConfirm);
   
    function handleConfirm(){
+
 
     const size1 =document.querySelector(".rectAngle-SizeForm1").value;
     const size2 =document.querySelector(".rectAngle-SizeForm2").value;
@@ -165,7 +188,6 @@ function isMouseOnBorder(rectangle, x, y) {
 
     stage.on("click",handleClick2);
 
-    document.querySelector(".rectAngle-confirm").removeEventListener("click",handleConfirm);
 
     while (document.querySelector(".div1").lastChild) {
       document.querySelector(".div1").removeChild(document.querySelector(".div1").lastChild);
@@ -212,6 +234,9 @@ function isMouseOnBorder(rectangle, x, y) {
         document.querySelector(".space-form-error").textContent = "※この空間名は既に登録されています※";
        } else {
         
+        document.querySelector('.space-resetbtn').style.display = "none";
+        document.querySelector('.space-createbtn').style.display = "block";
+        spaceForm.disabled = true;
 
         const sourceLayers = stage.getLayers(); // すべてのレイヤーの配列を取得
 

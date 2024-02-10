@@ -208,16 +208,28 @@ document.querySelector('.caret-down')
 
 
 
-
  // 空間新規作成ボタンがクリックされたときの処理
-  const spaceCreate  = require('src/SpaceCreateModule');
+  const spaceResetBtn = document.createElement('button');
+  spaceResetBtn.classList.add("space-resetbtn");
+  spaceResetBtn.append("リセット");
+  document.querySelector('.spacecenter-outer').append(spaceResetBtn);
+  document.querySelector('.space-resetbtn').style.display = "none";
 
-  const spaceCreateBtn = document.querySelector('.space-createbtn');
+  const spaceCreate  = require('src/SpaceCreateModule');
+  const spaceForm = document.querySelector('.space-form');
+  spaceForm.disabled = true;
+  const spaceCreateBtn = document.querySelector('.space-createbtn')
+
   spaceCreateBtn.addEventListener('click', spaceCreate);
+
+
 
  // 家具新規作成ボタンがクリックされたときの処理
   const furnitureCreate  = require('src/FurnitureCreateModule');
-
+  const furnitureForm = document.querySelector('.furniture-form');
+  const genreForm = document.querySelector('.genre-form');
+  furnitureForm.disabled = true;
+  genreForm.disabled = true;
   const furnitureCreateBtn = document.querySelector('.furniture-createbtn');
   furnitureCreateBtn.addEventListener('click', furnitureCreate);
 

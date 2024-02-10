@@ -360,6 +360,27 @@ button{
   box-shadow: 0 8px #008000;
 }
 
+.space-resetbtn {
+  position: absolute;
+  margin-left:1000px;
+  margin-top: -675px;
+  width: 100px;
+  height: 40px;
+  border: none;
+  background-color: #af4c51;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px #80001c;
+  transition: all 0.3s ease;
+}
+
+/* ボタンがホバーされたときのスタイル */
+.space-resetbtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #80001c;
+}
+
 
 .space-form{
   position: absolute;
@@ -1449,6 +1470,10 @@ button{
   text-align: center;
 
 }
+.div1{
+  margin-left: -750px;
+  margin-top: -288px;
+}
 
 .div2{
   position: absolute;
@@ -1459,6 +1484,11 @@ button{
   margin-top: -385px;
   margin-left: 425px;
   background-color: rgb(13, 141, 158);
+}
+
+.div3{
+  margin-left: -750px;
+  margin-top: -288px;
 }
 
 .div4{
@@ -1472,6 +1502,11 @@ button{
   background-color: rgb(13, 141, 158);
 }
 
+.div5{
+  margin-left: -750px;
+  margin-top: -288px;
+}
+
 .div6{
   position: absolute;
   border-width: 2px;
@@ -1481,6 +1516,11 @@ button{
   margin-top: -385px;
   margin-left: 425px;
   background-color: rgb(13, 141, 158);
+}
+
+.div7{
+  margin-left: -750px;
+  margin-top: -288px;
 }
 
 .div8{
@@ -1494,6 +1534,11 @@ button{
   background-color: rgb(13, 141, 158);
 }
 
+.div9{
+  margin-left: -750px;
+  margin-top: -288px;
+}
+
 .div10{
   position: absolute;
   border-width: 2px;
@@ -1503,6 +1548,11 @@ button{
   margin-top: -385px;
   margin-left: 425px;
   background-color: rgb(13, 141, 158);
+}
+
+.div11{
+  margin-left: -750px;
+  margin-top: -288px;
 }
 
 .div12{
@@ -1516,6 +1566,11 @@ button{
   background-color: rgb(13, 141, 158);
 }
 
+.div13{
+  margin-left: -750px;
+  margin-top: -288px;
+}
+
 .div14{
   position: absolute;
   border-width: 2px;
@@ -1525,6 +1580,11 @@ button{
   margin-top: -385px;
   margin-left: 425px;
   background-color: rgb(13, 141, 158);
+}
+
+.div15{
+  margin-left: -750px;
+  margin-top: -288px;
 }
 
 .div16{
@@ -1538,6 +1598,11 @@ button{
   background-color: rgb(13, 141, 158);
 }
 
+.div17{
+  margin-left: -750px;
+  margin-top: -288px;
+}
+
 .div18{
   position: absolute;
   border-width: 2px;
@@ -1547,6 +1612,11 @@ button{
   margin-top: -385px;
   margin-left: 425px;
   background-color: rgb(13, 141, 158);
+}
+
+.div19{
+  margin-left: -750px;
+  margin-top: -288px;
 }
 
 .div20{
@@ -1560,6 +1630,11 @@ button{
   background-color: rgb(13, 141, 158);
 }
 
+.div21{
+  margin-left: -750px;
+  margin-top: -288px;
+}
+
 .div22{
   position: absolute;
   border-width: 2px;
@@ -1569,6 +1644,11 @@ button{
   margin-top: -385px;
   margin-left: 425px;
   background-color: rgb(13, 141, 158);
+}
+
+.div23{
+  margin-left: -750px;
+  margin-top: -288px;
 }
 
 .div24{
@@ -2002,3 +2082,4 @@ button{
   transform: scale(1.1);
   box-shadow: 0 8px #802900;
 }
+
