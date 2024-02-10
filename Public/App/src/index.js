@@ -219,12 +219,18 @@ document.querySelector('.caret-down')
   const spaceForm = document.querySelector('.space-form');
   spaceForm.disabled = true;
   const spaceCreateBtn = document.querySelector('.space-createbtn')
-
   spaceCreateBtn.addEventListener('click', spaceCreate);
 
 
 
+
  // 家具新規作成ボタンがクリックされたときの処理
+  const furnitureResetBtn = document.createElement('button');
+  furnitureResetBtn.classList.add("furniture-resetbtn");
+  furnitureResetBtn.append("リセット");
+  document.querySelector('.furniturecenter-outer').append(furnitureResetBtn);
+  document.querySelector('.furniture-resetbtn').style.display = "none";
+
   const furnitureCreate  = require('src/FurnitureCreateModule');
   const furnitureForm = document.querySelector('.furniture-form');
   const genreForm = document.querySelector('.genre-form');

@@ -2,11 +2,36 @@
 module.exports = function furnitureCreate(){
 
   document.querySelector('.furniture-createbtn').style.display = "none";
+  if(document.querySelector('.furniture-createbtn').style.display === 'none'){
+
+   document.querySelector('.furniture-resetbtn').style.display = "block";
+    
+  }
+
+  document.querySelector('.furniture-resetbtn').addEventListener("click",furnitureReset);
+  function furnitureReset(){
+    furnitureForm.disabled = true;
+    genreForm.disabled = true;
+    furnitureForm.value = "";
+    genreForm.value = "";
+    document.querySelector('.furniture-resetbtn').style.display = "none";
+    document.querySelector('.furniture-createbtn').style.display = "block";
+    while(document.querySelector('.furniturecenter-inner').firstChild){
+      document.querySelector('.furniturecenter-inner').removeChild(document.querySelector('.furniturecenter-inner').firstChild);
+    }
+    layer = null;
+    document.querySelector('.furniture-resetbtn').removeEventListener("click",furnitureReset);
+    console.log(layer)
+  };
 
   const furnitureForm = document.querySelector('.furniture-form');
   const genreForm = document.querySelector('.genre-form');
   furnitureForm.disabled = false;
   genreForm.disabled = false;
+
+
+
+
 
  // 破線の間隔と破線の長さを設定
 const dashInterval = 10;
@@ -182,6 +207,8 @@ function isMouseOnBorder(rectangle, x, y) {
     
     function furnitureAdd(){
 
+      if(layer !== null){
+
       const furnitureForm = document.querySelector('.furniture-form');
       const genreForm = document.querySelector('.genre-form');
       const furnitureFormValue = furnitureForm.value;
@@ -227,6 +254,7 @@ function isMouseOnBorder(rectangle, x, y) {
          document.querySelector(".furniture-form-error").textContent = "※５文字以内で指定してください※";
        } else {
 
+        document.querySelector('.furniture-resetbtn').style.display = "none";
         document.querySelector('.furniture-createbtn').style.display = "block";
         furnitureForm.disabled = true;
         genreForm.disabled = true;
@@ -427,6 +455,7 @@ fetch('/user-data2', {
           } 
       });
 
+    }
     };
 
     document.querySelector('.furniture-compbtn').addEventListener('click', furnitureComp);

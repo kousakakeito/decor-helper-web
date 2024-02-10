@@ -8,7 +8,8 @@ module.exports = function spaceCreate(){
     
   }
 
-  document.querySelector('.space-resetbtn').addEventListener("click",function(){
+  document.querySelector('.space-resetbtn').addEventListener("click",spaceReset);
+  function spaceReset(){
     spaceForm.disabled = true;
     spaceForm.value = "";
     document.querySelector('.space-resetbtn').style.display = "none";
@@ -16,9 +17,10 @@ module.exports = function spaceCreate(){
     while(document.querySelector('.spacecenter-inner').firstChild){
       document.querySelector('.spacecenter-inner').removeChild(document.querySelector('.spacecenter-inner').firstChild);
     }
-
-    
-  });
+    layer = null;
+    document.querySelector('.space-resetbtn').removeEventListener("click",spaceReset);
+    console.log(layer)
+  };
 
   const spaceForm = document.querySelector('.space-form');
   spaceForm.disabled = false;
@@ -196,10 +198,11 @@ function isMouseOnBorder(rectangle, x, y) {
     document.querySelector(".div1").parentNode.removeChild(document.querySelector(".div1"));
 
 
-
     document.querySelector('.space-compbtn').addEventListener('click', spaceComp); 
     
     function spaceComp(){
+
+      if(layer !== null){
 
       const spaceForm = document.querySelector('.space-form');
       const spaceFormValue = spaceForm.value;
@@ -371,6 +374,7 @@ fetch('/get-new-data')
   });
 
   layer.destroy();
+
   spaceForm.value = "";
   const errorElement = document.querySelector(".space-form-error");
   if (errorElement && errorElement.textContent !== "") {
@@ -378,6 +382,7 @@ fetch('/get-new-data')
   }  
 
   document.querySelector('.space-compbtn').removeEventListener('click', spaceComp);
+
         
         
         
@@ -393,14 +398,14 @@ fetch('/get-new-data')
        };
     
   
+      };
   
     };
   
-   
+    
     }
   
 
   };
-
 
 };

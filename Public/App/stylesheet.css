@@ -381,6 +381,27 @@ button{
   box-shadow: 0 8px #80001c;
 }
 
+.furniture-resetbtn {
+  position: absolute;
+  margin-left:1000px;
+  margin-top: -675px;
+  width: 100px;
+  height: 40px;
+  border: none;
+  background-color: #af4c51;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 4px #80001c;
+  transition: all 0.3s ease;
+}
+
+/* ボタンがホバーされたときのスタイル */
+.furniture-resetbtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px #80001c;
+}
+
 
 .space-form{
   position: absolute;
