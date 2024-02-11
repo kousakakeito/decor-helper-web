@@ -237,7 +237,7 @@ function isMouseOnBorder(rectangle, x, y) {
         furnitureFormError.classList.add("furniture-form-error");
         document.querySelector(".furniturecenter-outer").append(furnitureFormError);
         document.querySelector(".furniture-form-error").textContent = "※５文字以内で指定してください※";
-       }  else if (isDuplicateValuePresent("家具名:"+furnitureFormValue+"削除", ul.querySelectorAll("li"))) {
+       }  else if (isDuplicateValuePresent("家具名:"+furnitureFormValue, ul.querySelectorAll("li"))) {
         const furnitureFormError = document.createElement("p");
         furnitureFormError.classList.add("furniture-form-error");
         document.querySelector(".furniturecenter-outer").append(furnitureFormError);
@@ -480,6 +480,10 @@ fetch('/user-data2', {
           .then(data => {
             console.log('Server response:', data);
             // サーバーからのレスポンスを処理
+           if (document.querySelector('.genre-checktext').textContent !== "全て表示"){
+            document.querySelector('.genre-checktext').textContent = "";
+            document.querySelector('.genre-checktext').textContent = "全て表示";
+           }
             const ul = document.querySelector('.furniture-list');
             ul.innerHTML = ''; // リストをクリア
         
@@ -544,135 +548,6 @@ fetch('/user-data2', {
                checkHome.name = "checkHome";
                li.append(checkHome, label);
                ol.appendChild(li);
-              });
-
-
-              let checkHome = document.querySelectorAll('[name=checkHome]');
-              const genreDropdown = document.querySelector('.genre-dropdown');
-              
-              genreDropdown.addEventListener('click', function (event) {
-                  const target = event.target.closest('li');
-                  
-                  if (target) {
-                      const checkbox = target.querySelector('[name="checkHome"]');
-                      
-                      if (checkbox) {
-                          if (checkbox.checked) {
-                            if (target.textContent === "全て表示") {
-                              fetch('/user-data7', {
-                                method: 'POST', 
-                              })
-                                .then(response => {
-                                  if (!response.ok) {
-                                    throw new Error('Network response was not ok');
-                                  }
-                                  return response.json();
-                                })
-                                .then(data => {
-
-                                  setTimeout(() => {
-
-                                  const ul = document.querySelector('.furniture-list');
-                                 
-                                  console.log(data);
-                                  // dataをulに追加
-                                  data.forEach(item => {
-                                    
-                                    const newlist = document.createElement('li');
-                                    newlist.textContent = item;
-                                    newlist.classList.add("add-list2");
-                                    const addBtn = document.createElement("button");
-                                    addBtn.append("追加");
-                                    addBtn.classList.add("addBtn");
-                                    const cancelBtn = document.createElement("button");
-                                    cancelBtn.append("取消");
-                                    cancelBtn.classList.add("cancelBtn");
-                                    const editBtn = document.createElement("button");
-                                    const trash = document.createElement("i");
-                                    trash.classList.add("fa-solid")
-                                    trash.classList.add("fa-trash-can")
-                                    editBtn.append(trash);
-                                    editBtn.classList.add("editBtn");
-                                    const btnBox = document.createElement("div");
-                                    btnBox.classList.add("btn-box");
-                                    btnBox.append(addBtn,cancelBtn,editBtn);
-                                    newlist.append(btnBox);
-                                    ul.appendChild(newlist);
-                                  });
-                                },350);
-                                });
-
-                            };
-                              checkHome.forEach((checkbox) => {
-                                  checkbox.checked = false;
-                              });
-                              checkbox.checked = true;
-                              const checkText = target.textContent;
-                              setTimeout(() => {
-                                  genreDropdown.classList.remove('is-open');
-                                  document.querySelector('.caret-down').innerHTML = '<i class="fa-solid fa-caret-down"></i>';
-                                  target.remove();
-              
-                                  const genreText = document.querySelector('.genre-checktext').textContent;
-                                  document.querySelector('.genre-checktext').textContent = '';
-                                  document.querySelector('.genre-checktext').textContent = checkText;
-              
-                                  const list = document.createElement('li');
-                                  const label = document.createElement('label');
-                                  label.classList.add('li-label');
-                                  label.textContent = genreText;
-                                  const newCheckbox = document.createElement('input');
-                                  newCheckbox.type = 'checkbox';
-                                  newCheckbox.name = 'checkHome';
-                                  list.append(newCheckbox, label);
-                                  ol.appendChild(list);
-              
-                                  checkHome = document.querySelectorAll('[name=checkHome]');
-
-                                  fetch('/user-data6', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-Type': 'application/json',
-                                    },
-                                    body: JSON.stringify({ checkText }),
-                                })
-                                .then(response => response.json())
-                                .then(data => {
-                                    const ul = document.querySelector('.furniture-list');
-                                    ul.innerHTML = ''; 
-                                    
-                                    // dataをulに追加
-                                    data.forEach(item => {
-                                      
-                                      const newlist = document.createElement('li');
-                                      newlist.textContent = item;
-                                      newlist.classList.add("add-list2");
-                                      const addBtn = document.createElement("button");
-                                      addBtn.append("追加");
-                                      addBtn.classList.add("addBtn");
-                                      const cancelBtn = document.createElement("button");
-                                      cancelBtn.append("取消");
-                                      cancelBtn.classList.add("cancelBtn");
-                                      const editBtn = document.createElement("button");
-                                      const trash = document.createElement("i");
-                                      trash.classList.add("fa-solid")
-                                      trash.classList.add("fa-trash-can")
-                                      editBtn.append(trash);
-                                      editBtn.classList.add("editBtn");
-                                      const btnBox = document.createElement("div");
-                                      btnBox.classList.add("btn-box");
-                                      btnBox.append(addBtn,cancelBtn,editBtn);
-                                      newlist.append(btnBox);
-                                      ul.appendChild(newlist);
-                                    });
-                                })
-                                .catch(error => {
-                                    console.error('Error:', error);
-                                });
-                              }, 300);
-                          }
-                      }
-                  }
               });
               
             })
