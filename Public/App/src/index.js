@@ -81,10 +81,12 @@ function changeBackgroundColor(color) {
 
 // タブ切り替えのイベントリスナーを設定
 const tabs = document.querySelectorAll('.tab');
+const tab2 = document.querySelector('.tab2');
 tabs.forEach(tab => {
   
    // すべてのタブからactiveクラスを削除
  tabs.forEach(t => t.classList.remove('active'));
+ tab2.classList.remove('active')
  const homeTab = document.querySelector('[data-target="content-home"]');
  homeTab.classList.add('active');
 
@@ -98,6 +100,7 @@ tabs.forEach(tab => {
 
     // すべてのタブの色を元に戻す
     tabs.forEach(t => t.classList.remove('active'));
+    tab2.classList.remove('active')
 
     // クリックされたタブに色を付ける
     tab.classList.add('active');
@@ -118,6 +121,11 @@ tabs.forEach(tab => {
     // クリックされたタブに対応するコンテンツを表示する
     content.style.display = 'block';
   });
+});
+
+tab2.addEventListener('click', () => {
+  tabs.forEach(t => t.classList.remove('active'));
+  tab2.classList.add('active');
 });
 
 // 設定タブのドロップダウンメニューの表示・非表示を切り替える
@@ -336,7 +344,7 @@ document.querySelector('.caret-down')
 
 
 
-  
+
 
 
  // 空間新規作成ボタンがクリックされたときの処理

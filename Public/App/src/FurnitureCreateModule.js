@@ -19,6 +19,9 @@ module.exports = function furnitureCreate(){
     while(document.querySelector('.furniturecenter-inner').firstChild){
       document.querySelector('.furniturecenter-inner').removeChild(document.querySelector('.furniturecenter-inner').firstChild);
     }
+    if(document.querySelector(".furniture-form-error").textContent !== ""){
+      document.querySelector(".furniture-form-error").textContent = "";
+    }
     layer = null;
     document.querySelector('.furniture-resetbtn').removeEventListener("click",furnitureReset);
     console.log(layer)

@@ -86,7 +86,6 @@ header {
   color:orangered;
 }
 
-
 .tab::after {
   content: '';
   position: absolute;
@@ -103,6 +102,37 @@ header {
   opacity: 1;
   width: 100%; /* アクティブなタブで下線の幅を100%にする（右から左に伸びる） */
 }
+
+.tab2 {
+  position: relative;
+  font-size: 18px;
+  cursor: pointer;
+  font-size: 25px;
+  margin-left: 100px;
+  color: orange;
+}
+
+.tab2:hover {
+  color:orangered;
+}
+
+.tab2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0; /* 初期状態で下線の幅を0に設定 */
+  height: 1px;
+  background-color: dimgrey;
+  opacity: 0;
+  transition: width 0.5s ease; /* アニメーションの設定：幅を0.3秒かけて変化させる */
+}
+
+.tab2.active::after {
+  opacity: 1;
+  width: 100%; /* アクティブなタブで下線の幅を100%にする（右から左に伸びる） */
+}
+
 
 
 .user-info {
@@ -167,9 +197,11 @@ header {
   padding-right: 12px;
 }
 
+.tab2 i {
+  padding-right: 12px;
+}
 
-
-.tab .fa-wrench{
+.tab2 .fa-wrench{
   margin-top: 5px;
 }
 

@@ -17,6 +17,9 @@ module.exports = function spaceCreate(){
     while(document.querySelector('.spacecenter-inner').firstChild){
       document.querySelector('.spacecenter-inner').removeChild(document.querySelector('.spacecenter-inner').firstChild);
     }
+    if(document.querySelector(".space-form-error").textContent !== ""){
+      document.querySelector(".space-form-error").textContent = "";
+    }
     layer = null;
     document.querySelector('.space-resetbtn').removeEventListener("click",spaceReset);
     console.log(layer)
@@ -230,7 +233,7 @@ function isMouseOnBorder(rectangle, x, y) {
         spaceFormError.classList.add("space-form-error");
         document.querySelector(".spacecenter-outer").append(spaceFormError);
         document.querySelector(".space-form-error").textContent = "※５文字以内で指定してください※";
-       }  else if (isDuplicateValuePresent(spaceFormValue+"追加"+"取消"+"編集", ul.querySelectorAll("li"))) {
+       }  else if (isDuplicateValuePresent(spaceFormValue+"追加"+"取消", ul.querySelectorAll("li"))) {
         const spaceFormError = document.createElement("p");
         spaceFormError.classList.add("space-form-error");
         document.querySelector(".spacecenter-outer").append(spaceFormError);
