@@ -194,7 +194,7 @@ function isMouseOnBorder(rectangle, x, y) {
 
     stage.on("click",handleClick2);
 
-    document.querySelector(".rectAngle-confirm").removeEventListener("click",handleConfirm);
+
 
     while (document.querySelector(".div1").lastChild) {
       document.querySelector(".div1").removeChild(document.querySelector(".div1").lastChild);
@@ -462,6 +462,7 @@ fetch('/user-data2', {
     
     function furnitureComp(){
 
+
       const ul = document.querySelector('.furniture-addlist'); // あなたのul要素の適切なセレクタを使用して取得します
       const liElements = ul.querySelectorAll('li');
 
@@ -538,22 +539,22 @@ fetch('/user-data2', {
                const label = document.createElement('label');
                label.classList.add("li-label");
                label.textContent = genreFormValue;
-               const check = document.createElement("input");
-               check.type = "checkbox";
-               check.name = "check";
-               li.append(check, label);
+               const checkHome = document.createElement("input");
+               checkHome.type = "checkbox";
+               checkHome.name = "checkHome";
+               li.append(checkHome, label);
                ol.appendChild(li);
               });
 
 
-              let check = document.querySelectorAll('[name=check]');
+              let checkHome = document.querySelectorAll('[name=checkHome]');
               const genreDropdown = document.querySelector('.genre-dropdown');
               
               genreDropdown.addEventListener('click', function (event) {
                   const target = event.target.closest('li');
                   
                   if (target) {
-                      const checkbox = target.querySelector('[name="check"]');
+                      const checkbox = target.querySelector('[name="checkHome"]');
                       
                       if (checkbox) {
                           if (checkbox.checked) {
@@ -602,7 +603,7 @@ fetch('/user-data2', {
                                 });
 
                             };
-                              check.forEach((checkbox) => {
+                              checkHome.forEach((checkbox) => {
                                   checkbox.checked = false;
                               });
                               checkbox.checked = true;
@@ -622,11 +623,11 @@ fetch('/user-data2', {
                                   label.textContent = genreText;
                                   const newCheckbox = document.createElement('input');
                                   newCheckbox.type = 'checkbox';
-                                  newCheckbox.name = 'check';
+                                  newCheckbox.name = 'checkHome';
                                   list.append(newCheckbox, label);
                                   ol.appendChild(list);
               
-                                  check = document.querySelectorAll('[name=check]');
+                                  checkHome = document.querySelectorAll('[name=checkHome]');
 
                                   fetch('/user-data6', {
                                     method: 'POST',
@@ -680,11 +681,11 @@ fetch('/user-data2', {
               // エラー処理
             });
         
-        
-        
+      
 
-          
+            document.querySelector('.furniture-compbtn').removeEventListener('click', furnitureComp);
 
+            
  
       } else {
         const furnitureFormError = document.createElement("p");
@@ -693,6 +694,8 @@ fetch('/user-data2', {
         document.querySelector(".furniture-form-error").textContent = "※家具を追加後に保存をクリックしてください※";
       
       }
+
+      
 
     };
 

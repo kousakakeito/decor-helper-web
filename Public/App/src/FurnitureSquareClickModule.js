@@ -1,6 +1,7 @@
 
 
 module.exports = function handleClick(stage,dots,rectangle,isMouseOnBorder,layer,dashedLine,drawDashedLine,midRect,furniturecenterInner,handleClick2){
+
     
   const pointerPos = stage.getPointerPosition();
   const x = pointerPos.x;
