@@ -246,6 +246,33 @@ router.post('/user-data7', (req, res) => {
   });
 });
 
+router.post('/user-data8', authenticateSession, async (req, res) => {
+  const username = req.session.username;
+  const furnitureFormValue = req.body.furnitureFormValue; // クライアントから送信されたデータ
+
+  console.log(furnitureFormValue);
+
+  // furnitureFormValue と一致するデータを furniture テーブルから検索
+  const searchFurnitureSql = 'SELECT * FROM furniture WHERE username = ? AND JSON_EXTRACT(furniture_data, "$.furnitureFormValue") = ?';
+  const values = [username, furnitureFormValue];
+
+  connection.query(searchFurnitureSql, values, (error, results, fields) => {
+    if (error) {
+      console.error('Error searching for furniture data:', error);
+      res.status(500).send('An error occurred while searching for furniture data.');
+    } else {
+      if (results.length > 0) {
+        console.log('Matching furniture data found.');
+        res.json({ exists: true });
+      } else {
+        console.log('No matching furniture data found.');
+        res.json({ exists: false });
+      }
+    }
+  });
+});
+
+
 
 
 

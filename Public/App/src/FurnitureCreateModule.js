@@ -214,196 +214,225 @@ function isMouseOnBorder(rectangle, x, y) {
       const furnitureFormValue = furnitureForm.value;
       const genreFormValue = genreForm.value;
       const ul = document.querySelector(".furniture-addlist");
+      
 
-      function isDuplicateValuePresent(value, elements) {
-        let isDuplicate = false;
-        elements.forEach(element => {
-          if (element.textContent.trim() === value) {
-            isDuplicate = true;
-            return;
-          }
-        });
-        return isDuplicate;
-      };
+      fetch('/user-data8', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({furnitureFormValue}),
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json(); // レスポンスボディをJSONとして解析
+      })
+      .then(flag => {
+        console.log(flag); // サーバーからのレスポンスをログに出力
 
+        function isDuplicateValuePresent(value, elements) {
+          let isDuplicate = false;
+          elements.forEach(element => {
+            if (element.textContent.trim() === value) {
+              isDuplicate = true;
+              return;
+            }
+          });
+          return isDuplicate;
+        };
   
-       if( furnitureFormValue === ""){
-         const furnitureFormError = document.createElement("p");
-         furnitureFormError.classList.add("furniture-form-error");
-         document.querySelector(".furniturecenter-outer").append(furnitureFormError);
-         document.querySelector(".furniture-form-error").textContent = "※家具名を入力してください※";
-       } else if(furnitureFormValue.length >= 6){
-        const furnitureFormError = document.createElement("p");
-        furnitureFormError.classList.add("furniture-form-error");
-        document.querySelector(".furniturecenter-outer").append(furnitureFormError);
-        document.querySelector(".furniture-form-error").textContent = "※５文字以内で指定してください※";
-       }  else if (isDuplicateValuePresent("家具名:"+furnitureFormValue, ul.querySelectorAll("li"))) {
-        const furnitureFormError = document.createElement("p");
-        furnitureFormError.classList.add("furniture-form-error");
-        document.querySelector(".furniturecenter-outer").append(furnitureFormError);
-        document.querySelector(".furniture-form-error").textContent = "※この家具名は既に追加されています※";
-        } else if( genreFormValue === ""){
+    
+         if( furnitureFormValue === ""){
+           const furnitureFormError = document.createElement("p");
+           furnitureFormError.classList.add("furniture-form-error");
+           document.querySelector(".furniturecenter-outer").append(furnitureFormError);
+           document.querySelector(".furniture-form-error").textContent = "※家具名を入力してください※";
+         } else if(furnitureFormValue.length >= 6){
           const furnitureFormError = document.createElement("p");
           furnitureFormError.classList.add("furniture-form-error");
           document.querySelector(".furniturecenter-outer").append(furnitureFormError);
-          document.querySelector(".furniture-form-error").textContent = "※ジャンル名を入力してください※";
-        } else if(genreFormValue.length >= 6){
-         const furnitureFormError = document.createElement("p");
-         furnitureFormError.classList.add("furniture-form-error");
-         document.querySelector(".furniturecenter-outer").append(furnitureFormError);
-         document.querySelector(".furniture-form-error").textContent = "※５文字以内で指定してください※";
-       } else {
-
-        document.querySelector('.furniture-resetbtn').style.display = "none";
-        document.querySelector('.furniture-createbtn').style.display = "block";
-        furnitureForm.disabled = true;
-        genreForm.disabled = true;
-
-        const sourceLayers = stage.getLayers(); // すべてのレイヤーの配列を取得
-
-
-        const layerData = {
-          layers: [],  // レイヤーの情報を格納する配列
-        };
-        
-        sourceLayers.forEach(layer => {
-          const layerInfo = {
-            name: furnitureFormValue,  // レイヤーの名前を取得
-            children: [],      // 子要素の情報を格納する配列
-          };
-
-          function getShapeType(shape) {
-            if (shape instanceof Konva.Rect) {
-              return "Rect";
-            } else if (shape instanceof Konva.Line) {
-              return "Line";
-            } else if (shape instanceof Konva.Shape) {
-              return "Shape";
-            } 
+          document.querySelector(".furniture-form-error").textContent = "※５文字以内で指定してください※";
+         }  else if (isDuplicateValuePresent("家具名:"+furnitureFormValue, ul.querySelectorAll("li"))) {
+          const furnitureFormError = document.createElement("p");
+          furnitureFormError.classList.add("furniture-form-error");
+          document.querySelector(".furniturecenter-outer").append(furnitureFormError);
+          document.querySelector(".furniture-form-error").textContent = "※この家具名は既に追加されています※";
+          } else if(flag.exists){
+            const furnitureFormError = document.createElement("p");
+            furnitureFormError.classList.add("furniture-form-error");
+            document.querySelector(".furniturecenter-outer").append(furnitureFormError);
+            document.querySelector(".furniture-form-error").textContent = "※この家具名は既に保存されています※";
+          } else if( genreFormValue === ""){
+            const furnitureFormError = document.createElement("p");
+            furnitureFormError.classList.add("furniture-form-error");
+            document.querySelector(".furniturecenter-outer").append(furnitureFormError);
+            document.querySelector(".furniture-form-error").textContent = "※ジャンル名を入力してください※";
+          } else if(genreFormValue.length >= 6){
+           const furnitureFormError = document.createElement("p");
+           furnitureFormError.classList.add("furniture-form-error");
+           document.querySelector(".furniturecenter-outer").append(furnitureFormError);
+           document.querySelector(".furniture-form-error").textContent = "※５文字以内で指定してください※";
+         } else {
+  
+          document.querySelector('.furniture-resetbtn').style.display = "none";
+          document.querySelector('.furniture-createbtn').style.display = "block";
+          furnitureForm.disabled = true;
+          genreForm.disabled = true;
+  
+          const sourceLayers = stage.getLayers(); // すべてのレイヤーの配列を取得
+  
+  
+          const layerData = {
+            layers: [],  // レイヤーの情報を格納する配列
           };
           
-          layer.getChildren().forEach(shape => {
-            const shapeType = getShapeType(shape);
-            if (shapeType === "Rect") {
-            const rectData = {
-              type: shape.getType(),   // シェイプの種類（Rect、Circle など）
-              x: shape.x(),
-              y: shape.y(),
-              width: shape.width(),
-              height: shape.height(),
-              fill: shape.fill(),    
+          sourceLayers.forEach(layer => {
+            const layerInfo = {
+              name: furnitureFormValue,  // レイヤーの名前を取得
+              children: [],      // 子要素の情報を格納する配列
             };
-            layerInfo.children.push(rectData); // 子要素の情報を配列に追加
-          }
-
-          if (shapeType === "Line") {
-            const lineData = {
-              type: shape.getType(),   // シェイプの種類（Rect、Circle など）
-              points: shape.points(),
-              stroke: shape.stroke(), // 線の色
-              strokeWidth: shape.strokeWidth(), // 線の太さ
-              closed: shape.closed(), // 閉じた形状として描画
-              fill: shape.fill(),    
+  
+            function getShapeType(shape) {
+              if (shape instanceof Konva.Rect) {
+                return "Rect";
+              } else if (shape instanceof Konva.Line) {
+                return "Line";
+              } else if (shape instanceof Konva.Shape) {
+                return "Shape";
+              } 
             };
-            layerInfo.children.push(lineData); // 子要素の情報を配列に追加
-          }
-
-
-
-
-          if (shapeType === "Shape") {
-            const shapeData = {
-              type: shape.getType(),
-              clear: shape.clear,
-              clearLine1 : shape.clearLine1,
-              clearLine2 : shape.clearLine2,
-              clearLine3 : shape.clearLine3,
-            };
-            layerInfo.children.push(shapeData);
-          }
-
-          console.log(shape.clear);
             
-            
+            layer.getChildren().forEach(shape => {
+              const shapeType = getShapeType(shape);
+              if (shapeType === "Rect") {
+              const rectData = {
+                type: shape.getType(),   // シェイプの種類（Rect、Circle など）
+                x: shape.x(),
+                y: shape.y(),
+                width: shape.width(),
+                height: shape.height(),
+                fill: shape.fill(),    
+              };
+              layerInfo.children.push(rectData); // 子要素の情報を配列に追加
+            }
+  
+            if (shapeType === "Line") {
+              const lineData = {
+                type: shape.getType(),   // シェイプの種類（Rect、Circle など）
+                points: shape.points(),
+                stroke: shape.stroke(), // 線の色
+                strokeWidth: shape.strokeWidth(), // 線の太さ
+                closed: shape.closed(), // 閉じた形状として描画
+                fill: shape.fill(),    
+              };
+              layerInfo.children.push(lineData); // 子要素の情報を配列に追加
+            }
+  
+  
+  
+  
+            if (shapeType === "Shape") {
+              const shapeData = {
+                type: shape.getType(),
+                clear: shape.clear,
+                clearLine1 : shape.clearLine1,
+                clearLine2 : shape.clearLine2,
+                clearLine3 : shape.clearLine3,
+              };
+              layerInfo.children.push(shapeData);
+            }
+  
+            console.log(shape.clear);
+              
+              
+            });
+          
+            layerData.layers.push(layerInfo); // レイヤーの情報を配列に追加
           });
-        
-          layerData.layers.push(layerInfo); // レイヤーの情報を配列に追加
-        });
-        
-        
-
-
-  const newData = {
-    furnitureFormValue: furnitureFormValue,
-    genreFormValue: genreFormValue,
-    layerData: layerData,
-  };
-
-    // /user-data の fetch 処理
-fetch('/user-data2', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(newData),
-})
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
+          
+          
+  
+  
+    const newData = {
+      furnitureFormValue: furnitureFormValue,
+      genreFormValue: genreFormValue,
+      layerData: layerData,
+    };
+  
+      // /user-data の fetch 処理
+  fetch('/user-data2', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newData),
   })
-  .then(data => {
-    console.log('Server response:', data);
-    // サーバーからのレスポンスを処理
-  })
-  .catch(error => {
-    console.error('Error:', error);
-    // エラー処理
-  });
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Server response:', data);
+      // サーバーからのレスポンスを処理
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      // エラー処理
+    });
+  
+  
+    fetch('/get-new-data2')
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      const list = document.createElement("li");
+      list.classList.add("add-list3");
+      const furnitureTextNode = document.createTextNode("家具名:" + furnitureFormValue);
+      list.append(furnitureTextNode);
+      const deleteBtn = document.createElement("button");
+      const trash = document.createElement("i");
+      trash.classList.add("fa-solid")
+      trash.classList.add("fa-trash-can")
+      deleteBtn.append(trash);
+      deleteBtn.classList.add("deleteBtn");
+      const btnBox = document.createElement("div");
+      btnBox.classList.add("btn-box2");
+      btnBox.append(deleteBtn);
+      list.append(btnBox);
+      document.querySelector('.furniture-addlist').append(list);
+    })
+    .catch(error => {
+      console.error('Error getting new data:', error);
+      // エラー処理
+    });
+  
+  
+    layer.destroy();
+    furnitureForm.value = "";
+    genreForm.value = "";
+    const errorElement = document.querySelector(".furniture-form-error");
+    if (errorElement && errorElement.textContent !== "") {
+        errorElement.textContent = "";
+    }  
+  
+    document.querySelector('.furniture-addbtn').removeEventListener('click', furnitureAdd);
+  
+         };
+ 
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+      
 
-
-  fetch('/get-new-data2')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-    return response.json();
-  })
-  .then(data => {
-    const list = document.createElement("li");
-    list.classList.add("add-list3");
-    const furnitureTextNode = document.createTextNode("家具名:" + furnitureFormValue);
-    list.append(furnitureTextNode);
-    const deleteBtn = document.createElement("button");
-    const trash = document.createElement("i");
-    trash.classList.add("fa-solid")
-    trash.classList.add("fa-trash-can")
-    deleteBtn.append(trash);
-    deleteBtn.classList.add("deleteBtn");
-    const btnBox = document.createElement("div");
-    btnBox.classList.add("btn-box2");
-    btnBox.append(deleteBtn);
-    list.append(btnBox);
-    document.querySelector('.furniture-addlist').append(list);
-  })
-  .catch(error => {
-    console.error('Error getting new data:', error);
-    // エラー処理
-  });
-
-
-  layer.destroy();
-  furnitureForm.value = "";
-  genreForm.value = "";
-  const errorElement = document.querySelector(".furniture-form-error");
-  if (errorElement && errorElement.textContent !== "") {
-      errorElement.textContent = "";
-  }  
-
-  document.querySelector('.furniture-addbtn').removeEventListener('click', furnitureAdd);
-
-       };
 
        ul.addEventListener("click", event => {
         if (event.target.classList.contains("deleteBtn")||event.target.classList.contains("fa-trash-can")) {
