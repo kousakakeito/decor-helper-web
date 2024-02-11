@@ -4,6 +4,7 @@ const session = require('express-session');
 const config = require('../../config/config');
 const redis = require('redis');
 const cache = redis.createClient(); 
+const bcrypt = require('bcrypt');
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -211,29 +212,38 @@ router.get('/redirect-home', (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-  const username = req.body.username;
-  const password = req.body.password;
+  const { username, password } = req.body;
 
   try {
     // データベースからユーザー情報を検索するクエリ
-    const sql = 'SELECT * FROM users WHERE username = ? AND password = ?';
-    const values = [username, password];
+    const sql = 'SELECT * FROM users WHERE username = ?';
+    const values = [username];
 
     connection.query(sql, values, async (err, results) => {
       if (err) {
         console.error('Error executing SQL query:', err);
-        res.status(500).send('An error occurred while logging in.');
-        return;
+        return res.status(500).send('An error occurred while logging in.');
       }
 
       if (results.length > 0) {
-        // ログイン成功時の処理
-        const username = results[0].username; // ログイン成功時にusernameを取得
-        handleLoginSuccess(res, req, username);
+        const user = results[0];
+        // ハッシュ化されたパスワードと入力されたパスワードを比較
+        const match = await bcrypt.compare(password, user.password);
+
+        if (match) {
+          // パスワードが一致した場合の処理
+          handleLoginSuccess(res, req, user.username);
+          console.log("ok");
+        } else {
+          // パスワードが一致しない場合の処理
+          const attempts = await getLoginAttempts(username);
+          await handleLoginFailure(res, attempts, username);
+          console.log("no");
+        }
       } else {
-        // ログイン失敗時の処理
-        const attempts = await getLoginAttempts(username);
-        await handleLoginFailure(res, attempts, username);
+        // ユーザーが見つからない場合の処理
+        console.log("no user found");
+        res.status(401).send('Login failed.');
       }
     });
   } catch (error) {

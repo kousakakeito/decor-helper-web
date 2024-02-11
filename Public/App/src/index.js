@@ -335,6 +335,10 @@ document.querySelector('.caret-down')
 
 
 
+
+  
+
+
  // 空間新規作成ボタンがクリックされたときの処理
   const spaceResetBtn = document.createElement('button');
   spaceResetBtn.classList.add("space-resetbtn");
