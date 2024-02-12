@@ -246,7 +246,7 @@ router.post('/user-data7', (req, res) => {
   });
 });
 
-router.post('/user-data8', authenticateSession, async (req, res) => {
+router.post('/user-newdata8', authenticateSession, async (req, res) => {
   const username = req.session.username;
   const furnitureFormValue = req.body.furnitureFormValue; // クライアントから送信されたデータ
 

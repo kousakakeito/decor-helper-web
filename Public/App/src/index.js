@@ -1667,9 +1667,18 @@ document.querySelector('.caret-down')
   furnitureList.addEventListener("click", event => {
     if (event.target.classList.contains("addBtn")) {
       if (stage2.getChildren().length > 0) {
-
+    
       const liElement = event.target.closest("li");
       const furnitureFormValue = liElement.firstChild.textContent.trim();
+      if(stage2.getChildren(node => node.getClassName() === 'Layer').some(layer => layer.name() === furnitureFormValue)){
+        const spaceFormError = document.createElement("p");
+        spaceFormError.classList.add("space-form-error");
+        document.querySelector(".homecenter-outer").append(spaceFormError);
+        document.querySelector(".space-form-error").textContent = "※この家具は既に追加されています※";
+      }else{
+
+        console.log(stage2.getChildren())
+
       const requestData = {
         furnitureFormValue: furnitureFormValue
       };
@@ -3235,11 +3244,10 @@ document.querySelector('.caret-down')
     
         })
         
-        
-        
         .catch(error => {
             console.error('Error:', error);
         });
+      }
 
       } else {
         const spaceFormError = document.createElement("p");

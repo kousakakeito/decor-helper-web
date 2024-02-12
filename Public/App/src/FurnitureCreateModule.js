@@ -219,7 +219,7 @@ function isMouseOnBorder(rectangle, x, y) {
       const ul = document.querySelector(".furniture-addlist");
       
 
-      fetch('/user-data8', {
+      fetch('/user-newdata8', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
