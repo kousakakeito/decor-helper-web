@@ -1506,7 +1506,7 @@ document.querySelector('.caret-down')
             });
           });
 
-          const errorElement = document.querySelector(".space-form-error");
+          const errorElement = document.querySelector(".home-form-error");
           if (errorElement && errorElement.textContent !== "") {
               errorElement.textContent = "";
           }  
@@ -1519,9 +1519,9 @@ document.querySelector('.caret-down')
 
       } else {
         const spaceFormError = document.createElement("p");
-         spaceFormError.classList.add("space-form-error");
+         spaceFormError.classList.add("home-form-error");
          document.querySelector(".homecenter-outer").append(spaceFormError);
-         document.querySelector(".space-form-error").textContent = "※既に空間が追加されています。新たに空間を追加する場合は追加済みの空間を取消してください※";
+         document.querySelector(".home-form-error").textContent = "※既に空間が追加されています。新たに空間を追加する場合は追加済みの空間を取消してください※";
       }
         
       } else if (event.target.classList.contains("cancelBtn")) {
@@ -1672,12 +1672,13 @@ document.querySelector('.caret-down')
       const furnitureFormValue = liElement.firstChild.textContent.trim();
       if(stage2.getChildren(node => node.getClassName() === 'Layer').some(layer => layer.name() === furnitureFormValue)){
         const spaceFormError = document.createElement("p");
-        spaceFormError.classList.add("space-form-error");
+        spaceFormError.classList.add("home-form-error");
         document.querySelector(".homecenter-outer").append(spaceFormError);
-        document.querySelector(".space-form-error").textContent = "※この家具は既に追加されています※";
+        document.querySelector(".home-form-error").textContent = "※この家具は既に追加されています※";
       }else{
 
-        console.log(stage2.getChildren())
+
+        console.log(stage2.getChildren(node => node.getClassName() === 'Layer'))
 
       const requestData = {
         furnitureFormValue: furnitureFormValue
@@ -3237,7 +3238,7 @@ document.querySelector('.caret-down')
 
           });
 
-          const errorElement = document.querySelector(".space-form-error");
+          const errorElement = document.querySelector(".home-form-error");
           if (errorElement && errorElement.textContent !== "") {
               errorElement.textContent = "";
           }  
@@ -3251,9 +3252,9 @@ document.querySelector('.caret-down')
 
       } else {
         const spaceFormError = document.createElement("p");
-         spaceFormError.classList.add("space-form-error");
+         spaceFormError.classList.add("home-form-error");
          document.querySelector(".homecenter-outer").append(spaceFormError);
-         document.querySelector(".space-form-error").textContent = "※空間一覧内から空間を追加後に家具一覧内の家具を追加してください※";
+         document.querySelector(".home-form-error").textContent = "※空間一覧内から空間を追加後に家具一覧内の家具を追加してください※";
       }
         
       } else if (event.target.classList.contains("cancelBtn")) {
@@ -3272,7 +3273,7 @@ document.querySelector('.caret-down')
         
         if (layerToRemove instanceof Konva.Layer) {
           layerToRemove.destroy();
-          const errorElement = document.querySelector(".space-form-error");
+          const errorElement = document.querySelector(".home-form-error");
           if (errorElement && errorElement.textContent !== "") {
               errorElement.textContent = "";
           }  
@@ -3675,6 +3676,8 @@ if (errorElement && errorElement.textContent !== "") {
                     }else if(shapeData.hasOwnProperty("absolutePositionShape")){
                       newLayer2.add(shape);
                     };   
+
+                    newLayer2.name(shapeData.name);
                     
                    }else{
 
@@ -3772,6 +3775,22 @@ if (errorElement && errorElement.textContent !== "") {
 
         overWrite.addEventListener("click", function(){
         
+          const homeForm = document.querySelector('.home-form');
+          const homeFormValue2 = homeForm.value;
+          const ul = document.querySelector(".home-addlist");
+      
+      
+          if( homeFormValue2 === ""){
+            const homeFormError = document.createElement("p");
+            homeFormError.classList.add("home-form-error");
+            document.querySelector(".homecenter-outer").append(homeFormError);
+            document.querySelector(".home-form-error").textContent = "※配置図名を入力してください※";
+          } else if(homeFormValue2.length >= 6){
+           const homeFormError = document.createElement("p");
+           homeFormError.classList.add("home-form-error");
+           document.querySelector(".homecenter-outer").append(homeFormError);
+           document.querySelector(".home-form-error").textContent = "※５文字以内で指定してください※";
+          } else {
   
         fetch('/delete-data4', {
           method: 'POST',
@@ -3803,24 +3822,6 @@ if (errorElement && errorElement.textContent !== "") {
               photoList.removeChild(photoLi);
             }
           });
-  
-
-          const homeForm = document.querySelector('.home-form');
-          const homeFormValue2 = homeForm.value;
-          const ul = document.querySelector(".home-addlist");
-      
-      
-          if( homeFormValue2 === ""){
-            const homeFormError = document.createElement("p");
-            homeFormError.classList.add("home-form-error");
-            document.querySelector(".homecenter-outer").append(homeFormError);
-            document.querySelector(".home-form-error").textContent = "※配置図名を入力してください※";
-          } else if(homeFormValue2.length >= 6){
-           const homeFormError = document.createElement("p");
-           homeFormError.classList.add("home-form-error");
-           document.querySelector(".homecenter-outer").append(homeFormError);
-           document.querySelector(".home-form-error").textContent = "※５文字以内で指定してください※";
-          } else {
       
             const sourceLayers = stage2.getLayers(); // すべてのレイヤーの配列を取得
       
@@ -4011,21 +4012,22 @@ if (errorElement && errorElement.textContent !== "") {
       if (errorElement && errorElement.textContent !== "") {
           errorElement.textContent = "";
       }  
+
+      const layerToRemove = stage2.find(node => node.name() === homeFormValue)[0];
+
+      if(stage2.getLayers().length !== 0 && layerToRemove instanceof Konva.Layer){
+        const deleteLayers = stage2.getLayers().slice();
+        deleteLayers.forEach(deleteLayer => {
+            deleteLayer.destroy();
+        });
+      }
+
+      overWrite.style.display = 'none';
+      document.querySelector(".home-compbtn").style.display = 'block';
+      document.querySelector(".home-form").value = "";
       
          }
 
-          const layerToRemove = stage2.find(node => node.name() === homeFormValue)[0];
-
-          if(stage2.getLayers().length !== 0 && layerToRemove instanceof Konva.Layer){
-            const deleteLayers = stage2.getLayers().slice();
-            deleteLayers.forEach(deleteLayer => {
-                deleteLayer.destroy();
-            });
-          }
-
-          overWrite.style.display = 'none';
-          document.querySelector(".home-compbtn").style.display = 'block';
-          document.querySelector(".home-form").value = "";
 
 
         });
