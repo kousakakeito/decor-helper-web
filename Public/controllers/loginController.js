@@ -144,6 +144,192 @@ function handleLoginSuccess(res, req, username) {
         res.json({ username: sessionData });
       });     
 
+      router.get('/get-spaceData', (req, res) => {
+        const username = req.session.username; // リクエストボディからusernameを取得
+      
+        // テーブルの存在とspace_dataが1つでも存在するかを確認するSQLクエリ
+        const checkDataExistsSql = `
+          SELECT COUNT(*) AS count
+          FROM space
+          WHERE username = ?
+          AND space_data IS NOT NULL;
+        `;
+      
+        connection.query(checkDataExistsSql, [username], (error, results, fields) => {
+          if (error) {
+            console.error('Error checking space data exists:', error);
+            res.status(500).send('An error occurred while checking space data existence.');
+          } else if (results[0].count > 0) {
+            // データが存在する場合の処理を実行
+            const selectAllSpaceFormValuesSql = `
+              SELECT JSON_EXTRACT(space_data, "$.spaceFormValue") AS spaceFormValue 
+              FROM space WHERE username = ?;
+            `;
+            connection.query(selectAllSpaceFormValuesSql, [username], (error, results, fields) => {
+              if (error) {
+                console.error('Error fetching space data:', error);
+                res.status(500).send('An error occurred while fetching space data.');
+              } else {
+                const spaceFormValues = [];
+                results.forEach(row => {
+                  try {
+                    const spaceFormValue = JSON.parse(row.spaceFormValue);
+                    if (spaceFormValue !== null && spaceFormValue !== "") {
+                      spaceFormValues.push(spaceFormValue);
+                    } 
+                  } catch (e) {
+                    console.error('Error parsing JSON:', e);
+                  }
+                });
+                res.json(spaceFormValues);
+              }
+            });
+          } else {
+            // データが存在しない場合の処理
+            console.log('No space data exists.');
+            res.status(404).send('No space data exists.');
+          }
+        });
+      });
+
+
+
+      router.get('/get-furnitureData', (req, res) => {
+        const username = req.session.username; // リクエストボディからusernameを取得
+      
+        // テーブルの存在とfurniture_dataが1つでも存在するかを確認するSQLクエリ
+        const checkDataExistsSql = `
+          SELECT COUNT(*) AS count
+          FROM furniture
+          WHERE username = ?
+          AND furniture_data IS NOT NULL;
+        `;
+      
+        connection.query(checkDataExistsSql, [username], (error, results, fields) => {
+          if (error) {
+            console.error('Error checking furniture data exists:', error);
+            res.status(500).send('An error occurred while checking furniture data existence.');
+          } else if (results[0].count > 0) {
+            // データが存在する場合の処理を実行
+            const selectAllFurnitureFormValuesSql = `
+              SELECT JSON_EXTRACT(furniture_data, "$.furnitureFormValue") AS furnitureFormValue 
+              FROM furniture WHERE username = ?;
+            `;
+            connection.query(selectAllFurnitureFormValuesSql, [username], (error, results, fields) => {
+              if (error) {
+                console.error('Error fetching furniture data:', error);
+                res.status(500).send('An error occurred while fetching furniture data.');
+              } else {
+                const furnitureFormValues = [];
+                results.forEach(row => {
+                  try {
+                    const furnitureFormValue = JSON.parse(row.furnitureFormValue);
+                    if (furnitureFormValue !== null && furnitureFormValue !== "") {
+                      furnitureFormValues.push(furnitureFormValue);
+                    } 
+                  } catch (e) {
+                    console.error('Error parsing JSON:', e);
+                  }
+                });
+                res.json(furnitureFormValues);
+              }
+            });
+          } else {
+            // データが存在しない場合の処理
+            console.log('No furniture data exists.');
+            res.status(404).send('No furniture data exists.');
+          }
+        });
+      });
+
+
+      router.get('/get-genreData', (req, res) => {
+        const username = req.session.username; // セッションからusernameを取得
+      
+        // テーブル存在チェックとfurniture_dataレコードの存在チェック
+        const checkTableAndDataExistsSql = `
+          SELECT EXISTS(
+            SELECT 1
+            FROM information_schema.tables 
+            WHERE table_schema = 'decorhelper' AND table_name = 'furniture'
+          ) AS tableExists,
+          (SELECT COUNT(*) FROM furniture WHERE username = ? AND furniture_data IS NOT NULL) AS dataCount;
+        `;
+      
+        connection.query(checkTableAndDataExistsSql, [username], (error, results, fields) => {
+          if (error) {
+            console.error('Error checking table and data existence:', error);
+            res.status(500).send('An error occurred while checking furniture data.');
+          } else if (results[0].tableExists && results[0].dataCount > 0) {
+            // furnitureテーブルが存在し、かつfurniture_dataレコードが1つ以上存在する場合
+            const selectAllGenreFormValuesSql = 'SELECT JSON_EXTRACT(furniture_data, "$.genreFormValue") AS genreFormValue FROM furniture WHERE username = ?';
+            connection.query(selectAllGenreFormValuesSql, [username], (error, results, fields) => {
+              if (error) {
+                console.error('Error fetching furniture data:', error);
+                res.status(500).send('An error occurred while fetching furniture data.');
+              } else {
+                const genreFormValues = results.map(row => JSON.parse(row.genreFormValue)).filter(value => value !== null && value !== "");
+                res.json(genreFormValues);
+              }
+            });
+          } else {
+            // テーブルが存在しないか、furniture_dataレコードが0件の場合
+            console.log('No furniture data exists or table does not exist.');
+            res.status(404).send('No furniture data exists or table does not exist.');
+          }
+        });
+      });
+
+      router.get('/get-roomData', (req, res) => {
+        const username = req.session.username; // リクエストボディからusernameを取得
+      
+        // テーブルの存在とroom_dataが1つでも存在するかを確認するSQLクエリ
+        const checkDataExistsSql = `
+          SELECT COUNT(*) AS count
+          FROM room
+          WHERE username = ?
+          AND room_data IS NOT NULL;
+        `;
+      
+        connection.query(checkDataExistsSql, [username], (error, results, fields) => {
+          if (error) {
+            console.error('Error checking room data exists:', error);
+            res.status(500).send('An error occurred while checking room data existence.');
+          } else if (results[0].count > 0) {
+            // データが存在する場合の処理を実行
+            const selectAllRoomFormValuesSql = `
+              SELECT JSON_EXTRACT(room_data, "$.homeFormValue") AS homeFormValue 
+              FROM room WHERE username = ?;
+            `;
+            connection.query(selectAllRoomFormValuesSql, [username], (error, results, fields) => {
+              if (error) {
+                console.error('Error fetching room data:', error);
+                res.status(500).send('An error occurred while fetching room data.');
+              } else {
+                const homeFormValues = [];
+                results.forEach(row => {
+                  try {
+                    const homeFormValue = JSON.parse(row.homeFormValue);
+                    if (homeFormValue !== null && homeFormValue !== "") {
+                      homeFormValues.push(homeFormValue);
+                    } 
+                  } catch (e) {
+                    console.error('Error parsing JSON:', e);
+                  }
+                });
+                res.json(homeFormValues);
+              }
+            });
+          } else {
+            // データが存在しない場合の処理
+            console.log('No room data exists.');
+            res.status(404).send('No room data exists.');
+          }
+        });
+      });
+      
+      
+
       // リダイレクトを行うエンドポイントにリダイレクトする
       res.redirect('/redirect-home');
     })

@@ -27,6 +27,126 @@ function getSessionData() {
 // ページがロードされたときにセッション情報を取得して表示する
 window.addEventListener('load', getSessionData);
 
+function getObjData() {
+  fetch('/get-spaceData')
+    .then(response => response.json())
+    .then(data => {
+      const ul = document.querySelector('.space-list');
+      data.forEach(spaceFormValues => {
+        const li = document.createElement('li');
+        li.textContent = spaceFormValues;
+        li.classList.add("add-list");
+        const addBtn = document.createElement("button");
+        addBtn.append("追加");
+        addBtn.classList.add("addBtn");
+        const cancelBtn = document.createElement("button");
+        cancelBtn.append("取消");
+        cancelBtn.classList.add("cancelBtn");
+        const editBtn = document.createElement("button");
+        const trash = document.createElement("i");
+        trash.classList.add("fa-solid")
+        trash.classList.add("fa-trash-can")
+        editBtn.append(trash);
+        editBtn.classList.add("editBtn");
+        const btnBox = document.createElement("div");
+        btnBox.classList.add("btn-box");
+        btnBox.append(addBtn,cancelBtn,editBtn);
+        li.append(btnBox);
+        ul.appendChild(li);
+      });
+    })
+    .catch(error => {
+      console.error('エラー:', error);
+    });
+
+    fetch('/get-furnitureData')
+    .then(response => response.json())
+    .then(data => {
+      const ul = document.querySelector('.furniture-list');
+      data.forEach(furnitureFormValues => {
+        const li = document.createElement('li');
+        li.textContent = furnitureFormValues;
+        li.classList.add("add-list2");
+        const addBtn = document.createElement("button");
+        addBtn.append("追加");
+        addBtn.classList.add("addBtn");
+        const cancelBtn = document.createElement("button");
+        cancelBtn.append("取消");
+        cancelBtn.classList.add("cancelBtn");
+        const editBtn = document.createElement("button");
+        const trash = document.createElement("i");
+        trash.classList.add("fa-solid")
+        trash.classList.add("fa-trash-can")
+        editBtn.append(trash);
+        editBtn.classList.add("editBtn");
+        const btnBox = document.createElement("div");
+        btnBox.classList.add("btn-box");
+        btnBox.append(addBtn,cancelBtn,editBtn);
+        li.append(btnBox);
+        ul.appendChild(li);
+      });
+    })
+    .catch(error => {
+      console.error('エラー:', error);
+    });
+
+    fetch('/get-genreData')
+    .then(response => response.json())
+    .then(data => {
+      const ol = document.querySelector('.genre-dropdown');
+      // データから重複を削除
+      const uniqueGenreFormValues = [...new Set(data)];
+      uniqueGenreFormValues.forEach(genreFormValue => {
+       const li = document.createElement('li');
+       const label = document.createElement('label');
+       label.classList.add("li-label");
+       label.textContent = genreFormValue;
+       const checkHome = document.createElement("input");
+       checkHome.type = "checkbox";
+       checkHome.name = "checkHome";
+       li.append(checkHome, label);
+       ol.appendChild(li);
+      });
+    })
+    .catch(error => {
+      console.error('エラー:', error);
+    });
+
+    fetch('/get-roomData')
+    .then(response => response.json())
+    .then(data => {
+      const ul = document.querySelector('.home-addlist');
+      data.forEach(homeFormValues => {
+        const li = document.createElement('li');
+        li.textContent = homeFormValues;
+        li.classList.add("add-list");
+        const addBtn = document.createElement("button");
+        addBtn.append("編集");
+        addBtn.classList.add("editBtn2");
+        const cancelBtn = document.createElement("button");
+        cancelBtn.append("取消");
+        cancelBtn.classList.add("cancelBtn2");
+        const editBtn = document.createElement("button");
+        const trash = document.createElement("i");
+        trash.classList.add("fa-solid")
+        trash.classList.add("fa-trash-can")
+        editBtn.append(trash);
+        editBtn.classList.add("deleteBtn2");
+        const btnBox = document.createElement("div");
+        btnBox.classList.add("btn-box");
+        btnBox.append(addBtn,cancelBtn,editBtn);
+        li.append(btnBox);
+        ul.appendChild(li);
+      });
+    })
+    .catch(error => {
+      console.error('エラー:', error);
+    });
+}
+
+// ページがロードされたときに部屋、家具、配置図情報を取得して表示する
+window.addEventListener('load', getObjData);
+
 // ログアウトボタンをクリックしたときの処理
 const logoutButton = document.querySelector('#logout-button');
 logoutButton.addEventListener('click', () => {
@@ -47,6 +167,9 @@ logoutButton.addEventListener('click', () => {
       console.error('Error during logout:', error);
     });
 });
+
+
+
 
 
 
