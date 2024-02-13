@@ -1,6 +1,14 @@
 
 module.exports = function spaceCreate(){
 
+  document.querySelector('.space-form').addEventListener("focus",function(){
+
+    if (document.querySelector(".space-form-error") && document.querySelector(".space-form-error").textContent !== "") {
+      document.querySelector(".space-form-error").textContent = "";
+    }  
+    
+    });
+
   document.querySelector('.space-createbtn').style.display = "none";
   if(document.querySelector('.space-createbtn').style.display === 'none'){
 
@@ -16,6 +24,9 @@ module.exports = function spaceCreate(){
     document.querySelector('.space-createbtn').style.display = "block";
     while(document.querySelector('.spacecenter-inner').firstChild){
       document.querySelector('.spacecenter-inner').removeChild(document.querySelector('.spacecenter-inner').firstChild);
+    }
+    if(document.querySelector(".space-form-error") && document.querySelector(".space-form-error").textContent !== ""){
+      document.querySelector(".space-form-error").textContent = "";
     }
     layer = null;
     document.querySelector('.space-resetbtn').removeEventListener("click",spaceReset);

@@ -1518,18 +1518,28 @@ document.querySelector('.caret-down')
         });
 
       } else {
+        const liElement = event.target.closest("li");
+        const spaceFormValue = liElement.firstChild.textContent.trim();
+        if(stage2.getChildren(node => node.getClassName() === 'Layer')[0].name() === spaceFormValue){
+          const spaceFormError = document.createElement("p");
+          spaceFormError.classList.add("home-form-error");
+          document.querySelector(".homecenter-outer").append(spaceFormError);
+          document.querySelector(".home-form-error").textContent = "※この部屋名は既に追加されています※";
+        }else{
         const spaceFormError = document.createElement("p");
          spaceFormError.classList.add("home-form-error");
          document.querySelector(".homecenter-outer").append(spaceFormError);
-         document.querySelector(".home-form-error").textContent = "※既に空間が追加されています。新たに空間を追加する場合は追加済みの空間を取消してください※";
+         document.querySelector(".home-form-error").textContent = "※表示中の部屋を取消後、再度追加してください※";
+        }
       }
         
       } else if (event.target.classList.contains("cancelBtn")) {
+        if(document.querySelector(".home-form-error") && document.querySelector(".home-form-error").textContent !== ""){
+          document.querySelector(".home-form-error").textContent = "";
+        }
         // 削除ボタンをクリックした場合の処理
         const liElement = event.target.closest("li");
         const spaceFormValue = liElement.firstChild.textContent.trim();
-
-    
         // 削除対象のレイヤーを特定
         const layerToRemove = stage2.find(node => node.name() === spaceFormValue)[0];
 
@@ -1561,7 +1571,7 @@ document.querySelector('.caret-down')
 
 
   spaceList.addEventListener("click", event => {
-    if (event.target.classList.contains("deleteBtn")||event.target.classList.contains("fa-trash-can")) {
+    if (event.target.classList.contains("editBtn")||event.target.classList.contains("fa-trash-can")) {
 
       const liElement = event.target.closest("li");
       const spaceFormValue = liElement.firstChild.textContent.trim();
@@ -1612,7 +1622,7 @@ document.querySelector('.caret-down')
 
 
   furnitureList.addEventListener("click", event => {
-    if (event.target.classList.contains("deleteBtn")||event.target.classList.contains("fa-trash-can")) {
+    if (event.target.classList.contains("editBtn")||event.target.classList.contains("fa-trash-can")) {
 
       const liElement = event.target.closest("li");
       const furnitureFormValue = liElement.firstChild.textContent.trim();
@@ -3254,7 +3264,7 @@ document.querySelector('.caret-down')
         const spaceFormError = document.createElement("p");
          spaceFormError.classList.add("home-form-error");
          document.querySelector(".homecenter-outer").append(spaceFormError);
-         document.querySelector(".home-form-error").textContent = "※空間一覧内から空間を追加後に家具一覧内の家具を追加してください※";
+         document.querySelector(".home-form-error").textContent = "※部屋を追加後に家具を追加してください※";
       }
         
       } else if (event.target.classList.contains("cancelBtn")) {
@@ -3773,11 +3783,23 @@ if (errorElement && errorElement.textContent !== "") {
         overWrite.style.display = 'block';
         document.querySelector(".home-form").value = homeFormValue;
 
-        overWrite.addEventListener("click", function(){
+        overWrite.addEventListener("click",overWriteEvent); 
+        function overWriteEvent(){
         
           const homeForm = document.querySelector('.home-form');
           const homeFormValue2 = homeForm.value;
           const ul = document.querySelector(".home-addlist");
+
+          function isDuplicateValuePresent(value, elements) {
+            let isDuplicate = false;
+            elements.forEach(element => {
+              if (element.textContent.trim() === value) {
+                isDuplicate = true;
+                return;
+              }
+            });
+            return isDuplicate;
+          };
       
       
           if( homeFormValue2 === ""){
@@ -3790,7 +3812,17 @@ if (errorElement && errorElement.textContent !== "") {
            homeFormError.classList.add("home-form-error");
            document.querySelector(".homecenter-outer").append(homeFormError);
            document.querySelector(".home-form-error").textContent = "※５文字以内で指定してください※";
+          }else if(stage2.getChildren(node => node.getClassName() === 'Layer')[0].name() !== homeFormValue2 && isDuplicateValuePresent(homeFormValue2+"編集"+"取消", ul.querySelectorAll("li"))){ 
+            const homeFormError = document.createElement("p");
+            homeFormError.classList.add("home-form-error");
+            document.querySelector(".homecenter-outer").append(homeFormError);
+            document.querySelector(".home-form-error").textContent = "※この配置図名は既に保存されています※";
           } else {
+
+            const errorElement = document.querySelector(".home-form-error");
+            if (errorElement && errorElement.textContent !== "") {
+                errorElement.textContent = "";
+            }  
   
         fetch('/delete-data4', {
           method: 'POST',
@@ -4006,12 +4038,6 @@ if (errorElement && errorElement.textContent !== "") {
       // エラー処理
      });
       
-      
-      
-      const errorElement = document.querySelector(".home-form-error");
-      if (errorElement && errorElement.textContent !== "") {
-          errorElement.textContent = "";
-      }  
 
       const layerToRemove = stage2.find(node => node.name() === homeFormValue)[0];
 
@@ -4025,18 +4051,28 @@ if (errorElement && errorElement.textContent !== "") {
       overWrite.style.display = 'none';
       document.querySelector(".home-compbtn").style.display = 'block';
       document.querySelector(".home-form").value = "";
+      overWrite.removeEventListener("click",overWriteEvent); 
       
          }
 
 
 
-        });
+        };
 
       } else {
-        const homeFormError = document.createElement("p");
-         homeFormError.classList.add("home-form-error");
-         document.querySelector(".homecenter-outer").append(homeFormError);
-         document.querySelector(".home-form-error").textContent = "※既に配置図が追加されています。新たな配置図を編集する場合は追加済みの配置図を取消してください※";
+        const liElement = event.target.closest("li");
+        const homeFormValue = liElement.firstChild.textContent.trim();
+         if(stage2.getChildren(node => node.getClassName() === 'Layer')[0].name() === homeFormValue){
+           const spaceFormError = document.createElement("p");
+           spaceFormError.classList.add("home-form-error");
+           document.querySelector(".homecenter-outer").append(spaceFormError);
+           document.querySelector(".home-form-error").textContent = "※この配置図名は既に追加されています※";
+         }else{
+         const spaceFormError = document.createElement("p");
+          spaceFormError.classList.add("home-form-error");
+          document.querySelector(".homecenter-outer").append(spaceFormError);
+          document.querySelector(".home-form-error").textContent = "※表示中の配置図を取消後、再度追加してください※";
+         }
       }
 
 
@@ -4321,3 +4357,12 @@ if (errorElement && errorElement.textContent !== "") {
   });
 
 });
+
+document.querySelector('.home-form').addEventListener("focus",function(){
+
+if (document.querySelector(".home-form-error") && document.querySelector(".home-form-error").textContent !== "") {
+  document.querySelector(".home-form-error").textContent = "";
+}  
+
+});
+

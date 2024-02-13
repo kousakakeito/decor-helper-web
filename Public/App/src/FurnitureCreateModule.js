@@ -1,6 +1,18 @@
 
 module.exports = function furnitureCreate(){
 
+    document.querySelector('.furniture-form').addEventListener("focus",function(){
+      if (document.querySelector(".furniture-form-error") && document.querySelector(".furniture-form-error").textContent !== "") {
+       document.querySelector(".furniture-form-error").textContent = "";
+      }  
+      });
+
+    document.querySelector('.genre-form').addEventListener("focus",function(){
+      if (document.querySelector(".furniture-form-error") && document.querySelector(".furniture-form-error").textContent !== "") {
+        document.querySelector(".furniture-form-error").textContent = "";
+      }  
+      });
+
   document.querySelector('.furniture-createbtn').style.display = "none";
   if(document.querySelector('.furniture-createbtn').style.display === 'none'){
 
@@ -18,6 +30,9 @@ module.exports = function furnitureCreate(){
     document.querySelector('.furniture-createbtn').style.display = "block";
     while(document.querySelector('.furniturecenter-inner').firstChild){
       document.querySelector('.furniturecenter-inner').removeChild(document.querySelector('.furniturecenter-inner').firstChild);
+    }
+    if(document.querySelector(".furniture-form-error") && document.querySelector(".furniture-form-error").textContent !== ""){
+      document.querySelector(".furniture-form-error").textContent = "";
     }
     layer = null;
     document.querySelector('.furniture-resetbtn').removeEventListener("click",furnitureReset);
@@ -434,7 +449,8 @@ function isMouseOnBorder(rectangle, x, y) {
       
 
 
-       ul.addEventListener("click", event => {
+       ul.addEventListener("click",deleteEvent); 
+        function deleteEvent(event){
         if (event.target.classList.contains("deleteBtn")||event.target.classList.contains("fa-trash-can")) {
     
           const liElement = event.target.closest("li");
@@ -479,10 +495,12 @@ function isMouseOnBorder(rectangle, x, y) {
               // エラー処理
             });
 
+            ul.removeEventListener("click",deleteEvent); 
+
           };
       
           } 
-      });
+      };
 
     }
     };
