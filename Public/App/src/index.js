@@ -1670,7 +1670,7 @@ document.querySelector('.caret-down')
     
       const liElement = event.target.closest("li");
       const furnitureFormValue = liElement.firstChild.textContent.trim();
-      if(stage2.getChildren(node => node.getClassName() === 'Layer').some(layer => layer.name() === furnitureFormValue)){
+      if(stage2.getChildren(node => node.getClassName() === 'Layer').slice(1).some(layer => layer.name() === furnitureFormValue)){
         const spaceFormError = document.createElement("p");
         spaceFormError.classList.add("home-form-error");
         document.querySelector(".homecenter-outer").append(spaceFormError);
@@ -3264,7 +3264,7 @@ document.querySelector('.caret-down')
 
     
         // 削除対象のレイヤーを特定
-        const layerToRemove = stage2.find(node => node.name() === furnitureFormValue)[0];
+        const layerToRemove = stage2.getChildren(node => node.getClassName() === 'Layer').slice(1).find(node => node.name() === furnitureFormValue);
 
         console.log('furnitureFormValue:', furnitureFormValue);
         console.log('すべてのステージの子要素:', stage2.children);

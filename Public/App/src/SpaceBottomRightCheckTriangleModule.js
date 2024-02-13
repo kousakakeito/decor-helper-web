@@ -244,6 +244,8 @@ module.exports = function bottomRightCheckTriangle(stage,dots,rectangle,isMouseO
         newCircle.destroy();
         circle2.destroy();
         newRect.destroy();
+        dashedLine7.destroy();
+        dashedLine8.destroy();
 
         dots.length = 0 ;
         stage.on("click",handleClick2);
@@ -460,6 +462,8 @@ module.exports = function bottomRightCheckTriangle(stage,dots,rectangle,isMouseO
       circle2.destroy();
       newRect.destroy();
       newCircle.destroy();
+      dashedLine7.destroy();
+      dashedLine8.destroy();
 
       dots.length = 0 ;
       stage.on("click",handleClick2);

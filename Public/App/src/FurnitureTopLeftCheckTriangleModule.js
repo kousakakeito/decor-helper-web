@@ -115,6 +115,8 @@ module.exports = function topLeftCheckTriangle(stage,dots,rectangle,isMouseOnBor
       circle1.destroy();
       newRect.destroy();
       newCircle.destroy();
+      dashedLine7.destroy();
+      dashedLine8.destroy();
 
       dots.length = 0 ;
       stage.on("click",handleClick2);

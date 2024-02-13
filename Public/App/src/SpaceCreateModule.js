@@ -17,9 +17,6 @@ module.exports = function spaceCreate(){
     while(document.querySelector('.spacecenter-inner').firstChild){
       document.querySelector('.spacecenter-inner').removeChild(document.querySelector('.spacecenter-inner').firstChild);
     }
-    if(document.querySelector(".space-form-error").textContent !== ""){
-      document.querySelector(".space-form-error").textContent = "";
-    }
     layer = null;
     document.querySelector('.space-resetbtn').removeEventListener("click",spaceReset);
     console.log(layer)

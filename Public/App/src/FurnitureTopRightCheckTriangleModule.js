@@ -116,6 +116,8 @@ module.exports = function topRightCheckTriangle(stage,dots,rectangle,isMouseOnBo
       circle2.destroy();
       newRect.destroy();
       newCircle.destroy();
+      dashedLine7.destroy();
+      dashedLine8.destroy();
 
       
       dots.length = 0 ;

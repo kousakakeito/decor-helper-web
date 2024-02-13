@@ -460,6 +460,8 @@ module.exports = function bottomRightCheckTriangle(stage,dots,rectangle,isMouseO
       circle2.destroy();
       newRect.destroy();
       newCircle.destroy();
+      dashedLine7.destroy();
+      dashedLine8.destroy();
 
       dots.length = 0 ;
       stage.on("click",handleClick2);
