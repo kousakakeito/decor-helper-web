@@ -34,7 +34,12 @@
   <div class="separator"></div>
   <div class="front-content2">
   <div class="content-home" id="content-home">
-   <div class="homeleft-outer">
+    <div class="sidebar">
+      <!-- サイドバーのタブ（アイコン） -->
+      <div class="sidebar-tab space" data-content="roomCreateContent"><i class="fa-solid fa-person-shelter"></i></div>
+      <div class="sidebar-tab furniture" data-content="furnitureContent"><i class="fa-solid fa-couch"></i></div>
+      <div class="sidebar-tab room end" data-content="homeContent"><i class="fa-solid fa-house"></i></div>
+    </div>
     <div class="home-spacelist">
      <p class="home-spacetext">部屋一覧</p>
      <ul class="space-list" ></ul>
@@ -43,7 +48,6 @@
       <p class="home-roomtext">配置図を編集</p>
       <ul class="home-addlist" ></ul>
     </div>
-   </div>
    <div class="homecenter-outer">
     <label><input class="home-form" type="text" placeholder="&emsp;保存する配置図の名称を入力"></label>
     <button class="home-compbtn">保存</button>

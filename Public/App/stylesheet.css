@@ -219,27 +219,69 @@ button{
 }
 
 
-
-
-/* homeleft-outer のスタイル */
-.homeleft-outer {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-left: 20px;
+.sidebar {
+  width: 63px; /* サイドバーの幅 */
+  height: 739.5px; /* 画面いっぱいの高さ */
+  background-color: #333; /* サイドバーの背景色 */
+  color: white; /* サイドバー内のテキスト色 */
+  position: fixed; /* サイドバーを画面に固定 */
+  top: 140px; /* 上端から0pxの位置に */
+  left: 0; /* 左端から0pxの位置に */
+  overflow: auto; /* 内容が多すぎる場合はスクロール可能に */
+  z-index: 1000; /* 他の要素より前面に表示 */
 }
+
+/* サイドバー内のタブのスタイル */
+.sidebar-tab {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 112.5px;
+  padding-bottom: 112.5px;
+  border-top: 1px solid #555;
+  border-right: 6px solid #555;
+  cursor: pointer; /* マウスオーバー時にカーソルをポインターに */
+}
+
+.sidebar-tab.end{
+  border-bottom: 1px solid #555; 
+}
+
+.sidebar-tab:hover {
+  background-color: #444; /* ホバー時の背景色を変更 */
+}
+
+.select-sidebar{
+  background-color: #444;
+}
+
+/* アイコンのスタイル */
+.sidebar-tab i {
+  color: orange;
+  font-size: 18px;
+}
+
+.sidebar-tab .fa-person-shelter{
+  margin-left: 1px;
+}
+
+.sidebar-tab .fa-couch{
+  margin-left: -1.5px;
+}
+
+
 
 /* home-spacelist のスタイル */
 .home-spacelist {
-  position: relative;
+  position:fixed;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  height: 350px;
+  height: 735px;
   width: 250px;
   overflow: auto;
   border: 2px solid #000;
-  margin-top: 40px;
+  margin-left: 63px;
+  margin-top: 32px;
   background-color:rgba(255, 255, 255, 0.8);
 }
 
@@ -251,15 +293,16 @@ button{
 
 /* home-roomlist のスタイル */
 .home-roomlist {
-  position: relative;
+  position: fixed;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  height: 350px;
+  height: 735px;
   width: 250px;
   overflow: auto;
   border: 2px solid #000;
-  margin-top: 30px;
+  margin-left: 63px;
+  margin-top: 32px;
   background-color:rgba(255, 255, 255, 0.8);
 }
 
@@ -271,6 +314,7 @@ button{
 
 /* homecenter-outer のスタイル */
 .homecenter-outer {
+  position: fixed;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -279,7 +323,9 @@ button{
   width: 1200px;
   height: 735px;
   border: 2px solid #000;
-  margin-top: -738px;
+  margin-top: 32px;
+  margin-left: 400px;
+  border-radius: 60px;
   background-color:rgba(255, 255, 255, 0.8);
 }
 
@@ -316,8 +362,9 @@ button{
 /* homeright-outer のスタイル */
 .homeright-outer {
   float: right;
-  margin-top: -738px;
-  margin-right: 20px;
+  position: fixed;
+  margin-left: 63px;
+  margin-top: 32px;
   border-style: solid;
   border-width: 2px;
   width: 250px;
@@ -1974,12 +2021,12 @@ button{
 
 .space-list{
   position: absolute;
-  margin-left: 20px;
+  margin-left: 40px;
 }
 
 .home-addlist{
   position: absolute;
-  margin-left: 20px;
+  margin-left: 40px;
 }
 
 .fa-trash-can{
@@ -1991,7 +2038,7 @@ button{
   position: absolute;
   margin-top: -50px;
   left: 0;
-  margin-left: 408px;
+  margin-left: 48px;
   height: 25px;
   width: 200px;
 }

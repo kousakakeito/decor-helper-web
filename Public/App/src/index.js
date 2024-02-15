@@ -333,6 +333,103 @@ document.querySelector('.caret-down')
   });
 
 
+  document.querySelector('.home-spacelist').style.display = 'none';
+  document.querySelector('.home-roomlist').style.display = 'none';
+  document.querySelector('.homeright-outer').style.display = 'none';
+
+  function hideAllContents() {
+    document.querySelector('.home-spacelist').style.display = 'none';
+    document.querySelector('.home-roomlist').style.display = 'none';
+    document.querySelector('.homeright-outer').style.display = 'none';
+  }
+
+  let spaceSideBar = 0;
+  let furnitureSideBar = 0;
+  let roomSideBar = 0;
+
+  document.querySelector('.sidebar').addEventListener("click",e =>{
+    if(e.target.classList.contains('space') && spaceSideBar === 0){
+     document.querySelector('.furniture').classList.remove('select-sidebar'); 
+     document.querySelector('.room').classList.remove('select-sidebar');
+     furnitureSideBar = 0;
+     roomSideBar = 0;
+     hideAllContents();
+     document.querySelector('.home-spacelist').style.display = 'block';
+     document.querySelector('.space').classList.add('select-sidebar');
+     spaceSideBar++;
+    }else if(e.target.classList.contains('fa-person-shelter') && spaceSideBar === 0){
+     document.querySelector('.furniture').classList.remove('select-sidebar'); 
+     document.querySelector('.room').classList.remove('select-sidebar');
+     furnitureSideBar = 0;
+     roomSideBar = 0;
+     hideAllContents();
+     document.querySelector('.home-spacelist').style.display = 'block';
+     document.querySelector('.space').classList.add('select-sidebar');
+     spaceSideBar++;
+    }else if(e.target.classList.contains('space') && spaceSideBar === 1){
+     document.querySelector('.home-spacelist').style.display = 'none';
+     document.querySelector('.space').classList.remove('select-sidebar');
+     spaceSideBar--;
+    }else if(e.target.classList.contains('fa-person-shelter') && spaceSideBar === 1){
+     document.querySelector('.home-spacelist').style.display = 'none';
+     document.querySelector('.space').classList.remove('select-sidebar');
+     spaceSideBar--;
+    }else if(e.target.classList.contains('furniture') && furnitureSideBar === 0){
+     document.querySelector('.space').classList.remove('select-sidebar'); 
+     document.querySelector('.room').classList.remove('select-sidebar');
+     spaceSideBar = 0;
+     roomSideBar = 0;
+     hideAllContents();
+     document.querySelector('.homeright-outer').style.display = 'block';
+     document.querySelector('.furniture').classList.add('select-sidebar');
+     furnitureSideBar++;
+    }else if(e.target.classList.contains('fa-couch') && furnitureSideBar === 0){
+     document.querySelector('.space').classList.remove('select-sidebar'); 
+     document.querySelector('.room').classList.remove('select-sidebar');
+     spaceSideBar = 0;
+     roomSideBar = 0;
+     hideAllContents();
+     document.querySelector('.homeright-outer').style.display = 'block';
+     document.querySelector('.furniture').classList.add('select-sidebar');
+     furnitureSideBar++;
+    }else if(e.target.classList.contains('furniture') && furnitureSideBar === 1){
+     document.querySelector('.homeright-outer').style.display = 'none';
+     document.querySelector('.furniture').classList.remove('select-sidebar');
+     furnitureSideBar--;
+    }else if(e.target.classList.contains('fa-couch') && furnitureSideBar === 1){
+     document.querySelector('.homeright-outer').style.display = 'none';
+     document.querySelector('.furniture').classList.remove('select-sidebar');
+     furnitureSideBar--;
+    }else if(e.target.classList.contains('room') && roomSideBar === 0){
+     document.querySelector('.furniture').classList.remove('select-sidebar'); 
+     document.querySelector('.space').classList.remove('select-sidebar');
+     furnitureSideBar = 0;
+     spaceSideBar = 0;
+     hideAllContents();
+     document.querySelector('.home-roomlist').style.display = 'block';
+     document.querySelector('.room').classList.add('select-sidebar');
+     roomSideBar++;
+    }else if(e.target.classList.contains('fa-house') && roomSideBar === 0){
+     document.querySelector('.furniture').classList.remove('select-sidebar'); 
+     document.querySelector('.space').classList.remove('select-sidebar');
+     furnitureSideBar = 0;
+     spaceSideBar = 0;
+     hideAllContents();
+     document.querySelector('.home-roomlist').style.display = 'block';
+     document.querySelector('.room').classList.add('select-sidebar');
+     roomSideBar++;
+    }else if(e.target.classList.contains('room') && roomSideBar === 1){
+     document.querySelector('.home-roomlist').style.display = 'none';
+     document.querySelector('.room').classList.remove('select-sidebar');
+     roomSideBar--;
+    }else if(e.target.classList.contains('fa-house') && roomSideBar === 1){
+     document.querySelector('.home-roomlist').style.display = 'none';
+     document.querySelector('.room').classList.remove('select-sidebar');
+     roomSideBar--;
+    }
+  });
+
+
 
 
   let checkHome = document.querySelectorAll('[name=checkHome]');
