@@ -3671,15 +3671,18 @@ if (errorElement && errorElement.textContent !== "") {
   overWrite.style.display = 'none';
 
   const homeList = document.querySelector(".home-addlist");
+  let homeFormValueTarget;
+  let liElementTarget;
 
 
-  homeList.addEventListener("click",homeListEvent);
-    function homeListEvent(event){
+  homeList.addEventListener("click", event => {
     if (event.target.classList.contains("editBtn2")) {
       if (stage2.getChildren().length === 0) {
 
       const liElement = event.target.closest("li");
+      liElementTarget = liElement;
       const homeFormValue = liElement.firstChild.textContent.trim();
+      homeFormValueTarget = homeFormValue;
       const requestData = {
           homeFormValue: homeFormValue
       };
@@ -3905,283 +3908,6 @@ if (errorElement && errorElement.textContent !== "") {
         overWrite.style.display = 'block';
         document.querySelector(".home-form").value = homeFormValue;
 
-        
-        overWrite.addEventListener("click",overWriteEvent); 
-        function overWriteEvent(){
-        
-          const homeForm = document.querySelector('.home-form');
-          const homeFormValue2 = homeForm.value;
-          const ul = document.querySelector(".home-addlist");
-
-          function isDuplicateValuePresent(value, elements) {
-            let isDuplicate = false;
-            elements.forEach(element => {
-              if (element.textContent.trim() === value) {
-                isDuplicate = true;
-                return;
-              }
-            });
-            return isDuplicate;
-          };
-      
-      
-          if( homeFormValue2 === ""){
-            const homeFormError = document.createElement("p");
-            homeFormError.classList.add("home-form-error");
-            document.querySelector(".homecenter-outer").append(homeFormError);
-            document.querySelector(".home-form-error").textContent = "※配置図名を入力してください※";
-          } else if(homeFormValue2.length >= 6){
-           const homeFormError = document.createElement("p");
-           homeFormError.classList.add("home-form-error");
-           document.querySelector(".homecenter-outer").append(homeFormError);
-           document.querySelector(".home-form-error").textContent = "※５文字以内で指定してください※";
-          }else if(stage2.getChildren(node => node.getClassName() === 'Layer')[0].name() !== homeFormValue2 && isDuplicateValuePresent(homeFormValue2+"編集"+"取消", ul.querySelectorAll("li"))){ 
-            const homeFormError = document.createElement("p");
-            homeFormError.classList.add("home-form-error");
-            document.querySelector(".homecenter-outer").append(homeFormError);
-            document.querySelector(".home-form-error").textContent = "※この配置図名は既に保存されています※";
-          } else {
-
-            const errorElement = document.querySelector(".home-form-error");
-            if (errorElement && errorElement.textContent !== "") {
-                errorElement.textContent = "";
-            }  
-  
-        fetch('/delete-data4', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({homeFormValue}),
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Network response was not ok');
-            }
-            return response.json();
-          })
-          .then(data => {
-            console.log('Server response:', data);
-            // サーバーからのレスポンスを処理
-          })
-          .catch(error => {
-            console.error('Error:', error);
-            // エラー処理
-          });
-
-          homeList.removeChild(liElement);
-
-         // photoListから該当するhomeFormValueのliを探し、削除
-          Array.from(photoList.children).forEach(photoLi => {
-            if (photoLi.firstChild.textContent.trim() === homeFormValue) {
-              photoList.removeChild(photoLi);
-            }
-          });
-      
-            const sourceLayers = stage2.getLayers(); // すべてのレイヤーの配列を取得
-      
-            console.log(stage2.getLayers());
-      
-      
-            const layerData = {
-              layers: [],  // レイヤーの情報を格納する配列
-            };
-            
-            sourceLayers.forEach(layer => {
-              const layerInfo = {
-                name: homeFormValue2,  // レイヤーの名前を取得
-                children: [],      // 子要素の情報を格納する配列
-              };
-
-
-      
-              function getShapeType(shape) {
-                if (shape instanceof Konva.Rect) {
-                  return "Rect";
-                } else if (shape instanceof Konva.Line) {
-                  return "Line";
-                } else if (shape instanceof Konva.Shape) {
-                  return "Shape";
-                } 
-              };
-              
-              layer.getChildren().forEach(shape => {
-
-
-                const shapeType = getShapeType(shape);
-                if (shapeType === "Rect") {
-                const rectData = {
-                  type: shape.getType(),   // シェイプの種類（Rect、Circle など）
-                  x: shape.x(),
-                  y: shape.y(),
-                  width: shape.width(),
-                  height: shape.height(),
-                  fill: shape.fill(),    
-                  name: shape.name(),
-                  absolutePositionRect: shape.getAbsolutePosition(),
-                };
-      
-                layerInfo.children.push(rectData); // 子要素の情報を配列に追加
-              }
-      
-              if (shapeType === "Line") {
-                const lineData = {
-                  type: shape.getType(),   // シェイプの種類（Rect、Circle など）
-                  points: shape.points(),
-                  stroke: shape.stroke(), // 線の色
-                  strokeWidth: shape.strokeWidth(), // 線の太さ
-                  closed: shape.closed(), // 閉じた形状として描画
-                  fill: shape.fill(),    
-                  name: shape.name(),
-                  absolutePositionLine: shape.getAbsolutePosition(),
-                };
-                layerInfo.children.push(lineData); // 子要素の情報を配列に追加
-              }
-      
-      
-      
-      
-              if (shapeType === "Shape") {
-                const shapeData = {
-                  type: shape.getType(),
-                  name: shape.name(),
-                  clear: shape.clear,
-                  clearLine1 : shape.clearLine1,
-                  clearLine2 : shape.clearLine2,
-                  clearLine3 : shape.clearLine3,
-                  absolutePositionShape: shape.getAbsolutePosition(),
-                };
-                layerInfo.children.push(shapeData);
-              }
-      
-              console.log(shape.clear);
-                
-                
-              });
-            
-              layerData.layers.push(layerInfo); // レイヤーの情報を配列に追加
-            });
-
-
-      
-            
-            
-      
-      
-      const newData = {
-        homeFormValue: homeFormValue2,
-        layerData: layerData,
-      };
-      
-        // /user-data の fetch 処理
-      fetch('/user-data9', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newData),
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Server response:', data);
-        // サーバーからのレスポンスを処理
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        // エラー処理
-      });
-      
-
-      
-      fetch('/get-new-data10')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        const list = document.createElement("li");
-        list.classList.add("add-list");
-        list.append(homeFormValue2);
-        const editBtn = document.createElement("button");
-        editBtn.append("編集");
-        editBtn.classList.add("editBtn2");
-        const cancelBtn = document.createElement("button");
-        cancelBtn.append("取消");
-        cancelBtn.classList.add("cancelBtn2");
-        const deleteBtn = document.createElement("button");
-        const trash = document.createElement("i");
-        trash.classList.add("fa-solid")
-        trash.classList.add("fa-trash-can")
-        deleteBtn.append(trash);
-        deleteBtn.classList.add("deleteBtn2");
-        const btnBox = document.createElement("div");
-        btnBox.classList.add("btn-box");
-        btnBox.append(editBtn,cancelBtn,deleteBtn);
-        list.append(btnBox);
-        document.querySelector('.home-addlist').append(list);
-      })
-      .catch(error => {
-        console.error('Error getting new data:', error);
-        // エラー処理
-      });
-
-      
-      fetch('/get-new-data11')
-      .then(response => {
-        if (!response.ok) {
-           throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => {
-        const list = document.createElement("li");
-        list.classList.add("add-list4");
-        list.append(homeFormValue2);
-        const addBtn = document.createElement("button");
-        addBtn.append("表示");
-        addBtn.classList.add("addBtn2");
-        const cancelBtn = document.createElement("button");
-        cancelBtn.append("取消");
-        cancelBtn.classList.add("cancelBtn3");
-        const btnBox = document.createElement("div");
-        btnBox.classList.add("btn-box");
-        btnBox.append(addBtn,cancelBtn);
-        list.append(btnBox);
-        document.querySelector('.photo-addlist').append(list);
-      })
-      .catch(error => {
-        console.error('Error getting new data:', error);
-      // エラー処理
-     });
-      
-
-      const layerToRemove = stage2.find(node => node.name() === homeFormValue)[0];
-
-      if(stage2.getLayers().length !== 0 && layerToRemove instanceof Konva.Layer){
-        const deleteLayers = stage2.getLayers().slice();
-        deleteLayers.forEach(deleteLayer => {
-            deleteLayer.destroy();
-        });
-      }
-
-      overWrite.style.display = 'none';
-      document.querySelector(".home-compbtn").style.display = 'block';
-      document.querySelector(".home-form").value = "";
-      overWrite.removeEventListener("click",overWriteEvent); 
-      
-         }
-
-
-
-        };
-
       } else {
         const liElement = event.target.closest("li");
         const homeFormValue = liElement.firstChild.textContent.trim();
@@ -4233,11 +3959,11 @@ if (errorElement && errorElement.textContent !== "") {
 
         document.querySelector(".home-form").value = "";
 
-        homeList.removeEventListener("click",homeListEvent);
+
 
 
       }
-  };
+  });
 
  
 
@@ -4302,6 +4028,283 @@ if (errorElement && errorElement.textContent !== "") {
   
       
   });
+
+
+  overWrite.addEventListener("click",overWriteEvent); 
+  function overWriteEvent(){
+  
+    const homeForm = document.querySelector('.home-form');
+    const homeFormValue2 = homeForm.value;
+    const ul = document.querySelector(".home-addlist");
+
+    function isDuplicateValuePresent(value, elements) {
+      let isDuplicate = false;
+      elements.forEach(element => {
+        if (element.textContent.trim() === value) {
+          isDuplicate = true;
+          return;
+        }
+      });
+      return isDuplicate;
+    };
+
+
+    if( homeFormValue2 === ""){
+      const homeFormError = document.createElement("p");
+      homeFormError.classList.add("home-form-error");
+      document.querySelector(".homecenter-outer").append(homeFormError);
+      document.querySelector(".home-form-error").textContent = "※配置図名を入力してください※";
+    } else if(homeFormValue2.length >= 6){
+     const homeFormError = document.createElement("p");
+     homeFormError.classList.add("home-form-error");
+     document.querySelector(".homecenter-outer").append(homeFormError);
+     document.querySelector(".home-form-error").textContent = "※５文字以内で指定してください※";
+    }else if(stage2.getChildren(node => node.getClassName() === 'Layer')[0].name() !== homeFormValue2 && isDuplicateValuePresent(homeFormValue2+"編集"+"取消", ul.querySelectorAll("li"))){ 
+      const homeFormError = document.createElement("p");
+      homeFormError.classList.add("home-form-error");
+      document.querySelector(".homecenter-outer").append(homeFormError);
+      document.querySelector(".home-form-error").textContent = "※この配置図名は既に保存されています※";
+    } else {
+
+      const errorElement = document.querySelector(".home-form-error");
+      if (errorElement && errorElement.textContent !== "") {
+          errorElement.textContent = "";
+      }  
+
+  fetch('/delete-data4', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({homeFormValueTarget}),
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Server response:', data);
+      // サーバーからのレスポンスを処理
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      // エラー処理
+    });
+
+    homeList.removeChild(liElementTarget);
+
+   // photoListから該当するhomeFormValueのliを探し、削除
+    Array.from(photoList.children).forEach(photoLi => {
+      if (photoLi.firstChild.textContent.trim() === homeFormValueTarget) {
+        photoList.removeChild(photoLi);
+      }
+    });
+
+      const sourceLayers = stage2.getLayers(); // すべてのレイヤーの配列を取得
+
+      console.log(stage2.getLayers());
+
+
+      const layerData = {
+        layers: [],  // レイヤーの情報を格納する配列
+      };
+      
+      sourceLayers.forEach(layer => {
+        const layerInfo = {
+          name: homeFormValue2,  // レイヤーの名前を取得
+          children: [],      // 子要素の情報を格納する配列
+        };
+
+
+
+        function getShapeType(shape) {
+          if (shape instanceof Konva.Rect) {
+            return "Rect";
+          } else if (shape instanceof Konva.Line) {
+            return "Line";
+          } else if (shape instanceof Konva.Shape) {
+            return "Shape";
+          } 
+        };
+        
+        layer.getChildren().forEach(shape => {
+
+
+          const shapeType = getShapeType(shape);
+          if (shapeType === "Rect") {
+          const rectData = {
+            type: shape.getType(),   // シェイプの種類（Rect、Circle など）
+            x: shape.x(),
+            y: shape.y(),
+            width: shape.width(),
+            height: shape.height(),
+            fill: shape.fill(),    
+            name: shape.name(),
+            absolutePositionRect: shape.getAbsolutePosition(),
+          };
+
+          layerInfo.children.push(rectData); // 子要素の情報を配列に追加
+        }
+
+        if (shapeType === "Line") {
+          const lineData = {
+            type: shape.getType(),   // シェイプの種類（Rect、Circle など）
+            points: shape.points(),
+            stroke: shape.stroke(), // 線の色
+            strokeWidth: shape.strokeWidth(), // 線の太さ
+            closed: shape.closed(), // 閉じた形状として描画
+            fill: shape.fill(),    
+            name: shape.name(),
+            absolutePositionLine: shape.getAbsolutePosition(),
+          };
+          layerInfo.children.push(lineData); // 子要素の情報を配列に追加
+        }
+
+
+
+
+        if (shapeType === "Shape") {
+          const shapeData = {
+            type: shape.getType(),
+            name: shape.name(),
+            clear: shape.clear,
+            clearLine1 : shape.clearLine1,
+            clearLine2 : shape.clearLine2,
+            clearLine3 : shape.clearLine3,
+            absolutePositionShape: shape.getAbsolutePosition(),
+          };
+          layerInfo.children.push(shapeData);
+        }
+
+        console.log(shape.clear);
+          
+          
+        });
+      
+        layerData.layers.push(layerInfo); // レイヤーの情報を配列に追加
+      });
+
+
+
+      
+      
+
+
+const newData = {
+  homeFormValue: homeFormValue2,
+  layerData: layerData,
+};
+
+  // /user-data の fetch 処理
+fetch('/user-data9', {
+method: 'POST',
+headers: {
+  'Content-Type': 'application/json'
+},
+body: JSON.stringify(newData),
+})
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+})
+.then(data => {
+  console.log('Server response:', data);
+  // サーバーからのレスポンスを処理
+})
+.catch(error => {
+  console.error('Error:', error);
+  // エラー処理
+});
+
+
+
+fetch('/get-new-data10')
+.then(response => {
+  if (!response.ok) {
+    throw new Error('Network response was not ok');
+  }
+  return response.json();
+})
+.then(data => {
+  const list = document.createElement("li");
+  list.classList.add("add-list");
+  list.append(homeFormValue2);
+  const editBtn = document.createElement("button");
+  editBtn.append("編集");
+  editBtn.classList.add("editBtn2");
+  const cancelBtn = document.createElement("button");
+  cancelBtn.append("取消");
+  cancelBtn.classList.add("cancelBtn2");
+  const deleteBtn = document.createElement("button");
+  const trash = document.createElement("i");
+  trash.classList.add("fa-solid")
+  trash.classList.add("fa-trash-can")
+  deleteBtn.append(trash);
+  deleteBtn.classList.add("deleteBtn2");
+  const btnBox = document.createElement("div");
+  btnBox.classList.add("btn-box");
+  btnBox.append(editBtn,cancelBtn,deleteBtn);
+  list.append(btnBox);
+  document.querySelector('.home-addlist').append(list);
+})
+.catch(error => {
+  console.error('Error getting new data:', error);
+  // エラー処理
+});
+
+
+fetch('/get-new-data11')
+.then(response => {
+  if (!response.ok) {
+     throw new Error('Network response was not ok');
+  }
+  return response.json();
+})
+.then(data => {
+  const list = document.createElement("li");
+  list.classList.add("add-list4");
+  list.append(homeFormValue2);
+  const addBtn = document.createElement("button");
+  addBtn.append("表示");
+  addBtn.classList.add("addBtn2");
+  const cancelBtn = document.createElement("button");
+  cancelBtn.append("取消");
+  cancelBtn.classList.add("cancelBtn3");
+  const btnBox = document.createElement("div");
+  btnBox.classList.add("btn-box");
+  btnBox.append(addBtn,cancelBtn);
+  list.append(btnBox);
+  document.querySelector('.photo-addlist').append(list);
+})
+.catch(error => {
+  console.error('Error getting new data:', error);
+// エラー処理
+});
+
+
+const layerToRemove = stage2.find(node => node.name() === homeFormValueTarget)[0];
+
+if(stage2.getLayers().length !== 0 && layerToRemove instanceof Konva.Layer){
+  const deleteLayers = stage2.getLayers().slice();
+  deleteLayers.forEach(deleteLayer => {
+      deleteLayer.destroy();
+  });
+}
+
+overWrite.style.display = 'none';
+document.querySelector(".home-compbtn").style.display = 'block';
+document.querySelector(".home-form").value = "";
+
+
+   }
+
+
+
+  };
  
 
   const photoTab = document.querySelector('[data-target="content-photo"]');

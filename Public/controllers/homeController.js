@@ -226,7 +226,7 @@ router.post('/delete-data3', authenticateSession, async (req, res) => {
 
 router.post('/delete-data4', authenticateSession, async (req, res) => {
   const username = req.session.username;
-  const homeFormValue = req.body.homeFormValue; // クライアントから送信されたデータ
+  const homeFormValue = req.body.homeFormValueTarget; // クライアントから送信されたデータ
 
   console.log(homeFormValue);
 
