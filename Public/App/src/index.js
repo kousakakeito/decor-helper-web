@@ -3673,7 +3673,8 @@ if (errorElement && errorElement.textContent !== "") {
   const homeList = document.querySelector(".home-addlist");
 
 
-  homeList.addEventListener("click", event => {
+  homeList.addEventListener("click",homeListEvent);
+    function homeListEvent(event){
     if (event.target.classList.contains("editBtn2")) {
       if (stage2.getChildren().length === 0) {
 
@@ -3875,8 +3876,6 @@ if (errorElement && errorElement.textContent !== "") {
         
             stage2.draw();
 
-            
- 
 
           
   
@@ -3906,6 +3905,7 @@ if (errorElement && errorElement.textContent !== "") {
         overWrite.style.display = 'block';
         document.querySelector(".home-form").value = homeFormValue;
 
+        
         overWrite.addEventListener("click",overWriteEvent); 
         function overWriteEvent(){
         
@@ -4208,10 +4208,6 @@ if (errorElement && errorElement.textContent !== "") {
         // 削除対象のレイヤーを特定
         const layerToRemove = stage2.find(node => node.name() === homeFormValue)[0];
 
-        console.log('homeFormValue:', homeFormValue);
-        console.log('すべてのステージの子要素:', stage2.children);
-        console.log('削除するレイヤー:', layerToRemove);
-        console.log("layerToRemoveの名前:",layerToRemove.name());
         
         if (layerToRemove instanceof Konva.Layer) {
           layerToRemove.destroy();
@@ -4237,9 +4233,11 @@ if (errorElement && errorElement.textContent !== "") {
 
         document.querySelector(".home-form").value = "";
 
+        homeList.removeEventListener("click",homeListEvent);
+
 
       }
-  });
+  };
 
  
 
