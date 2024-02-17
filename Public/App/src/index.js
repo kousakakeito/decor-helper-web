@@ -430,7 +430,21 @@ document.querySelector('.caret-down')
   });
 
 
+  document.querySelector("input").addEventListener("mouseover",(e) => {
+    if(e.target.classList.contains("space-listCheck")){
+      const divSpace = document.createElement('div');
+      divSpace.classList.add("balloon-space");
+      const pSpace = document.createElement('p');
+      pSpace.append("チェック中は追加、取消、削除ボタンをクリックしても一覧メニューは閉じません");
+      divSpace.append(pSpace);
+      document.querySelector('.balloon-spaceText').append(divSpace);
+    }else if(e.target.classList.contains("furniture-listCheck")){
+    }else if(e.target.classList.contains("room-listCheck")){    
+    }
+  });
 
+
+console.log(window.innerHeight)
 
   let checkHome = document.querySelectorAll('[name=checkHome]');
   const genreDropdown = document.querySelector('.genre-dropdown');
@@ -622,6 +636,13 @@ document.querySelector('.caret-down')
   spaceList.addEventListener("click", event => {
     if (event.target.classList.contains("addBtn")) {
       if (stage2.getChildren().length === 0) {
+
+        if(!(document.querySelector('.space-listCheck').checked)){
+          furnitureSideBar = 0;
+          roomSideBar = 0;
+          spaceSideBar = 0;
+          hideAllContents();
+        }
 
       const liElement = event.target.closest("li");
       const spaceFormValue = liElement.firstChild.textContent.trim();
@@ -1754,6 +1775,12 @@ document.querySelector('.caret-down')
       }
         
       } else if (event.target.classList.contains("cancelBtn")) {
+        if(!(document.querySelector('.space-listCheck').checked)){
+          furnitureSideBar = 0;
+          roomSideBar = 0;
+          spaceSideBar = 0;
+          hideAllContents();
+        }
         if(document.querySelector(".home-form-error") && document.querySelector(".home-form-error").textContent !== ""){
           document.querySelector(".home-form-error").textContent = "";
         }
@@ -1792,6 +1819,12 @@ document.querySelector('.caret-down')
 
   spaceList.addEventListener("click", event => {
     if (event.target.classList.contains("editBtn")||event.target.classList.contains("fa-trash-can")) {
+      if(!(document.querySelector('.space-listCheck').checked)){
+        furnitureSideBar = 0;
+        roomSideBar = 0;
+        spaceSideBar = 0;
+        hideAllContents();
+      }
 
       const liElement = event.target.closest("li");
       const spaceFormValue = liElement.firstChild.textContent.trim();
@@ -1843,6 +1876,12 @@ document.querySelector('.caret-down')
 
   furnitureList.addEventListener("click", event => {
     if (event.target.classList.contains("editBtn")||event.target.classList.contains("fa-trash-can")) {
+      if(!(document.querySelector('.furniture-listCheck').checked)){
+        furnitureSideBar = 0;
+        roomSideBar = 0;
+        spaceSideBar = 0;
+        hideAllContents();
+      }
 
       const liElement = event.target.closest("li");
       const furnitureFormValue = liElement.firstChild.textContent.trim();
@@ -1897,6 +1936,13 @@ document.querySelector('.caret-down')
   furnitureList.addEventListener("click", event => {
     if (event.target.classList.contains("addBtn")) {
       if (stage2.getChildren().length > 0) {
+
+        if(!(document.querySelector('.furniture-listCheck').checked)){
+          furnitureSideBar = 0;
+          roomSideBar = 0;
+          spaceSideBar = 0;
+          hideAllContents();
+        }
     
       const liElement = event.target.closest("li");
       const furnitureFormValue = liElement.firstChild.textContent.trim();
@@ -3488,6 +3534,12 @@ document.querySelector('.caret-down')
       }
         
       } else if (event.target.classList.contains("cancelBtn")) {
+        if(!(document.querySelector('.furniture-listCheck').checked)){
+          furnitureSideBar = 0;
+          roomSideBar = 0;
+          spaceSideBar = 0;
+          hideAllContents();
+        }
         // 削除ボタンをクリックした場合の処理
         const liElement = event.target.closest("li");
         const furnitureFormValue = liElement.firstChild.textContent.trim();
@@ -3775,6 +3827,12 @@ if (errorElement && errorElement.textContent !== "") {
   homeList.addEventListener("click", event => {
     if (event.target.classList.contains("editBtn2")) {
       if (stage2.getChildren().length === 0) {
+        if(!(document.querySelector('.room-listCheck').checked)){
+          furnitureSideBar = 0;
+          roomSideBar = 0;
+          spaceSideBar = 0;
+          hideAllContents();
+        }
 
       const liElement = event.target.closest("li");
       liElementTarget = liElement;
@@ -4023,6 +4081,12 @@ if (errorElement && errorElement.textContent !== "") {
 
 
       } else if (event.target.classList.contains("cancelBtn2")) {
+        if(!(document.querySelector('.room-listCheck').checked)){
+          furnitureSideBar = 0;
+          roomSideBar = 0;
+          spaceSideBar = 0;
+          hideAllContents();
+        }
         // 削除ボタンをクリックした場合の処理
         const liElement = event.target.closest("li");
         const homeFormValue = liElement.firstChild.textContent.trim();
@@ -4067,6 +4131,12 @@ if (errorElement && errorElement.textContent !== "") {
 
   homeList.addEventListener("click", event => {
     if (event.target.classList.contains("deleteBtn2")||event.target.classList.contains("fa-trash-can")) {
+      if(!(document.querySelector('.room-listCheck').checked)){
+        furnitureSideBar = 0;
+        roomSideBar = 0;
+        spaceSideBar = 0;
+        hideAllContents();
+      }
 
       const liElement = event.target.closest("li");
       const homeFormValue = liElement.firstChild.textContent.trim();

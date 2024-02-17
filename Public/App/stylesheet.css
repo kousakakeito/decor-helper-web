@@ -271,6 +271,54 @@ button{
 
 
 /* home-spacelist のスタイル */
+.space-listCheck{
+  position: fixed;
+  margin-left: 235px;
+  margin-top: -43px;
+}
+
+.furniture-listCheck{
+  position: fixed;
+  margin-left: 235px;
+  margin-top: -43px;
+}
+
+.room-listCheck{
+  position: fixed;
+  margin-left: 235px;
+  margin-top: -43px;
+}
+
+.balloon-space {
+  position: fixed;
+  display: inline-block;
+  margin-top: -100px;
+  z-index: ;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #e0edff;
+  border-radius: 15px;
+}
+
+.balloon-space:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-top: 15px solid #e0edff;
+}
+
+.balloon-space p {
+  margin: 0;
+  padding: 0;
+  font-size:12px;
+}
+
 .home-spacelist {
   position:fixed;
   display: flex;
