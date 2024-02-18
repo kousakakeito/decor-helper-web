@@ -27,7 +27,12 @@ app.use(furnitureController);
 const homeController = require('../Public/controllers/homeController'); 
 app.use(homeController);
 
+const resetController = require('../Public/controllers/resetController'); 
+app.use(resetController);
+
 const registerUser = require('../Public/controllers/registerController');
+
+//resetContloルーティング
 
 app.get('/register.html', (req, res) => {
   res.sendFile(path.join(publicPath, 'Form', 'register', 'register.html'));
@@ -49,6 +54,7 @@ app.post('/register', (req, res) => {
 app.get('/redirect-home', (req, res) => {
   res.redirect(`/App/home.html`);
 });
+
 
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);

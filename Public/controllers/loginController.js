@@ -438,6 +438,17 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.post('/pass-reset', (req, res) => {
+  res.json({ redirect: '/Form/reset/reset.html' });
+});
+
+router.post('/user-register', (req, res) => {
+  res.json({ redirect: '/Form/register/register.html' });
+});
+
+router.post('/user-login', (req, res) => {
+  res.json({ redirect: '../../index.html' });
+});
 
 
 createUsersTable();

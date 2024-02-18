@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const nodemailer = require('nodemailer');
 const config = require('../../config/config');
+const session = require('express-session');
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -16,48 +17,48 @@ router.post('/reset-password', (req, res) => {
   const email = req.body.email;
 
   // データベースから入力されたメールアドレスのユーザー情報を検索するクエリ
-  const sql = 'SELECT * FROM users WHERE email = ?';
-  const values = [email];
+  const sql = 'SELECT * FROM users WHERE email = ? OR username = ?';
+  const values = [email,email];
+  console.log(values)
 
   connection.query(sql, values, (err, results) => {
+
     if (err) {
-      console.error('Error executing SQL query:', err);
-      res.status(500).send('An error occurred while resetting the password.');
-      return;
+      // SQL実行時のエラー
+      console.error('Error executing query', err);
+      res.status(500).send('Internal Server Error');
+    } else if (results.length > 0) {
+      // ユーザーが見つかった場合、特定のHTMLファイルをロード
+      console.log("ok")
+      req.session.userEmail = results[0].email;
+      res.redirect('/redirect-reset1');
+    } else {
+      // ユーザーが見つからなかった場合、エラーメッセージを返す
+      console.log("error")
+      res.status(404).send('User not found');
     }
 
-    if (results.length === 0) {
-      // ユーザーが存在しない場合の処理
-      res.status(404).send('User not found.');
-      return;
-    }
-
-    // メール送信の処理
-    const transporter = nodemailer.createTransport({
-      service: 'Gmail', // または使用するメールサービス（Gmail以外の場合は適切な設定が必要）
-      auth: {
-        user: 'DecorHelperWeb@gmail.com', // メール送信に使用するGmailアカウント
-        pass: config.password, // メール送信に使用するGmailアカウントのパスワード
-      },
-    });
-
-    const mailOptions = {
-      from: 'DecorHelperWeb@gmail.com', // 送信元メールアドレス
-      to: email, // 送信先メールアドレス（リセット対象のユーザーのメールアドレス）
-      subject: 'パスワードリセットリンク', // メールの件名
-      text: 'パスワードリセットリンクをクリックしてパスワードをリセットしてください。', // メール本文
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error('Error sending email:', error);
-        res.status(500).send('An error occurred while sending the reset link.');
-      } else {
-        console.log('Email sent:', info.response);
-        res.sendStatus(200); // メール送信成功時のレスポンス
-      }
-    });
   });
 });
+
+
+
+router.get('/redirect-reset1', (req, res) => {
+
+  res.redirect(`/Form/reset1/reset1.html`);
+});
+
+router.post('/resetCancel-password', (req, res) => {
+  res.json({ redirect: '/Form/reset/reset.html' });
+});
+
+router.post('/user-register2', (req, res) => {
+  res.json({ redirect: '/Form/register/register.html' });
+});
+
+router.post('/user-register3', (req, res) => {
+  res.json({ redirect: '/Form/register/register.html' });
+});
+
 
 module.exports = router;

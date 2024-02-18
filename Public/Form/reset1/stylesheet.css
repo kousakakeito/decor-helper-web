@@ -37,10 +37,7 @@ body{
 
 
 
-
-
-
-.decor {
+.decor{
   color: rgb(211, 175, 129);
   font-size: 36px;
   line-height: 1em;
@@ -54,7 +51,51 @@ body{
   margin-top: 50px;
   font-size: 34px;
   font-weight: bold;
+}
 
+h2{
+  text-align: center;
+  margin-left: 12px;
+  font-size: 19px;
+  margin-top: -40px;
+}
+
+.exp-box{
+  width: 290px;
+  margin-left: 45px;
+  margin-top: -10px;
+}
+
+.exp-text{
+  font-size: 10px;
+  font-weight: bold;
+}
+
+.mail-box{
+  font-size: 12px;
+  margin-left: 230px;
+  width: 380px;
+  margin-top: 30px;
+}
+
+.fa-circle-check{
+  position: fixed;
+  padding-left: 20px;
+  font-size: 30px;
+  margin-top: -8px;
+}
+
+.fa-circle-check:hover:before{
+ color: blue;
+}
+
+.cansel-btn{
+  margin-top: 40px;
+  margin-left: 153px;
+}
+
+.cansel-btn:hover{
+  color: gray;
 }
 
 .form{
@@ -71,27 +112,13 @@ body{
   background-color: white;
 }
 
-.user-form{
-  height: 30px;
-  width: 300px;
-  margin-left: 36px;
 
-}
 
-.pass-form{
+.male-form{
   height: 30px;
   width: 300px;
   margin-left: 36px;
   margin-top: 10px;
-}
-
-.pass-reset-outer{
-  margin-left: 168px;
-  margin-top: 20px;
-}
-
-.reset-dierect{
-  text-decoration: none;
 }
 
 
@@ -99,6 +126,7 @@ body{
 .login-outer{
   margin-left: 36px;
   margin-top: 30px;
+
 }
 
 button{
@@ -120,49 +148,42 @@ button{
   font-weight: bold;
 }
 
-.check-outer{
-  height: 0px;
-  margin-top: 20px;
-  margin-left: 100px;
-}
-
-.checkbox-label {
-  display: flex;
-  align-items: center;
-}
-
-.checkbox-input {
-  margin-right: 8px; /* チェックボックスとテキストの間のスペースを調整 */
-}
-
-.checkbox-text {
-  display: inline-block;
-  vertical-align: middle;
-  font-weight: bold;
-  font-size: 12px;
-}
-
 
 .sub-outer{
   text-align: center;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
-.sub-dierect{
+
+.sub-link{
   text-decoration: none;
-}
-
-.sub{
+  color: black;
+  font-size: 14px;
   font-weight: bold;
-  
 }
 
-.pass-reset{
- font-weight: bold;
+:hover.sub-link{
+  color: gray;
 }
 
-.user-register{
- font-weight: bold;
- font-size: 16px;
- color: blue;
+.hr-left{
+  width: 120px;
+  margin-left: 230px;
+  position: absolute;
+  margin-top: 31px;
+
+}
+
+.hr-right{
+  width: 120px;
+  margin-left: 30px;
+  margin-top: -25px;
+}
+
+.or{
+  text-align: center;
+}
+
+.user-register3{
+  font-weight: bold;
 }

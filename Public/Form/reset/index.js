@@ -5,6 +5,7 @@ loginForm.addEventListener('submit', (event) => {
 
   const email = event.target.email.value;
 
+  console.log(email)
   // サーバーにメールアドレスを送信する
   fetch('/reset-password', {
     method: 'POST',
@@ -15,12 +16,39 @@ loginForm.addEventListener('submit', (event) => {
   })
     .then((response) => {
       if (response.ok) {
-        alert('パスワードリセットリンクを送信しました。');
+        console.log("ok")
+        window.location.href = '/Form/reset1/reset1.html';
       } else {
-        console.error('パスワードリセットリンクの送信に失敗しました。');
+
+        const divReset = document.createElement('div');
+        divReset.classList.add("balloon-reset");
+        const pReset = document.createElement('p');
+        pReset.append("アカウントが見つかりません");
+        divReset.append(pReset);
+        document.querySelector('.balloon-resetText').append(divReset);
+        window.setTimeout(() => {
+          document.querySelector('.balloon-resetText').removeChild(divReset);
+      }, 2000);
       }
     })
     .catch((error) => {
       console.error('Error:', error);
     });
 });
+
+
+document.querySelector('.user-register2').addEventListener("click",function(){
+  fetch('/user-register2', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    window.location.href = data.redirect;
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+})

@@ -6,42 +6,21 @@ body, html {
 }
 .front-content {
   position: relative;
-  z-index: 2; 
+
 }
 
 .front-content2 {
   position: relative;
-  z-index: 1; 
+  z-index: 2; 
 }
 
 
-.background-animation {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: 50px 50px;
-  background-image: url('/Icon/DecorHelperIcon.png'); 
-  background-repeat: repeat; 
-  animation: slideBackground 30s linear infinite;
-  z-index: 0;
-}
-
-@keyframes slideBackground {
-  0% {
-    background-position: 0 0; /* 左上からスタート */
-  }
-  100% {
-    background-position: 100% 100%; /* 右下まで移動 */
-  }
-}
 
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color:#211974;
+  background-color:#ecbc7c;
 }
 
 header {
@@ -53,24 +32,48 @@ header {
   justify-content: space-between;
 }
 
-.title {
+
+.title p{
+  position: fixed;
   font-size: 34px;
   font-weight: bold;
   letter-spacing: 6px;
+  margin-left: 70px;
+  margin-top: -20px;
+  color: rgb(211, 175, 129);
 }
 
 .title img {
   width: 40px; /* アイコンの幅を調整 */
   height: 40px; /* アイコンの高さを調整 */
-  margin-left: 20px; /* アイコンとテキストの間隔を調整 */
-  margin-right:4px;
-  vertical-align: bottom; /* テキストとアイコンの垂直配置を調整 */
+  margin-left: 10px; /* アイコンとテキストの間隔を調整 */
+  margin-top: 10px;
+}
+
+.icon-circle{
+  position: fixed;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: white;
+  margin-top: -32px;
+  margin-left: -10px;
+  cursor: pointer;
+}
+
+@keyframes rotate-image {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(360deg); }
+}
+
+.rotating {
+  animation: rotate-image 2s ease-in-out;
 }
 
 .tabs {
   display: flex;
   gap: 20px;
-  margin-left:-300px;
+  margin-left:0px;
 }
 
 .tab {
@@ -165,7 +168,7 @@ header {
   display: none;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  z-index: 1;
+  z-index: 5;
   top: 100%;
   left: 0;
   flex-direction: row;
@@ -221,22 +224,53 @@ button{
 
 .sidebar {
   width: 63px; /* サイドバーの幅 */
-  height: 739.5px; /* 画面いっぱいの高さ */
+  height: 742px; /* 画面いっぱいの高さ */
   background-color: #333; /* サイドバーの背景色 */
   color: white; /* サイドバー内のテキスト色 */
   position: fixed; /* サイドバーを画面に固定 */
-  top: 140px; /* 上端から0pxの位置に */
+  top: 139px; /* 上端から0pxの位置に */
   left: 0; /* 左端から0pxの位置に */
   overflow: auto; /* 内容が多すぎる場合はスクロール可能に */
   z-index: 1000; /* 他の要素より前面に表示 */
+}
+
+.sidebar2 {
+  width: 63px; /* サイドバーの幅 */
+  height: 742px; /* 画面いっぱいの高さ */
+  background-color: #333; /* サイドバーの背景色 */
+  color: white; /* サイドバー内のテキスト色 */
+  position: fixed; /* サイドバーを画面に固定 */
+  top: 139px; /* 上端から0pxの位置に */
+  right: 584px; /* 左端から0pxの位置に */
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  overflow: auto; /* 内容が多すぎる場合はスクロール可能に */
+  z-index: 1000; /* 他の要素より前面に表示 */
+  border-left: 6px solid #555;
 }
 
 /* サイドバー内のタブのスタイル */
 .sidebar-tab {
   padding-left: 20px;
   padding-right: 20px;
-  padding-top: 112.5px;
-  padding-bottom: 112.5px;
+  padding-top: 113.5px;
+  padding-bottom: 113.5px;
+  border-top: 1px solid #555;
+  border-right: 6px solid #555;
+  cursor: pointer; /* マウスオーバー時にカーソルをポインターに */
+}
+
+.sidebar-tab2 {
+  padding-top: 361px;
+  padding-bottom: 361px;
+  cursor: pointer; /* マウスオーバー時にカーソルをポインターに */
+}
+
+.sidebar-tab3 {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 361px;
+  padding-bottom: 361px;
   border-top: 1px solid #555;
   border-right: 6px solid #555;
   cursor: pointer; /* マウスオーバー時にカーソルをポインターに */
@@ -250,12 +284,30 @@ button{
   background-color: #444; /* ホバー時の背景色を変更 */
 }
 
+.sidebar-tab2:hover {
+  background-color: #444; /* ホバー時の背景色を変更 */
+}
+
+.sidebar-tab3:hover {
+  background-color: #444; /* ホバー時の背景色を変更 */
+}
+
 .select-sidebar{
   background-color: #444;
 }
 
 /* アイコンのスタイル */
 .sidebar-tab i {
+  color: orange;
+  font-size: 18px;
+}
+
+.sidebar-tab2 i {
+  color: orange;
+  font-size: 18px;
+}
+
+.sidebar-tab3 i {
   color: orange;
   font-size: 18px;
 }
@@ -268,7 +320,94 @@ button{
   margin-left: -1.5px;
 }
 
+.sidebar-tab3 .fa-gear{
+  margin-left: -1.5px;
+}
 
+.sidebar-tab2 .fa-gear{
+  margin-left: 20px;
+}
+
+.over-view {
+  width: 338px; /* サイドバーの幅 */
+  height: 730px; /* 画面いっぱいの高さ */
+  background-color: #333; /* サイドバーの背景色 */
+  color: white; /* サイドバー内のテキスト色 */
+  position: fixed; /* サイドバーを画面に固定 */
+  top: 139px; /* 上端から0pxの位置に */
+  right: 20px; /* 左端から0pxの位置に */
+  border-radius: 50px;
+  border-style:double;
+  border-width: 6px;
+  border-color: #000;
+  overflow: auto; /* 内容が多すぎる場合はスクロール可能に */
+}
+
+.over-view-text{
+  margin-top: 60px;
+  margin-left: 30px;
+}
+
+.over-view-text a{
+  color: blue;
+}
+
+.over-view-text .inquiry{
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.over-view-text .privacy{
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.over-view-text .terms{
+  color: blue;
+  text-decoration: underline; 
+  cursor: pointer;
+}
+
+.over-view-text .faq{
+  color: blue;
+  text-decoration: underline; 
+  cursor: pointer;
+}
+
+.over-view-text h3{
+  color: orange;
+}
+
+.dev li{
+  margin-left: -20px;
+}
+
+.link-text{
+  margin-top: 60px;
+}
+
+.link li{
+  margin-left: -20px;
+}
+
+.sns-text{
+  margin-top: 60px;
+}
+
+.sns{
+  list-style: none;
+}
+
+.sns li{
+  margin-left: -38px;
+}
+
+.sns .fa-brands{
+  font-size: 30px;
+  margin-right: 15px;
+}
 
 /* home-spacelist のスタイル */
 .space-listCheck{
@@ -293,7 +432,8 @@ button{
   position: fixed;
   display: inline-block;
   margin-top: -100px;
-  z-index: ;
+  margin-left: 10px;
+  z-index: 12;
   padding: 7px 10px;
   min-width: 120px;
   max-width: 100%;
@@ -319,18 +459,81 @@ button{
   font-size:12px;
 }
 
+.balloon-furniture {
+  position: fixed;
+  display: inline-block;
+  margin-top: -100px;
+  margin-left: 10px;
+  z-index: 12;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #e0edff;
+  border-radius: 15px;
+}
+
+.balloon-furniture:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-top: 15px solid #e0edff;
+}
+
+.balloon-furniture p {
+  margin: 0;
+  padding: 0;
+  font-size:12px;
+}
+
+.balloon-room {
+  position: fixed;
+  display: inline-block;
+  margin-top: -100px;
+  margin-left: 10px;
+  z-index: 12;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #e0edff;
+  border-radius: 15px;
+}
+
+.balloon-room:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-top: 15px solid #e0edff;
+}
+
+.balloon-room p {
+  margin: 0;
+  padding: 0;
+  font-size:12px;
+}
+
 .home-spacelist {
   position:fixed;
   display: flex;
+  z-index: 4;
   justify-content: center;
   align-items: flex-start;
-  height: 735px;
+  height: 738px;
   width: 250px;
   overflow: auto;
   border: 2px solid #000;
   margin-left: 63px;
-  margin-top: 32px;
-  background-color:rgba(255, 255, 255, 0.8);
+  margin-top: 31px;
+  background-color:rgb(185, 182, 182);
 }
 
 /* home-spacetext のスタイル */
@@ -343,15 +546,16 @@ button{
 .home-roomlist {
   position: fixed;
   display: flex;
+  z-index: 4;
   justify-content: center;
   align-items: flex-start;
-  height: 735px;
+  height: 738px;
   width: 250px;
   overflow: auto;
   border: 2px solid #000;
   margin-left: 63px;
-  margin-top: 32px;
-  background-color:rgba(255, 255, 255, 0.8);
+  margin-top: 31px;
+  background-color:rgb(185, 182, 182);
 }
 
 /* home-roomtext のスタイル */
@@ -363,17 +567,17 @@ button{
 /* homecenter-outer のスタイル */
 .homecenter-outer {
   position: fixed;
+  z-index: 3;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 1200px;
-  height: 735px;
+  height: 738px;
   border: 2px solid #000;
-  margin-top: 32px;
-  margin-left: 400px;
-  border-radius: 60px;
+  margin-top: 31px;
+  margin-left: 63px;
   background-color:rgba(255, 255, 255, 0.8);
 }
 
@@ -411,14 +615,15 @@ button{
 .homeright-outer {
   float: right;
   position: fixed;
+  z-index: 4;
   margin-left: 63px;
-  margin-top: 32px;
+  margin-top: 31px;
   border-style: solid;
   border-width: 2px;
   width: 250px;
-  height: 735px;
+  height: 738px;
   overflow: auto;
-  background-color:rgba(255, 255, 255, 0.8);
+  background-color:rgb(185, 182, 182);
 }
 
 /* home-furnituretext のスタイル */
@@ -430,15 +635,18 @@ button{
 
 /* spacecenter-outer のスタイル */
 .spacecenter-outer {
+  position: fixed;
   margin: 0 auto;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 1200px;
-  height: 735px;
+  height: 738px;
   border: 2px solid #000;
-  margin-top: 40px;
+  margin-top: 31px;
+  margin-left: 63px;
   background-color:rgba(255, 255, 255, 0.8);
 }
 
@@ -534,7 +742,7 @@ button{
   position: absolute;
   margin-top: -50px;
   left: 0;
-  margin-left: 408px;
+  margin-left: 48px;
   height: 25px;
 }
 
@@ -550,23 +758,26 @@ button{
 
 /* furniturecenter-outer のスタイル */
 .furniturecenter-outer {
+  position: fixed;
   margin: 0 auto;
+  z-index: 3;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 1200px;
-  height: 735px;
+  height: 738px;
   border: 2px solid #000;
-  margin-top: 40px;
+  margin-top: 31px;
+  margin-left: 63px;
   background-color:rgba(255, 255, 255, 0.8);
 }
 
 /* furniture-compbtn のスタイル */
 .furniture-compbtn {
-  position: absolute;
-  margin-top: -41px;
-  margin-left: 1646px;
+  position: fixed;
+  margin-top: 730px;
+  margin-left: 1270px;
   border-left-width: 2px;
   border-left-style: solid;
   border-left-color: black;
@@ -637,7 +848,7 @@ button{
   position: absolute;
   margin-top: -50px;
   left: 0;
-  margin-left: 408px;
+  margin-left: 48px;
   height: 25px;
 }
 
@@ -645,7 +856,7 @@ button{
   position: absolute;
   margin-top: -50px;
   left: 0;
-  margin-left: 600px;
+  margin-left: 248px;
   height: 25px;
   width: 200px;
 }
@@ -660,10 +871,10 @@ button{
 
 /* furnitureright-outer のスタイル */
 .furnitureright-outer {
-  float: right;
+  position: fixed;
   overflow-x: hidden;
-  margin-top: -738px;
-  margin-right: 20px;
+  margin-top: 31px;
+  margin-left: 1270px;
   border-style: solid;
   border-width: 2px;
   width: 250px;
@@ -1619,8 +1830,8 @@ button{
 
 }
 .div1{
-  margin-left: -750px;
-  margin-top: -288px;
+  margin-left: 730px;
+  margin-top: -290px;
 }
 
 .div2{
@@ -1635,8 +1846,8 @@ button{
 }
 
 .div3{
-  margin-left: -750px;
-  margin-top: -288px;
+  margin-left: 730px;
+  margin-top: -290px;
 }
 
 .div4{
@@ -1651,8 +1862,8 @@ button{
 }
 
 .div5{
-  margin-left: -750px;
-  margin-top: -288px;
+  margin-left: 730px;
+  margin-top: -290px;
 }
 
 .div6{
@@ -1667,8 +1878,8 @@ button{
 }
 
 .div7{
-  margin-left: -750px;
-  margin-top: -288px;
+  margin-left: 730px;
+  margin-top: -290px;
 }
 
 .div8{
@@ -1683,8 +1894,8 @@ button{
 }
 
 .div9{
-  margin-left: -750px;
-  margin-top: -288px;
+  margin-left: 730px;
+  margin-top: -290px;
 }
 
 .div10{
@@ -1699,8 +1910,8 @@ button{
 }
 
 .div11{
-  margin-left: -750px;
-  margin-top: -288px;
+  margin-left: 730px;
+  margin-top: -290px;
 }
 
 .div12{
@@ -1715,8 +1926,8 @@ button{
 }
 
 .div13{
-  margin-left: -750px;
-  margin-top: -288px;
+  margin-left: 730px;
+  margin-top: -290px;
 }
 
 .div14{
@@ -1731,8 +1942,8 @@ button{
 }
 
 .div15{
-  margin-left: -750px;
-  margin-top: -288px;
+  margin-left: 730px;
+  margin-top: -290px;
 }
 
 .div16{
@@ -1747,8 +1958,8 @@ button{
 }
 
 .div17{
-  margin-left: -750px;
-  margin-top: -288px;
+  margin-left: 730px;
+  margin-top: -290px;
 }
 
 .div18{
@@ -1763,8 +1974,8 @@ button{
 }
 
 .div19{
-  margin-left: -750px;
-  margin-top: -288px;
+  margin-left: 730px;
+  margin-top: -290px;
 }
 
 .div20{
@@ -1779,8 +1990,8 @@ button{
 }
 
 .div21{
-  margin-left: -750px;
-  margin-top: -288px;
+  margin-left: 730px;
+  margin-top: -290px;
 }
 
 .div22{
@@ -1795,8 +2006,8 @@ button{
 }
 
 .div23{
-  margin-left: -750px;
-  margin-top: -288px;
+  margin-left: 730px;
+  margin-top: -290px;
 }
 
 .div24{

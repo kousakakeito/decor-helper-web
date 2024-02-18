@@ -147,6 +147,23 @@ function getObjData() {
 // ページがロードされたときに部屋、家具、配置図情報を取得して表示する
 window.addEventListener('load', getObjData);
 
+document.querySelector(".icon-circle").addEventListener("click",function(){
+  window.location.reload();
+})
+
+function rotateImage() {
+  document.querySelector(".icon").classList.add('rotating'); // 回転クラスを追加
+
+  setTimeout(function() {
+    document.querySelector(".icon").classList.remove('rotating');
+  }, 2000);
+
+  setTimeout(rotateImage, 7000);
+}
+
+// 最初の回転を開始
+rotateImage();
+
 // ログアウトボタンをクリックしたときの処理
 const logoutButton = document.querySelector('#logout-button');
 logoutButton.addEventListener('click', () => {
@@ -430,7 +447,7 @@ document.querySelector('.caret-down')
   });
 
 
-  document.querySelector("input").addEventListener("mouseover",(e) => {
+  document.querySelector(".content-home").addEventListener("mouseover",(e) => {
     if(e.target.classList.contains("space-listCheck")){
       const divSpace = document.createElement('div');
       divSpace.classList.add("balloon-space");
@@ -439,9 +456,32 @@ document.querySelector('.caret-down')
       divSpace.append(pSpace);
       document.querySelector('.balloon-spaceText').append(divSpace);
     }else if(e.target.classList.contains("furniture-listCheck")){
+      const divFurniture = document.createElement('div');
+      divFurniture.classList.add("balloon-furniture");
+      const pFurniture = document.createElement('p');
+      pFurniture.append("チェック中は追加、取消、削除ボタンをクリックしても一覧メニューは閉じません");
+      divFurniture.append(pFurniture);
+      document.querySelector('.balloon-furnitureText').append(divFurniture);
     }else if(e.target.classList.contains("room-listCheck")){    
+      const divRoom = document.createElement('div');
+      divRoom.classList.add("balloon-room");
+      const pRoom = document.createElement('p');
+      pRoom.append("チェック中は編集、取消、削除ボタンをクリックしても一覧メニューは閉じません");
+      divRoom.append(pRoom);
+      document.querySelector('.balloon-roomText').append(divRoom);
     }
   });
+
+  document.querySelector(".content-home").addEventListener("mouseout",(e) => {
+    if(e.target.classList.contains("space-listCheck")){
+      document.querySelector('.balloon-spaceText').removeChild(document.querySelector('.balloon-space'));
+    }else if(e.target.classList.contains("furniture-listCheck")){
+      document.querySelector('.balloon-furnitureText').removeChild(document.querySelector('.balloon-furniture'));
+    }else if(e.target.classList.contains("room-listCheck")){
+      document.querySelector('.balloon-roomText').removeChild(document.querySelector('.balloon-room'));    
+    }
+  });
+
 
 
 console.log(window.innerHeight)
@@ -638,6 +678,9 @@ console.log(window.innerHeight)
       if (stage2.getChildren().length === 0) {
 
         if(!(document.querySelector('.space-listCheck').checked)){
+          document.querySelector('.space').classList.remove('select-sidebar');
+          document.querySelector('.furniture').classList.remove('select-sidebar'); 
+          document.querySelector('.room').classList.remove('select-sidebar');
           furnitureSideBar = 0;
           roomSideBar = 0;
           spaceSideBar = 0;
@@ -1776,6 +1819,9 @@ console.log(window.innerHeight)
         
       } else if (event.target.classList.contains("cancelBtn")) {
         if(!(document.querySelector('.space-listCheck').checked)){
+          document.querySelector('.space').classList.remove('select-sidebar');
+          document.querySelector('.furniture').classList.remove('select-sidebar'); 
+          document.querySelector('.room').classList.remove('select-sidebar');
           furnitureSideBar = 0;
           roomSideBar = 0;
           spaceSideBar = 0;
@@ -1820,6 +1866,9 @@ console.log(window.innerHeight)
   spaceList.addEventListener("click", event => {
     if (event.target.classList.contains("editBtn")||event.target.classList.contains("fa-trash-can")) {
       if(!(document.querySelector('.space-listCheck').checked)){
+        document.querySelector('.space').classList.remove('select-sidebar');
+        document.querySelector('.furniture').classList.remove('select-sidebar'); 
+        document.querySelector('.room').classList.remove('select-sidebar');
         furnitureSideBar = 0;
         roomSideBar = 0;
         spaceSideBar = 0;
@@ -1877,6 +1926,9 @@ console.log(window.innerHeight)
   furnitureList.addEventListener("click", event => {
     if (event.target.classList.contains("editBtn")||event.target.classList.contains("fa-trash-can")) {
       if(!(document.querySelector('.furniture-listCheck').checked)){
+        document.querySelector('.space').classList.remove('select-sidebar');
+        document.querySelector('.furniture').classList.remove('select-sidebar'); 
+        document.querySelector('.room').classList.remove('select-sidebar');
         furnitureSideBar = 0;
         roomSideBar = 0;
         spaceSideBar = 0;
@@ -1938,6 +1990,9 @@ console.log(window.innerHeight)
       if (stage2.getChildren().length > 0) {
 
         if(!(document.querySelector('.furniture-listCheck').checked)){
+          document.querySelector('.space').classList.remove('select-sidebar');
+          document.querySelector('.furniture').classList.remove('select-sidebar'); 
+          document.querySelector('.room').classList.remove('select-sidebar');
           furnitureSideBar = 0;
           roomSideBar = 0;
           spaceSideBar = 0;
@@ -3535,6 +3590,9 @@ console.log(window.innerHeight)
         
       } else if (event.target.classList.contains("cancelBtn")) {
         if(!(document.querySelector('.furniture-listCheck').checked)){
+          document.querySelector('.space').classList.remove('select-sidebar');
+          document.querySelector('.furniture').classList.remove('select-sidebar'); 
+          document.querySelector('.room').classList.remove('select-sidebar');
           furnitureSideBar = 0;
           roomSideBar = 0;
           spaceSideBar = 0;
@@ -3828,6 +3886,9 @@ if (errorElement && errorElement.textContent !== "") {
     if (event.target.classList.contains("editBtn2")) {
       if (stage2.getChildren().length === 0) {
         if(!(document.querySelector('.room-listCheck').checked)){
+          document.querySelector('.space').classList.remove('select-sidebar');
+          document.querySelector('.furniture').classList.remove('select-sidebar'); 
+          document.querySelector('.room').classList.remove('select-sidebar');
           furnitureSideBar = 0;
           roomSideBar = 0;
           spaceSideBar = 0;
@@ -4082,6 +4143,9 @@ if (errorElement && errorElement.textContent !== "") {
 
       } else if (event.target.classList.contains("cancelBtn2")) {
         if(!(document.querySelector('.room-listCheck').checked)){
+          document.querySelector('.space').classList.remove('select-sidebar');
+          document.querySelector('.furniture').classList.remove('select-sidebar'); 
+          document.querySelector('.room').classList.remove('select-sidebar');
           furnitureSideBar = 0;
           roomSideBar = 0;
           spaceSideBar = 0;
@@ -4132,6 +4196,9 @@ if (errorElement && errorElement.textContent !== "") {
   homeList.addEventListener("click", event => {
     if (event.target.classList.contains("deleteBtn2")||event.target.classList.contains("fa-trash-can")) {
       if(!(document.querySelector('.room-listCheck').checked)){
+        document.querySelector('.space').classList.remove('select-sidebar');
+        document.querySelector('.furniture').classList.remove('select-sidebar'); 
+        document.querySelector('.room').classList.remove('select-sidebar');
         furnitureSideBar = 0;
         roomSideBar = 0;
         spaceSideBar = 0;

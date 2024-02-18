@@ -30,3 +30,36 @@ loginForm.addEventListener('submit', (event) => {
     });
 });
 
+document.querySelector('.pass-reset').addEventListener("click",function(){
+  fetch('/pass-reset', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    window.location.href = data.redirect;
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+})
+
+
+
+document.querySelector('.user-register').addEventListener("click",function(){
+  fetch('/user-register', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    window.location.href = data.redirect;
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+})

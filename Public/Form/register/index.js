@@ -111,3 +111,19 @@ function displayErrors(errors) {
     });
   }
 }
+
+document.querySelector('.user-login').addEventListener("click",function(){
+  fetch('/user-login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    window.location.href = data.redirect;
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+})

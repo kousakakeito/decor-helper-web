@@ -7,23 +7,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheet.css">
   <link rel="icon" href="/Icon/DecorHelperIcon.png">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.1/css/all.css">
 </head>
 <body>
   <header class="front-content">
-    <div class="title"><img src="/Icon/DecorHelperIcon.png" alt="DecorHelper Icon">ecorHelper</div>
+    <div class="title"><div class="icon-circle"><img src="/Icon/DecorHelperIcon.png" class="icon" alt="DecorHelper Icon"></div><p>DecorHelper</p></div>
     <div class="tabs">
-      <div class="tab active" data-target="content-home" data-color="#211974"><i class="fa-solid fa-house"></i>ホーム</div>
-      <div class="tab active" data-target="content-space" data-color="#19743c"><i class="fa-solid fa-person-shelter"></i>部屋作成</div>
-      <div class="tab active" data-target="content-furniture" data-color="#745419"><i class="fa-solid fa-couch"></i>家具作成</div>
-      <div class="tab active" data-target="content-help" data-color="#f7e011"><i class="fa-regular fa-circle-question"></i>ヘルプ</div>
+      <div class="tab active" data-target="content-home" data-color="#ecbc7c"><i class="fa-solid fa-house"></i>ホーム</div>
+      <div class="tab active" data-target="content-space" data-color="#ecbc7c"><i class="fa-solid fa-person-shelter"></i>部屋作成</div>
+      <div class="tab active" data-target="content-furniture" data-color="#ecbc7c"><i class="fa-solid fa-couch"></i>家具作成</div>
+      <div class="tab active" data-target="content-help" data-color="#ecbc7c"><i class="fa-regular fa-circle-question"></i>ヘルプ</div>
       <div class="tab-dropdown tab2 active" ><i class="fa-solid fa-wrench"></i>設定
         <div class="dropdown-menu">
           <ul>
-            <li class="dropdown-item" data-target="content-print" data-color="#75756d"><i class="fa-solid fa-print"></i>お部屋を印刷</li>
-            <li class="dropdown-item" data-target="content-photo" data-color="#ffffff"><i class="fa-regular fa-image"></i>作成済みの配置図</li>
+            <li class="dropdown-item" data-target="content-print" data-color="#ecbc7c"><i class="fa-solid fa-print"></i>お部屋を印刷</li>
+            <li class="dropdown-item" data-target="content-photo" data-color="#ecbc7c"><i class="fa-regular fa-image"></i>作成済みの配置図</li>
             <li class="dropdown-item"><i class="fa-solid fa-globe"></i>言語設定</li>
-            <li class="dropdown-item" data-target="content-inquiry" data-color="#e79e00"><i class="fa-solid fa-envelope"></i>お問い合わせ</li>
+            <li class="dropdown-item" data-target="content-inquiry" data-color="#ecbc7c"><i class="fa-solid fa-envelope"></i>お問い合わせ</li>
             <li class="dropdown-item" id="logout-button"><i class="fa-solid fa-right-from-bracket"></i>ログアウト</li>
           </ul>
         </div>
@@ -70,16 +70,74 @@
     <ol class='genre-dropdown'></ol>
     <ul class="furniture-list" ></ul>
    </div>
+   <div class="sidebar2">
+    <!-- サイドバーのタブ（アイコン） -->
+    <div class="sidebar-tab2 setting" data-content="settingContent"><i class="fa-solid fa-gear"></i></div>
+  </div>
+  <div class="over-view">
+    <div class="over-view-text">
+      <h3>Developer</h3>
+      <ul class="dev">
+       <li><p>name: KousakaKeito</p></li>
+       <li><p>Mail: Kexiron@decorHelper.net</p></li>
+      </ul>
+      <h3 class="link-text">Link</h3>
+      <ul class="link">
+        <li><a href="">個人サイト</a></li>
+        <li><p class="inquiry">お問い合わせ</p></li>
+        <li><p class="privacy">プライバシーポリシー</p></li>
+        <li><p class="terms">利用規約</p></li>
+        <li><p class="faq">FAQ</p></li>
+      </ul>
+    <h3 class="sns-text">SNS</h3>
+     <ul class="sns">
+      <li><p><i class="fa-brands fa-square-github"></i><a href="">https://github.com/kousakakeito</a></p></li>
+      <li><p><i class="fa-brands fa-square-instagram"></i><a href="">https://instagram.com/kousakakeito</a></p></li>
+      <li><p><i class="fa-brands fa-square-x-twitter"></i><a href="">https://x.com/kousakakeito</a></p></li>
+     </ul>
+    </div>
+  </div>
   </div>
   <div class="content-space" id="content-space">
+    <div class="sidebar">
+      <!-- サイドバーのタブ（アイコン） -->
+      <div class="sidebar-tab3 setting" data-content=""><i class="fa-solid fa-gear"></i></div>
+    </div>
    <div class="spacecenter-outer">
     <label><input class="space-form" type="text" placeholder="&emsp;保存する部屋名を入力"></label>
     <button class="space-createbtn">新規作成</button>
     <button class="space-compbtn">保存</button>
     <div class="spacecenter-inner"></div>
    </div>
+   <div class="over-view">
+    <div class="over-view-text">
+      <h3>Developer</h3>
+      <ul class="dev">
+       <li><p>name: KousakaKeito</p></li>
+       <li><p>Mail: Kexiron@decorHelper.net</p></li>
+      </ul>
+      <h3 class="link-text">Link</h3>
+      <ul class="link">
+        <li><a href="">個人サイト</a></li>
+        <li><p class="inquiry">お問い合わせ</p></li>
+        <li><p class="privacy">プライバシーポリシー</p></li>
+        <li><p class="terms">利用規約</p></li>
+        <li><p class="faq">FAQ</p></li>
+      </ul>
+    <h3 class="sns-text">SNS</h3>
+     <ul class="sns">
+      <li><p><i class="fa-brands fa-square-github"></i><a href="">https://github.com/kousakakeito</a></p></li>
+      <li><p><i class="fa-brands fa-square-instagram"></i><a href="">https://instagram.com/kousakakeito</a></p></li>
+      <li><p><i class="fa-brands fa-square-x-twitter"></i><a href="">https://x.com/kousakakeito</a></p></li>
+     </ul>
+    </div>
+  </div>
   </div>
   <div class="content-furniture" id="content-furniture">
+    <div class="sidebar">
+      <!-- サイドバーのタブ（アイコン） -->
+      <div class="sidebar-tab3 setting" data-content=""><i class="fa-solid fa-gear"></i></div>
+    </div>
    <div class="furniturecenter-outer">
     <label><input class="furniture-form" type="text" placeholder="&emsp;保存する家具名を入力"></label>
     <label><input class="genre-form" type="text" placeholder="&emsp;保存するジャンル名を入力"></label>
@@ -92,6 +150,29 @@
     <ul class="furniture-addlist" ></ul>
    </div>
    <button class="furniture-compbtn">保存</button>
+   <div class="over-view">
+    <div class="over-view-text">
+      <h3>Developer</h3>
+      <ul class="dev">
+       <li><p>name: KousakaKeito</p></li>
+       <li><p>Mail: Kexiron@decorHelper.net</p></li>
+      </ul>
+      <h3 class="link-text">Link</h3>
+      <ul class="link">
+        <li><a href="">個人サイト</a></li>
+        <li><p class="inquiry">お問い合わせ</p></li>
+        <li><p class="privacy">プライバシーポリシー</p></li>
+        <li><p class="terms">利用規約</p></li>
+        <li><p class="faq">FAQ</p></li>
+      </ul>
+    <h3 class="sns-text">SNS</h3>
+     <ul class="sns">
+      <li><p><i class="fa-brands fa-square-github"></i><a href="">https://github.com/kousakakeito</a></p></li>
+      <li><p><i class="fa-brands fa-square-instagram"></i><a href="">https://instagram.com/kousakakeito</a></p></li>
+      <li><p><i class="fa-brands fa-square-x-twitter"></i><a href="">https://x.com/kousakakeito</a></p></li>
+     </ul>
+    </div>
+  </div>
   </div>
   <div class="content-help" id="content-help">
     D
