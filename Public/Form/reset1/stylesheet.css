@@ -138,7 +138,7 @@ button{
   appearance: none;
 }
 
-.login-btn{
+.send-btn{
   width: 300px;
   height: 30px;
   line-height: 30px;
@@ -186,4 +186,12 @@ button{
 
 .user-register3{
   font-weight: bold;
+}
+
+.get-mail{
+  position: fixed;
+  margin-left: -170px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: -2px;
 }

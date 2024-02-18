@@ -41,6 +41,51 @@ router.post('/reset-password', (req, res) => {
   });
 });
 
+router.get('/get-user-email', function(req, res) {
+  // セッションからemailを取得
+  const userEmail = req.session.userEmail;
+  if (userEmail) {
+    res.json({ email: userEmail });
+  } else {
+    res.status(404).send('Email not found in session');
+  }
+});
+
+router.post('/send-email', (req, res) => {
+  const { email } = req.body;
+  
+  // ランダムな8桁の文字列を生成
+  const randomString = Math.random().toString(36).substring(2, 10);
+
+  // nodemailerの設定
+  const transporter = nodemailer.createTransport({
+    service: 'gmail', // 使用するメールサービス
+    auth: {
+      user: 'princxfieldkillz@gmail.com', // 送信者のメールアドレス
+      pass: '0627ikik', // 送信者のパスワード
+    },
+  });
+
+  const mailOptions = {
+    from: 'princxfieldkillzl@gmail.com',
+    to: email, // 受信者のメールアドレス
+    subject: '確認コードを入力画面に入力してください',
+    text: `確認コード: ${randomString}`, // 送信する内容
+  };
+
+  // メールを送信
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Send Mail Error:', error);
+      res.status(500).send('Failed to send email');
+    } else {
+      console.log('Email sent: ' + info.response);
+      res.status(200).send('Email sent successfully');
+      res.json({ redirect: '/Form/reset2/reset2.html' });
+    }
+  });
+});
+
 
 
 router.get('/redirect-reset1', (req, res) => {
