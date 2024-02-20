@@ -409,6 +409,32 @@ button{
   margin-right: 15px;
 }
 
+.over-view2 {
+  width: 1200px; /* サイドバーの幅 */
+  height: 730px; /* 画面いっぱいの高さ */
+  background-color: #333; /* サイドバーの背景色 */
+  color: white; /* サイドバー内のテキスト色 */
+  position: fixed; /* サイドバーを画面に固定 */
+  top: 139px; /* 上端から0pxの位置に */
+  margin-left: 340px; /* 左端から0pxの位置に */
+  border-radius: 50px;
+  border-style:double;
+  border-width: 6px;
+  border-color: #000;
+  overflow: auto; /* 内容が多すぎる場合はスクロール可能に */
+}
+
+.over-view2 li{
+  color: orange;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.over-view2 p{
+  width: 1100px;
+  font-size: 14px;
+}
+
 /* home-spacelist のスタイル */
 .space-listCheck{
   position: fixed;

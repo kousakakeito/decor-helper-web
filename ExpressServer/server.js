@@ -46,6 +46,14 @@ app.get('/reset.html', (req, res) => {
   res.sendFile(path.join(publicPath, 'Form', 'reset', 'reset.html'));
 });
 
+app.get('/reset1.html', (req, res) => {
+  res.sendFile(path.join(publicPath, 'Form', 'reset1', 'reset1.html'));
+});
+
+app.get('/reset2.html', (req, res) => {
+  res.sendFile(path.join(publicPath, 'Form', 'reset2', 'reset2.html'));
+});
+
 app.post('/register', (req, res) => {
   registerUser(req, res);
 });

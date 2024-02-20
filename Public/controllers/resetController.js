@@ -57,17 +57,19 @@ router.post('/send-email', (req, res) => {
   // ランダムな8桁の文字列を生成
   const randomString = Math.random().toString(36).substring(2, 10);
 
-  // nodemailerの設定
+  // nodemailerの設定をFastMailに対応させる
   const transporter = nodemailer.createTransport({
-    service: 'gmail', // 使用するメールサービス
+    host: 'smtp.fastmail.com', // FastMailのSMTPサーバー
+    port: 465, // SSLを使用するポート
+    secure: true, // trueで465ポートを使用し、falseで他のポートを使用
     auth: {
-      user: 'princxfieldkillz@gmail.com', // 送信者のメールアドレス
-      pass: '0627ikik', // 送信者のパスワード
+      user: 'info@decorhelper.net', // あなたのFastMailのメールアドレス
+      pass: 'rqfwhsa8fbtwddh3', // FastMailで生成したアプリパスワード
     },
   });
 
   const mailOptions = {
-    from: 'princxfieldkillzl@gmail.com',
+    from: 'info@decorhelper.net', // 送信者のメールアドレス
     to: email, // 受信者のメールアドレス
     subject: '確認コードを入力画面に入力してください',
     text: `確認コード: ${randomString}`, // 送信する内容
@@ -80,7 +82,7 @@ router.post('/send-email', (req, res) => {
       res.status(500).send('Failed to send email');
     } else {
       console.log('Email sent: ' + info.response);
-      res.status(200).send('Email sent successfully');
+      // 以下の行を修正
       res.json({ redirect: '/Form/reset2/reset2.html' });
     }
   });
