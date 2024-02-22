@@ -309,24 +309,6 @@ router.get('/get-new-data8', authenticateSession, async (req, res) => {
   });
 });
 
-router.get('/get-new-data9', authenticateSession, async (req, res) => {
-  const username = req.session.username;
-
-  const selectLastRoomDataSql = 'SELECT room_data FROM room WHERE username = ? ORDER BY id DESC LIMIT 1';
-  connection.query(selectLastRoomDataSql, [username], (error, results, fields) => {
-    if (error) {
-      console.error('Error while fetching last room data:', error);
-      res.status(500).send('An error occurred while fetching last room data.');
-    } else {
-      if (results.length > 0) {
-        const lastRoomData = JSON.parse(results[0].room_data);
-        res.json(lastRoomData);
-      } else {
-        res.status(404).send('No room data found for the user.');
-      }
-    }
-  });
-});
 
 router.get('/get-new-data10', authenticateSession, async (req, res) => {
   const username = req.session.username;
@@ -347,24 +329,7 @@ router.get('/get-new-data10', authenticateSession, async (req, res) => {
   });
 });
 
-router.get('/get-new-data11', authenticateSession, async (req, res) => {
-  const username = req.session.username;
 
-  const selectLastRoomDataSql = 'SELECT room_data FROM room WHERE username = ? ORDER BY id DESC LIMIT 1';
-  connection.query(selectLastRoomDataSql, [username], (error, results, fields) => {
-    if (error) {
-      console.error('Error while fetching last room data:', error);
-      res.status(500).send('An error occurred while fetching last room data.');
-    } else {
-      if (results.length > 0) {
-        const lastRoomData = JSON.parse(results[0].room_data);
-        res.json(lastRoomData);
-      } else {
-        res.status(404).send('No room data found for the user.');
-      }
-    }
-  });
-});
 
 
 

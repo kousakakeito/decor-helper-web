@@ -1,5 +1,6 @@
 
-document.querySelector('.cansel-btn').addEventListener("click",function(){
+document.querySelector('.cansel-btn').addEventListener("click",function(e){
+  e.preventDefault();
   fetch('/resetCancel-password', {
     method: 'POST',
     headers: {
@@ -62,7 +63,12 @@ fetch('/get-user-email')
   })
   .catch(error => console.error('Error fetching user email:', error));
 
-  document.querySelector('.send-btn').addEventListener("click", () =>{
+  document.querySelector('#loginForm').addEventListener("submit", (e) =>{
+    event.preventDefault();
+    document.querySelector(".submitButton").disabled = true;
+    const loader = document.createElement('div');
+    loader.classList.add("loader"); 
+    document.querySelector('.form-outer').append(loader);
     fetch('/send-email', {
       method: 'POST',
       headers: {
@@ -72,10 +78,19 @@ fetch('/get-user-email')
     })
     .then((response) => response.json()) 
     .then((data) => {
-      window.location.href = data.redirect;
+      if (data.redirect) {
+        window.location.href = data.redirect;
+      } else if (data.error) {
+        console.log(data.error)
+        window.alert("メールの送信に失敗しました")
+      }
+      document.querySelector(".submitButton").disabled = false;
+      document.querySelector('.form-outer').removeChild(loader);
       })
       .catch((error) => {
         console.error('Error:', error);
+        document.querySelector(".submitButton").disabled = false;
+        document.querySelector('.form-outer').removeChild(loader);
       });
   });
 

@@ -24,18 +24,13 @@ router.post('/reset-password', (req, res) => {
   connection.query(sql, values, (err, results) => {
 
     if (err) {
-      // SQL実行時のエラー
       console.error('Error executing query', err);
-      res.status(500).send('Internal Server Error');
+      res.status(500).json({ error: 'Internal Server Error' });
     } else if (results.length > 0) {
-      // ユーザーが見つかった場合、特定のHTMLファイルをロード
-      console.log("ok")
       req.session.userEmail = results[0].email;
-      res.redirect('/redirect-reset1');
+      res.json({ redirect: '../reset1/reset1.html' }); // ここを変更
     } else {
-      // ユーザーが見つからなかった場合、エラーメッセージを返す
-      console.log("error")
-      res.status(404).send('User not found');
+      res.status(404).json({ error: 'User not found' }); // ここを変更
     }
 
   });
@@ -51,11 +46,11 @@ router.get('/get-user-email', function(req, res) {
   }
 });
 
-router.post('/send-email', (req, res) => {
+
+router.post('/send-email', async (req, res) => {
   const { email } = req.body;
-  
-  // ランダムな8桁の文字列を生成
   const randomString = Math.random().toString(36).substring(2, 10);
+  req.session.confirmCode = randomString;
 
   // nodemailerの設定をFastMailに対応させる
   const transporter = nodemailer.createTransport({
@@ -75,25 +70,40 @@ router.post('/send-email', (req, res) => {
     text: `確認コード: ${randomString}`, // 送信する内容
   };
 
-  // メールを送信
-  transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error('Send Mail Error:', error);
-      res.status(500).send('Failed to send email');
-    } else {
-      console.log('Email sent: ' + info.response);
-      // 以下の行を修正
-      res.json({ redirect: '/Form/reset2/reset2.html' });
-    }
-  });
+  try {
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent: ' + info.response);
+
+    setTimeout(() => {
+      delete req.session.confirmCode;
+      console.log('Session confirmCode deleted');
+    }, 60000);
+
+    res.json({ redirect: '/Form/reset2/reset2.html' });
+  } catch (error) {
+    console.error('Send Mail Error:', error);
+    res.status(500).json({ error: 'メールの送信に失敗しました' });
+  }
 });
 
 
 
-router.get('/redirect-reset1', (req, res) => {
 
-  res.redirect(`/Form/reset1/reset1.html`);
+router.post('/get-user-confirmCode', function(req, res) {
+  // セッションからemailを取得
+  const confirmCode = req.session.confirmCode;
+  console.log(confirmCode)
+  if (confirmCode) {
+    res.json({ code: confirmCode , redirect: '/Form/reset3/reset3.html'});
+  } else {
+    res.status(404).json({ error: 'confirmCode not found in session' });
+  }
 });
+
+
+
+
+
 
 router.post('/resetCancel-password', (req, res) => {
   res.json({ redirect: '/Form/reset/reset.html' });

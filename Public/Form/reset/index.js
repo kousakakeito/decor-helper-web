@@ -14,23 +14,24 @@ loginForm.addEventListener('submit', (event) => {
     },
     body: JSON.stringify({ email }),
   })
-    .then((response) => {
-      if (response.ok) {
-        console.log("ok")
-        window.location.href = '/Form/reset1/reset1.html';
-      } else {
-
-        const divReset = document.createElement('div');
-        divReset.classList.add("balloon-reset");
-        const pReset = document.createElement('p');
-        pReset.append("アカウントが見つかりません");
-        divReset.append(pReset);
-        document.querySelector('.balloon-resetText').append(divReset);
-        window.setTimeout(() => {
-          document.querySelector('.balloon-resetText').removeChild(divReset);
+  .then(response => response.json())
+  .then(data => {
+    if (data.redirect) {
+      window.location.href = data.redirect;
+    } else if (data.error) {
+      // エラーメッセージがある場合、それを表示
+      console.log("not");
+      const divReset = document.createElement('div');
+      divReset.classList.add("balloon-reset");
+      const pReset = document.createElement('p');
+      pReset.append("アカウントが見つかりません"); // サーバーからのエラーメッセージを表示
+      divReset.append(pReset);
+      document.querySelector('.balloon-resetText').append(divReset);
+      window.setTimeout(() => {
+        document.querySelector('.balloon-resetText').removeChild(divReset);
       }, 2000);
-      }
-    })
+    }
+  })
     .catch((error) => {
       console.error('Error:', error);
     });

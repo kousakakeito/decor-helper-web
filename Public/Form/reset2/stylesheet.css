@@ -67,15 +67,40 @@ body{
   background-color: white;
 }
 
+h2{
+  text-align: center;
+  margin-left: 12px;
+  font-size: 19px;
+  margin-top: -40px;
+}
+
+.exp-box{
+  width: 290px;
+  margin-left: 45px;
+  margin-top: -10px;
+}
+
+.exp-text{
+  font-size: 10px;
+  font-weight: bold;
+}
 
 
-.male-form{
+.confirm-form{
   height: 30px;
   width: 300px;
   margin-left: 36px;
   margin-top: 10px;
 }
 
+.cansel-btn{
+  margin-top: 50px;
+  margin-left: 173px;
+}
+
+.cansel-btn:hover{
+  color: gray;
+}
 
 
 .login-outer{
@@ -92,7 +117,7 @@ button{
   appearance: none;
 }
 
-.login-btn{
+.send-btn2{
   width: 300px;
   height: 30px;
   line-height: 30px;
@@ -136,4 +161,47 @@ button{
 
 .or{
   text-align: center;
+}
+
+.balloon-reset {
+  position: fixed;
+  display: inline-block;
+  margin-top: -275px;
+  margin-left: 30px;
+  z-index: 12;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #83b1f1;
+  border-radius: 15px;
+}
+
+.balloon-reset:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-top: 15px solid #83b1f1;
+}
+
+.balloon-reset p {
+  margin: 0;
+  padding: 0;
+  font-size:12px;
+  font-weight: bold;
+  color: black;
+
+}
+
+.confirm-text{
+  font-size: 10px;
+  font-weight: bold;
+  width: 290px;
+  margin-left: 45px;
+  color: red;
+  margin-top: 30px;
 }

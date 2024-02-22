@@ -195,3 +195,28 @@ button{
   font-weight: bold;
   margin-top: 1px;
 }
+
+
+
+
+
+.loader{
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: solid 4px;
+  border-color: #0400ff #0400ff57 #0400ff57;
+  position: fixed;
+  margin-top: -420px;
+  margin-left: 340px;
+  animation-name: spin;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
