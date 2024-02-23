@@ -18,7 +18,7 @@ document.querySelector('.cansel-btn').addEventListener("click",function(e){
 
 
 document.querySelector('#loginForm').addEventListener("submit", (e) =>{
-  event.preventDefault();
+  e.preventDefault();
 
   fetch('/get-user-confirmCode', {
     method: 'POST',
@@ -32,14 +32,14 @@ document.querySelector('#loginForm').addEventListener("submit", (e) =>{
       window.location.href = data.redirect; // サーバーからのリダイレクト先に移動
       }else if(data.error){
         const divReset = document.createElement('div');
-        divReset.classList.add("balloon-reset");
+        divReset.classList.add("balloon-reset2");
         const pReset = document.createElement('p');
-        pReset.append("コード発行から10分が経過したため、こちらのコードは無効です。前の手順に戻って再度新しいコードをリクエストしてください。"); // サーバーからのエラーメッセージを表示
+        pReset.append("コード発行から5分が経過した為、要求は無効となります。前の手順に戻って再度新しいコードをリクエストしてください。"); 
         divReset.append(pReset);
         document.querySelector('.balloon-resetText').append(divReset);
         window.setTimeout(() => {
           document.querySelector('.balloon-resetText').removeChild(divReset);
-        }, 2000);
+        }, 8000);
       }else{
         const divReset = document.createElement('div');
         divReset.classList.add("balloon-reset");

@@ -1,7 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const config = require('../../config/config');
-
 const { check, validationResult } = require('express-validator');
 const fs = require('fs'); // ファイルシステムモジュールを追加
 
@@ -72,6 +71,18 @@ const registrationValidationRules = [
   }),
 ];
 
+function checkUserExists(field, value) {
+  return new Promise((resolve, reject) => {
+    const query = `SELECT COUNT(*) AS count FROM users WHERE ${field} = ?`;
+    connection.query(query, [value], (err, results) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(results[0].count > 0);
+    });
+  });
+}
+
 
 // ユーザー登録処理
 router.post('/register', registrationValidationRules, async (req, res) => {
@@ -89,6 +100,17 @@ router.post('/register', registrationValidationRules, async (req, res) => {
   const { username, password, email, passwordConfirm } = req.body;
 
   try {
+    const usernameExists = await checkUserExists('username', username);
+    const emailExists = await checkUserExists('email', email);
+
+    if (usernameExists) {
+      return res.status(400).json({ error2: 'このユーザーネームは既に使用されています。' });
+    }
+
+    if (emailExists) {
+      return res.status(400).json({ error3: 'このメールアドレスは既に使用されています。' });
+    }
+
     // パスワードのハッシュ化
     const hashedPassword = await hashPassword(password);
 

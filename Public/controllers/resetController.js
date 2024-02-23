@@ -3,6 +3,8 @@ const mysql = require('mysql');
 const nodemailer = require('nodemailer');
 const config = require('../../config/config');
 const session = require('express-session');
+const bcrypt = require('bcrypt');
+const { check, validationResult } = require('express-validator');
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -15,6 +17,31 @@ const router = express.Router();
 
 router.post('/reset-password', (req, res) => {
   const email = req.body.email;
+
+  connection.query('SELECT username FROM users WHERE username = ? OR email = ?', [email, email], function(error, results, fields) {
+    if (error) {
+      // エラー処理
+      console.error('Error executing query', error);
+      return;
+    }
+    
+    // クエリ結果の処理
+    if (results.length > 0) {
+      req.session.userName = results[0].username;
+      req.session.save(err => {
+        if (err) {
+          // セッション保存エラーのログ
+          console.error('Session save error userName:', err);
+        } else {
+          // セッションの正常な保存のログ
+          console.log('Session saved successfully userName');
+        }
+      });
+      console.log('Found username:', results[0].username);
+    } else {
+      console.log('User not found');
+    }
+  });
 
   // データベースから入力されたメールアドレスのユーザー情報を検索するクエリ
   const sql = 'SELECT * FROM users WHERE email = ? OR username = ?';
@@ -59,7 +86,7 @@ router.post('/send-email', async (req, res) => {
     secure: true, // trueで465ポートを使用し、falseで他のポートを使用
     auth: {
       user: 'info@decorhelper.net', // あなたのFastMailのメールアドレス
-      pass: 'rqfwhsa8fbtwddh3', // FastMailで生成したアプリパスワード
+      pass: config.password2, // FastMailで生成したアプリパスワード
     },
   });
 
@@ -77,7 +104,16 @@ router.post('/send-email', async (req, res) => {
     setTimeout(() => {
       delete req.session.confirmCode;
       console.log('Session confirmCode deleted');
-    }, 60000);
+      req.session.save(err => {
+        if (err) {
+          // セッション保存エラーのログ
+          console.error('Session save error after deleting confirmCode:', err);
+        } else {
+          // セッションの正常な保存のログ
+          console.log('Session saved successfully after deleting confirmCode');
+        }
+      });
+    }, 300000);
 
     res.json({ redirect: '/Form/reset2/reset2.html' });
   } catch (error) {
@@ -100,6 +136,66 @@ router.post('/get-user-confirmCode', function(req, res) {
   }
 });
 
+
+
+
+// パスワードをハッシュ化する関数
+const hashPassword = async (password) => {
+  const saltRounds = 10;
+  return bcrypt.hash(password, saltRounds);
+};
+
+// ユーザーの登録フォームのバリデーションルール
+const registrationValidationRules = [
+  check('password')
+    .isLength({ min: 8 }).withMessage('パスワードは8文字以上で入力してください。')
+    .matches(/[0-9]/).withMessage('パスワードは英数字を含む必要があります。')
+    .matches(/[a-zA-Z]/).withMessage('パスワードは英数字を含む必要があります。'),
+  check('passwordConfirm').custom((value, { req }) => {
+  // パスワードが空でない場合のみ一致チェックを行う
+  if (req.body.password && value !== req.body.password) {
+   throw new Error('パスワードが一致しません。');
+  }
+  return true;
+  }),
+];
+
+
+router.post('/changePass', registrationValidationRules, async (req, res) => {
+  console.log(req.body);  // 受け取ったリクエストの内容をログに出力
+  
+  // バリデーションエラーのチェック
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors.array());
+    // バリデーションエラーがある場合、エラーメッセージをJSON形式で返す
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { password , passwordConfirm } = req.body;
+  const userName = req.session.userName;
+  console.log(userName)
+
+  try {
+    // パスワードのハッシュ化
+    const hashedPassword = await hashPassword(password);
+
+
+    // ユーザー情報をデータベースに更新
+    const sql = 'UPDATE users SET password = ? WHERE username = ?';
+    connection.query(sql, [hashedPassword, userName], (err, result) => {
+      if (err) {
+        console.error('Error executing SQL query:', err);
+        return res.status(500).json({ error: 'An error occurred while updating the password.' });
+      }
+
+      return res.status(200).json({ message: 'Password updated successfully!', redirect: '/Form/reset4/reset4.html' });
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    return res.status(500).json({ error: 'An error occurred while updating the password.' });
+  }
+});
 
 
 

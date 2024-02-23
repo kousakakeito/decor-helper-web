@@ -67,13 +67,50 @@ body{
   background-color: white;
 }
 
+h2{
+  text-align: center;
+  margin-left: 12px;
+  font-size: 19px;
+  margin-top: -40px;
+}
 
-
-.male-form{
-  height: 30px;
-  width: 300px;
-  margin-left: 36px;
+.title img {
+  width: 80px; /* アイコンの幅を調整 */
+  height: 80px; /* アイコンの高さを調整 */
+  margin-left: 10px; /* アイコンとテキストの間隔を調整 */
   margin-top: 10px;
+}
+
+.icon-circle{
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: white;
+  margin-top: 28px;
+  margin-left: 137px;
+}
+
+@keyframes rotate-image {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(360deg); }
+}
+
+.rotating {
+  animation: rotate-image 2s ease-in-out;
+}
+
+.exp-box{
+  position: fixed;
+  width: 290px;
+  margin-left: 90px;
+  margin-top: 160px;
+}
+
+.exp-text{
+  font-size: 10px;
+  font-weight: bold;
+  color: red;
 }
 
 
@@ -90,9 +127,10 @@ button{
   outline: none;
   padding: 0;
   appearance: none;
+  margin-top: 200px;
 }
 
-.login-btn{
+.send-btn4{
   width: 300px;
   height: 30px;
   line-height: 30px;
@@ -120,20 +158,3 @@ button{
   color: gray;
 }
 
-.hr-left{
-  width: 120px;
-  margin-left: 230px;
-  position: absolute;
-  margin-top: 31px;
-
-}
-
-.hr-right{
-  width: 120px;
-  margin-left: 30px;
-  margin-top: -25px;
-}
-
-.or{
-  text-align: center;
-}

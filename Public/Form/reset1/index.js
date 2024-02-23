@@ -64,7 +64,7 @@ fetch('/get-user-email')
   .catch(error => console.error('Error fetching user email:', error));
 
   document.querySelector('#loginForm').addEventListener("submit", (e) =>{
-    event.preventDefault();
+    e.preventDefault();
     document.querySelector(".submitButton").disabled = true;
     const loader = document.createElement('div');
     loader.classList.add("loader"); 

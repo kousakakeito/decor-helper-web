@@ -21,8 +21,10 @@ loginForm.addEventListener('submit', (event) => {
         window.location.href = '/App/home.html';
 
       } else {
-        // ログイン失敗時の処理（例：エラーメッセージ表示）
-        console.error('Login failed.');
+        document.querySelector('.error-form').append("※アカウントが見つかりません※");
+        window.setTimeout(() => {
+          document.querySelector('.error-form').textContent = "";
+        }, 2000);
       }
     })
     .catch((error) => {

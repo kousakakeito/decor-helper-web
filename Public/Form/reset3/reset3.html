@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <title>DecorHelper/パスワードリセット</title>
   <meta name="discription" content="come on here!!">
-  <link rel="stylesheet" href="Form/reset/stylesheet.css">
+  <link rel="stylesheet" href="stylesheet.css">
   <link rel="icon" href="">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.4.0/css/all.css">
 </head>
@@ -16,26 +16,35 @@
       <div class="top pulsate">
         <h1 class="decor pulsate">DecorHelper</h1>
       </div>  
-       <div class="male-outer">
-        <label class="">
-          <input aria-label="メールアドレス" aria-required="true" autocapitalize="off" autocorrect="off" class="male-form" placeholder="&nbsp;メールアドレスまたはユーザーネームを入力" type="email" value="" name="email"> 
+
+      <h2>新しいパスワードを選択</h2>
+      <div class="exp-box">
+      <p class="exp-text">新しいパスワードは８文字以上にして下さい。パスワードには英数字が含まれている必要があります。</p>
+      </div>
+      <!-- パスワード入力フォームとエラーメッセージ -->
+      <div class="error-message password" id="password-error"></div>
+        <label>
+          <input aria-label="パスワード" aria-required="true" autocapitalize="off" autocorrect="off" class="pass-form" placeholder="&nbsp;パスワード" type="password" value="" id="password" name="password">
         </label>
-       </div>
+
+      <!-- パスワード再確認入力フォームとエラーメッセージ -->
+      <div class="error-message password-confirm" id="password-confirm-error"></div>
+        <label>
+          <input aria-label="パスワード再確認" aria-required="true" autocapitalize="off" autocorrect="off" class="pass-form2" placeholder="&nbsp;パスワード再確認" type="password" value="" id="password-confirm" name="passwordConfirm">
+        </label>
        <div class="login-outer">
-        <button class="" type="submit">
-          <div class="login-btn">次へ</div>
+        <button type="submit">
+          <div class="send-btn3">パスワードを変更</div>
         </button>
        </div>
-       <hr class="hr-left">
-       <p class="or">or</p>
-       <hr class="hr-right">
-       <div class="sub-outer">
-        <a class="sub-link" href="/register.html" role="link" tabindex="0">新しいアカウントを作成</a>
+       <div>
+        <button class="cansel-btn">戻る</button>
        </div>
+       <div class="balloon-resetText"></div>
     </form>
   </main>
 
-  <script  src="Form/reset/index.js"></script>
+  <script  src="index.js"></script>
 </body>
 
 </html>

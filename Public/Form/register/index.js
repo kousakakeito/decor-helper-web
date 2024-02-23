@@ -33,6 +33,30 @@ registerForm.addEventListener('submit', async (event) => {
       
       // レスポンスがエラーの場合、サーバーから返されたエラーメッセージを取得
       const errors = await response.json();
+      if(errors.error2){
+
+        const divReset = document.createElement('div');
+        divReset.classList.add("balloon-reset");
+        const pReset = document.createElement('p');
+        pReset.append("このユーザーネームは既に使用されています。");
+        divReset.append(pReset);
+        document.querySelector('.balloon-resetText').append(divReset);
+        window.setTimeout(() => {
+          document.querySelector('.balloon-resetText').removeChild(divReset);
+        }, 2000);
+
+      }else if(errors.error3){
+
+        const divReset = document.createElement('div');
+        divReset.classList.add("balloon-reset2");
+        const pReset = document.createElement('p');
+        pReset.append("このメールアドレスは既に使用されています。");
+        divReset.append(pReset);
+        document.querySelector('.balloon-resetText2').append(divReset);
+        window.setTimeout(() => {
+          document.querySelector('.balloon-resetText2').removeChild(divReset);
+        }, 2000);
+      }
       console.log(errors); 
 
       // エラーメッセージを表示
