@@ -434,6 +434,393 @@ button{
   width: 1100px;
   font-size: 14px;
 }
+.over-view6{
+  width: 338px; /* サイドバーの幅 */
+  height: 500px; /* 画面いっぱいの高さ */
+  background-color: #333; /* サイドバーの背景色 */
+  color: white; /* サイドバー内のテキスト色 */
+  position: fixed; /* サイドバーを画面に固定 */
+  top: 230px; /* 上端から0pxの位置に */
+  right: 1100px; /* 左端から0pxの位置に */
+  border-radius: 50px;
+  border-style:double;
+  border-width: 6px;
+  border-color: #000;
+  overflow: auto; /* 内容が多すぎる場合はスクロール可能に */
+}
+
+.plane1-frame{
+  width: 46px;
+  height: 46px;
+  border-style: double;
+  border-width: 4px;
+  border-radius: 10px;
+  background-color: white;
+  margin-left: 146px;
+  margin-top: 20px;
+}
+
+.plane1-frame .plane1{
+  font-size: 30px;
+  color: orange;
+  margin-top: 6px;
+  margin-left: 6px;
+}
+
+.mailcert-btn .plane2{
+  font-size: 16px;
+  position: fixed;
+  margin-left: -50px;
+  margin-top: 5px;
+
+}
+
+.text1-frame{
+  width: 250px;
+  height: 40px;
+  border-style: double;
+  border-width: 4px;
+  border-color: white;
+  margin-left: 41px;
+  margin-top: 40px;
+  border-radius: 10px;
+}
+
+.text1-frame p{
+  position: fixed;
+  font-size: 20px;
+  letter-spacing: 6px;
+  color: orange;
+  font-weight: bold;
+  margin-left: 22px;
+  margin-top: 5px;
+}
+
+.over-view6 button{
+  position: fixed;
+  margin-top: 200px;
+}
+
+.over-view7{
+  width: 338px; /* サイドバーの幅 */
+  height: 500px; /* 画面いっぱいの高さ */
+  background-color: #333; /* サイドバーの背景色 */
+  color: white; /* サイドバー内のテキスト色 */
+  position: fixed; /* サイドバーを画面に固定 */
+  top: 230px; /* 上端から0pxの位置に */
+  right: 482px; /* 左端から0pxの位置に */
+  border-radius: 50px;
+  border-style:double;
+  border-width: 6px;
+  border-color: #000;
+  overflow: auto; /* 内容が多すぎる場合はスクロール可能に */
+}
+
+.text2-frame{
+  width: 250px;
+  height: 40px;
+  border-style: double;
+  border-width: 4px;
+  border-color: white;
+  margin-left: 41px;
+  margin-top: 40px;
+  border-radius: 10px;
+}
+
+.text2-frame p{
+  position: fixed;
+  font-size: 16px;
+  letter-spacing: 6px;
+  color: orange;
+  font-weight: bold;
+  margin-left: 18px;
+  margin-top: 8px;
+}
+
+.plane2-frame{
+  width: 46px;
+  height: 46px;
+  border-style: double;
+  border-width: 4px;
+  border-radius: 10px;
+  background-color: white;
+  margin-left: 146px;
+  margin-top: 20px;
+}
+
+.plane2-frame .plane1{
+  font-size: 30px;
+  color: orange;
+  margin-top: 8px;
+  margin-left: 8px;
+}
+
+.mailchange-btn .plane2{
+  font-size: 16px;
+  position: fixed;
+  margin-left: -50px;
+  margin-top: 6px;
+
+}
+
+.mail-frame{
+  width: 300px;
+  height:30px;
+  border-width: 2px;
+  border-style: solid;
+  border-color: white;
+  margin-left: 18px;
+  margin-top: 55px;
+}
+
+.mail-frametext{
+  position: fixed;
+  font-weight: bold;
+  margin-left: 80px;
+}
+
+.mailcert-btn{
+  position: fixed;
+  margin-top: -120px;
+  width: 150px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 96px;
+}
+
+.mailcert-btn:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.mailchange-btn{
+  position: fixed;
+  margin-top: 40px;
+  width: 150px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 96px;
+}
+
+.mailchange-btn:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.exp-box{
+  width: 290px;
+  margin-left: 26px;
+  margin-top: 36px;
+}
+
+.exp-text{
+  font-size: 11px;
+  font-weight: bold;
+  color: white;
+}
+
+.cert-btn{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+}
+
+.mailcert-not{
+  position: fixed;
+  color: red;
+  margin-top: -21px;
+  margin-left: 190px;
+}
+
+.mailcert-clear{
+  position: fixed;
+  color: green;
+  margin-top: -21px;
+  margin-left: 190px;
+}
+
+.content-cert2 h2{
+  font-size: 25px;
+  color: orange;
+  margin-left: 40px;
+}
+
+.confirm-form{
+  width: 200px;
+  margin-left: 60px;
+  margin-top: 20px;
+}
+
+.confirm-text{
+  font-size: 12px;
+  width: 290px;
+  margin-left: 26px;
+  font-weight: bold;
+  color: white;
+  margin-top: 30px;
+}
+
+.send-certbtn{
+  position: fixed;
+  margin-top: -160px;
+  width: 150px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 96px;
+  cursor: pointer;
+}
+
+.send-certbtn:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.cansel-certbtn{
+  position: fixed;
+  margin-top: -80px;
+  color: white;
+  font-weight: bold;
+  margin-left: 156px;
+  cursor: pointer;
+}
+
+.cansel-certbtn:hover{
+  color: gray;
+}
+
+.balloon-reset {
+  position: fixed;
+  display: inline-block;
+  margin-top: -167px;
+  margin-left: 60px;
+  z-index: 12;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #83b1f1;
+  border-radius: 15px;
+}
+
+.balloon-reset:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-top: 15px solid #83b1f1;
+}
+
+.balloon-reset p {
+  margin: 0;
+  padding: 0;
+  font-size:12px;
+  font-weight: bold;
+  color: red;
+
+}
+
+.balloon-reset2 {
+  position: fixed;
+  display: inline-block;
+  margin-top: -167px;
+  margin-left: 60px;
+  z-index: 12;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #83b1f1;
+  border-radius: 15px;
+}
+
+.balloon-reset2:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-top: 15px solid #83b1f1;
+}
+
+.balloon-reset2 p {
+  margin: 0;
+  padding: 0;
+  font-size:12px;
+  font-weight: bold;
+  color: red;
+}
+
+.content-cert3 h2{
+  font-size: 25px;
+  color: orange;
+  margin-left: 40px;
+}
+
+.title2 img {
+  width: 80px; /* アイコンの幅を調整 */
+  height: 80px; /* アイコンの高さを調整 */
+  margin-left: 10px; /* アイコンとテキストの間隔を調整 */
+  margin-top: 10px;
+}
+
+.icon-circle2{
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: white;
+  margin-top: 28px;
+  margin-left: 110px;
+}
+
+.exp-box2{
+  width: 290px;
+  margin-left: 26px;
+  margin-top: 200px;
+}
+
+.loader{
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: solid 4px;
+  border-color: #00f7ff #00f7ff59 #00f7ff59;
+  margin-top: 160px;
+  margin-left: 750px;
+  z-index: 10;
+  animation-name: spin;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
 
 /* home-spacelist のスタイル */
 .space-listCheck{
@@ -914,214 +1301,7 @@ button{
   text-align: center;
 }
 
-/* printcenter-outer のスタイル */
-.printcenter-outer {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 1200px;
-  height: 735px;
-  border: 2px solid #000;
-  margin-top: 40px;
-  background-color:rgba(255, 255, 255, 0.8);
-}
 
-/* print-printbtn のスタイル */
-.print-printbtn {
-  position: absolute;
-  margin-left:1000px;
-  margin-top: 665px;
-  width: 100px;
-  height: 40px;
-  border: none;
-  background-color: #4CAF50;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 4px #008000;
-  transition: all 0.3s ease;
-}
-
-/* ボタンがホバーされたときのスタイル */
-.print-printbtn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px #008000;
-}
-
-/* printcenter-inner のスタイル */
-.printcenter-inner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 600px;
-  width: 1100px;
-  border: 2px solid #000;
-  background-color: white;
-}
-
-/* printleft-outer のスタイル */
-.printleft-outer {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-left: 20px;
-}
-
-/* print-roomlist のスタイル */
-.print-roomlist {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: 733px;
-  width: 250px;
-  border: 2px solid #000;
-  margin-top: -739px;
-  background-color:rgba(255, 255, 255, 0.8);
-}
-
-/* print-roomtext のスタイル */
-.print-roomtext {
-  margin-top: 5px;
-  text-align: center;
-}
-
-
-/* photocenter-outer のスタイル */
-.photocenter-outer {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 1200px;
-  height: 735px;
-  border: 2px solid #000;
-  margin-top: -738px;
-  background-color:rgba(255, 255, 255, 0.8);
-}
-
-
-/* photo-photobtn のスタイル */
-.photo-photobtn {
-  position: absolute;
-  margin-left:1000px;
-  margin-top: 665px;
-  width: 100px;
-  height: 40px;
-  border: none;
-  background-color: #4CAF50;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 4px #008000;
-  transition: all 0.3s ease;
-}
-
-
-
-/* ボタンがホバーされたときのスタイル */
-.photo-photobtn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px #008000;
-}
-
-/* photocenter-inner のスタイル */
-.photocenter-inner {
-  height: 600px;
-  width: 1100px;
-  border: 2px solid #000;
-  background-color: white;
-}
-
-/* photoleft-outer のスタイル */
-.photoleft-outer {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding-left: 20px;
-}
-
-
-
-/* photo-roomlist のスタイル */
-.photo-roomlist {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  height: 733px;
-  width: 250px;
-  overflow: auto;
-  border: 2px solid #000;
-  margin-top: 40px;
-  background-color:rgba(255, 255, 255, 0.8);
-}
-
-/* photo-roomtext のスタイル */
-.photo-roomtext {
-  margin-top: 5px;
-  text-align: center;
-}
-
-
-
-/* inquirycenter-outer のスタイル */
-.inquirycenter-outer {
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 1200px;
-  height: 735px;
-  border: 2px solid #000;
-  margin-top: 40px;
-  background-color:rgba(255, 255, 255, 0.8);
-}
-
-.inquiry-text{
-  font-size: 20px;
-  position: absolute;
-  margin-top: -650px;
-}
-
-
-
-/* inquiry-sendbtn のスタイル */
-.inquiry-sendbtn {
-  position: absolute;
-  margin-left:1000px;
-  margin-top: 665px;
-  width: 100px;
-  height: 40px;
-  border: none;
-  background-color: #4CAF50;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 4px #008000;
-  transition: all 0.3s ease;
-}
-
-/* ボタンがホバーされたときのスタイル */
-.inquiry-sendbtn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px #008000;
-}
-
-/* inquirycenter-form のスタイル */
-.inquirycenter-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 600px;
-  width: 1100px;
-  border: 2px solid #000;
-  resize: none;
-}
 
 
 .rectAngle-confirm{
@@ -2467,3 +2647,4 @@ button{
   transform: scale(1.1);
   box-shadow: 0 8px #802900;
 }
+

@@ -3,9 +3,12 @@ const contentHome = document.querySelector('#content-home');
 const contentSpace = document.querySelector('#content-space');
 const contentFurniture = document.querySelector('#content-furniture');
 const contentHelp = document.querySelector('#content-help');
-const contentPrint = document.querySelector('#content-print');
-const contentPhoto = document.querySelector('#content-photo');
+const contentTos = document.querySelector('#content-tos');
+const contentPrivacy = document.querySelector('#content-privacy');
 const contentInquiry = document.querySelector('#content-inquiry');
+const contentLang = document.querySelector('#content-lang');
+const contentCert = document.querySelector('#content-cert');
+const contentDelete = document.querySelector('#content-delete');
 
 
 // セッション情報を取得してユーザー名を表示する関数
@@ -26,6 +29,7 @@ function getSessionData() {
 
 // ページがロードされたときにセッション情報を取得して表示する
 window.addEventListener('load', getSessionData);
+window.addEventListener('load', mailCert);
 
 function getObjData() {
   fetch('/get-spaceData')
@@ -145,6 +149,29 @@ function getObjData() {
     });
 }
 
+function mailCert(){
+  fetch('/get-mailCert')
+  .then(response => response.json())
+  .then(data => {
+    if(!data.certMail){
+      const i = document.createElement('i');
+      i.classList.add("fa-solid");
+      i.classList.add("fa-circle-exclamation");
+      i.classList.add("mailcert-not");
+      document.querySelector(".mailcert-icon").append(i)
+    }else if(data.certMail){
+      const i = document.createElement('i');
+      i.classList.add("fa-solid");
+      i.classList.add("fa-circle-check");
+      i.classList.add("mailcert-clear");
+      document.querySelector(".mailcert-icon").append(i)
+    }
+    })
+  .catch(error => {
+    console.error('エラー:', error);
+  });
+}
+
 // ページがロードされたときに部屋、家具、配置図情報を取得して表示する
 window.addEventListener('load', getObjData);
 
@@ -160,10 +187,25 @@ function rotateImage() {
   }, 2000);
 
   setTimeout(rotateImage, 7000);
+  
 }
 
 // 最初の回転を開始
 rotateImage();
+
+function rotateImage2() {
+  document.querySelector(".icon2").classList.add('rotating'); // 回転クラスを追加
+
+  setTimeout(function() {
+    document.querySelector(".icon2").classList.remove('rotating');
+  }, 2000);
+
+  setTimeout(rotateImage, 7000);
+  
+}
+
+// 最初の回転を開始
+rotateImage2();
 
 // ログアウトボタンをクリックしたときの処理
 const logoutButton = document.querySelector('#logout-button');
@@ -194,9 +236,12 @@ logoutButton.addEventListener('click', () => {
 
 // モーダルメニューのコンテンツを非表示にする関数
 function hideModalContent() {
-  contentPrint.style.display = 'none';
-  contentPhoto.style.display = 'none';
+  contentTos.style.display = 'none';
+  contentPrivacy.style.display = 'none';
   contentInquiry.style.display = 'none';
+  contentLang.style.display = 'none';
+  contentCert.style.display = 'none';
+  contentDelete.style.display = 'none';
 }
 
 // すべてのコンテンツを非表示にする関数
@@ -207,9 +252,12 @@ function hideAllContent() {
   contentHelp.style.display = 'none';
   hideModalContent();
   // content-print, content-photo, content-inquiryも非表示にする
-  contentPrint.style.display = 'none';
-  contentPhoto.style.display = 'none';
+  contentTos.style.display = 'none';
+  contentPrivacy.style.display = 'none';
   contentInquiry.style.display = 'none';
+  contentLang.style.display = 'none';
+  contentCert.style.display = 'none';
+  contentDelete.style.display = 'none';
 }
 
 // ロード時にcontent-homeのみを表示
@@ -616,6 +664,107 @@ console.log(window.innerHeight)
       }
   });
 
+  document.querySelector(".content-cert2").style.display = "none";
+  document.querySelector(".content-cert3").style.display = "none";
+
+  document.querySelector(".send-certmail").addEventListener("submit",function(e){
+    e.preventDefault();
+    document.querySelector(".cert-btn").disabled = true;
+    const loader = document.createElement('div');
+    loader.classList.add("loader"); 
+    document.querySelector('.cert-loader').append(loader);
+    fetch('/mailcert-send', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if(data.message){
+       document.querySelector(".content-cert1").style.display = "none";
+       document.querySelector(".content-cert2").style.display = "block";
+      }else if(data.error){
+        console.log("失敗")
+      }
+      document.querySelector(".cert-btn").disabled = false;
+      document.querySelector('.cert-loader').removeChild(loader);
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+      document.querySelector(".cert-btn").disabled = false;
+      document.querySelector('.cert-loader').removeChild(loader);
+    });
+  })
+
+  document.querySelector(".cansel-certbtn").addEventListener("click",function(){
+    document.querySelector(".content-cert2").style.display = "none";
+    document.querySelector(".content-cert1").style.display = "block";
+  })
+
+  document.querySelector(".send-certbtn").addEventListener("click",function(){
+    fetch('/get-cert-confirmCode', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => response.json()) // レスポンスをJSONとして解析
+      .then((data) => {
+        if(data.code === document.querySelector(".confirm-form").value){
+          document.querySelector(".content-cert2").style.display = "none";
+          document.querySelector(".content-cert3").style.display = "block";
+          window.setTimeout(() => {
+            document.querySelector(".content-cert3").style.display = "none";
+            document.querySelector(".content-cert1").style.display = "block";
+          }, 20000);
+          fetch('/get-change-icon', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          })
+          .then(response => response.json())
+          .then(data => {
+            const mailCertIcon = document.querySelector('.mailcert-icon');
+            while (mailCertIcon.firstChild) {
+             mailCertIcon.removeChild(mailCertIcon.firstChild);
+            };
+            const i = document.createElement('i');
+            i.classList.add("fa-solid");
+            i.classList.add("fa-circle-check");
+            i.classList.add("mailcert-clear");
+            document.querySelector(".mailcert-icon").append(i)
+            })
+          .catch(error => {
+            console.error('エラー:', error);
+          });
+        }else if(data.error){
+          const divReset = document.createElement('div');
+          divReset.classList.add("balloon-reset2");
+          const pReset = document.createElement('p');
+          pReset.append("コード発行から5分が経過した為、要求は無効となります。前の手順に戻って再度新しいコードをリクエストしてください。"); 
+          divReset.append(pReset);
+          document.querySelector('.balloon-resetText').append(divReset);
+          window.setTimeout(() => {
+            document.querySelector('.balloon-resetText').removeChild(divReset);
+          }, 8000);
+        }else{
+          const divReset = document.createElement('div');
+          divReset.classList.add("balloon-reset");
+          const pReset = document.createElement('p');
+          pReset.append("コードが一致しません"); // サーバーからのエラーメッセージを表示
+          divReset.append(pReset);
+          document.querySelector('.balloon-resetText').append(divReset);
+          window.setTimeout(() => {
+            document.querySelector('.balloon-resetText').removeChild(divReset);
+          }, 2000);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  })
 
 
 

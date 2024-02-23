@@ -30,6 +30,8 @@ const createUsersTable = () => {
         username VARCHAR(255) NOT NULL,
         password VARCHAR(255) NOT NULL,
         email VARCHAR(255) NOT NULL,
+        first_login TINYINT(1) NOT NULL DEFAULT 0,
+        cert_mail TINYINT(1) NOT NULL DEFAULT 0,
         PRIMARY KEY (username)
       )
     `;

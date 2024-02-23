@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
 const session = require('express-session');
+const nodemailer = require('nodemailer');
 const config = require('../../config/config');
 
 const connection = mysql.createConnection({
@@ -325,6 +326,93 @@ router.get('/get-new-data10', authenticateSession, async (req, res) => {
       } else {
         res.status(404).send('No room data found for the user.');
       }
+    }
+  });
+});
+
+
+router.post('/mailcert-send', async (req, res) => {
+  const username = req.session.username;
+  
+  // usernameを使用してusersテーブルからemailを取得する
+  connection.query('SELECT email FROM users WHERE username = ?', [username], async (err, results) => {
+    if (err || results.length === 0) {
+      console.error('Error fetching email from database:', err);
+      return res.status(500).json({ error: 'データベースからのメール取得に失敗しました' });
+    }
+  
+    const email = results[0].email; // 取得したemail
+    const randomString = Math.random().toString(36).substring(2, 10);
+    req.session.confirmCode = randomString;
+  
+    // nodemailerの設定
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.fastmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: 'info@decorhelper.net',
+        pass: config.password2,
+      },
+    });
+  
+    const mailOptions = {
+      from: 'info@decorhelper.net',
+      to: email, // 取得したemailを使用
+      subject: '確認コードを入力画面に入力してください',
+      text: `確認コード: ${randomString}`,
+    };
+  
+    try {
+      const info = await transporter.sendMail(mailOptions);
+      console.log('Email sent: ' + info.response);
+  
+      setTimeout(() => {
+        delete req.session.confirmCode;
+        console.log('Session confirmCode deleted');
+      }, 300000); // 5分後にセッションからconfirmCodeを削除
+  
+      res.json({ message: 'ok' });
+    } catch (error) {
+      console.error('Send Mail Error:', error);
+      res.status(500).json({ error: 'メールの送信に失敗しました' });
+    }
+  });
+});
+
+router.post('/get-cert-confirmCode', function(req, res) {
+  // セッションからemailを取得
+  const confirmCode = req.session.confirmCode;
+  console.log(confirmCode)
+  if (confirmCode) {
+    res.json({ code: confirmCode });
+  } else {
+    res.status(404).json({ error: 'confirmCode not found in session' });
+  }
+});
+
+router.post('/get-change-icon', function(req, res) {
+  const username = req.session.username;
+  
+  // cert_mail列の値をtrueに更新するSQLクエリ
+  const sql = 'UPDATE users SET cert_mail = TRUE WHERE username = ?';
+  
+  connection.query(sql, [username], (err, result) => {
+    if (err) {
+      // SQL実行時のエラーハンドリング
+      console.error('Error updating cert_mail in database:', err);
+      return res.status(500).json({ error: 'データベースの更新中にエラーが発生しました' });
+    }
+    
+    // 更新が成功した場合、成功メッセージをレスポンス
+    if (result.affectedRows > 0) {
+      // 実際に更新が行われた場合（影響を受けた行が1以上）
+      console.log('cert_mail updated successfully for user:', username);
+      res.json({ message: 'cert_mailが正常に更新されました' });
+    } else {
+      // 影響を受けた行が0（該当するユーザーが見つからない場合）
+      console.log('No user found with the provided username:', username);
+      res.status(404).json({ error: '指定されたユーザー名のユーザーが見つかりません' });
     }
   });
 });
