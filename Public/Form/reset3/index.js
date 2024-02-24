@@ -45,14 +45,9 @@ function displayErrors(errors) {
       if (error.path === 'password') {
         passwordError.innerText = error.msg;
       } else if (error.path === 'passwordConfirm') {
-        const divReset = document.createElement('div');
-        divReset.classList.add("balloon-reset");
-        const pReset = document.createElement('p');
-        pReset.append("パスワードが一致しません"); // サーバーからのエラーメッセージを表示
-        divReset.append(pReset);
-        document.querySelector('.balloon-resetText').append(divReset);
+        displayErrorMessage('password-confirm', error.msg);
         window.setTimeout(() => {
-          document.querySelector('.balloon-resetText').removeChild(divReset);
+          document.querySelector("#password-confirm-error").innerText = "";
         }, 2000);
       }
     });

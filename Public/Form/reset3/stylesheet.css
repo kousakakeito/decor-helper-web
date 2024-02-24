@@ -210,3 +210,7 @@ button{
   color: red;
   margin-left: 40px;
 }
+
+#password-confirm-error{
+  position: fixed;
+}

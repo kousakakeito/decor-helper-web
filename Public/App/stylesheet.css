@@ -537,6 +537,16 @@ button{
   margin-top: 8px;
 }
 
+.text3-frame p{
+  position: fixed;
+  font-size: 12px;
+  letter-spacing: 6px;
+  color: orange;
+  font-weight: bold;
+  margin-left: 18px;
+  margin-top: 8px;
+}
+
 .plane2-frame{
   width: 46px;
   height: 46px;
@@ -556,6 +566,14 @@ button{
 }
 
 .mailchange-btn .plane2{
+  font-size: 16px;
+  position: fixed;
+  margin-left: -50px;
+  margin-top: 6px;
+
+}
+
+.mailchange-btn2 .plane2{
   font-size: 16px;
   position: fixed;
   margin-left: -50px;
@@ -607,9 +625,28 @@ button{
   color: white;
   font-weight: bold;
   margin-left: 96px;
+  cursor: pointer;
 }
 
 .mailchange-btn:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.mailchange-btn2{
+  position: fixed;
+  margin-top: 65px;
+  width: 150px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: -205px;
+  cursor: pointer;
+}
+
+.mailchange-btn2:hover{
   background-color: rgb(185, 77, 199);
 }
 
@@ -652,6 +689,23 @@ button{
   font-size: 25px;
   color: orange;
   margin-left: 40px;
+}
+
+.content-change2 p{
+  font-size: 12px;
+  color: orange;
+  margin-left: 12px;
+  margin-top: 11px;
+}
+
+
+
+.content-change2 .pass-form{
+  width: 250px;
+  height: 20px;
+  margin-left: 42px;
+  margin-top: 40px;
+
 }
 
 .confirm-form{
@@ -697,6 +751,19 @@ button{
 }
 
 .cansel-certbtn:hover{
+  color: gray;
+}
+
+.cansel-changebtn{
+  position: fixed;
+  margin-top: 145px;
+  color: white;
+  font-weight: bold;
+  margin-left: -150px;
+  cursor: pointer;
+}
+
+.cansel-changebtn:hover{
   color: gray;
 }
 
@@ -767,10 +834,50 @@ button{
   color: red;
 }
 
+.balloon-reset3 {
+  position: fixed;
+  display: inline-block;
+  margin-top: -70px;
+  margin-left: -266px;
+  z-index: 12;
+  padding: 7px 10px;
+  min-width: 120px;
+  max-width: 100%;
+  color: #555;
+  font-size: 16px;
+  background: #83b1f1;
+  border-radius: 15px;
+}
+
+.balloon-reset3:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -15px;
+  border: 15px solid transparent;
+  border-top: 15px solid #83b1f1;
+}
+
+.balloon-reset3 p {
+  margin: 0;
+  padding: 0;
+  font-size:12px;
+  font-weight: bold;
+  color: red;
+}
+
 .content-cert3 h2{
   font-size: 25px;
   color: orange;
   margin-left: 40px;
+}
+
+.content-change3 h2{
+  width: 220px;
+  font-size: 20px;
+  color: orange;
+  margin-left: 60px;
 }
 
 .title2 img {
@@ -787,7 +894,7 @@ button{
   border-radius: 50%;
   background: white;
   margin-top: 28px;
-  margin-left: 110px;
+  margin-left: 120px;
 }
 
 .exp-box2{
@@ -819,6 +926,20 @@ button{
   }
 }
 
+.register-mail{
+  margin-top: 6px;
+  text-align:center;
+  font-family:'Courier New', Courier, monospace;
+  text-shadow: 0 0 10px #fff,0 0 15px #fff;
+}
+
+.error-message{
+  position: fixed;
+  font-size: 12px;
+  color: red;
+  margin-left: 40px;
+  margin-top: 10px;
+}
 
 
 

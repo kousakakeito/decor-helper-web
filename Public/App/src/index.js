@@ -29,7 +29,6 @@ function getSessionData() {
 
 // ページがロードされたときにセッション情報を取得して表示する
 window.addEventListener('load', getSessionData);
-window.addEventListener('load', mailCert);
 
 function getObjData() {
   fetch('/get-spaceData')
@@ -172,8 +171,24 @@ function mailCert(){
   });
 }
 
+
+function getUserMail(){
+  fetch('/get-userEmail')
+  .then(response => response.json())
+  .then(data => {
+    document.querySelector(".register-mail").append(data.email);
+    })
+  .catch(error => {
+    console.error('エラー:', error);
+  });
+}
+
 // ページがロードされたときに部屋、家具、配置図情報を取得して表示する
 window.addEventListener('load', getObjData);
+// ページがロードされたときにメール認証の有無アイコンを表示
+window.addEventListener('load', mailCert);
+// ページがロードされたときにユーザーのメアドを表示
+window.addEventListener('load', getUserMail);
 
 document.querySelector(".icon-circle").addEventListener("click",function(){
   window.location.reload();
@@ -193,19 +208,6 @@ function rotateImage() {
 // 最初の回転を開始
 rotateImage();
 
-function rotateImage2() {
-  document.querySelector(".icon2").classList.add('rotating'); // 回転クラスを追加
-
-  setTimeout(function() {
-    document.querySelector(".icon2").classList.remove('rotating');
-  }, 2000);
-
-  setTimeout(rotateImage, 7000);
-  
-}
-
-// 最初の回転を開始
-rotateImage2();
 
 // ログアウトボタンをクリックしたときの処理
 const logoutButton = document.querySelector('#logout-button');
@@ -734,7 +736,18 @@ console.log(window.innerHeight)
             i.classList.add("fa-solid");
             i.classList.add("fa-circle-check");
             i.classList.add("mailcert-clear");
-            document.querySelector(".mailcert-icon").append(i)
+            document.querySelector(".mailcert-icon").append(i);
+            function rotateImage2() {
+              document.querySelector(".icon2").classList.add('rotating'); // 回転クラスを追加
+     
+              setTimeout(function() {
+                document.querySelector(".icon2").classList.remove('rotating');
+              }, 2000);
+            
+              setTimeout(rotateImage, 7000);
+            }
+
+            rotateImage2();
             })
           .catch(error => {
             console.error('エラー:', error);
@@ -767,7 +780,132 @@ console.log(window.innerHeight)
   })
 
 
+  document.querySelector(".content-change2").style.display = "none";
+  document.querySelector(".content-change3").style.display = "none";
 
+  document.querySelector(".mailchange-btn").addEventListener("click",function(){
+    document.querySelector(".content-change1").style.display = "none";
+    document.querySelector(".content-change2").style.display = "block";
+  })
+
+  document.querySelector(".cansel-changebtn").addEventListener("click",function(){
+    document.querySelector(".content-change2").style.display = "none";
+    document.querySelector(".content-change1").style.display = "block";
+  })
+
+  // エラーメッセージをクリアする関数
+function clearErrorMessages() {
+  const errorElements = document.getElementsByClassName('error-message');
+  Array.from(errorElements).forEach(element => {
+    element.innerText = '';
+  });
+}
+
+// エラーメッセージを表示する関数1
+function displayErrorMessage(field, message) {
+  const errorElement = document.getElementById(`${field}-error`);
+  errorElement.innerText = message;
+}
+
+
+// エラーメッセージを表示する関数2
+function displayErrors(errors) {
+
+  const emailError = document.getElementById('email-error');
+
+  // エラーメッセージをクリア
+  emailError.innerText = '';
+
+  // サーバーからのエラーメッセージを表示
+  if (errors && errors.errors && Array.isArray(errors.errors) && errors.errors.length > 0) {
+    errors.errors.forEach((error) => {
+      if (error.path === 'email') {
+        emailError.innerText = error.msg;
+        window.setTimeout(() => {
+          emailError.innerText = "";
+        }, 2000);
+      } else if (error.path === 'emailConfirm') {
+        displayErrorMessage('email-confirm', error.msg);
+        window.setTimeout(() => {
+          document.querySelector("#email-confirm-error").innerText = "";
+        }, 2000);
+      }
+    });
+  }
+}
+
+  document.querySelector(".mailchange-btn2").addEventListener('click', async () => {
+    // エラーメッセージをクリア
+    clearErrorMessages();
+
+    const email = document.getElementById('email').value;
+    const emailConfirm = document.getElementById('email-confirm').value;
+  
+    const data = {
+      email: email,
+      emailConfirm: emailConfirm 
+    };
+  
+    try {
+      const response = await fetch('/changeMail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+  
+      if (!response.ok) {
+        // レスポンスがエラーの場合、サーバーから返されたエラーメッセージを取得
+        const errors = await response.json();
+        // エラーメッセージを表示
+        displayErrors(errors);
+        
+        return; // レスポンスがエラーの場合はここで処理を終了
+      }
+
+      console.log('User registered successfully!');
+
+      document.querySelector(".content-change2").style.display = "none";
+      document.querySelector(".content-change3").style.display = "block";
+      window.setTimeout(() => {
+        document.querySelector(".content-change3").style.display = "none";
+        document.querySelector(".content-change1").style.display = "block";
+      }, 20000);
+
+      function rotateImage2() {
+        document.querySelector(".icon3").classList.add('rotating'); // 回転クラスを追加
+
+        setTimeout(function() {
+          document.querySelector(".icon3").classList.remove('rotating');
+        }, 2000);
+      
+        setTimeout(rotateImage, 7000);
+      }
+
+      rotateImage2();
+  
+      // メールアドレス変更成功時の処理
+      const result = await response.json();
+
+      while (document.querySelector(".register-mail").firstChild) {
+        document.querySelector(".register-mail").removeChild(document.querySelector(".register-mail").firstChild);
+      };
+      document.querySelector(".register-mail").append(result.email);
+
+      while (document.querySelector(".mailcert-icon").firstChild) {
+        document.querySelector(".mailcert-icon").removeChild(document.querySelector(".mailcert-icon").firstChild);
+      };
+      const i = document.createElement('i');
+      i.classList.add("fa-solid");
+      i.classList.add("fa-circle-exclamation");
+      i.classList.add("mailcert-not");
+      document.querySelector(".mailcert-icon").append(i)
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
+  });
 
 
 

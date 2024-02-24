@@ -125,12 +125,24 @@ function displayErrors(errors) {
     errors.errors.forEach((error) => {
       if (error.path === 'username') {
         usernameError.innerText = error.msg;
+        window.setTimeout(() => {
+          usernameError.innerText = "";
+        }, 2000);
       } else if (error.path === 'password') {
         passwordError.innerText = error.msg;
+        window.setTimeout(() => {
+          passwordError.innerText = "";
+        }, 2000);
       } else if (error.path === 'email') {
         emailError.innerText = error.msg;
-      } else if (error.path === 'password-confirm') {
+        window.setTimeout(() => {
+          emailError.innerText = "";
+        }, 2000);
+      } else if (error.path === 'passwordConfirm') {
         displayErrorMessage('password-confirm', error.msg);
+        window.setTimeout(() => {
+          document.querySelector("#password-confirm-error").innerText = "";
+        }, 2000);
       }
     });
   }

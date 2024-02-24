@@ -4,6 +4,7 @@ const mysql = require('mysql');
 const session = require('express-session');
 const nodemailer = require('nodemailer');
 const config = require('../../config/config');
+const { check, validationResult } = require('express-validator');
 
 const connection = mysql.createConnection({
   host: 'localhost',
@@ -416,6 +417,60 @@ router.post('/get-change-icon', function(req, res) {
     }
   });
 });
+
+
+// ユーザーの登録フォームのバリデーションルール
+const registrationValidationRules = [
+  check('email').isEmail().withMessage('有効なメールアドレスを入力してください。'),
+  check('emailConfirm').custom((value, { req }) => {
+  // パスワードが空でない場合のみ一致チェックを行う
+  if (req.body.email && value !== req.body.email) {
+    throw new Error('メールアドレスが一致しません。');
+   }
+   return true;
+  }),
+];
+
+router.post('/changeMail', registrationValidationRules, async (req, res) => {
+  // バリデーションエラーのチェック
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
+
+  const { email } = req.body;
+  const username = req.session.username; // セッションからusernameを取得
+
+  try {
+    // メールアドレスをデータベースに更新
+    const sqlUpdateEmail = 'UPDATE users SET email = ? WHERE username = ?';
+    connection.query(sqlUpdateEmail, [email, username], (err, result) => {
+      if (err) {
+        console.error('Error executing SQL query:', err);
+        return res.status(500).json({ error: 'メールアドレスの更新中にエラーが発生しました。' });
+      }
+
+      // cert_mail列をfalseに更新
+      const sqlUpdateCertMail = 'UPDATE users SET cert_mail = FALSE WHERE username = ?';
+      connection.query(sqlUpdateCertMail, [username], (errUpdate, resultUpdate) => {
+        if (errUpdate) {
+          console.error('Error executing SQL query for cert_mail:', errUpdate);
+          // cert_mailの更新中にエラーが発生した場合でも、メールアドレスの更新は成功しているので、その旨をレスポンスに含める
+          return res.status(500).json({ message: 'メールアドレスは更新されましたが、cert_mailの更新中にエラーが発生しました。' });
+        }
+        // メールアドレスとcert_mailの更新が成功したことをレスポンス
+        return res.status(200).json({ message: 'メールアドレスとcert_mailが正常に更新されました。', email: email });
+      });
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    return res.status(500).json({ error: 'メールアドレスの更新中にエラーが発生しました。' });
+  }
+});
+
+
+
+
 
 
 

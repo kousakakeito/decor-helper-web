@@ -352,6 +352,32 @@ function handleLoginSuccess(res, req, username) {
           }
         });
       });
+
+      router.get('/get-userEmail', (req, res) => {
+        const username = req.session.username; // セッションからusernameを取得
+      
+        // データベースからusernameに対応するemailを取得するSQLクエリを定義
+        const sql = 'SELECT email FROM users WHERE username = ?';
+      
+        // SQLクエリを実行
+        connection.query(sql, [username], (err, results) => {
+          if (err) {
+            // エラーが発生した場合、エラーメッセージをクライアントに送信
+            console.error('Error fetching email from database:', err);
+            return res.status(500).json({ error: 'データベースからメールアドレスの取得中にエラーが発生しました' });
+          }
+      
+          if (results.length > 0) {
+            // emailが見つかった場合、その値をクライアントにレスポンス
+            const email = results[0].email;
+            res.json({ email: email });
+          } else {
+            // 指定されたusernameに対応するユーザーが見つからない場合
+            res.status(404).json({ error: '指定されたユーザー名に該当するメールアドレスが見つかりませんでした' });
+          }
+        });
+      });
+      
       
       
 
