@@ -8,7 +8,7 @@ const contentPrivacy = document.querySelector('#content-privacy');
 const contentInquiry = document.querySelector('#content-inquiry');
 const contentLang = document.querySelector('#content-lang');
 const contentCert = document.querySelector('#content-cert');
-const contentDelete = document.querySelector('#content-delete');
+
 
 
 // セッション情報を取得してユーザー名を表示する関数
@@ -243,7 +243,6 @@ function hideModalContent() {
   contentInquiry.style.display = 'none';
   contentLang.style.display = 'none';
   contentCert.style.display = 'none';
-  contentDelete.style.display = 'none';
 }
 
 // すべてのコンテンツを非表示にする関数
@@ -259,7 +258,6 @@ function hideAllContent() {
   contentInquiry.style.display = 'none';
   contentLang.style.display = 'none';
   contentCert.style.display = 'none';
-  contentDelete.style.display = 'none';
 }
 
 // ロード時にcontent-homeのみを表示
@@ -906,6 +904,67 @@ function displayErrors(errors) {
     }
 
   });
+
+  document.querySelector(".content-delete1").style.display = "none";
+  document.querySelector(".content-delete2").style.display = "none";
+  document.querySelector(".content-delete3").style.display = "none";
+  
+  document.querySelector("#user-delete").addEventListener("click", userDelete);
+  function userDelete(){
+    this.style.pointerEvents = "none";
+    document.querySelector(".content-delete1").style.display = "block";
+  }
+
+  document.querySelector(".delete-no-btn1").addEventListener("click",function(){
+    document.querySelector(".content-delete1").style.display = "none";
+    document.querySelector(".content-delete2").style.display = "none";
+    document.querySelector(".content-delete3").style.display = "none";
+    document.querySelector("#user-delete").style.pointerEvents = "auto";
+  })
+
+  document.querySelector(".delete-no-btn2").addEventListener("click",function(){
+    document.querySelector(".content-delete1").style.display = "none";
+    document.querySelector(".content-delete2").style.display = "none";
+    document.querySelector(".content-delete3").style.display = "none";
+    document.querySelector("#user-delete").style.pointerEvents = "auto";
+  })
+
+  document.querySelector(".delete-yes-btn1").addEventListener("click", userDeleteBtn1);
+  function userDeleteBtn1(){
+    document.querySelector(".content-delete1").style.display = "none";
+    document.querySelector(".content-delete2").style.display = "block";
+  }
+
+  function userDeleteData(){
+    fetch('/user-delete-data', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      window.location.href = data.redirect;
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+  }
+
+  document.querySelector(".delete-yes-btn2").addEventListener("click", userDeleteBtn2);
+  function userDeleteBtn2(){
+    document.querySelector("#logout-button").style.pointerEvents = "none";
+    document.querySelector(".content-delete2").style.display = "none";
+    document.querySelector(".content-delete3").style.display = "block";
+    window.setTimeout(() => {
+      userDeleteData();
+    }, 20000);
+  }
+
+  document.querySelector(".delete-btn3").addEventListener("click", userDeleteBtn3);
+  function userDeleteBtn3(){
+    userDeleteData();
+  }
 
 
 

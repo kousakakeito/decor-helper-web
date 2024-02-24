@@ -469,9 +469,35 @@ router.post('/changeMail', registrationValidationRules, async (req, res) => {
 });
 
 
+// プロミスを返す非同期関数の定義
+function queryAsync(sql, params) {
+  return new Promise((resolve, reject) => {
+    connection.query(sql, params, (err, results) => {
+      if (err) reject(err);
+      else resolve(results);
+    });
+  });
+}
 
+// ルーター内での使用例
+router.post('/user-delete-data', async (req, res) => {
+  const username = req.session.username; // セッションからusernameを取得
 
+  try {
+    // 各テーブルからデータを削除
+    await queryAsync('DELETE FROM space WHERE username = ?', [username]);
+    await queryAsync('DELETE FROM furniture WHERE username = ?', [username]);
+    await queryAsync('DELETE FROM room WHERE username = ?', [username]);
+    await queryAsync('DELETE FROM login_attempts WHERE username = ?', [username]);
+    await queryAsync('DELETE FROM users WHERE username = ?', [username]);
 
+    // 削除が完了したらレスポンスを返す
+    res.json({ redirect: '../Form/register/register.html' });
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'ユーザーデータの削除中にエラーが発生しました。' });
+  }
+});
 
 
 

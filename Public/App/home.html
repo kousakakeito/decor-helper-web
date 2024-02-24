@@ -26,7 +26,7 @@
             <li class="dropdown-item" data-target="content-inquiry" data-color="#ecbc7c"><i class="fa-solid fa-envelope"></i>お問い合わせ</li>
             <li class="dropdown-item" id="logout-button"><i class="fa-solid fa-right-from-bracket"></i>ログアウト</li>
             <li class="dropdown-item" data-target="content-cert" data-color="#ecbc7c"><i class="fa-solid fa-stamp"></i>メールアドレス認証<div class="mailcert-icon"></div></li>
-            <li class="dropdown-item" data-target="content-delete" data-color="#ecbc7c"><i class="fa-solid fa-user-xmark"></i>アカウントを削除</li>
+            <li class="dropdown-item" id="user-delete"><i class="fa-solid fa-user-xmark"></i>アカウントを削除</li>
           </ul>
         </div>
       </div>
@@ -293,8 +293,29 @@
   <div class="content-lang" id="content-lang">
 
   </div>
-  <div class="content-delete" id="content-delete">
-
+  <div class="content-delete1" id="content-delete">
+    <div class="delete-containar">
+      <h2>ご利用中のユーザーアカウントを消去します。</h2>
+      <p><i class="fa-solid fa-triangle-exclamation"></i>消去しますか？作成したデータは全て失われます。</p>
+      <button><div class="delete-yes-btn1">はい</div></button>
+      <button><div class="delete-no-btn1">いいえ</div></button>
+    </div>
+  </div>
+  <div class="content-delete2" id="content-delete">
+    <div class="delete-containar">
+      <h2>ご利用中のユーザーアカウントを消去します。</h2>
+      <p><i class="fa-solid fa-triangle-exclamation"></i>失われたデータの復元は行えません。本当に消去しますか？</p>
+      <button><div class="delete-yes-btn2">はい</div></button>
+      <button><div class="delete-no-btn2">いいえ</div></button>
+    </div>
+  </div>
+  <div class="content-delete3" id="content-delete">
+    <div class="delete-containar">
+      <h2>DecorHelperのご利用ありがとうございました。</h2>
+      <p class="delete-text1">またのご利用をお待ちしております。20秒後自動的に登録画面へ移行します。</p>
+      <p class="delete-text2">下記の閉じるをクリック、もしくは自動的に画面移動が行われるまでは消去されませんのでご注意ください。</p>
+      <button><div class="delete-btn3">閉じる</div></button>
+    </div>
   </div>
   </div>
   <div class="background-animation"></div>

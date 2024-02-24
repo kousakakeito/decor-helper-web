@@ -158,7 +158,7 @@ router.post('/user-data5', (req, res) => {
       console.log("A");
       console.log(results);
 
-
+    
       // データベースから取得したすべての行に対して処理を行う
       results.forEach(row => {
         try {
