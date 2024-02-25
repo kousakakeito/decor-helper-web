@@ -340,10 +340,10 @@ document.querySelector(".tutorialskip-btn").addEventListener("click",function(){
     dropdownMenu.style.display = 'none';
   }
   const text = 
-  "以上で操作方法の説明を終了致します。今後チュートリアルは表示されませんので、操作方法について他にご不明な点がありましたら、ヘルプをご確認頂くか、お問い合わせをお願い致します。"; 
+  "以上で操作方法の説明を終了致します。今後チュートリアルは表示されませんので、操作方法について他にご不明な点がありましたら、ヘルプをご確認頂くか、お問い合わせをお願い致します。またDecorHelperをご利用いただく前に必ず設定タブ、メニュー内の利用規約、プライバシーポリシーをお読み下さい。"; 
 
   const displayElement = document.querySelector(".tutorial-text1"); 
-  const totalDuration = 10000; // 総表示時間（ミリ秒）
+  const totalDuration = 12000; // 総表示時間（ミリ秒）
   const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
   const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
   let currentIndex = 0; // 現在の文字インデックス
@@ -375,7 +375,7 @@ document.querySelector(".tutorialskip-btn").addEventListener("click",function(){
 
   window.setTimeout(() => {
     document.querySelector(".tutorialend-btn").style.display = "block";
-  }, 14500);
+  }, 18500);
 })
 
 
@@ -736,10 +736,10 @@ document.querySelector(".tutorial-btn8").addEventListener("click",function(){
   document.querySelector(".tabs").removeChild(document.querySelector(".location5"));
   dropdownMenu.style.display = 'none';
   const text = 
-  "以上で操作方法の説明を終了致します。今後チュートリアルは表示されませんので、操作方法について他にご不明な点がありましたら、ヘルプをご確認頂くか、お問い合わせをお願い致します。"; 
+  "以上で操作方法の説明を終了致します。今後チュートリアルは表示されませんので、操作方法について他にご不明な点がありましたら、ヘルプをご確認頂くか、お問い合わせをお願い致します。またDecorHelperをご利用いただく前に必ず設定タブ、メニュー内の利用規約、プライバシーポリシーをお読み下さい。"; 
 
   const displayElement = document.querySelector(".tutorial-text1"); 
-  const totalDuration = 10000; // 総表示時間（ミリ秒）
+  const totalDuration = 12000; // 総表示時間（ミリ秒）
   const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
   const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
   let currentIndex = 0; // 現在の文字インデックス
@@ -772,7 +772,7 @@ document.querySelector(".tutorial-btn8").addEventListener("click",function(){
 
   window.setTimeout(() => {
     document.querySelector(".tutorialend-btn").style.display = "block";
-  }, 14500);
+  }, 18500);
 })
 
 
@@ -825,6 +825,40 @@ document.querySelector("#contact-btn").addEventListener('click', function(){
   });
 
 });
+
+document.querySelector(".inquiry").addEventListener("click",function(){
+  contentHome.style.display = 'none';
+  contentInquiry.style.display = 'block';
+  fetch('/contact-certMail', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    if(data.certMail){
+      document.querySelector(".contact-errorform").style.display = "none";
+    }else{
+      document.querySelector(".contact-errorform").style.display = "block";
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+})
+document.querySelector(".privacy").addEventListener("click",function(){
+  contentHome.style.display = 'none';
+  contentPrivacy.style.display = 'block';
+})
+document.querySelector(".terms").addEventListener("click",function(){
+  contentHome.style.display = 'none';
+  contentTos.style.display = 'block';
+})
+document.querySelector(".faq").addEventListener("click",function(){
+  contentHome.style.display = 'none';
+  contentHelp.style.display = 'block';
+})
 
 document.querySelector(".icon-circle").addEventListener("click",function(){
   window.location.reload();
@@ -1632,7 +1666,7 @@ function displayErrors(errors) {
       document.querySelector(".contact-text1").style.display = "none";
       document.querySelector(".contact-text2").style.display = "block";
       window.setTimeout(() => {
-        document.querySelector(".textarea-text").textContent = "";
+        document.querySelector(".textarea-text").value = "";
         document.querySelector(".contact-text2").style.display = "none";
         document.querySelector(".contact-text1").style.display = "block";
       }, 5000);
@@ -1640,7 +1674,7 @@ function displayErrors(errors) {
       document.querySelector(".contact-text1").style.display = "none";
       document.querySelector(".contact-text3").style.display = "block";
       window.setTimeout(() => {
-        document.querySelector(".textarea-text").textContent = "";
+        document.querySelector(".textarea-text").value = "";
         document.querySelector(".contact-text3").style.display = "none";
         document.querySelector(".contact-text1").style.display = "block";
       }, 5000);

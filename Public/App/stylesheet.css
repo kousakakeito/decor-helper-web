@@ -6,7 +6,7 @@ body, html {
 }
 .front-content {
   position: relative;
-  z-index: 1;
+
 }
 
 .front-content2 {
@@ -1702,7 +1702,7 @@ button{
   border-color: black;
   border-width: 4px;
   font-weight: bold;
-  border-style:dashed;
+
   
 }
 
@@ -1801,6 +1801,129 @@ button{
   animation-duration: 1s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
+}
+
+.tos-containar{
+  width: 1650px; /* サイドバーの幅 */
+  height: 750px; /* 画面いっぱいの高さ */
+  background-color: #333; /* サイドバーの背景色 */
+  color: white; /* サイドバー内のテキスト色 */
+  position: fixed; /* サイドバーを画面に固定 */
+  top: 130px; /* 上端から0pxの位置に */
+  right: 125px; /* 左端から0pxの位置に */
+  border-style:double;
+  border-width: 6px;
+  border-color: #000;
+  overflow: auto; /* 内容が多すぎる場合はスクロール可能に */
+}
+
+.privacy-containar{
+  width: 1650px; /* サイドバーの幅 */
+  height: 750px; /* 画面いっぱいの高さ */
+  background-color: #333; /* サイドバーの背景色 */
+  color: white; /* サイドバー内のテキスト色 */
+  position: fixed; /* サイドバーを画面に固定 */
+  top: 130px; /* 上端から0pxの位置に */
+  right: 125px; /* 左端から0pxの位置に */
+  border-style:double;
+  border-width: 6px;
+  border-color: #000;
+  overflow: auto; /* 内容が多すぎる場合はスクロール可能に */
+}
+
+
+.content-tos header {
+  background-color: #005f73;
+  color: #ffffff;
+  padding: 20px 0;
+  text-align: center;
+  letter-spacing: 6px;
+  padding-left:40px;
+}
+
+.content-tos h1 {
+  margin: 0 0 20px 0;
+}
+
+.content-tos h2 {
+  color: #0077b6;
+  margin-top: 20px;
+}
+
+.content-tos p {
+  margin: 10px 0;
+  color: #000;
+}
+
+.content-tos section {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.content-tos footer {
+  margin-top: 20px;
+  text-align: center;
+  color: #ffffff;
+  background-color: #005f73;
+  padding: 10px 0;
+}
+
+.content-tos a {
+  color: #0077b6;
+}
+
+.content-tos a:hover {
+  text-decoration: underline;
+}
+
+.content-privacy header {
+  background-color: #005f73;
+  color: #ffffff;
+  padding: 20px 0;
+  text-align: center;
+  letter-spacing: 6px;
+  padding-left:40px;
+}
+
+.content-privacy h1 {
+  margin: 0 0 20px 0;
+}
+
+.content-privacy h2 {
+  color: #0077b6;
+  margin-top: 20px;
+}
+
+.content-privacy p {
+  margin: 10px 0;
+  color: #000;
+}
+
+.content-privacy section {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.content-privacy footer {
+  margin-top: 20px;
+  text-align: center;
+  color: #ffffff;
+  background-color: #005f73;
+  padding: 10px 0;
+}
+
+.content-privacy a {
+  color: #0077b6;
+}
+
+.content-privacy a:hover {
+  text-decoration: underline;
 }
 
 
