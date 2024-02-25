@@ -804,6 +804,27 @@ window.addEventListener('load', mailCert);
 window.addEventListener('load', getUserMail);
 // ページがロードされたときに初回ログインであれば、チュートリアルを表示
 window.addEventListener('load', getTutorial);
+// お問い合わせタブをクリックしたときにメール認証の有無を判定し、お問い合わせできるか否かを表示
+document.querySelector("#contact-btn").addEventListener('click', function(){
+  fetch('/contact-certMail', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    if(data.certMail){
+      document.querySelector(".contact-errorform").style.display = "none";
+    }else{
+      document.querySelector(".contact-errorform").style.display = "block";
+    }
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+
+});
 
 document.querySelector(".icon-circle").addEventListener("click",function(){
   window.location.reload();
@@ -1589,10 +1610,21 @@ function displayErrors(errors) {
 
   document.querySelector('#contact-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    const formData = new FormData(this);
+    document.querySelector(".cert-sendbtn").disabled = true;
+    const loader = document.createElement('div');
+    loader.classList.add("loader2"); 
+    document.querySelector('.cert-contactloader').append(loader);
+    const messageText = document.querySelector(".textarea-text").value;
+    const dataToSend = {
+      message: messageText
+    };
+    
     fetch('/send-contact-email', {
       method: 'POST',
-      body: formData
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(dataToSend) // データをJSON文字列に変換
     })
     .then(response => response.json())
     .then(data => {
@@ -1603,7 +1635,7 @@ function displayErrors(errors) {
         document.querySelector(".textarea-text").textContent = "";
         document.querySelector(".contact-text2").style.display = "none";
         document.querySelector(".contact-text1").style.display = "block";
-      }, 10000);
+      }, 5000);
     }else if(data.error){
       document.querySelector(".contact-text1").style.display = "none";
       document.querySelector(".contact-text3").style.display = "block";
@@ -1611,11 +1643,15 @@ function displayErrors(errors) {
         document.querySelector(".textarea-text").textContent = "";
         document.querySelector(".contact-text3").style.display = "none";
         document.querySelector(".contact-text1").style.display = "block";
-      }, 10000);
+      }, 5000);
     }
+    document.querySelector('.cert-contactloader').removeChild(loader);
+    document.querySelector(".cert-sendbtn").disabled = false;
     })
     .catch(error => {
       console.error('送信エラー:', error);
+      document.querySelector('.cert-contactloader').removeChild(loader);
+      document.querySelector(".cert-sendbtn").disabled = false;
     });
   });
   

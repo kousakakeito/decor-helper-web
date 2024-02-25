@@ -23,7 +23,7 @@
             <li class="dropdown-item" data-target="content-tos" data-color="#ecbc7c"><i class="fa-solid fa-shield-halved"></i>利用規約</li>
             <li class="dropdown-item" data-target="content-privacy" data-color="#ecbc7c"><i class="fa-solid fa-user-lock"></i>プライバシーポリシー</li>
             <li class="dropdown-item" data-target="content-lang" data-color="#ecbc7c"><i class="fa-solid fa-globe"></i>言語設定</li>
-            <li class="dropdown-item" data-target="content-inquiry" data-color="#ecbc7c"><i class="fa-solid fa-envelope"></i>お問い合わせ</li>
+            <li class="dropdown-item" id="contact-btn" data-target="content-inquiry" data-color="#ecbc7c"><i class="fa-solid fa-envelope"></i>お問い合わせ</li>
             <li class="dropdown-item" id="logout-button"><i class="fa-solid fa-right-from-bracket"></i>ログアウト</li>
             <li class="dropdown-item" data-target="content-cert" data-color="#ecbc7c"><i class="fa-solid fa-stamp"></i>メールアドレス認証<div class="mailcert-icon"></div></li>
             <li class="dropdown-item" id="user-delete"><i class="fa-solid fa-user-xmark"></i>アカウントを削除</li>
@@ -195,17 +195,26 @@
 
   </div>
   <div class="content-inquiry" id="content-inquiry">
+    <div class="contact-noterrorform">
+      <div class="cert-contactloader"></div>
     <div class="over-view2">
       <form id="contact-form">
         <h2 class="contact-text1">※お問い合わせ内容を下記にご入力後、送信ボタンをクリックしてください※</h2>
         <h2 class="contact-text2">※送信が完了しました※</h2>
         <h2 class="contact-text3">※送信に失敗しました※</h2>
         <textarea name="message" class="textarea-text" required></textarea>
-        <button type="submit">
+        <button type="submit" class="cert-sendbtn">
          <div class="contact-sendbtn">送信</div>
         </button>
       </form>
     </div>
+    </div>
+    <div class="contact-errorform" id="content-tutorial">
+      <div class="contact-containar">
+        <h2><i class="fa-solid fa-triangle-exclamation"></i>現在、お問い合わせ機能はご利用いただけません</h2>
+        <p>ご利用頂くには、設定タブメニュー内のメールアドレス認証タブにて認証を完了させてください。認証完了後、ご利用が可能となります。</p>
+      </div>
+    </div>    
   </div>
   <div class="content-cert" id="content-cert">
     <div class="content-cert1">

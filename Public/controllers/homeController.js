@@ -568,6 +568,31 @@ router.post('/send-contact-email', (req, res) => {
 });
 });
 
+router.post('/contact-certMail', (req, res) => {
+  const username = req.session.username; // セッションからusernameを取得
+
+  // usernameに基づいてusersテーブルからcert_mailの値を取得するSQLクエリ
+  const sql = 'SELECT cert_mail FROM users WHERE username = ?';
+
+  // SQLクエリの実行
+  connection.query(sql, [username], (err, results) => {
+    if (err) {
+      // SQL実行時のエラーハンドリング
+      console.error('Error fetching cert_mail from database:', err);
+      return res.status(500).json({ error: 'An error occurred while fetching cert_mail data.' });
+    }
+
+    if (results.length > 0) {
+      // cert_mailの値が見つかった場合、その値をレスポンスする
+      const certMail = results[0].cert_mail;
+      res.json({ certMail: certMail }); // cert_mailの値をJSON形式でレスポンス
+    } else {
+      // 指定されたusernameのレコードが見つからない場合
+      res.status(404).json({ error: 'User not found.' });
+    }
+  });
+});
+
 
 
 createRoomTable();
