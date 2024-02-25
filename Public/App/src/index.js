@@ -183,12 +183,627 @@ function getUserMail(){
   });
 }
 
+
+document.querySelector(".content-tutorial1").style.display = "none";
+
+function getTutorial(){
+  fetch('/get-tutorial')
+  .then(response => response.json())
+  .then(data => {
+    if(!data.firstLogin){
+      document.querySelector(".tabs").style.pointerEvents = "none";
+      document.querySelector(".sidebar").style.pointerEvents = "none";
+
+      document.querySelector(".content-tutorial1").style.display = "block";
+      document.querySelector(".tutorial-containar1").style.display = "none";
+      window.setTimeout(() => {
+        document.querySelector(".tutorial-containar1").style.display = "block";
+        document.querySelector(".tutorial-text1").style.display = "none";
+        document.querySelector(".tutorial-btn1").style.display = "none";
+        document.querySelector(".tutorial-btn2").style.display = "none";
+        document.querySelector(".tutorial-btn3").style.display = "none";
+        document.querySelector(".tutorial-btn4").style.display = "none";
+        document.querySelector(".tutorial-btn5").style.display = "none";
+        document.querySelector(".tutorial-btn6").style.display = "none";
+        document.querySelector(".tutorial-btn7").style.display = "none";
+        document.querySelector(".tutorial-btn8").style.display = "none";
+        document.querySelector(".tutorialskip-btn").style.display = "none";
+        document.querySelector(".tutorialend-btn").style.display = "none";
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            document.querySelector(".tutorial-containar1").style.opacity = 1;
+          });
+        });
+      }, 2000);
+
+      const text = 
+      "初めまして。DecorHelper開発者の高坂と申します。この度はご登録頂き感謝致します。当アプリは、図形を操作し、模様替えの事前配置確認や家具の事前設置確認が行えます。事前配置確認を行うことで家具の空きスペース間隔を予め予測できます。最初に図形を操作して部屋、家具を作成しなければいけないので面倒ですが、1度作成してしまえばログインアカウントに保存されますので作成した部屋、家具は何度でも再利用が可能です。"; 
+
+      const displayElement = document.querySelector(".tutorial-text1"); 
+      const totalDuration = 25000; // 総表示時間（ミリ秒）
+      const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
+      const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
+      let currentIndex = 0; // 現在の文字インデックス
+
+      window.setTimeout(() => {
+        document.querySelector(".tutorial-text1").style.display = "block";
+        document.querySelector(".tutorial-btn1").style.display = "none";
+        document.querySelector(".tutorial-btn2").style.display = "none";
+        document.querySelector(".tutorial-btn3").style.display = "none";
+        document.querySelector(".tutorial-btn4").style.display = "none";
+        document.querySelector(".tutorial-btn5").style.display = "none";
+        document.querySelector(".tutorial-btn6").style.display = "none";
+        document.querySelector(".tutorial-btn7").style.display = "none";
+        document.querySelector(".tutorial-btn8").style.display = "none";
+        document.querySelector(".tutorialskip-btn").style.display = "none";
+        document.querySelector(".tutorialend-btn").style.display = "none";
+        displayText();
+      }, 5000);
+
+      function displayText() {
+        if (currentIndex < text.length) {
+          displayElement.textContent += text[currentIndex]; // 現在の文字を追加
+      
+          let interval = totalDuration / text.length; // デフォルトの間隔
+          const nextChar = text[currentIndex];
+      
+          // 特定の文字に応じて一時停止時間を設定
+          if (nextChar === '。') {
+            interval = pauseDurationDot; // ピリオドの後の間隔
+          } else if (nextChar === '、') {
+            interval = pauseDurationComma; // カンマの後の間隔
+          }
+      
+          currentIndex++; // インデックスを進める
+          setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+        }
+      }
+
+      window.setTimeout(() => {
+        document.querySelector(".tutorial-btn1").style.display = "block";
+      }, 36800);
+      
+    }else if(data.firstLogin){
+      console.log("not tutorial");
+    }
+    })
+  .catch(error => {
+    console.error('エラー:', error);
+  });
+}
+
+document.querySelector(".tutorial-btn1").addEventListener("click",function(){
+  document.querySelector(".tutorial-text1").style.display = "none";
+  document.querySelector(".tutorial-btn1").style.display = "none";
+  const text = 
+  "初めての個人開発で制作したアプリですので、ユーザーの皆様には使いずらさを感じさせるかもしれませんが、常に改善へ努めて参りますので、どうかよろしくお願い致します。ここからは操作方法の説明を行います。説明をスキップする場合は下記のスキップをクリックしてください。説明を受ける場合は、次へをクリックしてください。"; 
+
+  const displayElement = document.querySelector(".tutorial-text1"); 
+  const totalDuration = 23000; // 総表示時間（ミリ秒）
+  const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
+  const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
+  let currentIndex = 0; // 現在の文字インデックス
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-text1").textContent = "";
+    document.querySelector(".tutorial-text1").style.display = "block";
+    displayText();
+  }, 2000);
+
+  function displayText() {
+    if (currentIndex < text.length) {
+      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
+  
+      let interval = totalDuration / text.length; // デフォルトの間隔
+      const nextChar = text[currentIndex];
+  
+      // 特定の文字に応じて一時停止時間を設定
+      if (nextChar === '。') {
+        interval = pauseDurationDot; // ピリオドの後の間隔
+      } else if (nextChar === '、') {
+        interval = pauseDurationComma; // カンマの後の間隔
+      }
+  
+      currentIndex++; // インデックスを進める
+      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+    }
+  }
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-btn2").style.display = "block";
+    document.querySelector(".tutorialskip-btn").style.display = "block";
+  }, 29500);
+})
+
+document.querySelector(".tutorialskip-btn").addEventListener("click",function(){
+  document.querySelector(".tutorial-text1").style.display = "none";
+  document.querySelector(".tutorial-btn2").style.display = "none";
+  document.querySelector(".tutorial-btn3").style.display = "none";
+  document.querySelector(".tutorial-btn4").style.display = "none";
+  document.querySelector(".tutorial-btn5").style.display = "none";
+  document.querySelector(".tutorial-btn6").style.display = "none";
+  document.querySelector(".tutorial-btn7").style.display = "none";
+  document.querySelector(".tutorial-btn8").style.display = "none";
+  document.querySelector(".tutorialskip-btn").style.display = "none";
+  if(document.querySelector(".location1")){
+  document.querySelector(".tabs").removeChild(document.querySelector(".location1"));
+  }else if(document.querySelector(".location2")){
+  document.querySelector(".tabs").removeChild(document.querySelector(".location2"));
+  }else if(document.querySelector(".location3")){
+  document.querySelector(".tabs").removeChild(document.querySelector(".location3"));
+  }else if(document.querySelector(".location4")){
+  document.querySelector(".tabs").removeChild(document.querySelector(".location4"));
+  }else if(document.querySelector(".location5")){
+  document.querySelector(".tabs").removeChild(document.querySelector(".location5"));
+  }
+  if(dropdownMenu.style.display === 'block'){
+    dropdownMenu.style.display = 'none';
+  }
+  const text = 
+  "以上で操作方法の説明を終了致します。今後チュートリアルは表示されませんので、操作方法について他にご不明な点がありましたら、ヘルプをご確認頂くか、お問い合わせをお願い致します。"; 
+
+  const displayElement = document.querySelector(".tutorial-text1"); 
+  const totalDuration = 10000; // 総表示時間（ミリ秒）
+  const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
+  const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
+  let currentIndex = 0; // 現在の文字インデックス
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-text1").textContent = "";
+    document.querySelector(".tutorial-text1").style.display = "block";
+    displayText();
+  }, 2000);
+
+  function displayText() {
+    if (currentIndex < text.length) {
+      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
+  
+      let interval = totalDuration / text.length; // デフォルトの間隔
+      const nextChar = text[currentIndex];
+  
+      // 特定の文字に応じて一時停止時間を設定
+      if (nextChar === '。') {
+        interval = pauseDurationDot; // ピリオドの後の間隔
+      } else if (nextChar === '、') {
+        interval = pauseDurationComma; // カンマの後の間隔
+      }
+  
+      currentIndex++; // インデックスを進める
+      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+    }
+  }
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorialend-btn").style.display = "block";
+  }, 14500);
+})
+
+
+document.querySelector(".tutorial-btn2").addEventListener("click",function(){
+  document.querySelector(".tutorial-text1").style.display = "none";
+  document.querySelector(".tutorialskip-btn").style.display = "none";
+  document.querySelector(".tutorial-btn2").style.display = "none";
+  const text = 
+  "まずは部屋作成について説明いたします。こちらのタブから部屋の上面図を図形操作して作成します。実際の部屋の横幅と縦幅をメジャーなどで測っていただき実際の数値を入力することで、入力した数値に合わせた四角形の図形が生成されます。実際の部屋を上面図として見た時、凹凸などがある場合は、生成された四角形の辺をクリックしていただくことで凹凸具合の調整が行えます。この凹凸具合も実際の縦、横の長さを測って頂き数値を入力します。"; 
+
+  const displayElement = document.querySelector(".tutorial-text1"); 
+  const totalDuration = 23000; // 総表示時間（ミリ秒）
+  const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
+  const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
+  let currentIndex = 0; // 現在の文字インデックス
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-text1").textContent = "";
+    document.querySelector(".tutorial-text1").style.display = "block";
+    displayText();
+  }, 2000);
+
+  window.setTimeout(() => {
+    const i = document.createElement('i');
+    i.classList.add("fa-solid");
+    i.classList.add("fa-location-dot");
+    i.classList.add("fa-rotate-270");
+    i.classList.add("location1");
+    document.querySelector(".tabs").append(i);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelector(".location1").style.opacity = 1;
+      });
+  }, 2000);
+  }, 4530);
+
+  function displayText() {
+    if (currentIndex < text.length) {
+      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
+  
+      let interval = totalDuration / text.length; // デフォルトの間隔
+      const nextChar = text[currentIndex];
+  
+      // 特定の文字に応じて一時停止時間を設定
+      if (nextChar === '。') {
+        interval = pauseDurationDot; // ピリオドの後の間隔
+      } else if (nextChar === '、') {
+        interval = pauseDurationComma; // カンマの後の間隔
+      }
+  
+      currentIndex++; // インデックスを進める
+      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+    }
+  }
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-btn3").style.display = "block";
+    document.querySelector(".tutorialskip-btn").style.display = "block";
+  }, 31500);
+})
+
+document.querySelector(".tutorial-btn3").addEventListener("click",function(){
+  document.querySelector(".tutorial-text1").style.display = "none";
+  document.querySelector(".tutorialskip-btn").style.display = "none";
+  document.querySelector(".tutorial-btn3").style.display = "none";
+  document.querySelector(".tabs").removeChild(document.querySelector(".location1"))
+  const text = 
+  "次に家具作成について説明致します。こちらのタブから家具の上面図を図形操作して作成します。部屋作成と同様に、実際の家具の横幅と縦幅をメジャーなどで測っていただき実際の数値を入力することで、入力した数値に合わせた四角形の図形が生成されます。実際の家具を上面図として見た時、凹凸などがある場合は、生成された四角形の辺をクリックしていただくことで凹凸具合の調整が行えます。この凹凸具合も実際の縦、横の長さを測って頂き数値を入力します。"; 
+
+  const displayElement = document.querySelector(".tutorial-text1"); 
+  const totalDuration = 23000; // 総表示時間（ミリ秒）
+  const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
+  const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
+  let currentIndex = 0; // 現在の文字インデックス
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-text1").textContent = "";
+    document.querySelector(".tutorial-text1").style.display = "block";
+    displayText();
+  }, 2000);
+
+  window.setTimeout(() => {
+    const i = document.createElement('i');
+    i.classList.add("fa-solid");
+    i.classList.add("fa-location-dot");
+    i.classList.add("fa-rotate-270");
+    i.classList.add("location2");
+    document.querySelector(".tabs").append(i);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelector(".location2").style.opacity = 1;
+      });
+  }, 2000);
+  }, 4530);
+
+  function displayText() {
+    if (currentIndex < text.length) {
+      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
+  
+      let interval = totalDuration / text.length; // デフォルトの間隔
+      const nextChar = text[currentIndex];
+  
+      // 特定の文字に応じて一時停止時間を設定
+      if (nextChar === '。') {
+        interval = pauseDurationDot; // ピリオドの後の間隔
+      } else if (nextChar === '、') {
+        interval = pauseDurationComma; // カンマの後の間隔
+      }
+  
+      currentIndex++; // インデックスを進める
+      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+    }
+  }
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-btn4").style.display = "block";
+    document.querySelector(".tutorialskip-btn").style.display = "block";
+  }, 31000);
+})
+
+
+document.querySelector(".tutorial-btn4").addEventListener("click",function(){
+  document.querySelector(".tutorial-text1").style.display = "none";
+  document.querySelector(".tutorialskip-btn").style.display = "none";
+  document.querySelector(".tutorial-btn4").style.display = "none";
+  document.querySelector(".tabs").removeChild(document.querySelector(".location2"))
+  const text = 
+  "次にホームについて説明致します。こちらのタブから作成した部屋、家具を配置することができます。現在背景に見えている左端のサイドバーの、上のタブは部屋を作成し保存したときに保存される場所、中央のタブは家具を作成し保存したときに保存される場所、下のタブは作成した部屋上に作成した家具を実際に配置し保存したときに配置図が保存される場所になります。"; 
+
+  const displayElement = document.querySelector(".tutorial-text1"); 
+  const totalDuration = 23000; // 総表示時間（ミリ秒）
+  const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
+  const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
+  let currentIndex = 0; // 現在の文字インデックス
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-text1").textContent = "";
+    document.querySelector(".tutorial-text1").style.display = "block";
+    displayText();
+  }, 2000);
+
+  window.setTimeout(() => {
+    const i = document.createElement('i');
+    i.classList.add("fa-solid");
+    i.classList.add("fa-location-dot");
+    i.classList.add("fa-rotate-270");
+    i.classList.add("location3");
+    document.querySelector(".tabs").append(i);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelector(".location3").style.opacity = 1;
+      });
+  }, 2000);
+  }, 4530);
+
+  function displayText() {
+    if (currentIndex < text.length) {
+      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
+  
+      let interval = totalDuration / text.length; // デフォルトの間隔
+      const nextChar = text[currentIndex];
+  
+      // 特定の文字に応じて一時停止時間を設定
+      if (nextChar === '。') {
+        interval = pauseDurationDot; // ピリオドの後の間隔
+      } else if (nextChar === '、') {
+        interval = pauseDurationComma; // カンマの後の間隔
+      }
+  
+      currentIndex++; // インデックスを進める
+      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+    }
+  }
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-btn5").style.display = "block";
+    document.querySelector(".tutorialskip-btn").style.display = "block";
+  }, 29000);
+})
+
+
+document.querySelector(".tutorial-btn5").addEventListener("click",function(){
+  document.querySelector(".tutorial-text1").style.display = "none";
+  document.querySelector(".tutorialskip-btn").style.display = "none";
+  document.querySelector(".tutorial-btn5").style.display = "none";
+  document.querySelector(".tabs").removeChild(document.querySelector(".location3"))
+  const text = 
+  "次にヘルプについて説明致します。こちらのタブから予め用意された操作方法の説明や、多くのお問い合わせがあるご不明点などが確認できます。"; 
+
+  const displayElement = document.querySelector(".tutorial-text1"); 
+  const totalDuration = 8000; // 総表示時間（ミリ秒）
+  const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
+  const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
+  let currentIndex = 0; // 現在の文字インデックス
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-text1").textContent = "";
+    document.querySelector(".tutorial-text1").style.display = "block";
+    displayText();
+  }, 2000);
+
+  window.setTimeout(() => {
+    const i = document.createElement('i');
+    i.classList.add("fa-solid");
+    i.classList.add("fa-location-dot");
+    i.classList.add("fa-rotate-270");
+    i.classList.add("location4");
+    document.querySelector(".tabs").append(i);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelector(".location4").style.opacity = 1;
+      });
+  }, 2000);
+  }, 4530);
+
+  function displayText() {
+    if (currentIndex < text.length) {
+      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
+  
+      let interval = totalDuration / text.length; // デフォルトの間隔
+      const nextChar = text[currentIndex];
+  
+      // 特定の文字に応じて一時停止時間を設定
+      if (nextChar === '。') {
+        interval = pauseDurationDot; // ピリオドの後の間隔
+      } else if (nextChar === '、') {
+        interval = pauseDurationComma; // カンマの後の間隔
+      }
+  
+      currentIndex++; // インデックスを進める
+      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+    }
+  }
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-btn6").style.display = "block";
+    document.querySelector(".tutorialskip-btn").style.display = "block";
+  }, 11800);
+})
+
+
+document.querySelector(".tutorial-btn6").addEventListener("click",function(){
+  document.querySelector(".tutorial-text1").style.display = "none";
+  document.querySelector(".tutorialskip-btn").style.display = "none";
+  document.querySelector(".tutorial-btn6").style.display = "none";
+  document.querySelector(".tabs").removeChild(document.querySelector(".location4"))
+  const text = 
+  "次にお問い合わせについて説明致します。こちらの設定タブをクリックしていただくと、ドロップダウンメニューが表示されます。メニュー内のお問い合わせタブからお問い合わせを行うことができますが、お問い合わせをする際はメールアドレスの認証を完了しておく必要があります。"; 
+
+  const displayElement = document.querySelector(".tutorial-text1"); 
+  const totalDuration = 12000; // 総表示時間（ミリ秒）
+  const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
+  const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
+  let currentIndex = 0; // 現在の文字インデックス
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-text1").textContent = "";
+    document.querySelector(".tutorial-text1").style.display = "block";
+    displayText();
+  }, 2000);
+
+  window.setTimeout(() => {
+    const i = document.createElement('i');
+    i.classList.add("fa-solid");
+    i.classList.add("fa-location-dot");
+    i.classList.add("fa-rotate-270");
+    i.classList.add("location5");
+    document.querySelector(".tabs").append(i);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        document.querySelector(".location5").style.opacity = 1;
+      });
+  }, 2000);
+  }, 4530);
+
+  window.setTimeout(() => {
+    dropdownMenu.style.display = 'block';
+  }, 7030);
+
+
+  function displayText() {
+    if (currentIndex < text.length) {
+      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
+  
+      let interval = totalDuration / text.length; // デフォルトの間隔
+      const nextChar = text[currentIndex];
+  
+      // 特定の文字に応じて一時停止時間を設定
+      if (nextChar === '。') {
+        interval = pauseDurationDot; // ピリオドの後の間隔
+      } else if (nextChar === '、') {
+        interval = pauseDurationComma; // カンマの後の間隔
+      }
+  
+      currentIndex++; // インデックスを進める
+      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+    }
+  }
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-btn7").style.display = "block";
+    document.querySelector(".tutorialskip-btn").style.display = "block";
+  }, 18000);
+})
+
+
+
+document.querySelector(".tutorial-btn7").addEventListener("click",function(){
+  document.querySelector(".tutorial-text1").style.display = "none";
+  document.querySelector(".tutorialskip-btn").style.display = "none";
+  document.querySelector(".tutorial-btn7").style.display = "none";
+  const text = 
+  "次にメールアドレス認証について説明致します。メニュー内のメールアドレス認証タブから認証が行えます。現在タブの横に赤色のマークが表示されていますが、認証が完了しますと緑色のチェックマークに変化します。またメールアドレスの変更もこちらのタブから変更が可能です。認証をしておくと、お問い合わせができることに加えて、パスワード変更時などの確認コードの取得がスムーズになりますので、お早目の認証をオススメ致します。"; 
+
+  const displayElement = document.querySelector(".tutorial-text1"); 
+  const totalDuration = 23000; // 総表示時間（ミリ秒）
+  const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
+  const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
+  let currentIndex = 0; // 現在の文字インデックス
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-text1").textContent = "";
+    document.querySelector(".tutorial-text1").style.display = "block";
+    displayText();
+  }, 2000);
+
+
+  function displayText() {
+    if (currentIndex < text.length) {
+      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
+  
+      let interval = totalDuration / text.length; // デフォルトの間隔
+      const nextChar = text[currentIndex];
+  
+      // 特定の文字に応じて一時停止時間を設定
+      if (nextChar === '。') {
+        interval = pauseDurationDot; // ピリオドの後の間隔
+      } else if (nextChar === '、') {
+        interval = pauseDurationComma; // カンマの後の間隔
+      }
+  
+      currentIndex++; // インデックスを進める
+      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+    }
+  }
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-btn8").style.display = "block";
+    document.querySelector(".tutorialskip-btn").style.display = "block";
+  }, 31000);
+})
+
+
+document.querySelector(".tutorial-btn8").addEventListener("click",function(){
+  document.querySelector(".tutorial-text1").style.display = "none";
+  document.querySelector(".tutorialskip-btn").style.display = "none";
+  document.querySelector(".tutorial-btn8").style.display = "none";
+  document.querySelector(".tabs").removeChild(document.querySelector(".location5"));
+  dropdownMenu.style.display = 'none';
+  const text = 
+  "以上で操作方法の説明を終了致します。今後チュートリアルは表示されませんので、操作方法について他にご不明な点がありましたら、ヘルプをご確認頂くか、お問い合わせをお願い致します。"; 
+
+  const displayElement = document.querySelector(".tutorial-text1"); 
+  const totalDuration = 10000; // 総表示時間（ミリ秒）
+  const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
+  const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
+  let currentIndex = 0; // 現在の文字インデックス
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorial-text1").textContent = "";
+    document.querySelector(".tutorial-text1").style.display = "block";
+    displayText();
+  }, 2000);
+
+
+  function displayText() {
+    if (currentIndex < text.length) {
+      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
+  
+      let interval = totalDuration / text.length; // デフォルトの間隔
+      const nextChar = text[currentIndex];
+  
+      // 特定の文字に応じて一時停止時間を設定
+      if (nextChar === '。') {
+        interval = pauseDurationDot; // ピリオドの後の間隔
+      } else if (nextChar === '、') {
+        interval = pauseDurationComma; // カンマの後の間隔
+      }
+  
+      currentIndex++; // インデックスを進める
+      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+    }
+  }
+
+  window.setTimeout(() => {
+    document.querySelector(".tutorialend-btn").style.display = "block";
+  }, 14500);
+})
+
+
+document.querySelector(".tutorialend-btn").addEventListener("click",function(){
+  document.querySelector(".content-tutorial1").style.display = "none";
+  document.querySelector(".tabs").style.pointerEvents = "auto";
+  document.querySelector(".sidebar").style.pointerEvents = "auto";
+  fetch('/change-tutorial', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    console.log("tutorial_end")
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+})
+
+
 // ページがロードされたときに部屋、家具、配置図情報を取得して表示する
 window.addEventListener('load', getObjData);
 // ページがロードされたときにメール認証の有無アイコンを表示
 window.addEventListener('load', mailCert);
 // ページがロードされたときにユーザーのメアドを表示
 window.addEventListener('load', getUserMail);
+// ページがロードされたときに初回ログインであれば、チュートリアルを表示
+window.addEventListener('load', getTutorial);
 
 document.querySelector(".icon-circle").addEventListener("click",function(){
   window.location.reload();
@@ -334,10 +949,12 @@ dropdownTab.addEventListener('click', (event) => {
 
 // ドロップダウンメニュー以外の場所をクリックしたらメニューを閉じる
 document.addEventListener('click', (event) => {
+  if(document.querySelector(".content-tutorial1").style.display === "none"){
   if (!dropdownTab.contains(event.target) && !dropdownMenu.contains(event.target)) {
     dropdownMenu.style.display = 'none';
     dropdownOpen = false;
   }
+}
 });
 
 // ドロップダウンメニューの中の各メニューのクリックイベントを設定
@@ -965,6 +1582,43 @@ function displayErrors(errors) {
   function userDeleteBtn3(){
     userDeleteData();
   }
+
+
+  document.querySelector(".contact-text2").style.display = "none";
+  document.querySelector(".contact-text3").style.display = "none";
+
+  document.querySelector('#contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    fetch('/send-contact-email', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+      if(data.message){
+      document.querySelector(".contact-text1").style.display = "none";
+      document.querySelector(".contact-text2").style.display = "block";
+      window.setTimeout(() => {
+        document.querySelector(".textarea-text").textContent = "";
+        document.querySelector(".contact-text2").style.display = "none";
+        document.querySelector(".contact-text1").style.display = "block";
+      }, 10000);
+    }else if(data.error){
+      document.querySelector(".contact-text1").style.display = "none";
+      document.querySelector(".contact-text3").style.display = "block";
+      window.setTimeout(() => {
+        document.querySelector(".textarea-text").textContent = "";
+        document.querySelector(".contact-text3").style.display = "none";
+        document.querySelector(".contact-text1").style.display = "block";
+      }, 10000);
+    }
+    })
+    .catch(error => {
+      console.error('送信エラー:', error);
+    });
+  });
+  
 
 
 

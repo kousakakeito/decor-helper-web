@@ -6,13 +6,14 @@ body, html {
 }
 .front-content {
   position: relative;
-
+  z-index: 1;
 }
 
 .front-content2 {
   position: relative;
-  z-index: 2; 
+  z-index: 0; 
 }
+
 
 
 
@@ -1135,6 +1136,615 @@ button{
   background-color: rgb(185, 77, 199);
 }
 
+
+.content-tutorial1{
+  position: fixed;
+  z-index: 0;
+  width: 1920px;
+  height: 932px;
+  background-color: #000000c0;
+}
+
+.tutorial-containar1{
+  position: fixed;
+  z-index: 4;
+  width: 680px;
+  height: 506px;
+  border-style: double;
+  border-width: 4px;
+  border-radius: 10px;
+  background-color: white;
+  left: 50%;
+  top:50%;
+  margin-left: -340px;
+  margin-top: -253px;
+  display: none; /* 初期状態では非表示 */
+  opacity: 0; /* 完全に透明 */
+  transition: opacity 2s ease-in-out; /* 透明度の変化をアニメーション化 */
+}
+
+.title3 img {
+  position: fixed;
+  width: 120px; /* アイコンの幅を調整 */
+  height: 120px; /* アイコンの高さを調整 */
+  margin-left: 10px; /* アイコンとテキストの間隔を調整 */
+  margin-top: 10px;
+  border-radius: 100px;
+  z-index: 6;
+}
+
+.tutorial-text1{
+  position: fixed;
+  width:640px;
+  margin-left: 20px;
+  font-size: 20px;
+  margin-top: 160px;
+  line-height: 36px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  z-index: 6;
+}
+
+.tutorial-btn1{
+  position: fixed;
+  margin-top: 420px;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 550px;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.tutorial-btn1:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.tutorial-btn2{
+  position: fixed;
+  margin-top: 420px;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 550px;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.tutorial-btn2:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.tutorial-btn3{
+  position: fixed;
+  margin-top: 420px;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 550px;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.tutorial-btn3:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.tutorial-btn4{
+  position: fixed;
+  margin-top: 420px;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 550px;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.tutorial-btn4:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.tutorial-btn5{
+  position: fixed;
+  margin-top: 420px;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 550px;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.tutorial-btn5:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.tutorial-btn6{
+  position: fixed;
+  margin-top: 420px;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 550px;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.tutorial-btn6:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.tutorial-btn7{
+  position: fixed;
+  margin-top: 420px;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 550px;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.tutorial-btn7:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.tutorial-btn8{
+  position: fixed;
+  margin-top: 420px;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 550px;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.tutorial-btn8:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.tutorial-btn9{
+  position: fixed;
+  margin-top: 420px;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 550px;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.tutorial-btn9:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.tutorial-btn10{
+  position: fixed;
+  margin-top: 420px;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 550px;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.tutorial-btn10:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.tutorial-btn11{
+  position: fixed;
+  margin-top: 420px;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 550px;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.tutorial-btn11:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.tutorialskip-btn{
+  position: fixed;
+  margin-top: 420px;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 350px;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.tutorialskip-btn:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+.tutorialend-btn{
+  position: fixed;
+  margin-top: 420px;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 500px;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.tutorialend-btn:hover{
+  background-color: rgb(185, 77, 199);
+}
+
+
+
+.area{
+  background: #4e54c8;  
+  background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  
+  width: 680px;
+  height:506px;
+  margin-top: -18px;
+  border-radius: 6px;
+}
+
+.circles{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 680px;
+  height:506px;
+  margin-top: 0px;
+  margin-left: -40px;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.circles li{
+  position: absolute;
+  display: block;
+  list-style: none;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  animation: animate 25s linear infinite;
+  bottom: -160px;
+  
+}
+
+.circles li:nth-child(1){
+  left: 25%;
+  width: 80px;
+  height: 80px;
+  animation-delay: 0s;
+}
+
+
+.circles li:nth-child(2){
+  left: 10%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 2s;
+  animation-duration: 12s;
+}
+
+.circles li:nth-child(3){
+  left: 70%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 4s;
+}
+
+.circles li:nth-child(4){
+  left: 40%;
+  width: 60px;
+  height: 60px;
+  animation-delay: 0s;
+  animation-duration: 18s;
+}
+
+.circles li:nth-child(5){
+  left: 65%;
+  width: 20px;
+  height: 20px;
+  animation-delay: 0s;
+}
+
+.circles li:nth-child(6){
+  left: 75%;
+  width: 110px;
+  height: 110px;
+  animation-delay: 3s;
+}
+
+.circles li:nth-child(7){
+  left: 35%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 7s;
+}
+
+.circles li:nth-child(8){
+  left: 50%;
+  width: 25px;
+  height: 25px;
+  animation-delay: 15s;
+  animation-duration: 45s;
+}
+
+.circles li:nth-child(9){
+  left: 20%;
+  width: 15px;
+  height: 15px;
+  animation-delay: 2s;
+  animation-duration: 35s;
+}
+
+.circles li:nth-child(10){
+  left: 85%;
+  width: 150px;
+  height: 150px;
+  animation-delay: 0s;
+  animation-duration: 11s;
+}
+
+
+
+@keyframes animate {
+
+  0%{
+      transform: translateY(0) rotate(0deg);
+      opacity: 1;
+      border-radius: 0;
+  }
+
+  100%{
+      transform: translateY(-1000px) rotate(720deg);
+      opacity: 0;
+      border-radius: 50%;
+  }
+
+}
+
+
+.location1 {
+  color: rgb(2, 255, 2);
+  position: fixed;
+  font-size: 60px;
+  margin-left: 265px;
+  margin-top: -12px;
+  animation-name: return1;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  display: none; /* 初期状態では非表示 */
+  opacity: 0; /* 完全に透明 */
+  transition: opacity 2s ease-in-out; /* 透明度の変化をアニメーション化 */
+}
+
+
+@keyframes return1 {
+  50% {
+    margin-left:270px;
+  }
+  100% {
+    margin-left: 265px;
+  }
+}
+
+
+.location2 {
+  color: rgb(2, 255, 2);
+  position: fixed;
+  font-size: 60px;
+  margin-left: 520px;
+  margin-top: -12px;
+  animation-name: return2;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  display: none; /* 初期状態では非表示 */
+  opacity: 0; /* 完全に透明 */
+  transition: opacity 2s ease-in-out; /* 透明度の変化をアニメーション化 */
+}
+
+
+@keyframes return2 {
+  50% {
+    margin-left:525px;
+  }
+  100% {
+    margin-left: 520px;
+  }
+}
+
+
+.location3 {
+  color: rgb(2, 255, 2);
+  position: fixed;
+  font-size: 60px;
+  margin-left: 25px;
+  margin-top: -12px;
+  animation-name: return3;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  display: none; /* 初期状態では非表示 */
+  opacity: 0; /* 完全に透明 */
+  transition: opacity 2s ease-in-out; /* 透明度の変化をアニメーション化 */
+}
+
+
+@keyframes return3 {
+  50% {
+    margin-left:30px;
+  }
+  100% {
+    margin-left: 25px;
+  }
+}
+
+
+.location4 {
+  color: rgb(2, 255, 2);
+  position: fixed;
+  font-size: 60px;
+  margin-left: 780px;
+  margin-top: -12px;
+  animation-name: return4;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  display: none; /* 初期状態では非表示 */
+  opacity: 0; /* 完全に透明 */
+  transition: opacity 2s ease-in-out; /* 透明度の変化をアニメーション化 */
+}
+
+
+@keyframes return4 {
+  50% {
+    margin-left:785px;
+  }
+  100% {
+    margin-left: 780px;
+  }
+}
+
+.location5 {
+  color: rgb(2, 255, 2);
+  position: fixed;
+  font-size: 60px;
+  margin-left: 1025px;
+  margin-top: -12px;
+  animation-name: return5;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease;
+  display: none; /* 初期状態では非表示 */
+  opacity: 0; /* 完全に透明 */
+  transition: opacity 2s ease-in-out; /* 透明度の変化をアニメーション化 */
+}
+
+
+@keyframes return5 {
+  50% {
+    margin-left:1030px;
+  }
+  100% {
+    margin-left: 1025px;
+  }
+}
+
+.content-inquiry textarea{
+  position: fixed;
+  resize: none; 
+  border-radius: 10px;
+  width: 800px;
+  height: 250px;
+  margin-left: 205px;
+  margin-top: 260px;
+  font-size: 20px;
+  border-color: black;
+  border-width: 4px;
+  font-weight: bold;
+  border-style:dashed;
+  
+}
+
+.content-inquiry .contact-text1{
+  color: orange;
+  margin-top: 150px;
+  margin-left: 190px;
+  position: fixed;
+}
+
+.content-inquiry .contact-text2{
+  color: green;
+  margin-top: 150px;
+  margin-left: 190px;
+  position: fixed;
+}
+
+.content-inquiry .contact-text3{
+  color: red;
+  margin-top: 150px;
+  margin-left: 190px;
+  position: fixed;
+}
+
+.contact-sendbtn{
+  position: fixed;
+  margin-top: 550px;
+  width: 90px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color:darkmagenta;
+  color: white;
+  font-weight: bold;
+  margin-left: 900px;
+  cursor: pointer;
+  z-index: 6;
+}
+
+.contact-sendbtn:hover{
+  background-color: rgb(185, 77, 199);
+}
 
 /* home-spacelist のスタイル */
 .space-listCheck{

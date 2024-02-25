@@ -419,6 +419,33 @@ router.post('/get-change-icon', function(req, res) {
 });
 
 
+router.post('/change-tutorial', function(req, res) {
+  const username = req.session.username;
+  
+  // first_login列の値をtrueに更新するSQLクエリ
+  const sql = 'UPDATE users SET first_login = TRUE WHERE username = ?';
+  
+  connection.query(sql, [username], (err, result) => {
+    if (err) {
+      // SQL実行時のエラーハンドリング
+      console.error('Error updating first_login in database:', err);
+      return res.status(500).json({ error: 'データベースの更新中にエラーが発生しました' });
+    }
+    
+    // 更新が成功した場合、成功メッセージをレスポンス
+    if (result.affectedRows > 0) {
+      // 実際に更新が行われた場合（影響を受けた行が1以上）
+      console.log('first_login updated successfully for user:', username);
+      res.json({ message: 'first_loginが正常に更新されました' });
+    } else {
+      // 影響を受けた行が0（該当するユーザーが見つからない場合）
+      console.log('No user found with the provided username:', username);
+      res.status(404).json({ error: '指定されたユーザー名のユーザーが見つかりません' });
+    }
+  });
+});
+
+
 // ユーザーの登録フォームのバリデーションルール
 const registrationValidationRules = [
   check('email').isEmail().withMessage('有効なメールアドレスを入力してください。'),
@@ -500,6 +527,46 @@ router.post('/user-delete-data', async (req, res) => {
 });
 
 
+
+// お問い合わせフォームのデータを受け取るルート
+router.post('/send-contact-email', (req, res) => {
+  const username = req.session.username;
+  const { message } = req.body;
+
+  connection.query('SELECT email FROM users WHERE username = ?', [username], async (err, results) => {
+    if (err || results.length === 0) {
+      console.error('Error fetching email from database:', err);
+      return res.status(500).json({ error: 'データベースからのメール取得に失敗しました' });
+    }
+  
+    const email = results[0].email; 
+      // nodemailerの設定
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.fastmail.com',
+      port: 465,
+      secure: true,
+      auth: {
+        user: 'info@decorhelper.net',
+        pass: config.password2,
+      },
+    });
+
+  const mailOptions = {
+    from: email, // 送信者アドレス
+    to: 'info@decorhelper.net', // 受信者アドレス（自分のメールアドレス）
+    subject: 'DecorHelperからのお問い合わせ',
+    text: `名前: ${username}\nメール: ${email}\nメッセージ: ${message}`
+  };
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error('Send Mail Error:', error);
+      return res.status(500).json({ error: 'メールの送信に失敗しました' });
+    }
+    res.json({ message: 'お問い合わせありがとうございます。' });
+  });
+});
+});
 
 
 

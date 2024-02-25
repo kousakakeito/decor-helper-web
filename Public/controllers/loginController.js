@@ -378,6 +378,31 @@ function handleLoginSuccess(res, req, username) {
         });
       });
       
+
+      router.get('/get-tutorial', (req, res) => {
+        const username = req.session.username; // セッションからusernameを取得
+      
+        // usernameに基づいてusersテーブルからfirst_loginの値を取得するSQLクエリ
+        const sql = 'SELECT first_login FROM users WHERE username = ?';
+      
+        // SQLクエリの実行
+        connection.query(sql, [username], (err, results) => {
+          if (err) {
+            // SQL実行時のエラーハンドリング
+            console.error('Error fetching first_login from database:', err);
+            return res.status(500).json({ error: 'An error occurred while fetching first_login data.' });
+          }
+      
+          if (results.length > 0) {
+            // first_loginの値が見つかった場合、その値をレスポンスする
+            const firstLogin = results[0].first_login;
+            res.json({ firstLogin: firstLogin }); // first_loginの値をJSON形式でレスポンス
+          } else {
+            // 指定されたusernameのレコードが見つからない場合
+            res.status(404).json({ error: 'User not found.' });
+          }
+        });
+      });
       
       
 
