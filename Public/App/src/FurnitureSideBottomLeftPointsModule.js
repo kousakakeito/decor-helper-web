@@ -44,6 +44,19 @@ module.exports = function sideBottomLeftPoints(stage,dots,rectangle,isMouseOnBor
   div19.append(div20);
   furniturecenterInner.append(div19);
 
+  document.querySelector(".rectAngle-SizeForm24").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+  document.querySelector(".rectAngle-SizeForm25").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+  document.querySelector(".rectAngle-SizeForm26").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+  document.querySelector(".rectAngle-SizeForm27").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+
   document.querySelector(".note11").textContent = "※右端または左端のどちらかを入力してください※";
   document.querySelector(".note12").textContent = "※上端または下端のどちらかを入力してください※";
 

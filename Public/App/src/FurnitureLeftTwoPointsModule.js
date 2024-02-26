@@ -30,6 +30,13 @@ module.exports = function leftTwoPoints(stage,dots,rectangle,isMouseOnBorder,lay
   div9.append(div10);
   furniturecenterInner.append(div9);
 
+  document.querySelector(".rectAngle-SizeForm8").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+  document.querySelector(".rectAngle-SizeForm9").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+
   document.querySelector(".note3").textContent = "※上端または下端のどちらかを入力してください※";
 
   // 四角の中心座標を取得

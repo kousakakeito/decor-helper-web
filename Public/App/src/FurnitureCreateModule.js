@@ -163,7 +163,12 @@ function isMouseOnBorder(rectangle, x, y) {
   div1.append(div2);
   furniturecenterInner.append(div1);
 
-  
+  document.querySelector(".rectAngle-SizeForm1").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+  document.querySelector(".rectAngle-SizeForm2").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });  
   
   document.querySelector(".rectAngle-confirm").addEventListener("click",handleConfirm);
   

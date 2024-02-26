@@ -117,7 +117,12 @@ module.exports = function topRightLength(stage,dots,rectangle,isMouseOnBorder,la
  div21.append(div22);
  furniturecenterInner.append(div21);
 
-
+ document.querySelector(".rectAngle-SizeForm28").addEventListener('input', function(e) {
+  this.value = this.value.replace(/[^0-9]/g, '');
+});
+document.querySelector(".rectAngle-SizeForm29").addEventListener('input', function(e) {
+  this.value = this.value.replace(/[^0-9]/g, '');
+});
 
  document.querySelector(".note13").textContent = "上方向または下方向のどちらかを入力してください";
  document.querySelector(".paturn-text").textContent = "伸縮パターンを選択後、長さを入力してください";

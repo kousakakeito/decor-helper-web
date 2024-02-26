@@ -21,6 +21,10 @@ module.exports = function sideTwoPoints(stage,dots,rectangle,isMouseOnBorder,lay
   div3.append(div4);
   furniturecenterInner.append(div3);
 
+  document.querySelector(".rectAngle-SizeForm3").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+
 
   document.querySelector(".rectAngle-confirm2").addEventListener("click",handleConfirm2);
   function handleConfirm2(){
