@@ -2918,6 +2918,12 @@ function displayErrors(errors) {
             }
           });
 
+          if(overWrite && overWrite.style.display === 'block'){
+          overWrite.style.display = 'none';
+          document.querySelector(".home-compbtn").style.display = 'block';
+          document.querySelector(".home-form").value = "";
+          }
+
 
           const errorElement = document.querySelector(".space-form-error");
           if (errorElement && errorElement.textContent !== "") {
