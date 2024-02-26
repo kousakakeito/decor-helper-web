@@ -113,7 +113,7 @@ module.exports = function topLeftCheckTriangle(stage,dots,rectangle,isMouseOnBor
       const polygon = new Konva.Line({
         points: [circleX1, circleY1,  midRectX1, midRectY1, circleX2, circleY2],
         stroke: '#8b4513', // 線の色
-        strokeWidth: 2, // 線の太さ
+        strokeWidth: 0, // 線の太さ
         closed: true, // 閉じた形状として描画
         fill: '#8b4513', // 塗りつぶし色（透明）
       });
@@ -184,7 +184,7 @@ module.exports = function topLeftCheckTriangle(stage,dots,rectangle,isMouseOnBor
          const polygon = new Konva.Line({
           points: [circleX1A, circleY1A, midRectX1A, midRectY1A, circleX2A, circleY2A],
           stroke: '#8b4513', // 線の色
-          strokeWidth: 2, // 線の太さ
+          strokeWidth: 0, // 線の太さ
           closed: true, // 閉じた形状として描画
           fill: '#8b4513', // 塗りつぶし色（透明）
         });
@@ -242,7 +242,7 @@ module.exports = function topLeftCheckTriangle(stage,dots,rectangle,isMouseOnBor
          const polygon = new Konva.Line({
           points: [circleX1A, circleY1A, midRectX1A, midRectY1A, circleX2A, circleY2A],
           stroke: '#8b4513', // 線の色
-          strokeWidth: 2, // 線の太さ
+          strokeWidth: 0, // 線の太さ
           closed: true, // 閉じた形状として描画
           fill: '#8b4513', // 塗りつぶし色（透明）
         });

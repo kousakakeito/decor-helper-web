@@ -56,7 +56,7 @@ module.exports = function rightBottomCheckSquare(stage,dots,rectangle,isMouseOnB
     const polygon = new Konva.Line({
       points: [circleX1, circleY1, intersectionX1, intersectionY1, midRectX1, midRectY1, intersectionX2, intersectionY2, circleX2, circleY2],
       stroke: '#8b4513', // 線の色
-      strokeWidth: 2, // 線の太さ
+      strokeWidth: 0, // 線の太さ
       closed: true, // 閉じた形状として描画
       fill: '#8b4513', // 塗りつぶし色（透明）
     });
