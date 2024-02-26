@@ -29,6 +29,13 @@ module.exports = function rightTwoPoints(stage,dots,rectangle,isMouseOnBorder,la
 
   div7.append(div8);
   spacecenterInner.append(div7);
+
+  document.querySelector(".rectAngle-SizeForm6").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+  document.querySelector(".rectAngle-SizeForm7").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
   
   document.querySelector(".note2").textContent = "※上端または下端のどちらかを入力してください※";
 

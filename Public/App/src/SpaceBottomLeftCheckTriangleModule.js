@@ -89,6 +89,13 @@ module.exports = function bottomLeftCheckTriangle(stage,dots,rectangle,isMouseOn
      div23.append(div24);
      spacecenterInner.append(div23);
 
+     document.querySelector(".rectAngle-SizeForm30").addEventListener('input', function(e) {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
+    document.querySelector(".rectAngle-SizeForm31").addEventListener('input', function(e) {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
      document.querySelector(".note14").textContent = "上記不要の場合はこちら";
 
 
@@ -431,6 +438,13 @@ module.exports = function bottomLeftCheckTriangle(stage,dots,rectangle,isMouseOn
 
      div23.append(div24);
      spacecenterInner.append(div23);
+
+     document.querySelector(".rectAngle-SizeForm30").addEventListener('input', function(e) {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
+    document.querySelector(".rectAngle-SizeForm31").addEventListener('input', function(e) {
+      this.value = this.value.replace(/[^0-9]/g, '');
+    });
 
      document.querySelector(".note14").textContent = "上記不要の場合はこちら";
 

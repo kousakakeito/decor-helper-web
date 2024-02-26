@@ -44,6 +44,19 @@ module.exports = function sideTopLeftPoints(stage,dots,rectangle,isMouseOnBorder
   div15.append(div16);
   spacecenterInner.append(div15);
 
+  document.querySelector(".rectAngle-SizeForm16").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+  document.querySelector(".rectAngle-SizeForm17").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+  document.querySelector(".rectAngle-SizeForm18").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+  document.querySelector(".rectAngle-SizeForm19").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+
   document.querySelector(".note7").textContent = "※右端または左端のどちらかを入力してください※";
   document.querySelector(".note8").textContent = "※上端または下端のどちらかを入力してください※";
 

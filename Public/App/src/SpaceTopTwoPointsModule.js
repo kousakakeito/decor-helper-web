@@ -32,6 +32,13 @@ module.exports = function topTwoPoints(stage,dots,rectangle,isMouseOnBorder,laye
 
   console.log(div5);
 
+  document.querySelector(".rectAngle-SizeForm4").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+  document.querySelector(".rectAngle-SizeForm5").addEventListener('input', function(e) {
+    this.value = this.value.replace(/[^0-9]/g, '');
+  });
+
   document.querySelector(".note1").textContent = "※右端または左端のどちらかを入力してください※";
 
   // 四角の中心座標を取得
