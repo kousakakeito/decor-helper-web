@@ -1791,7 +1791,7 @@ function displayErrors(errors) {
                 const line = new Konva.Line({
                   points: shapeData.points,
                   stroke: shapeData.stroke, 
-                  strokeWidth: shapeData.strokeWidth, 
+                  strokeWidth: 2, 
                   closed: shapeData.closed,
                   fill: shapeData.fill,
                   // その他の必要なプロパティを設定
@@ -3433,7 +3433,7 @@ function displayErrors(errors) {
                 const line = new Konva.Line({
                   points: shapeData.points,
                   stroke: shapeData.stroke, 
-                  strokeWidth: shapeData.strokeWidth, 
+                  strokeWidth: 2, 
                   closed: shapeData.closed,
                   fill: shapeData.fill,
                   name: layerInfo.name,
