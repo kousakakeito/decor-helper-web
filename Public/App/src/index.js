@@ -803,6 +803,22 @@ window.addEventListener('load', mailCert);
 window.addEventListener('load', getUserMail);
 // ページがロードされたときに初回ログインであれば、チュートリアルを表示
 window.addEventListener('load', getTutorial);
+// ページがロードされたときにセッションが未取得の場合ログイン画面へリダイレクト
+window.addEventListener('load',function(){
+  fetch('/load-session-judge', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  })
+  .then((response) => response.json())
+  .then((data) => {
+    window.location.href = data.redirect;
+  })
+  .catch((error) => {
+    console.error('Error:', error);
+  });
+});
 // お問い合わせタブをクリックしたときにメール認証の有無を判定し、お問い合わせできるか否かを表示
 document.querySelector("#contact-btn").addEventListener('click', function(){
   fetch('/contact-certMail', {
@@ -1072,6 +1088,7 @@ document.querySelector('.caret-down')
   document.querySelector('.home-spacelist').style.display = 'none';
   document.querySelector('.home-roomlist').style.display = 'none';
   document.querySelector('.homeright-outer').style.display = 'none';
+  document.querySelector('.home-optionlist').style.display = 'none';
 
   function hideAllContents() {
     document.querySelector('.home-spacelist').style.display = 'none';
@@ -1200,6 +1217,22 @@ document.querySelector('.caret-down')
       document.querySelector('.balloon-roomText').removeChild(document.querySelector('.balloon-room'));    
     }
   });
+
+/* 公開後の各機能実装時に適用
+  let option = 0;
+
+  document.querySelector('.sidebar2').addEventListener("click",() =>{
+    if(option === 0){
+     document.querySelector('.home-optionlist').style.display = 'block';
+     option++;
+    }else{
+     document.querySelector('.home-optionlist').style.display = 'none';
+     option--;
+    }
+  });
+*/
+  
+
 
 
 

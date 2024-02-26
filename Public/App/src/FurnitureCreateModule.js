@@ -47,7 +47,6 @@ module.exports = function furnitureCreate(){
 
 
 
-
  // 破線の間隔と破線の長さを設定
 const dashInterval = 10;
 const dashLength = 5;

@@ -2150,6 +2150,55 @@ button{
   text-align: center;
 }
 
+.home-optionlist {
+  position: fixed;
+  display: flex;
+  z-index: 4;
+  justify-content: center;
+  align-items: flex-start;
+  height: 738px;
+  width: 300px;
+  overflow: auto;
+  border: 2px solid #000;
+  margin-left: 963px;
+  margin-top: 31px;
+  background-color:rgb(185, 182, 182);
+}
+
+/* home-roomtext のスタイル */
+.home-optiontext {
+ position: fixed; 
+ margin-top: 5px;
+ margin-left: 115px;
+ user-select: none;
+}
+
+.home-option{
+  position: fixed;
+  list-style: none;
+  margin-top: 80px;
+  margin-left: -20px;
+}
+
+.home-option input{
+  cursor: pointer;
+}
+
+.home-option li{
+  margin-top: 40px;
+}
+
+.home-option label{
+  margin-left: 20px;
+  font-weight:normal;
+  font-size: 15px;
+  font-weight: bold;
+  border-bottom-width:2px;
+  border-bottom-style:solid;
+  border-bottom-color:white;
+  user-select: none;
+}
+
 
 /* spacecenter-outer のスタイル */
 .spacecenter-outer {
