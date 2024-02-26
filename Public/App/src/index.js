@@ -1726,8 +1726,8 @@ function displayErrors(errors) {
 
   const stage2 = new Konva.Stage({
     container: homecenterInner,
-    width: homecenterInner.offsetWidth,
-    height: homecenterInner.offsetHeight,
+    width: homecenterInner.offsetWidth-4,
+    height: homecenterInner.offsetHeight-4,
   });
 
   console.log(stage2.width(), stage2.height());
