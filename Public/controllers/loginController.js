@@ -187,7 +187,6 @@ function handleLoginSuccess(res, req, username) {
           } else {
             // データが存在しない場合の処理
             console.log('No space data exists.');
-            res.status(404).send('No space data exists.');
           }
         });
       });
@@ -237,7 +236,6 @@ function handleLoginSuccess(res, req, username) {
           } else {
             // データが存在しない場合の処理
             console.log('No furniture data exists.');
-            res.status(404).send('No furniture data exists.');
           }
         });
       });
@@ -275,7 +273,6 @@ function handleLoginSuccess(res, req, username) {
           } else {
             // テーブルが存在しないか、furniture_dataレコードが0件の場合
             console.log('No furniture data exists or table does not exist.');
-            res.status(404).send('No furniture data exists or table does not exist.');
           }
         });
       });
@@ -323,7 +320,6 @@ function handleLoginSuccess(res, req, username) {
           } else {
             // データが存在しない場合の処理
             console.log('No room data exists.');
-            res.status(404).send('No room data exists.');
           }
         });
       });

@@ -1012,7 +1012,9 @@ document.addEventListener('click', (event) => {
 // ドロップダウンメニューの中の各メニューのクリックイベントを設定
 const dropdownItems = document.querySelectorAll('.dropdown-item');
 dropdownItems.forEach(item => {
-  item.addEventListener('click', () => {
+  item.addEventListener('click', (e) => {
+
+    if(e.target !== document.querySelector("#user-delete")){
     
     // クリックされたドロップダウンメニューに対応するコンテンツを表示する
     const targetContent = item.getAttribute('data-target');
@@ -1030,8 +1032,7 @@ dropdownItems.forEach(item => {
       content.style.display = 'block';
     }
 
-
-    
+  }
 
     // ドロップダウンメニューを非表示にする
     dropdownMenu.style.display = 'none';
