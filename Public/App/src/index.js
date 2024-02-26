@@ -6,7 +6,6 @@ const contentHelp = document.querySelector('#content-help');
 const contentTos = document.querySelector('#content-tos');
 const contentPrivacy = document.querySelector('#content-privacy');
 const contentInquiry = document.querySelector('#content-inquiry');
-const contentLang = document.querySelector('#content-lang');
 const contentCert = document.querySelector('#content-cert');
 
 
@@ -911,7 +910,6 @@ function hideModalContent() {
   contentTos.style.display = 'none';
   contentPrivacy.style.display = 'none';
   contentInquiry.style.display = 'none';
-  contentLang.style.display = 'none';
   contentCert.style.display = 'none';
 }
 
@@ -926,7 +924,6 @@ function hideAllContent() {
   contentTos.style.display = 'none';
   contentPrivacy.style.display = 'none';
   contentInquiry.style.display = 'none';
-  contentLang.style.display = 'none';
   contentCert.style.display = 'none';
 }
 
@@ -2914,11 +2911,13 @@ function displayErrors(errors) {
         
         if (layerToRemove instanceof Konva.Layer) {
           layerToRemove.destroy();
-          stage2.getChildren().forEach(function(layer) {
-            if (layer instanceof Konva.Layer) {
-              layer.destroy();
+          const deleteLayers = stage2.getLayers().slice();
+          deleteLayers.forEach(deleteLayer => {
+            if (deleteLayer instanceof Konva.Layer) {
+              deleteLayer.destroy();
             }
           });
+
 
           const errorElement = document.querySelector(".space-form-error");
           if (errorElement && errorElement.textContent !== "") {
