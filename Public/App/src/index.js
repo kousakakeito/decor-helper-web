@@ -208,6 +208,11 @@ function getTutorial(){
         document.querySelector(".tutorial-btn8").style.display = "none";
         document.querySelector(".tutorialskip-btn").style.display = "none";
         document.querySelector(".tutorialend-btn").style.display = "none";
+        document.querySelector(".space-tutorial").style.display = "none";
+        document.querySelector(".furniture-tutorial").style.display = "none";
+        document.querySelector(".home-tutorial").style.display = "none";
+        document.querySelector(".help-tutorial").style.display = "none";
+        document.querySelector(".set-tutorial").style.display = "none";
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
             document.querySelector(".tutorial-containar1").style.opacity = 1;
@@ -216,10 +221,10 @@ function getTutorial(){
       }, 2000);
 
       const text = 
-      "初めまして。DecorHelper開発者の高坂と申します。この度はご登録頂き感謝致します。当アプリは、図形を操作し、模様替えの事前配置確認や家具の事前設置確認が行えます。事前配置確認を行うことで家具の空きスペース間隔を予め予測できます。最初に図形を操作して部屋、家具を作成しなければいけないので面倒ですが、1度作成してしまえばログインアカウントに保存されますので作成した部屋、家具は何度でも再利用が可能です。"; 
+      "この度はDecorHelperにご登録頂きありがとうございます。当アプリは、図形を操作し、模様替えの事前配置確認や家具の事前設置確認が行えます。事前配置確認を行うことで家具の空きスペース間隔を予め予測できます。図形を操作して部屋、家具を予め作成しなければいけませんが、1度作成してしまえばログインアカウントに保存されますので作成した部屋、家具は何度でも再利用が可能です。"; 
 
       const displayElement = document.querySelector(".tutorial-text1"); 
-      const totalDuration = 25000; // 総表示時間（ミリ秒）
+      const totalDuration = 20000; // 総表示時間（ミリ秒）
       const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
       const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
       let currentIndex = 0; // 現在の文字インデックス
@@ -236,31 +241,34 @@ function getTutorial(){
         document.querySelector(".tutorial-btn8").style.display = "none";
         document.querySelector(".tutorialskip-btn").style.display = "none";
         document.querySelector(".tutorialend-btn").style.display = "none";
+        document.querySelector(".space-tutorial").style.display = "none";
+        document.querySelector(".furniture-tutorial").style.display = "none";
+        document.querySelector(".home-tutorial").style.display = "none";
+        document.querySelector(".help-tutorial").style.display = "none";
+        document.querySelector(".set-tutorial").style.display = "none";
         displayText();
       }, 5000);
 
       function displayText() {
         if (currentIndex < text.length) {
-          displayElement.textContent += text[currentIndex]; // 現在の文字を追加
+          displayElement.textContent += text[currentIndex]; 
       
-          let interval = totalDuration / text.length; // デフォルトの間隔
+          let interval = totalDuration / text.length; 
           const nextChar = text[currentIndex];
       
           // 特定の文字に応じて一時停止時間を設定
           if (nextChar === '。') {
-            interval = pauseDurationDot; // ピリオドの後の間隔
+            interval = pauseDurationDot; 
           } else if (nextChar === '、') {
-            interval = pauseDurationComma; // カンマの後の間隔
+            interval = pauseDurationComma; 
           }
       
-          currentIndex++; // インデックスを進める
-          setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+          currentIndex++;
+          setTimeout(displayText, interval); 
+        } else {
+          document.querySelector(".tutorial-btn1").style.display = "block";
         }
       }
-
-      window.setTimeout(() => {
-        document.querySelector(".tutorial-btn1").style.display = "block";
-      }, 36800);
       
     }else if(data.firstLogin){
       console.log("not tutorial");
@@ -275,10 +283,10 @@ document.querySelector(".tutorial-btn1").addEventListener("click",function(){
   document.querySelector(".tutorial-text1").style.display = "none";
   document.querySelector(".tutorial-btn1").style.display = "none";
   const text = 
-  "初めての個人開発で制作したアプリですので、ユーザーの皆様には使いずらさを感じさせるかもしれませんが、常に改善へ努めて参りますので、どうかよろしくお願い致します。ここからは操作方法の説明を行います。説明をスキップする場合は下記のスキップをクリックしてください。説明を受ける場合は、次へをクリックしてください。"; 
+  "ユーザーの皆様には使いずらさを感じさせるかもしれませんが、常に改善へ努めて参りますので、どうかよろしくお願い致します。ここからは操作方法の説明を行います。説明をスキップする場合は下記のスキップをクリックしてください。説明を受ける場合は、次へをクリックしてください。"; 
 
   const displayElement = document.querySelector(".tutorial-text1"); 
-  const totalDuration = 23000; // 総表示時間（ミリ秒）
+  const totalDuration = 15000; // 総表示時間（ミリ秒）
   const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
   const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
   let currentIndex = 0; // 現在の文字インデックス
@@ -291,28 +299,26 @@ document.querySelector(".tutorial-btn1").addEventListener("click",function(){
 
   function displayText() {
     if (currentIndex < text.length) {
-      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
+      displayElement.textContent += text[currentIndex];
   
-      let interval = totalDuration / text.length; // デフォルトの間隔
+      let interval = totalDuration / text.length; 
       const nextChar = text[currentIndex];
   
-      // 特定の文字に応じて一時停止時間を設定
+    
       if (nextChar === '。') {
-        interval = pauseDurationDot; // ピリオドの後の間隔
+        interval = pauseDurationDot; 
       } else if (nextChar === '、') {
-        interval = pauseDurationComma; // カンマの後の間隔
+        interval = pauseDurationComma; 
       }
   
-      currentIndex++; // インデックスを進める
-      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+      currentIndex++; 
+      setTimeout(displayText, interval); 
+    } else {
+      document.querySelector(".tutorial-btn2").style.display = "block";
+      document.querySelector(".tutorialskip-btn").style.display = "block";
     }
   }
-
-  window.setTimeout(() => {
-    document.querySelector(".tutorial-btn2").style.display = "block";
-    document.querySelector(".tutorialskip-btn").style.display = "block";
-  }, 29500);
-})
+});
 
 document.querySelector(".tutorialskip-btn").addEventListener("click",function(){
   document.querySelector(".tutorial-text1").style.display = "none";
@@ -324,6 +330,11 @@ document.querySelector(".tutorialskip-btn").addEventListener("click",function(){
   document.querySelector(".tutorial-btn7").style.display = "none";
   document.querySelector(".tutorial-btn8").style.display = "none";
   document.querySelector(".tutorialskip-btn").style.display = "none";
+  document.querySelector(".space-tutorial").style.display = "none";
+  document.querySelector(".furniture-tutorial").style.display = "none";
+  document.querySelector(".home-tutorial").style.display = "none";
+  document.querySelector(".help-tutorial").style.display = "none";
+  document.querySelector(".set-tutorial").style.display = "none";
   if(document.querySelector(".location1")){
   document.querySelector(".tabs").removeChild(document.querySelector(".location1"));
   }else if(document.querySelector(".location2")){
@@ -342,7 +353,7 @@ document.querySelector(".tutorialskip-btn").addEventListener("click",function(){
   "以上で操作方法の説明を終了致します。今後チュートリアルは表示されませんので、操作方法について他にご不明な点がありましたら、ヘルプをご確認頂くか、お問い合わせをお願い致します。またDecorHelperをご利用いただく前に必ず設定タブ、メニュー内の利用規約、プライバシーポリシーをお読み下さい。"; 
 
   const displayElement = document.querySelector(".tutorial-text1"); 
-  const totalDuration = 12000; // 総表示時間（ミリ秒）
+  const totalDuration = 10000; // 総表示時間（ミリ秒）
   const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
   const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
   let currentIndex = 0; // 現在の文字インデックス
@@ -355,26 +366,24 @@ document.querySelector(".tutorialskip-btn").addEventListener("click",function(){
 
   function displayText() {
     if (currentIndex < text.length) {
-      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
+      displayElement.textContent += text[currentIndex];
   
-      let interval = totalDuration / text.length; // デフォルトの間隔
+      let interval = totalDuration / text.length; 
       const nextChar = text[currentIndex];
   
-      // 特定の文字に応じて一時停止時間を設定
+    
       if (nextChar === '。') {
-        interval = pauseDurationDot; // ピリオドの後の間隔
+        interval = pauseDurationDot; 
       } else if (nextChar === '、') {
-        interval = pauseDurationComma; // カンマの後の間隔
+        interval = pauseDurationComma; 
       }
   
-      currentIndex++; // インデックスを進める
-      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+      currentIndex++; 
+      setTimeout(displayText, interval); 
+    } else {
+      document.querySelector(".tutorialend-btn").style.display = "block";
     }
   }
-
-  window.setTimeout(() => {
-    document.querySelector(".tutorialend-btn").style.display = "block";
-  }, 18500);
 })
 
 
@@ -397,49 +406,57 @@ document.querySelector(".tutorial-btn2").addEventListener("click",function(){
     displayText();
   }, 2000);
 
-  window.setTimeout(() => {
-    const i = document.createElement('i');
-    i.classList.add("fa-solid");
-    i.classList.add("fa-location-dot");
-    i.classList.add("fa-rotate-270");
-    i.classList.add("location1");
-    document.querySelector(".tabs").append(i);
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        document.querySelector(".location1").style.opacity = 1;
-      });
-  }, 2000);
-  }, 4530);
 
   function displayText() {
     if (currentIndex < text.length) {
-      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
-  
-      let interval = totalDuration / text.length; // デフォルトの間隔
+      displayElement.textContent += text[currentIndex];
+    
+      let interval = totalDuration / text.length; 
       const nextChar = text[currentIndex];
-  
-      // 特定の文字に応じて一時停止時間を設定
+    
       if (nextChar === '。') {
-        interval = pauseDurationDot; // ピリオドの後の間隔
+        interval = pauseDurationDot; 
       } else if (nextChar === '、') {
-        interval = pauseDurationComma; // カンマの後の間隔
+        interval = pauseDurationComma; 
+      }
+    
+      currentIndex++; 
+  
+      if (displayElement.textContent.endsWith('ついて')) {
+        // ここでアイコンを追加する処理をスケジュールする
+        setTimeout(() => {
+          const i = document.createElement('i');
+          i.classList.add("fa-solid");
+          i.classList.add("fa-location-dot");
+          i.classList.add("fa-rotate-270");
+          i.classList.add("location1");
+          document.querySelector(".tabs").append(i);
+          document.querySelector(".space-tutorial").style.display = "block";
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              document.querySelector(".location1").style.opacity = 1;
+              document.querySelector(".space-tutorial").style.opacity = 1;
+            });
+          });
+          
+        }, 2000); // アイコン表示のための遅延を設定
       }
   
-      currentIndex++; // インデックスを進める
-      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+      setTimeout(displayText, interval); 
+    } else {
+      document.querySelector(".tutorial-btn3").style.display = "block";
+      document.querySelector(".tutorialskip-btn").style.display = "block";
     }
   }
+  
 
-  window.setTimeout(() => {
-    document.querySelector(".tutorial-btn3").style.display = "block";
-    document.querySelector(".tutorialskip-btn").style.display = "block";
-  }, 31500);
 })
 
 document.querySelector(".tutorial-btn3").addEventListener("click",function(){
   document.querySelector(".tutorial-text1").style.display = "none";
   document.querySelector(".tutorialskip-btn").style.display = "none";
   document.querySelector(".tutorial-btn3").style.display = "none";
+  document.querySelector(".space-tutorial").style.display = "none";
   document.querySelector(".tabs").removeChild(document.querySelector(".location1"))
   const text = 
   "次に家具作成について説明致します。こちらのタブから家具の上面図を図形操作して作成します。部屋作成と同様に、実際の家具の横幅と縦幅をメジャーなどで測っていただき実際の数値を入力することで、入力した数値に合わせた四角形の図形が生成されます。実際の家具を上面図として見た時、凹凸などがある場合は、生成された四角形の辺をクリックしていただくことで凹凸具合の調整が行えます。この凹凸具合も実際の縦、横の長さを測って頂き数値を入力します。"; 
@@ -456,43 +473,49 @@ document.querySelector(".tutorial-btn3").addEventListener("click",function(){
     displayText();
   }, 2000);
 
-  window.setTimeout(() => {
-    const i = document.createElement('i');
-    i.classList.add("fa-solid");
-    i.classList.add("fa-location-dot");
-    i.classList.add("fa-rotate-270");
-    i.classList.add("location2");
-    document.querySelector(".tabs").append(i);
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        document.querySelector(".location2").style.opacity = 1;
-      });
-  }, 2000);
-  }, 4530);
+
 
   function displayText() {
     if (currentIndex < text.length) {
-      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
-  
-      let interval = totalDuration / text.length; // デフォルトの間隔
+      displayElement.textContent += text[currentIndex];
+    
+      let interval = totalDuration / text.length; 
       const nextChar = text[currentIndex];
-  
-      // 特定の文字に応じて一時停止時間を設定
+    
       if (nextChar === '。') {
-        interval = pauseDurationDot; // ピリオドの後の間隔
+        interval = pauseDurationDot; 
       } else if (nextChar === '、') {
-        interval = pauseDurationComma; // カンマの後の間隔
+        interval = pauseDurationComma; 
+      }
+    
+      currentIndex++; 
+  
+      if (displayElement.textContent.endsWith('ついて')) {
+        // ここでアイコンを追加する処理をスケジュールする
+        setTimeout(() => {
+          const i = document.createElement('i');
+          i.classList.add("fa-solid");
+          i.classList.add("fa-location-dot");
+          i.classList.add("fa-rotate-270");
+          i.classList.add("location2");
+          document.querySelector(".tabs").append(i);
+          document.querySelector(".furniture-tutorial").style.display = "block";
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              document.querySelector(".location2").style.opacity = 1;
+              document.querySelector(".furniture-tutorial").style.opacity = 1;
+            });
+          });
+        }, 2000); // アイコン表示のための遅延を設定
       }
   
-      currentIndex++; // インデックスを進める
-      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+      setTimeout(displayText, interval); 
+    } else {
+      document.querySelector(".tutorial-btn4").style.display = "block";
+      document.querySelector(".tutorialskip-btn").style.display = "block";
     }
   }
-
-  window.setTimeout(() => {
-    document.querySelector(".tutorial-btn4").style.display = "block";
-    document.querySelector(".tutorialskip-btn").style.display = "block";
-  }, 31000);
+  
 })
 
 
@@ -500,12 +523,13 @@ document.querySelector(".tutorial-btn4").addEventListener("click",function(){
   document.querySelector(".tutorial-text1").style.display = "none";
   document.querySelector(".tutorialskip-btn").style.display = "none";
   document.querySelector(".tutorial-btn4").style.display = "none";
+  document.querySelector(".furniture-tutorial").style.display = "none";
   document.querySelector(".tabs").removeChild(document.querySelector(".location2"))
   const text = 
-  "次にホームについて説明致します。こちらのタブから作成した部屋、家具を配置することができます。現在背景に見えている左端のサイドバーの、上のタブは部屋を作成し保存したときに保存される場所、中央のタブは家具を作成し保存したときに保存される場所、下のタブは作成した部屋上に作成した家具を実際に配置し保存したときに配置図が保存される場所になります。"; 
+  "次にホームについて説明致します。こちらのタブから作成した部屋、家具を配置することができます。現在背景に見えている左端のサイドバーの、上のタブは部屋を作成した時に保存される場所、中央のタブは家具を作成した時に保存される場所、下のタブは部屋と家具で配置図を作成した時に保存される場所になります。"; 
 
   const displayElement = document.querySelector(".tutorial-text1"); 
-  const totalDuration = 23000; // 総表示時間（ミリ秒）
+  const totalDuration = 16000; // 総表示時間（ミリ秒）
   const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
   const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
   let currentIndex = 0; // 現在の文字インデックス
@@ -516,43 +540,47 @@ document.querySelector(".tutorial-btn4").addEventListener("click",function(){
     displayText();
   }, 2000);
 
-  window.setTimeout(() => {
-    const i = document.createElement('i');
-    i.classList.add("fa-solid");
-    i.classList.add("fa-location-dot");
-    i.classList.add("fa-rotate-270");
-    i.classList.add("location3");
-    document.querySelector(".tabs").append(i);
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        document.querySelector(".location3").style.opacity = 1;
-      });
-  }, 2000);
-  }, 4530);
 
   function displayText() {
     if (currentIndex < text.length) {
-      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
-  
-      let interval = totalDuration / text.length; // デフォルトの間隔
+      displayElement.textContent += text[currentIndex];
+    
+      let interval = totalDuration / text.length; 
       const nextChar = text[currentIndex];
-  
-      // 特定の文字に応じて一時停止時間を設定
+    
       if (nextChar === '。') {
-        interval = pauseDurationDot; // ピリオドの後の間隔
+        interval = pauseDurationDot; 
       } else if (nextChar === '、') {
-        interval = pauseDurationComma; // カンマの後の間隔
+        interval = pauseDurationComma; 
+      }
+    
+      currentIndex++; 
+  
+      if (displayElement.textContent.endsWith('ついて')) {
+        // ここでアイコンを追加する処理をスケジュールする
+        setTimeout(() => {
+          const i = document.createElement('i');
+          i.classList.add("fa-solid");
+          i.classList.add("fa-location-dot");
+          i.classList.add("fa-rotate-270");
+          i.classList.add("location3");
+          document.querySelector(".tabs").append(i);
+          document.querySelector(".home-tutorial").style.display = "block";
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              document.querySelector(".location3").style.opacity = 1;
+              document.querySelector(".home-tutorial").style.opacity = 1;
+            });
+        });
+        }, 2000); // アイコン表示のための遅延を設定
       }
   
-      currentIndex++; // インデックスを進める
-      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+      setTimeout(displayText, interval); 
+    } else {
+      document.querySelector(".tutorial-btn5").style.display = "block";
+      document.querySelector(".tutorialskip-btn").style.display = "block";
     }
   }
-
-  window.setTimeout(() => {
-    document.querySelector(".tutorial-btn5").style.display = "block";
-    document.querySelector(".tutorialskip-btn").style.display = "block";
-  }, 29000);
 })
 
 
@@ -560,12 +588,13 @@ document.querySelector(".tutorial-btn5").addEventListener("click",function(){
   document.querySelector(".tutorial-text1").style.display = "none";
   document.querySelector(".tutorialskip-btn").style.display = "none";
   document.querySelector(".tutorial-btn5").style.display = "none";
+  document.querySelector(".home-tutorial").style.display = "none";
   document.querySelector(".tabs").removeChild(document.querySelector(".location3"))
   const text = 
   "次にヘルプについて説明致します。こちらのタブから予め用意された操作方法の説明や、多くのお問い合わせがあるご不明点などが確認できます。"; 
 
   const displayElement = document.querySelector(".tutorial-text1"); 
-  const totalDuration = 8000; // 総表示時間（ミリ秒）
+  const totalDuration = 6000; // 総表示時間（ミリ秒）
   const pauseDurationDot = 1000; // ピリオドの後の一時停止時間（ミリ秒）
   const pauseDurationComma = 500; // カンマの後の一時停止時間（ミリ秒）
   let currentIndex = 0; // 現在の文字インデックス
@@ -576,43 +605,47 @@ document.querySelector(".tutorial-btn5").addEventListener("click",function(){
     displayText();
   }, 2000);
 
-  window.setTimeout(() => {
-    const i = document.createElement('i');
-    i.classList.add("fa-solid");
-    i.classList.add("fa-location-dot");
-    i.classList.add("fa-rotate-270");
-    i.classList.add("location4");
-    document.querySelector(".tabs").append(i);
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        document.querySelector(".location4").style.opacity = 1;
-      });
-  }, 2000);
-  }, 4530);
 
   function displayText() {
     if (currentIndex < text.length) {
-      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
-  
-      let interval = totalDuration / text.length; // デフォルトの間隔
+      displayElement.textContent += text[currentIndex];
+    
+      let interval = totalDuration / text.length; 
       const nextChar = text[currentIndex];
-  
-      // 特定の文字に応じて一時停止時間を設定
+    
       if (nextChar === '。') {
-        interval = pauseDurationDot; // ピリオドの後の間隔
+        interval = pauseDurationDot; 
       } else if (nextChar === '、') {
-        interval = pauseDurationComma; // カンマの後の間隔
+        interval = pauseDurationComma; 
+      }
+    
+      currentIndex++; 
+  
+      if (displayElement.textContent.endsWith('ついて')) {
+        // ここでアイコンを追加する処理をスケジュールする
+        setTimeout(() => {
+          const i = document.createElement('i');
+          i.classList.add("fa-solid");
+          i.classList.add("fa-location-dot");
+          i.classList.add("fa-rotate-270");
+          i.classList.add("location4");
+          document.querySelector(".tabs").append(i);
+          document.querySelector(".help-tutorial").style.display = "block";
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              document.querySelector(".location4").style.opacity = 1;
+              document.querySelector(".help-tutorial").style.opacity = 1;
+            });
+        });
+        }, 2000); // アイコン表示のための遅延を設定
       }
   
-      currentIndex++; // インデックスを進める
-      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+      setTimeout(displayText, interval); 
+    } else {
+      document.querySelector(".tutorial-btn6").style.display = "block";
+      document.querySelector(".tutorialskip-btn").style.display = "block";
     }
   }
-
-  window.setTimeout(() => {
-    document.querySelector(".tutorial-btn6").style.display = "block";
-    document.querySelector(".tutorialskip-btn").style.display = "block";
-  }, 11800);
 })
 
 
@@ -620,6 +653,7 @@ document.querySelector(".tutorial-btn6").addEventListener("click",function(){
   document.querySelector(".tutorial-text1").style.display = "none";
   document.querySelector(".tutorialskip-btn").style.display = "none";
   document.querySelector(".tutorial-btn6").style.display = "none";
+  document.querySelector(".help-tutorial").style.display = "none";
   document.querySelector(".tabs").removeChild(document.querySelector(".location4"))
   const text = 
   "次にお問い合わせについて説明致します。こちらの設定タブをクリックしていただくと、ドロップダウンメニューが表示されます。メニュー内のお問い合わせタブからお問い合わせを行うことができますが、お問い合わせをする際はメールアドレスの認証を完了しておく必要があります。"; 
@@ -636,48 +670,53 @@ document.querySelector(".tutorial-btn6").addEventListener("click",function(){
     displayText();
   }, 2000);
 
-  window.setTimeout(() => {
-    const i = document.createElement('i');
-    i.classList.add("fa-solid");
-    i.classList.add("fa-location-dot");
-    i.classList.add("fa-rotate-270");
-    i.classList.add("location5");
-    document.querySelector(".tabs").append(i);
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        document.querySelector(".location5").style.opacity = 1;
-      });
-  }, 2000);
-  }, 4530);
-
-  window.setTimeout(() => {
-    dropdownMenu.style.display = 'block';
-  }, 7030);
-
 
   function displayText() {
     if (currentIndex < text.length) {
-      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
-  
-      let interval = totalDuration / text.length; // デフォルトの間隔
+      displayElement.textContent += text[currentIndex];
+      
+      let interval = totalDuration / text.length; 
       const nextChar = text[currentIndex];
-  
-      // 特定の文字に応じて一時停止時間を設定
+      
       if (nextChar === '。') {
-        interval = pauseDurationDot; // ピリオドの後の間隔
+        interval = pauseDurationDot; 
       } else if (nextChar === '、') {
-        interval = pauseDurationComma; // カンマの後の間隔
+        interval = pauseDurationComma; 
+      }
+      
+      currentIndex++; 
+
+      if (displayElement.textContent.endsWith('ついて')) {
+        setTimeout(() => {
+          const i = document.createElement('i');
+          i.classList.add("fa-solid");
+          i.classList.add("fa-location-dot");
+          i.classList.add("fa-rotate-270");
+          i.classList.add("location5");
+          document.querySelector(".tabs").append(i);
+          document.querySelector(".set-tutorial").style.display = "block";
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              document.querySelector(".location5").style.opacity = 1;
+              document.querySelector(".set-tutorial").style.opacity = 1;
+            });
+          });
+        }, 2000);
+      }
+
+  
+      // ドロップ後にドロップダウンメニューを表示
+      if (displayElement.textContent.includes('ドロップ')) {
+        dropdownMenu.style.display = 'block';
       }
   
-      currentIndex++; // インデックスを進める
-      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+      setTimeout(displayText, interval); 
+    } else {
+      document.querySelector(".tutorial-btn7").style.display = "block";
+      document.querySelector(".tutorialskip-btn").style.display = "block";
     }
   }
-
-  window.setTimeout(() => {
-    document.querySelector(".tutorial-btn7").style.display = "block";
-    document.querySelector(".tutorialskip-btn").style.display = "block";
-  }, 18000);
+  
 })
 
 
@@ -686,6 +725,7 @@ document.querySelector(".tutorial-btn7").addEventListener("click",function(){
   document.querySelector(".tutorial-text1").style.display = "none";
   document.querySelector(".tutorialskip-btn").style.display = "none";
   document.querySelector(".tutorial-btn7").style.display = "none";
+  document.querySelector(".set-tutorial").style.display = "none";
   const text = 
   "次にメールアドレス認証について説明致します。メニュー内のメールアドレス認証タブから認証が行えます。現在タブの横に赤色のマークが表示されていますが、認証が完了しますと緑色のチェックマークに変化します。またメールアドレスの変更もこちらのタブから変更が可能です。認証をしておくと、お問い合わせができることに加えて、パスワード変更時などの確認コードの取得がスムーズになりますので、お早目の認証をオススメ致します。"; 
 
@@ -704,27 +744,27 @@ document.querySelector(".tutorial-btn7").addEventListener("click",function(){
 
   function displayText() {
     if (currentIndex < text.length) {
-      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
+      displayElement.textContent += text[currentIndex];
   
-      let interval = totalDuration / text.length; // デフォルトの間隔
+      let interval = totalDuration / text.length; 
       const nextChar = text[currentIndex];
   
-      // 特定の文字に応じて一時停止時間を設定
+    
       if (nextChar === '。') {
-        interval = pauseDurationDot; // ピリオドの後の間隔
+        interval = pauseDurationDot; 
       } else if (nextChar === '、') {
-        interval = pauseDurationComma; // カンマの後の間隔
+        interval = pauseDurationComma; 
       }
   
-      currentIndex++; // インデックスを進める
-      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+      currentIndex++; 
+
+
+      setTimeout(displayText, interval); 
+    } else {
+      document.querySelector(".tutorial-btn8").style.display = "block";
+      document.querySelector(".tutorialskip-btn").style.display = "block";
     }
   }
-
-  window.setTimeout(() => {
-    document.querySelector(".tutorial-btn8").style.display = "block";
-    document.querySelector(".tutorialskip-btn").style.display = "block";
-  }, 31000);
 })
 
 
@@ -750,28 +790,27 @@ document.querySelector(".tutorial-btn8").addEventListener("click",function(){
   }, 2000);
 
 
+
   function displayText() {
     if (currentIndex < text.length) {
-      displayElement.textContent += text[currentIndex]; // 現在の文字を追加
+      displayElement.textContent += text[currentIndex];
   
-      let interval = totalDuration / text.length; // デフォルトの間隔
+      let interval = totalDuration / text.length; 
       const nextChar = text[currentIndex];
   
-      // 特定の文字に応じて一時停止時間を設定
+    
       if (nextChar === '。') {
-        interval = pauseDurationDot; // ピリオドの後の間隔
+        interval = pauseDurationDot; 
       } else if (nextChar === '、') {
-        interval = pauseDurationComma; // カンマの後の間隔
+        interval = pauseDurationComma; 
       }
   
-      currentIndex++; // インデックスを進める
-      setTimeout(displayText, interval); // 次の文字の表示をスケジュール
+      currentIndex++; 
+      setTimeout(displayText, interval); 
+    } else {
+      document.querySelector(".tutorialend-btn").style.display = "block";
     }
   }
-
-  window.setTimeout(() => {
-    document.querySelector(".tutorialend-btn").style.display = "block";
-  }, 18500);
 })
 
 

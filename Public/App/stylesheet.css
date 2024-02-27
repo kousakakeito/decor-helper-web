@@ -1165,12 +1165,22 @@ button{
 
 .title3 img {
   position: fixed;
-  width: 120px; /* アイコンの幅を調整 */
-  height: 120px; /* アイコンの高さを調整 */
+  width: 80px; /* アイコンの幅を調整 */
+  height: 80px; /* アイコンの高さを調整 */
   margin-left: 10px; /* アイコンとテキストの間隔を調整 */
   margin-top: 10px;
   border-radius: 100px;
   z-index: 6;
+}
+
+.icon-circle3{
+  position: fixed;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: white;
+  margin-top: 28px;
+  margin-left: 20px;
 }
 
 .tutorial-text1{
@@ -1431,6 +1441,143 @@ button{
 .tutorialend-btn:hover{
   background-color: rgb(185, 77, 199);
 }
+
+.space-tutorial {
+  position: fixed;
+  width: 160px;
+  height: 48px;
+  background-color:#333;
+  margin-left: 450px;
+  margin-top: 55px;
+  color: orange;
+  z-index: 6;
+  display: none; /* 初期状態では非表示 */
+  opacity: 0; /* 完全に透明 */
+  transition: opacity 2s ease-in-out; /* 透明度の変化をアニメーション化 */
+}
+
+.space-tutorial i{
+  font-size: 25px;
+  margin-top: 10px;
+  margin-left: 12px;
+}
+
+.space-tutorial h2{
+  margin-left: 50px;
+  margin-top: -30px;
+  font-size: 25px;
+  font-weight: normal;
+}
+
+.furniture-tutorial {
+  position: fixed;
+  width: 160px;
+  height: 48px;
+  background-color:#333;
+  margin-left: 450px;
+  margin-top: 55px;
+  color: orange;
+  z-index: 6;
+  display: none; /* 初期状態では非表示 */
+  opacity: 0; /* 完全に透明 */
+  transition: opacity 2s ease-in-out; /* 透明度の変化をアニメーション化 */
+}
+
+.furniture-tutorial i{
+  font-size: 25px;
+  margin-top: 10px;
+  margin-left: 12px;
+}
+
+.furniture-tutorial h2{
+  margin-left: 50px;
+  margin-top: -30px;
+  font-size: 25px;
+  font-weight: normal;
+}
+
+.home-tutorial {
+  position: fixed;
+  width: 140px;
+  height: 48px;
+  background-color:#333;
+  margin-left: 450px;
+  margin-top: 55px;
+  color: orange;
+  z-index: 6;
+  display: none; /* 初期状態では非表示 */
+  opacity: 0; /* 完全に透明 */
+  transition: opacity 2s ease-in-out; /* 透明度の変化をアニメーション化 */
+}
+
+.home-tutorial i{
+  font-size: 25px;
+  margin-top: 10px;
+  margin-left: 12px;
+}
+
+.home-tutorial h2{
+  margin-left: 50px;
+  margin-top: -30px;
+  font-size: 25px;
+  font-weight: normal;
+}
+
+.help-tutorial {
+  position: fixed;
+  width: 140px;
+  height: 48px;
+  background-color:#333;
+  margin-left: 450px;
+  margin-top: 55px;
+  color: orange;
+  z-index: 6;
+  display: none; /* 初期状態では非表示 */
+  opacity: 0; /* 完全に透明 */
+  transition: opacity 2s ease-in-out; /* 透明度の変化をアニメーション化 */
+}
+
+.help-tutorial i{
+  font-size: 25px;
+  margin-top: 10px;
+  margin-left: 12px;
+}
+
+.help-tutorial h2{
+  margin-left: 50px;
+  margin-top: -30px;
+  font-size: 25px;
+  font-weight: normal;
+}
+
+.set-tutorial {
+  position: fixed;
+  width: 120px;
+  height: 48px;
+  background-color:#333;
+  margin-left: 450px;
+  margin-top: 55px;
+  color: orange;
+  z-index: 6;
+  display: none; /* 初期状態では非表示 */
+  opacity: 0; /* 完全に透明 */
+  transition: opacity 2s ease-in-out; /* 透明度の変化をアニメーション化 */
+}
+
+.set-tutorial i{
+  font-size: 25px;
+  margin-top: 10px;
+  margin-left: 12px;
+}
+
+.set-tutorial h2{
+  margin-left: 50px;
+  margin-top: -30px;
+  font-size: 25px;
+  font-weight: normal;
+}
+
+
 
 
 
