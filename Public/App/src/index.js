@@ -1165,17 +1165,7 @@ document.querySelector('.caret-down')
   let roomSideBar = 0;
 
 
-  document.addEventListener('click', (event) => {
-    if (!document.querySelector(".home-spacelist").contains(event.target) && !document.querySelector(".home-roomlist").contains(event.target) && !document.querySelector(".homeright-outer").contains(event.target) && !document.querySelector(".sidebar").contains(event.target)) {
-      hideAllContents()
-      spaceSideBar = 0;
-      furnitureSideBar = 0;
-      roomSideBar = 0;
-      document.querySelector('.space').classList.remove('select-sidebar');
-      document.querySelector('.furniture').classList.remove('select-sidebar'); 
-      document.querySelector('.room').classList.remove('select-sidebar');
-    }
-  });
+
 
   document.querySelector('.sidebar').addEventListener("click",e =>{
     if(e.target.classList.contains('space') && spaceSideBar === 0){
