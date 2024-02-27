@@ -1916,6 +1916,15 @@ button{
   margin-top: -253px;
 }
 
+.contact-errorform .cancel{
+  color: red;
+  position: fixed;
+  margin-left: 635px;
+  margin-top: 5px;
+  font-size: 40px;
+  cursor: pointer;
+}
+
 .contact-errorform h2{
   position: fixed;
   color: orangered;

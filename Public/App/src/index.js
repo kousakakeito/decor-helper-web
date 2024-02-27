@@ -870,7 +870,9 @@ document.querySelector("#contact-btn").addEventListener('click', function(){
   .then((data) => {
     if(data.certMail){
       document.querySelector(".contact-errorform").style.display = "none";
+      document.querySelector(".contact-noterrorform").style.display = "block";
     }else{
+      document.querySelector(".contact-noterrorform").style.display = "none";
       document.querySelector(".contact-errorform").style.display = "block";
     }
   })
@@ -883,6 +885,9 @@ document.querySelector("#contact-btn").addEventListener('click', function(){
 document.querySelector(".inquiry").addEventListener("click",function(){
   contentHome.style.display = 'none';
   contentInquiry.style.display = 'block';
+  document.querySelector('.tab2').classList.add('active');
+  const homeTab = document.querySelector('[data-target="content-home"]');
+  homeTab.classList.remove('active');
   fetch('/contact-certMail', {
     method: 'POST',
     headers: {
@@ -893,7 +898,9 @@ document.querySelector(".inquiry").addEventListener("click",function(){
   .then((data) => {
     if(data.certMail){
       document.querySelector(".contact-errorform").style.display = "none";
+      document.querySelector(".contact-noterrorform").style.display = "block";
     }else{
+      document.querySelector(".contact-noterrorform").style.display = "none";
       document.querySelector(".contact-errorform").style.display = "block";
     }
   })
@@ -904,14 +911,31 @@ document.querySelector(".inquiry").addEventListener("click",function(){
 document.querySelector(".privacy").addEventListener("click",function(){
   contentHome.style.display = 'none';
   contentPrivacy.style.display = 'block';
+  document.querySelector('.tab2').classList.add('active');
+  const homeTab = document.querySelector('[data-target="content-home"]');
+  homeTab.classList.remove('active');
 })
 document.querySelector(".terms").addEventListener("click",function(){
   contentHome.style.display = 'none';
   contentTos.style.display = 'block';
+  document.querySelector('.tab2').classList.add('active');
+  const homeTab = document.querySelector('[data-target="content-home"]');
+  homeTab.classList.remove('active');
 })
 document.querySelector(".faq").addEventListener("click",function(){
   contentHome.style.display = 'none';
   contentHelp.style.display = 'block';
+  document.querySelector('[data-target="content-help"]').classList.add('active');
+  const homeTab = document.querySelector('[data-target="content-home"]');
+  homeTab.classList.remove('active');
+})
+
+document.querySelector(".fa-square-xmark ").addEventListener("click",function(){
+  contentInquiry.style.display = 'none';
+  contentHome.style.display = 'block';
+  const homeTab = document.querySelector('[data-target="content-home"]');
+  homeTab.classList.add('active');
+  document.querySelector('.tab2').classList.remove('active');
 })
 
 document.querySelector(".icon-circle").addEventListener("click",function(){
