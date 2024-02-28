@@ -392,7 +392,7 @@ document.querySelector(".tutorial-btn2").addEventListener("click",function(){
   document.querySelector(".tutorialskip-btn").style.display = "none";
   document.querySelector(".tutorial-btn2").style.display = "none";
   const text = 
-  "まずは部屋作成について説明いたします。こちらのタブから部屋の上面図を図形操作して作成します。実際の部屋の横幅と縦幅をメジャーなどで測っていただき実際の数値を入力することで、入力した数値に合わせた四角形の図形が生成されます。実際の部屋を上面図として見た時、凹凸などがある場合は、生成された四角形の辺をクリックしていただくことで凹凸具合の調整が行えます。この凹凸具合も実際の縦、横の長さを測って頂き数値を入力します。"; 
+  "まずは部屋作成について説明いたします。こちらのタブから部屋の上面図を図形操作して作成します。実際の部屋の横幅と縦幅をメジャーなどで測っていただき測った数値をフォームに入力することで、入力した数値に合わせた四角形の図形が生成されます。実際の部屋を上面図として見た時、凹凸などがある場合は、生成された四角形の辺をクリックしていただくことで凹凸具合の調整が行えます。この凹凸具合も実際の縦、横の長さを測って頂き数値をフォームに入力します。"; 
 
   const displayElement = document.querySelector(".tutorial-text1"); 
   const totalDuration = 23000; // 総表示時間（ミリ秒）
@@ -459,7 +459,7 @@ document.querySelector(".tutorial-btn3").addEventListener("click",function(){
   document.querySelector(".space-tutorial").style.display = "none";
   document.querySelector(".tabs").removeChild(document.querySelector(".location1"))
   const text = 
-  "次に家具作成について説明致します。こちらのタブから家具の上面図を図形操作して作成します。部屋作成と同様に、実際の家具の横幅と縦幅をメジャーなどで測っていただき実際の数値を入力することで、入力した数値に合わせた四角形の図形が生成されます。実際の家具を上面図として見た時、凹凸などがある場合は、生成された四角形の辺をクリックしていただくことで凹凸具合の調整が行えます。この凹凸具合も実際の縦、横の長さを測って頂き数値を入力します。"; 
+  "次に家具作成について説明致します。こちらのタブから家具の上面図を図形操作して作成します。部屋作成と同様に、実際の家具の横幅と縦幅をメジャーなどで測っていただき測った数値をフォームに入力することで、入力した数値に合わせた四角形の図形が生成されます。実際の家具を上面図として見た時、凹凸などがある場合は、生成された四角形の辺をクリックしていただくことで凹凸具合の調整が行えます。この凹凸具合も実際の縦、横の長さを測って頂き数値をフォームに入力します。"; 
 
   const displayElement = document.querySelector(".tutorial-text1"); 
   const totalDuration = 23000; // 総表示時間（ミリ秒）
