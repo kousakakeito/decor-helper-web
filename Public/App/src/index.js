@@ -727,7 +727,7 @@ document.querySelector(".tutorial-btn7").addEventListener("click",function(){
   document.querySelector(".tutorial-btn7").style.display = "none";
   document.querySelector(".set-tutorial").style.display = "none";
   const text = 
-  "次にメールアドレス認証について説明致します。メニュー内のメールアドレス認証タブから認証が行えます。現在タブの横に赤色のマークが表示されていますが、認証が完了しますと緑色のチェックマークに変化します。またメールアドレスの変更もこちらのタブから変更が可能です。認証をしておくと、お問い合わせができることに加えて、パスワード変更時などの確認コードの取得がスムーズになりますので、お早目の認証をオススメ致します。"; 
+  "次にメールアドレス認証について説明致します。メニュー内のメールアドレス認証タブから認証が行えます。現在タブの横に赤色のマークが表示されていますが、認証が完了しますと緑色のチェックマークに変化します。またメールアドレスの変更もこちらのタブから変更が可能です。認証をしておくと、お問い合わせができることに加えて、パスワードリセット時などの確認コードの取得がスムーズになりますので、お早目の認証をオススメ致します。"; 
 
   const displayElement = document.querySelector(".tutorial-text1"); 
   const totalDuration = 23000; // 総表示時間（ミリ秒）

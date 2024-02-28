@@ -56,3 +56,4 @@ document.querySelector('#loginForm').addEventListener("submit", (e) =>{
       console.error('Error:', error);
     });
 });
+

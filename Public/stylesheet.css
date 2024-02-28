@@ -174,3 +174,50 @@ button{
   margin-left: 45px;
   margin-top: -30px;
 }
+
+
+
+
+.mobil-errorform{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.63);
+  top:0;
+}
+
+
+.mobil-containar{
+  margin: auto;
+  margin-top: 50%;
+  width: 180px;
+  height: 300px;
+  border-style: double;
+  border-width: 4px;
+  border-radius: 10px;
+  background-color: #333;
+}
+
+.mobil-errorform .cancel{
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.mobil-errorform h2{
+  color: orangered;
+  font-size: 16px;
+  text-align: center;
+  margin-top: 20%;
+  font-family:Georgia, 'Times New Roman', Times, serif ;
+}
+
+.mobil-errorform p{
+  margin: auto;
+  width: 160px;
+  line-height: 30px;
+  color: white;
+  letter-spacing: 2px;
+  font-size: 10px;
+  margin-top: 20%;
+}

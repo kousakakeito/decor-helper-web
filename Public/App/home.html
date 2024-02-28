@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>DecorHelper</title>
   <meta name="description" content="家具配置を自由に変更して、理想の部屋をデザイン。空間(間取り)や家具は自分の好みでカスタマイズ。">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=1920, initial-scale=1.0">
   <link rel="stylesheet" href="stylesheet.css">
   <link rel="icon" href="/Icon/DecorHelperIcon.png">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.5.1/css/all.css">
@@ -193,7 +193,7 @@
       </ul>
       <ul>
         <li>Kexiron.com アクセスキー</li>
-        <p>今日の日本標準日時がアクセスキーになります。例えば2024年1月1日1時1分であれば、202401010101がアクセスキーになります。1分単位でアクセスキーが変動しますので注意してください。つまり2024年1月1日1時2分であれば、202401010102がアクセスキーになります。</p>
+        <p>今日の年月日と日本標準時がアクセスキーになります。例えば2024年1月1日1時1分であれば、202401010101がアクセスキーになります。1分単位でアクセスキーが変動しますので注意してください。つまり2024年1月1日1時2分であれば、202401010102がアクセスキーになります。</p>
       </ul>
       <ul>
         <li>保存するジャンル名とは？</li>
@@ -201,11 +201,20 @@
       </ul>
       <ul>
         <li>部屋、家具作成の値入力フォームに数字を入力しても空欄のままになる。</li>
-        <p>半角数字での入力をお願いいたします。</p>
+        <p>半角数字での入力をお願いいたします。意図的に半角数字以外の文字は入力できないようにしております。</p>
       </ul>
       <ul>
         <li>対象箇所の長さとは？</li>
-        <p>図形を伸ばす、もしくは縮めるときの幅の長さです。</p>
+        <p>図形の辺に対して凹凸を作る為の、凹凸の幅の長さです。</p>
+      </ul>
+      <ul>
+        <li>今後追加予定の機能(未定)</li>
+        <p>①表示中の部屋&家具名の全表示機能</p>
+        <p>②部屋端と家具のスパン(長さ)表示機能</p>
+        <p>③家具間のスパン(長さ)表示機能</p>
+        <p>④ドラッグ範囲の制限機能(家具のドラッグを部屋内のみに限定)</p>
+        <p>⑤図形ズーム機能</p>
+        <p>⑥部屋、家具の反転機能</p>
       </ul>
     </div>
   </div>
@@ -303,7 +312,7 @@
         <div class="plane1-frame"><i class="fa-solid fa-paper-plane plane1"></i></div>
         <div class="text1-frame"><p>認証メールを送信</p></div>
         <div class="exp-box">
-          <p class="exp-text">お問い合わせメールを送るには、メール認証を行う必要があります。また予め認証を行い"info@decorhelper.net"からのメールの受信を確認しておくことで、パスワード変更時スムーズに確認コードの受信ができます。</p>
+          <p class="exp-text">お問い合わせメールを送るには、メール認証を行う必要があります。また予め認証を行い"info@decorhelper.net"からのメールの受信を確認しておくことで、パスワードリセット時スムーズに確認コードの受信ができます。</p>
         </div>
         <form method="post" class="send-certmail">
         <button type="submit" class="cert-btn">

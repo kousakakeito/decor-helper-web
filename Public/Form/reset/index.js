@@ -53,3 +53,4 @@ document.querySelector('.user-register2').addEventListener("click",function(){
     console.error('Error:', error);
   });
 })
+

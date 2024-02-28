@@ -65,3 +65,21 @@ document.querySelector('.user-register').addEventListener("click",function(){
     console.error('Error:', error);
   });
 })
+
+
+function isMobile() {
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+}
+
+document.querySelector(".mobil-errorform").style.display = "none";
+
+window.addEventListener("load",function(){
+  if (isMobile()) {
+    document.querySelector(".mobil-errorform").style.display = "block";
+  }
+});
+
+document.querySelector(".cancel").addEventListener("click",function(){
+  document.querySelector(".mobil-errorform").style.display = "none"
+});

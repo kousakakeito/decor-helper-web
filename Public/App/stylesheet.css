@@ -241,8 +241,8 @@ button{
   background-color: #333; /* サイドバーの背景色 */
   color: white; /* サイドバー内のテキスト色 */
   position: fixed; /* サイドバーを画面に固定 */
-  top: 139px; /* 上端から0pxの位置に */
-  right: 584px; /* 左端から0pxの位置に */
+  margin-top: 31px; /* 上端から0pxの位置に */
+  margin-left: 1267px;
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
   overflow: auto; /* 内容が多すぎる場合はスクロール可能に */
@@ -945,24 +945,24 @@ button{
 .content-delete1{
   position: fixed;
   z-index: 9;
-  width: 1920px;
-  height: 932px;
+  width: 100vw;
+  height: 100vh;
   background-color: #000000c0;
 }
 
 .content-delete2{
   position: fixed;
   z-index: 9;
-  width: 1920px;
-  height: 932px;
+  width: 100vw;
+  height: 100vh;
   background-color: #000000c0;
 }
 
 .content-delete3{
   position: fixed;
   z-index: 9;
-  width: 1920px;
-  height: 932px;
+  width: 100vw;
+  height: 100vh;
   background-color: #000000c0;
 }
 
@@ -1140,8 +1140,8 @@ button{
 .content-tutorial1{
   position: fixed;
   z-index: 0;
-  width: 1920px;
-  height: 932px;
+  width: 100vw;
+  height: 100vh;
   background-color: #000000c0;
 }
 
@@ -1896,8 +1896,8 @@ button{
 .contact-errorform{
   position: fixed;
   z-index: 0;
-  width: 1920px;
-  height: 932px;
+  width: 100vw;
+  height: 100vh;
   background-color: #000000c0;
 }
 
