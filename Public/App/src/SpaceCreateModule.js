@@ -107,8 +107,8 @@ function isMouseOnBorder(rectangle, x, y) {
 
   const stage = new Konva.Stage({
     container: spacecenterInner,
-    width: spacecenterInner.offsetWidth,
-    height: spacecenterInner.offsetHeight,
+    width: spacecenterInner.offsetWidth-4,
+    height: spacecenterInner.offsetHeight-4,
   });
 
   
