@@ -23,11 +23,12 @@
   "name": "decorhelperweb",
   "description": "dev:高坂佳渡",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "./ExpressServer/server.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
+    "start": "node ./ExpressServer/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

@@ -1,1 +1,4 @@
-config.js
+config/
+node_modules/
+test/
+dist/
