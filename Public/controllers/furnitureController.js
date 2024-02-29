@@ -2,13 +2,13 @@ const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
 const session = require('express-session');
-const config = require('../../config/config');
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: config.password,
-  database: 'decorhelper',
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER, 
+  password: process.env.MYSQLPASSWORD, 
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT 
 });
 
 // テーブル作成処理

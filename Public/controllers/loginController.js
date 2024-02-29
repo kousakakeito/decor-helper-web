@@ -1,16 +1,16 @@
 const express = require('express');
 const mysql = require('mysql');
 const session = require('express-session');
-const config = require('../../config/config');
 const redis = require('redis');
 const cache = redis.createClient(); 
 const bcrypt = require('bcrypt');
 
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: config.password,
-  database: 'decorhelper',
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER, 
+  password: process.env.MYSQLPASSWORD, 
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT 
 });
 
 const router = express.Router();

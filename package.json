@@ -21,7 +21,7 @@
     "webpack-cli": "^5.1.4"
   },
   "name": "decorhelperweb",
-  "description": "dev:高坂佳渡",
+  "description": "図形操作で作成した部屋、家具を配置して模様替えの事前配置確認や家具の事前設置確認を行うことを目的としたWEBアプリケーションです。",
   "version": "1.0.0",
   "main": "./ExpressServer/server.js",
   "directories": {
