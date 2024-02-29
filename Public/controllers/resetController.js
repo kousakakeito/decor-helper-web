@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const nodemailer = require('nodemailer');
 const config = require('../../config/config');
 const session = require('express-session');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 
 const connection = mysql.createConnection({

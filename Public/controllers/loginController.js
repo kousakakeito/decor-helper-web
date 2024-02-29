@@ -3,7 +3,7 @@ const mysql = require('mysql');
 const session = require('express-session');
 const redis = require('redis');
 const cache = redis.createClient(); 
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const connection = mysql.createConnection({
   host: process.env.MYSQLHOST,
