@@ -3,6 +3,28 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 const cookieParser = require('cookie-parser'); // cookie-parserモジュールを追加
+const session = require('express-session');
+const RedisStore = require('connect-redis')(session);
+const redis = require('redis');
+
+
+let redisClient = redis.createClient({
+  url: process.env.REDIS_URL 
+});
+
+app.use(
+  session({
+    store: new RedisStore({ client: redisClient }),
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: true,
+      httpOnly: true, 
+      maxAge: 1000 * 60 * 60 * 24 // 24時間
+    }
+  })
+);
 
 // 静的ファイルの設定
 const publicPath = path.join(__dirname, '..', 'Public');

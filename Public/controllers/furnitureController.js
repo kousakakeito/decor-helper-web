@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
-const session = require('express-session');
 
 const connection = mysql.createConnection({
   host: process.env.MYSQLHOST,

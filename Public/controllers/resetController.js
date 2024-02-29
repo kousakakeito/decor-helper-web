@@ -1,8 +1,6 @@
 const express = require('express');
 const mysql = require('mysql');
 const nodemailer = require('nodemailer');
-const config = require('../../config/config');
-const session = require('express-session');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 
@@ -86,8 +84,8 @@ router.post('/send-email', async (req, res) => {
     port: 465, // SSLを使用するポート
     secure: true, // trueで465ポートを使用し、falseで他のポートを使用
     auth: {
-      user: 'info@decorhelper.net', // あなたのFastMailのメールアドレス
-      pass: config.password2, // FastMailで生成したアプリパスワード
+      user: 'info@decorhelper.net',
+      pass: process.env.PASSWORD2, // FastMailで生成したアプリパスワード
     },
   });
 

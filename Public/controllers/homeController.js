@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql');
-const session = require('express-session');
 const nodemailer = require('nodemailer');
-const config = require('../../config/config');
 const { check, validationResult } = require('express-validator');
+
 
 const connection = mysql.createConnection({
   host: process.env.MYSQLHOST,
@@ -354,7 +353,7 @@ router.post('/mailcert-send', async (req, res) => {
       secure: true,
       auth: {
         user: 'info@decorhelper.net',
-        pass: config.password2,
+        pass: process.env.PASSWORD2,
       },
     });
   
@@ -548,7 +547,7 @@ router.post('/send-contact-email', (req, res) => {
       secure: true,
       auth: {
         user: 'info@decorhelper.net',
-        pass: config.password2,
+        pass: process.env.PASSWORD2,
       },
     });
 
