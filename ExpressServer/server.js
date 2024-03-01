@@ -4,8 +4,8 @@ const app = express();
 const port = process.env.PORT || 3000;
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-// connect-redis バージョン7以降のインポート方法に更新
-const RedisStore = require('connect-redis').default(session);
+// connect-redis をインポートして RedisStore クラスを取得
+const RedisStore = require('connect-redis')(session);
 
 const redis = require('redis');
 let redisClient = redis.createClient({
@@ -13,23 +13,24 @@ let redisClient = redis.createClient({
   port: process.env.REDISPORT,
   password: process.env.REDIS_PASSWORD
 });
-// Redisクライアントの接続エラーハンドリング
-redisClient.connect().catch(console.error);
 
-// session設定にRedisStoreを使用
+// RedisStore のインスタンスを 'new' キーワードを使って作成
+let redisStore = new RedisStore({ client: redisClient });
+
 app.use(
   session({
-    store: new RedisStore({ client: redisClient }),
+    store: redisStore,
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: true, // HTTPSを使用している場合のみtrueに設定
+      secure: true,
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 // 24時間
     }
   })
 );
+
 
 // 静的ファイルの設定
 const publicPath = path.join(__dirname, '..', 'Public');
