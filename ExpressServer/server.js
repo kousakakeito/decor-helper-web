@@ -3,19 +3,18 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3000;
 const cookieParser = require('cookie-parser');
-const session = require('express-session');
-// connect-redis をインポートして RedisStore クラスを取得
-const RedisStore = require('connect-redis')(session);
-
-const redis = require('redis');
+const session = require("express-session");
+const redis = require("redis");
+const RedisStore = require("connect-redis").default;
 let redisClient = redis.createClient({
   host: process.env.REDISHOST,
   port: process.env.REDISPORT,
   password: process.env.REDIS_PASSWORD
 });
 
-// RedisStore のインスタンスを 'new' キーワードを使って作成
-let redisStore = new RedisStore({ client: redisClient });
+let redisStore = new RedisStore({
+  client: redisClient,
+});
 
 app.use(
   session({
