@@ -4,13 +4,7 @@ const { check, validationResult } = require('express-validator');
 const fs = require('fs'); // ファイルシステムモジュールを追加
 
 const mysql = require('mysql');
-const connection = mysql.createConnection({
-  host: process.env.MYSQLHOST,
-  user: process.env.MYSQLUSER, 
-  password: process.env.MYSQLPASSWORD, 
-  database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT 
-});
+const connection = mysql.createConnection(process.env.MYSQL_URL);
 
 const router = express.Router();
 

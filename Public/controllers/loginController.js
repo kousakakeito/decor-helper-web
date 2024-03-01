@@ -2,13 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const bcrypt = require('bcryptjs');
 
-const connection = mysql.createConnection({
-  host: process.env.MYSQLHOST,
-  user: process.env.MYSQLUSER, 
-  password: process.env.MYSQLPASSWORD, 
-  database: process.env.MYSQLDATABASE,
-  port: process.env.MYSQLPORT 
-});
+const connection = mysql.createConnection(process.env.MYSQL_URL);
 
 const router = express.Router();
 
