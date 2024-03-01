@@ -1,6 +1,7 @@
 const express = require('express');
 const mysql = require('mysql');
-const cache = redis.createClient(); 
+const redis = require('redis');
+const cache = redis.createClient();
 const bcrypt = require('bcryptjs');
 
 const connection = mysql.createConnection({
