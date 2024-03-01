@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 const fs = require('fs'); // ファイルシステムモジュールを追加
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const connection = mysql.createConnection(process.env.MYSQL_URL);
 
 const router = express.Router();

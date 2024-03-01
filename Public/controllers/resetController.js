@@ -1,5 +1,5 @@
 const express = require('express');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
