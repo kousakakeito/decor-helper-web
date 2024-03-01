@@ -1,7 +1,5 @@
 const express = require('express');
 const mysql = require('mysql');
-const redis = require('redis');
-const cache = redis.createClient();
 const bcrypt = require('bcryptjs');
 
 const connection = mysql.createConnection({
@@ -13,13 +11,6 @@ const connection = mysql.createConnection({
 });
 
 const router = express.Router();
-
-// express-sessionミドルウェアを使用
-router.use(session({
-  secret: 'your_secret_key', // セッションの暗号化に使用するキー
-  resave: false,
-  saveUninitialized: false
-}));
 
 // テーブル作成処理
 const createUsersTable = () => {
