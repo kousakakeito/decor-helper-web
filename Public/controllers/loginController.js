@@ -106,6 +106,7 @@ function handleLoginSuccess(res, req, username) {
 
     // セッションにユーザー名を保存
     req.session.username = username;
+    req.session.save();
 
  
   // ログインに成功した場合は試行回数をリセット
