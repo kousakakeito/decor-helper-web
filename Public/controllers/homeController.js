@@ -326,7 +326,7 @@ router.get('/get-new-data10', authenticateSession, async (req, res) => {
 });
 
 
-router.post('/mailcert-send', async (req, res) => {
+router.post('/mailcert-send', authenticateSession, async (req, res) => {
   const username = req.session.username;
   
   // usernameを使用してusersテーブルからemailを取得する
@@ -590,7 +590,7 @@ router.post('/contact-certMail', (req, res) => {
 
 
 
-router.post('/load-session-judge', (req, res) => {
+router.post('/load-session-judge', authenticateSession, async (req, res) => {
   const username = req.session.username;
   console.log(username)
     if (!username) {
