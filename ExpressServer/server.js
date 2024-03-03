@@ -7,7 +7,11 @@ const session = require("express-session");
 const redis = require("redis");
 const RedisStore = require("connect-redis").default;
 let redisClient = redis.createClient({
-  url: process.env.REDIS_URL
+  url: process.env.REDIS_URL,
+  legacyMode: false, 
+  socket: {
+      connectTimeout: 20000
+  }
 });
 
 redisClient.connect().catch(err => {
