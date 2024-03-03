@@ -8,14 +8,9 @@ const redis = require("redis");
 const RedisStore = require("connect-redis").default;
 let redisClient = redis.createClient({
   url: process.env.REDIS_URL 
-  socket: {
-    connectTimeout: 10000, 
-  },
 });
 
-redisClient.connect().catch(err => {
-  console.error('Redisクライアントの接続に失敗しました:', err);
-});
+redisClient.connect();
 
 let redisStore = new RedisStore({
   client: redisClient,
