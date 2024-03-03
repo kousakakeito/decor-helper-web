@@ -7,8 +7,10 @@ const session = require("express-session");
 const redis = require("redis");
 const RedisStore = require("connect-redis").default;
 let redisClient = redis.createClient({
-  url: process.env.REDIS_URL ,
-  pingInterval: 1000,
+  host: process.env.REDISHOST,
+  port: process.env.REDISPORT,
+  password: process.env.REDISPASSWORD,
+  tls : true
 });
 
 redisClient.connect().catch(err => {
