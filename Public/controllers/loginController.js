@@ -475,6 +475,7 @@ router.post('/login', async (req, res) => {
         if (match) {
           // パスワードが一致した場合の処理
           handleLoginSuccess(res, req, user.username);
+          console.log(user.username)
           console.log("ok");
         } else {
           // パスワードが一致しない場合の処理
