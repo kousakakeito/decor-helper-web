@@ -10,6 +10,10 @@ let redisClient = redis.createClient({
   url: process.env.REDIS_URL 
 });
 
+redisClient.connect().catch(err => {
+  console.error('Redisクライアントの接続に失敗しました:', err);
+});
+
 let redisStore = new RedisStore({
   client: redisClient,
 });
