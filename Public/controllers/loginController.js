@@ -106,19 +106,23 @@ function handleLoginSuccess(res, req, username) {
 
     // セッションにユーザー名を保存
     req.session.username = username;
-    req.session.save();
 
- 
   // ログインに成功した場合は試行回数をリセット
   updateLoginAttempts(username, 0)
     .then(() => {
 
-      // セッションからユーザー名を取得して返すエンドポイントを追加
-      router.get('/get-session', (req, res) => {
-        const sessionData = req.session.username;
-        console.log(sessionData)
-        res.json({ username: sessionData });
-      });     
+      req.session.save((err) => {
+        if (err) {
+          // エラーハンドリング
+          console.error(err);
+          return res.status(500).send("セッションの保存に失敗しました。");
+        }
+        router.get('/get-session', (req, res) => {
+          const sessionData = req.session.username;
+          console.log(sessionData)
+          res.json({ username: sessionData });
+        });     
+      
 
       router.get('/get-spaceData', (req, res) => {
         const username = req.session.username; // リクエストボディからusernameを取得
@@ -380,6 +384,7 @@ function handleLoginSuccess(res, req, username) {
 
       // リダイレクトを行うエンドポイントにリダイレクトする
       res.redirect('/redirect-home');
+    });
     })
     .catch((error) => {
       console.error('Error while resetting login attempts:', error);
