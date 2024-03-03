@@ -108,14 +108,14 @@ function handleLoginSuccess(res, req, username) {
     req.session.username = username;
 
     // Redis クライアントが有効であることを確認してから操作
-    if (cache.connected) {
+    if (session.connected) {
     // RedisにユーザーのセッションIDと関連するユーザーデータを保存
      const userSessionKey = `user:${username}`;
      const userSessionData = {
       sessionId: req.sessionID,
       // 他に必要なユーザー情報を含めることも可能
      };
-     cache.set(userSessionKey, JSON.stringify(userSessionData));
+     session.set(userSessionKey, JSON.stringify(userSessionData));
     };
  
   // ログインに成功した場合は試行回数をリセット
@@ -511,19 +511,19 @@ createUsersTable();
 
 // モジュールが終了するときにRedisクライアントを閉じる
 process.on('exit', () => {
-  cache.quit(); // クライアントを閉じる
+  session.quit(); // クライアントを閉じる
 });
 
 // モジュールが異常終了する場合もRedisクライアントを閉じる
 process.on('uncaughtException', (err) => {
   console.error('Uncaught exception:', err);
-  cache.quit(); // クライアントを閉じる
+  session.quit(); // クライアントを閉じる
   process.exit(1);
 });
 
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled promise rejection:', reason);
-  cache.quit(); // クライアントを閉じる
+  session.quit(); // クライアントを閉じる
   process.exit(1);
 });
 
