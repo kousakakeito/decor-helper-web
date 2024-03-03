@@ -499,15 +499,21 @@ router.post('/user-login', (req, res) => {
 
 createUsersTable();
 
+// モジュールが終了するときにMySQL接続を閉じる
+process.on('exit', () => {
+  connection.end(); // 接続を閉じる
+});
 
-// モジュールが異常終了する場合もRedisクライアントを閉じる
+// 未処理のエラーでモジュールが終了する場合もMySQL接続を閉じる
 process.on('uncaughtException', (err) => {
   console.error('Uncaught exception:', err);
+  connection.end(); // 接続を閉じる
   process.exit(1);
 });
 
 process.on('unhandledRejection', (reason, promise) => {
   console.error('Unhandled promise rejection:', reason);
+  connection.end(); // 接続を閉じる
   process.exit(1);
 });
 
