@@ -592,9 +592,11 @@ router.post('/contact-certMail', (req, res) => {
 
 router.post('/load-session-judge', (req, res) => {
   const username = req.session.username;
-  if (!username) {
-    res.json({ redirect: '../index.html' });
-  }
+  setTimeout(() => {
+    if (!username) {
+      res.json({ redirect: '../index.html' });
+    }
+  }, 2000);
 });
 
 
