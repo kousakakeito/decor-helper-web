@@ -117,7 +117,8 @@ button{
 
 .sub-outer{
   text-align: center;
-  margin-top: 50px;
+  margin-top: 200px;
+  margin-left: -100px;
 }
 
 .sub-dierect{
