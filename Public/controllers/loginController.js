@@ -115,6 +115,7 @@ function handleLoginSuccess(res, req, username) {
       // セッションからユーザー名を取得して返すエンドポイントを追加
       router.get('/get-session', (req, res) => {
         const sessionData = req.session.username;
+        console.log(sessionData)
         res.json({ username: sessionData });
       });     
 
