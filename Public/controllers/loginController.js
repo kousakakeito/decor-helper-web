@@ -116,7 +116,9 @@ function handleLoginSuccess(res, req, username) {
           // エラーハンドリング
           console.error(err);
           return res.status(500).send("セッションの保存に失敗しました。");
-        }
+          
+        }else{
+
         router.get('/get-session', (req, res) => {
           const sessionData = req.session.username;
           console.log(sessionData)
@@ -384,6 +386,7 @@ function handleLoginSuccess(res, req, username) {
 
       // リダイレクトを行うエンドポイントにリダイレクトする
       res.redirect('/redirect-home');
+    };
     });
     })
     .catch((error) => {
