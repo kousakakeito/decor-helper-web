@@ -326,7 +326,7 @@ router.get('/get-new-data10', authenticateSession, async (req, res) => {
 });
 
 
-router.post('/mailcert-send', authenticateSession, async (req, res) => {
+router.post('/mailcert-send', async (req, res) => {
   const username = req.session.username;
   
   // usernameを使用してusersテーブルからemailを取得する
@@ -375,7 +375,7 @@ router.post('/mailcert-send', authenticateSession, async (req, res) => {
   });
 });
 
-router.post('/get-cert-confirmCode', authenticateSession, async (req, res) => {
+router.post('/get-cert-confirmCode', function(req, res) {
   // セッションからemailを取得
   const confirmCode = req.session.confirmCode;
   console.log(confirmCode)
@@ -386,7 +386,7 @@ router.post('/get-cert-confirmCode', authenticateSession, async (req, res) => {
   }
 });
 
-router.post('/get-change-icon', authenticateSession, async (req, res) => {
+router.post('/get-change-icon', function(req, res) {
   const username = req.session.username;
   
   // cert_mail列の値をtrueに更新するSQLクエリ
@@ -413,7 +413,7 @@ router.post('/get-change-icon', authenticateSession, async (req, res) => {
 });
 
 
-router.post('/change-tutorial',authenticateSession, async (req, res) =>{
+router.post('/change-tutorial', function(req, res) {
   const username = req.session.username;
   
   // first_login列の値をtrueに更新するSQLクエリ
@@ -452,7 +452,7 @@ const registrationValidationRules = [
   }),
 ];
 
-router.post('/changeMail', authenticateSession, registrationValidationRules, async (req, res) => {
+router.post('/changeMail', registrationValidationRules, async (req, res) => {
   // バリデーションエラーのチェック
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -501,7 +501,7 @@ function queryAsync(sql, params) {
 }
 
 // ルーター内での使用例
-router.post('/user-delete-data',authenticateSession,async (req, res) => {
+router.post('/user-delete-data', async (req, res) => {
   const username = req.session.username; // セッションからusernameを取得
 
   try {
@@ -523,7 +523,7 @@ router.post('/user-delete-data',authenticateSession,async (req, res) => {
 
 
 // お問い合わせフォームのデータを受け取るルート
-router.post('/send-contact-email', authenticateSession, async (req, res) => {
+router.post('/send-contact-email', (req, res) => {
   const username = req.session.username;
   const { message } = req.body;
 
@@ -562,7 +562,7 @@ router.post('/send-contact-email', authenticateSession, async (req, res) => {
 });
 });
 
-router.post('/contact-certMail', authenticateSession, async (req, res) => {
+router.post('/contact-certMail', (req, res) => {
   const username = req.session.username; // セッションからusernameを取得
 
   // usernameに基づいてusersテーブルからcert_mailの値を取得するSQLクエリ
@@ -590,7 +590,7 @@ router.post('/contact-certMail', authenticateSession, async (req, res) => {
 
 
 
-router.post('/load-session-judge', authenticateSession, async (req, res) => {
+router.post('/load-session-judge', (req, res) => {
   const username = req.session.username;
   console.log(username)
     if (!username) {

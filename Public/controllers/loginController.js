@@ -122,7 +122,7 @@ function handleLoginSuccess(res, req, username) {
           const username = req.session.username;
 
         router.get('/get-session', (req, res) => {
-          console.log(username)
+          console.log(req.session.username)
           res.json({ username: username });
         });     
       

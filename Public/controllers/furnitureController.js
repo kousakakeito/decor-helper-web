@@ -104,7 +104,7 @@ router.post('/user-data3', authenticateSession, async (req, res) => {
 
 
 // POSTリクエストを処理するエンドポイント
-router.post('/user-data4', authenticateSession, async (req, res) => {
+router.post('/user-data4', (req, res) => {
   const username = req.session.username; // リクエストボディからusernameを取得
   const selectAllFurnitureFormValuesSql = 'SELECT JSON_EXTRACT(furniture_data, "$.furnitureFormValue") AS furnitureFormValue FROM furniture WHERE username = ?';
   connection.query(selectAllFurnitureFormValuesSql, [username], (error, results, fields) => {
@@ -138,7 +138,7 @@ router.post('/user-data4', authenticateSession, async (req, res) => {
 });
 
 
-router.post('/user-data5', authenticateSession, async (req, res) => {
+router.post('/user-data5', (req, res) => {
   const username = req.session.username; // リクエストボディからusernameを取得
   const selectAllGenreFormValuesSql = 'SELECT JSON_EXTRACT(furniture_data, "$.genreFormValue") AS genreFormValue FROM furniture WHERE username = ?';
   connection.query(selectAllGenreFormValuesSql, [username], (error, results, fields) => {
@@ -172,7 +172,7 @@ router.post('/user-data5', authenticateSession, async (req, res) => {
 });
 
 
-router.post('/user-data6', authenticateSession, async (req, res) => {
+router.post('/user-data6', (req, res) => {
   const username = req.session.username; 
   const genreFormValue = req.body.checkText;
 
@@ -211,7 +211,7 @@ router.post('/user-data6', authenticateSession, async (req, res) => {
 });
 
 
-router.post('/user-data7', authenticateSession, async (req, res) => {
+router.post('/user-data7', (req, res) => {
   const username = req.session.username; // リクエストボディからusernameを取得
   const selectAllGenreFormValuesSql = 'SELECT JSON_EXTRACT(furniture_data, "$.furnitureFormValue") AS furnitureFormValue FROM furniture WHERE username = ?';
   connection.query(selectAllGenreFormValuesSql, [username], (error, results) => {
