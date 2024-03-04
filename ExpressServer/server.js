@@ -22,6 +22,14 @@ let redisStore = new RedisStore({
   client: redisClient,
 });
 
+
+
+// 静的ファイルの設定
+const publicPath = path.join(__dirname, '..', 'Public');
+app.use(express.static(publicPath));
+app.use(express.json()); // JSONパースのためのミドルウェアを追加
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser()); // cookie-parserミドルウェアを使用
 app.use(
   session({
     store: redisStore,
@@ -35,14 +43,6 @@ app.use(
     }
   })
 );
-
-
-// 静的ファイルの設定
-const publicPath = path.join(__dirname, '..', 'Public');
-app.use(express.static(publicPath));
-app.use(express.json()); // JSONパースのためのミドルウェアを追加
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser()); // cookie-parserミドルウェアを使用
 
 // ログイン機能のルーティング
 const loginController = require('../Public/controllers/loginController');

@@ -107,27 +107,20 @@ function handleLoginSuccess(res, req, username) {
     // セッションにユーザー名を保存
     req.session.username = username;
 
+ 
   // ログインに成功した場合は試行回数をリセット
   updateLoginAttempts(username, 0)
     .then(() => {
 
-      req.session.save((err) => {
-        if (err) {
-          // エラーハンドリング
-          console.error(err);
-          return res.status(500).send("セッションの保存に失敗しました。");
-          
-        }else{
-
-          const username = req.session.username;
-
-        router.get('/get-session', (req, res) => {
-          console.log(req.session.username)
-          res.json({ username: req.session.username });
-        });     
-      
+      // セッションからユーザー名を取得して返すエンドポイントを追加
+      router.get('/get-session', (req, res) => {
+        const sessionData = req.session.username;
+        console.log(sessionData)
+        res.json({ username: sessionData });
+      });     
 
       router.get('/get-spaceData', (req, res) => {
+        const username = req.session.username; // リクエストボディからusernameを取得
       
         // テーブルの存在とspace_dataが1つでも存在するかを確認するSQLクエリ
         const checkDataExistsSql = `
@@ -176,6 +169,7 @@ function handleLoginSuccess(res, req, username) {
 
 
       router.get('/get-furnitureData', (req, res) => {
+        const username = req.session.username; // リクエストボディからusernameを取得
       
         // テーブルの存在とfurniture_dataが1つでも存在するかを確認するSQLクエリ
         const checkDataExistsSql = `
@@ -223,6 +217,7 @@ function handleLoginSuccess(res, req, username) {
 
 
       router.get('/get-genreData', (req, res) => {
+        const username = req.session.username; // セッションからusernameを取得
       
         // テーブル存在チェックとfurniture_dataレコードの存在チェック
         const checkTableAndDataExistsSql = `
@@ -258,6 +253,7 @@ function handleLoginSuccess(res, req, username) {
       });
 
       router.get('/get-roomData', (req, res) => {
+        const username = req.session.username; // リクエストボディからusernameを取得
       
         // テーブルの存在とroom_dataが1つでも存在するかを確認するSQLクエリ
         const checkDataExistsSql = `
@@ -304,6 +300,7 @@ function handleLoginSuccess(res, req, username) {
       });
 
       router.get('/get-mailCert', (req, res) => {
+        const username = req.session.username; // セッションからusernameを取得
       
         // usernameに基づいてusersテーブルからcert_mailの値を取得するSQLクエリ
         const sql = 'SELECT cert_mail FROM users WHERE username = ?';
@@ -328,6 +325,7 @@ function handleLoginSuccess(res, req, username) {
       });
 
       router.get('/get-userEmail', (req, res) => {
+        const username = req.session.username; // セッションからusernameを取得
       
         // データベースからusernameに対応するemailを取得するSQLクエリを定義
         const sql = 'SELECT email FROM users WHERE username = ?';
@@ -353,6 +351,7 @@ function handleLoginSuccess(res, req, username) {
       
 
       router.get('/get-tutorial', (req, res) => {
+        const username = req.session.username; // セッションからusernameを取得
       
         // usernameに基づいてusersテーブルからfirst_loginの値を取得するSQLクエリ
         const sql = 'SELECT first_login FROM users WHERE username = ?';
@@ -380,8 +379,6 @@ function handleLoginSuccess(res, req, username) {
 
       // リダイレクトを行うエンドポイントにリダイレクトする
       res.redirect('/redirect-home');
-    };
-    });
     })
     .catch((error) => {
       console.error('Error while resetting login attempts:', error);
@@ -469,7 +466,6 @@ router.post('/login', async (req, res) => {
         if (match) {
           // パスワードが一致した場合の処理
           handleLoginSuccess(res, req, user.username);
-          console.log(user.username)
           console.log("ok");
         } else {
           // パスワードが一致しない場合の処理
