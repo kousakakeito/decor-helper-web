@@ -31,7 +31,7 @@ app.use(express.json()); // JSONパースのためのミドルウェアを追加
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser()); // cookie-parserミドルウェアを使用
 app.use(
-  express.session({
+  session({
     store: redisStore,
     secret: process.env.SESSION_SECRET,
     resave: false,

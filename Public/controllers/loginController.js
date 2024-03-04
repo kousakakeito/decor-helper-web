@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 
 const connection = mysql.createConnection(process.env.MYSQL_URL);
 
-const router = express.Router();
+const router = express();
 
 // テーブル作成処理
 const createUsersTable = () => {
