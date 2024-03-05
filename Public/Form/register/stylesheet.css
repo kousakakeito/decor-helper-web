@@ -67,12 +67,6 @@ body{
   background-color: white;
 }
 
-.form{
-  display: flex;
-  justify-content: center;
-  margin-top: 200px;
-}
-
 
 .user-form{
   height: 30px;
@@ -117,8 +111,8 @@ button{
 
 .sub-outer{
   text-align: center;
-  margin-top: 800px;
-  margin-left: -600px;
+  margin-top: 450px;
+  margin-left: -345px;
 }
 
 .sub-dierect{
