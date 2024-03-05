@@ -2,10 +2,12 @@ const path = require('path');
 const port = process.env.PORT || 3000;
 const cookieParser = require('cookie-parser');
 const express = require('express');
+const app = express();
+app.set("trust proxy",1);
 const session = require("express-session");
 const RedisStore = require("connect-redis").default;
 const redis = require("redis");
-const app = express();
+
 let redisClient = redis.createClient({
   url: process.env.REDIS_URL,
   legacyMode: false, 
