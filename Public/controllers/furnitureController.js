@@ -1,8 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const mysql = require('mysql2');
+const config = require('../../config/config');
 
-const connection = mysql.createConnection(process.env.MYSQL_URL);
+const connection = mysql.createConnection({
+  database:config.mysql_database,
+  host:config.mysql_host,
+  user:config.mysql_user,
+  password:config.mysql_password
+});
 
 // テーブル作成処理
 const createFurnitureTable = () => {

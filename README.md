@@ -30,3 +30,10 @@ DecorHelper
 ・<strong>windows上にDockerを導入し、RailWay→Nginxに変更</strong>。。。。。
 
 </hr>
+<hr>
+ 3/17<strong>RailWay無料トライアル終了後の流れと物理サーバーでの運用について</strong>、下記メモ
+ <p>・物理サーバーで動的IPアドレスを使用して運用するためにプロバイダーDNS(DDNS)設定はcloudflareで行い、お名前.comでcloudflareのネームサーバーを設定</p>
+ <p>・ルーターで、Nginxがリッスンしているポート（80, 443）をPCのIPアドレスに転送するポートフォワーディングの設定</p>
+ <p>・PCやルーターのファイアウォール設定を確認し、必要なポートが外部からアクセス可能になっていることを確認</p>
+ <p>・ZOHOMAILでカスタムドメインメアド作成後node_mailerの設定を変更、ZOHOMAILパスワード値を.envに定義しconfig.jsを介して環境変数を各node_mailerの設定に参照</p>
+</hr>

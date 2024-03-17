@@ -2,9 +2,15 @@ const express = require('express');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 const fs = require('fs'); // ファイルシステムモジュールを追加
-
 const mysql = require('mysql2');
-const connection = mysql.createConnection(process.env.MYSQL_URL);
+const config = require('../../config/config');
+
+const connection = mysql.createConnection({
+  database:config.mysql_database,
+  host:config.mysql_host,
+  user:config.mysql_user,
+  password:config.mysql_password
+});
 
 const router = express.Router();
 

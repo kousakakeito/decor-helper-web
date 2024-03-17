@@ -1,5 +1,6 @@
 const path = require('path');
-const port = process.env.PORT || 3000;
+const config = require('../config/config');
+const port = 3000;
 const cookieParser = require('cookie-parser');
 const express = require('express');
 const app = express();
@@ -9,7 +10,8 @@ const RedisStore = require("connect-redis").default;
 const redis = require("redis");
 
 let redisClient = redis.createClient({
-  url: process.env.REDIS_URL,
+  host: config.redis_host, 
+  port: 6379,    
   legacyMode: false, 
   socket: {
       connectTimeout: 20000
@@ -35,7 +37,7 @@ app.use(cookieParser()); // cookie-parserミドルウェアを使用
 app.use(
   session({
     store: redisStore,
-    secret: process.env.SESSION_SECRET,
+    secret: config.redis_password,
     resave: false,
     saveUninitialized: false,
     cookie: {
