@@ -347,17 +347,17 @@ router.post('/mailcert-send', async (req, res) => {
   
     // nodemailerの設定
     const transporter = nodemailer.createTransport({
-      host: 'smtp.fastmail.com',
+      host: 'smtp.zoho.jp',
       port: 465,
       secure: true,
       auth: {
-        user: 'info@decorhelper.net',
-        pass: process.env.PASSWORD2,
+        user: 'noreply_info@decorhelper.net',
+        pass: config.zoho_password,
       },
     });
   
     const mailOptions = {
-      from: 'info@decorhelper.net',
+      from: 'noreply_info@decorhelper.net',
       to: email, // 取得したemailを使用
       subject: '確認コードを入力画面に入力してください',
       text: `確認コード: ${randomString}`,
@@ -541,18 +541,18 @@ router.post('/send-contact-email', (req, res) => {
     const email = results[0].email; 
       // nodemailerの設定
     const transporter = nodemailer.createTransport({
-      host: 'smtp.fastmail.com',
+      host: 'smtp.zoho.jp',
       port: 465,
       secure: true,
       auth: {
-        user: 'info@decorhelper.net',
-        pass: process.env.PASSWORD2,
+        user: 'noreply_info@decorhelper.net',
+        pass: config.zoho_password,
       },
     });
 
   const mailOptions = {
     from: email, // 送信者アドレス
-    to: 'info@decorhelper.net', // 受信者アドレス（自分のメールアドレス）
+    to: 'noreply_info@decorhelper.net', // 受信者アドレス（自分のメールアドレス）
     subject: 'DecorHelperからのお問い合わせ',
     text: `名前: ${username}\nメール: ${email}\nメッセージ: ${message}`
   };

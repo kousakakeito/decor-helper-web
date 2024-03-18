@@ -7,4 +7,5 @@ module.exports = {
   mysql_password: process.env.DB_PASSWORD,
   redis_host: process.env.REDIS_HOST,
   redis_password: process.env.SESSION_PASSWORD,
+  zoho_password: process.env.ZOHO_PASSWORD,
 };

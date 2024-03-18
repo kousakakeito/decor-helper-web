@@ -80,17 +80,17 @@ router.post('/send-email', async (req, res) => {
 
   // nodemailerの設定をFastMailに対応させる
   const transporter = nodemailer.createTransport({
-    host: 'smtp.fastmail.com', // FastMailのSMTPサーバー
+    host: 'smtp.zoho.jp', // FastMailのSMTPサーバー
     port: 465, // SSLを使用するポート
     secure: true, // trueで465ポートを使用し、falseで他のポートを使用
     auth: {
-      user: 'info@decorhelper.net',
-      pass: process.env.PASSWORD2, // FastMailで生成したアプリパスワード
+      user: 'noreply_info@decorhelper.net',
+      pass: config.zoho_password, // FastMailで生成したアプリパスワード
     },
   });
 
   const mailOptions = {
-    from: 'info@decorhelper.net', // 送信者のメールアドレス
+    from: 'noreply_info@decorhelper.net', // 送信者のメールアドレス
     to: email, // 受信者のメールアドレス
     subject: '確認コードを入力画面に入力してください',
     text: `確認コード: ${randomString}`, // 送信する内容
