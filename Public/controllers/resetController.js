@@ -78,14 +78,14 @@ router.post('/send-email', async (req, res) => {
   const randomString = Math.random().toString(36).substring(2, 10);
   req.session.confirmCode = randomString;
 
-  // nodemailerの設定をFastMailに対応させる
+  // nodemailerの設定をZohoMailに対応させる
   const transporter = nodemailer.createTransport({
-    host: 'smtp.zoho.jp', // FastMailのSMTPサーバー
+    host: 'smtp.zoho.jp', // ZohoMailのSMTPサーバー
     port: 465, // SSLを使用するポート
     secure: true, // trueで465ポートを使用し、falseで他のポートを使用
     auth: {
       user: 'noreply_info@decorhelper.net',
-      pass: config.zoho_password, // FastMailで生成したアプリパスワード
+      pass: config.zoho_password, // ZohoMailで生成したアプリパスワード
     },
   });
 
